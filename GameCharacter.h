@@ -16,7 +16,7 @@ public:
 
     //virtual void move(); //TODO
 
-    virtual void fight(GameCharacter &enemy);
+    //virtual void fight(GameCharacter &enemy); //TODO
 
     bool isLegalFight(const GameCharacter &enemy, Weapon &wpn) const;
 

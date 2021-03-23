@@ -14,7 +14,7 @@ public:
     explicit MagicalWeapon(int s = 10, int mf = 10, bool m  = false, bool h = false);
 
     virtual int use() override;
-    virtual MagicalWeapon* clone() const override;
+    //virtual MagicalWeapon* clone() const override; //TODO
 
 
 
