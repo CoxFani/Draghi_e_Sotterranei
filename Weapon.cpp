@@ -14,7 +14,12 @@ Weapon::Weapon() : Weapon(10,false, false) {
 int Weapon::basicUse() {
     Dice dw(strength);
     int result = dw.roll(1);
+
+    if (heavy)
+        result += dw.roll(1);
+
     if (magic)
         result += 1;
+
     return result;
 }

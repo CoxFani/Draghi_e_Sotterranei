@@ -10,8 +10,7 @@ MartialWeapon::MartialWeapon(int s, bool m, bool h): Weapon(s, m, h){
 
 int MartialWeapon::use(){
     int result = basicUse();
-    if (heavy)
-        result += basicUse();
+ //TODO
     return result;
 }
 
