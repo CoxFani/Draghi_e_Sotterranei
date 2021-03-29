@@ -46,4 +46,3 @@ int GameCharacter::distance(const GameCharacter &h, const GameCharacter &e) {
     int distance = abs(h.posX - e.posX) + abs(h.posY - e.posY);
     return distance;
 }
-

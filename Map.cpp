@@ -25,4 +25,3 @@ void Map::setUpTiles() {
     tiles.clear();
     //TODO randomizzare struttura della mappa
 }
-

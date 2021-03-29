@@ -8,14 +8,12 @@
 
 class Dice {
 public:
-    Dice(int f);
+    explicit Dice(int f);
 
     int roll(int r);
 
 private:
     int faces;
-    static int numRolls;
-    const int maxRolls = 1000;
 };
 
 
