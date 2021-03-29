@@ -3,7 +3,10 @@
 //
 
 #include "Factory.h"
+#include "memory"
 
-/*unique_ptr <GameCharacter> Factory::Create() {
+using namespace std;
 
-}*/
+unique_ptr <GameCharacter> Factory::Create() {
+//TODO
+}

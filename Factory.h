@@ -6,10 +6,13 @@
 #define DRAGHI_E_SOTTERRANEI_FACTORY_H
 
 #include "GameCharacter.h"
+#include "memory"
+
+using namespace std;
 
 class Factory {
 public:
-    //static unique_ptr <GameCharacter>  Create(); //TODO
+    static unique_ptr <GameCharacter>  Create(); //TODO
 };
 
 
