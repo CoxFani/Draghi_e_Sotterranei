@@ -1,19 +1,31 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
+#include "Game.h"
 #include "Dice.h"
 #include "Map.h"
 #include "TileMap.h"
 
 int main() {
-    /* int value=0;
-    Dice d20(20);
-    for(int i= 0; i<50; i++) {          <- ||PROVA DADO||
-        value = d20.roll(1);
-        std::cout<< value << std::endl;
+
+    Game game;
+
+    while (!game.getQuit()){
+
+        game.update();
     }
+    system("PAUSE");
+    return 0;
+}
+
+/* int value=0;
+   Dice d20(20);
+   for(int i= 0; i<50; i++) {          <- ||PROVA DADO||
+       value = d20.roll(1);
+       std::cout<< value << std::endl;
+   }
 */
-    //....................................................................................................................
+//....................................................................................................................
 /*
   unsigned int windowHeight = 400;
     unsigned int windowWidth = 400;
@@ -47,8 +59,4 @@ int main() {
 
         window.display();
     }
-
 */
-    return 0;
-}
-

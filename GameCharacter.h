@@ -7,11 +7,15 @@
 
 
 #include "Weapon.h"
+#include <iostream>
+#include <sstream>
+
+using namespace std;
 
 class GameCharacter {
 public:
     GameCharacter();
-    explicit GameCharacter(int hp, int ac, int str, int intel, int dex);
+    explicit GameCharacter(string name, int maxHP, int ac, int str, int intel, int dex);
     virtual ~GameCharacter();
 
     //virtual void move(); //TODO
@@ -61,11 +65,11 @@ public:
     }
 
     int getStrenght(){
-        return strenght;
+        return strength;
     }
 
-    void setStrenght(int str){
-        GameCharacter::strenght = str;
+    void setStrength(int str){
+        GameCharacter::strength = str;
     }
 
     int getIntelligence(){
@@ -84,14 +88,19 @@ public:
         GameCharacter::dexterity = dex;
     }
 
+    const string toString();
+
+
 protected:
+    int maxHealth;
     int health;
     int armorClass;
     int intelligence;
-    int strenght;
+    int strength;
     int dexterity;
     int posX;
     int posY;
+    string name;
     Weapon* weapon;
 
 };

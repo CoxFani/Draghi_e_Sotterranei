@@ -3,7 +3,7 @@
 //
 
 #include "TileMap.h"
-
+/*
 TileMap::TileMap(std::string textureName, float x, float y, bool free, bool exit){
     if(!setUpSprite(textureName))
         return;
@@ -21,4 +21,4 @@ bool TileMap::setUpSprite(std::string textureName){
     sprite.setTexture(texture);
     sprite.setTextureRect(sf::IntRect(0, 0, 50, 50));
     return  true;
-}
+} */

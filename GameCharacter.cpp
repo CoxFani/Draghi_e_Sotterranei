@@ -9,7 +9,7 @@
 
 using namespace std;
 
-GameCharacter::GameCharacter(int hp, int ac, int str, int intel, int dex) : health(hp), armorClass(ac),strenght(str), intelligence(intel), dexterity(dex), posX(0), posY(0), weapon(
+GameCharacter::GameCharacter(string name, int maxHp, int ac, int str, int intel, int dex) : maxHealth(maxHp), armorClass(ac),strength(str), intelligence(intel), dexterity(dex), posX(0), posY(0), weapon(
         nullptr){}
 
 GameCharacter::~GameCharacter() {
@@ -45,4 +45,20 @@ void GameCharacter::basicFight(GameCharacter &enemy) {
 int GameCharacter::distance(const GameCharacter &h, const GameCharacter &e) {
     int distance = abs(h.posX - e.posX) + abs(h.posY - e.posY);
     return distance;
+}
+
+const string GameCharacter::toString() {
+
+    stringstream ss;
+
+    ss << "Name: " << this -> name << "\n"
+       << "Health: " << this -> health << "\n"
+       << "Armor Class: " << this -> armorClass << "\n"
+       << "Strength: " << this -> strength << "\n"
+       << "Dexterity: " << this -> dexterity << "\n"
+       << "Intelligence: " << this -> intelligence << "\n"
+       <<"\n";
+
+    return ss.str();
+
 }

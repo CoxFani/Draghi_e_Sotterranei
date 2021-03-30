@@ -4,15 +4,15 @@
 
 #include "GameState.h"
 
-GameState::GameState( GameCharacter* gameChar) {
+GameState::GameState(GameCharacter* gameChar) {
 
     this -> gameCharacter = gameChar;
 
 }
 
 void GameState::printMenu() const {
-    system("PAUSE");
-    system("CLS");
+    system("PAUSE"); //Aspetta un mio comando per continuare
+    system("CLS"); //Ripulisce la schermata
     cout<< "---- MAIN MENU ----" << "\n" << "\n"
         << " (0) Quit" << "\n"
         << " (1) Character Stats" << "\n"
@@ -34,13 +34,13 @@ void GameState::updateMenu() {
 
     switch (this -> getChoice() | system("CLS")){
         case 0:
-            cout << setw(7) << "---- QUITTING GAME ----" << "\n";
+            cout << setw(7) << "---- QUITTING GAME ----" << "\n";  //setw(7) lascia 7 spazi da inizio riga
             this->setQuit(true);
             break;
 
         case 1:
-            cout << setw(7) << "---- Character Stats ----" << "\n";
-            //TODO stampa statistiche personaggio
+            cout << setw(7) << "---- Character Stats ----" << "\n" << "\n";
+            std::cout << this -> gameCharacter -> toString() << "\n";
             break;
 
         case 2:
