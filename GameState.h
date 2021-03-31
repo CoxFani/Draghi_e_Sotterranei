@@ -18,7 +18,7 @@ using namespace std;
 class GameState: public State{
 
 public:
-    GameState( GameCharacter* gameCharacter);
+    explicit GameState( GameCharacter* gameCharacter);
     virtual ~GameState();
 
     void printMenu() const;

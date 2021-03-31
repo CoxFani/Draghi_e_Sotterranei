@@ -9,7 +9,7 @@ Game::Game() {
 
     quit = false;
 
-    this -> gameCharacter = new GameCharacter();
+    this -> gameCharacter = new GameCharacter("Beppe", 50, 16,16,10,12);
 
     this -> states.push(new GameState(this->gameCharacter));
 

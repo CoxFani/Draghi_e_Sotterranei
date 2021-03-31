@@ -10,9 +10,14 @@ GameState::GameState(GameCharacter* gameChar) {
 
 }
 
+GameState::~GameState() noexcept {
+
+}
+
 void GameState::printMenu() const {
-    system("PAUSE"); //Aspetta un mio comando per continuare
-    system("CLS"); //Ripulisce la schermata
+    system("read -p 'Press Enter to continue...' var"); //Aspetta un mio comando per continuare
+    //
+    //system("clear"); //Ripulisce la schermata
     cout<< "---- MAIN MENU ----" << "\n" << "\n"
         << " (0) Quit" << "\n"
         << " (1) Character Stats" << "\n"
@@ -32,7 +37,7 @@ const int GameState::getChoice() const {
 
 void GameState::updateMenu() {
 
-    switch (this -> getChoice() | system("CLS")){
+    switch (this -> getChoice() ){
         case 0:
             cout << setw(7) << "---- QUITTING GAME ----" << "\n";  //setw(7) lascia 7 spazi da inizio riga
             this->setQuit(true);

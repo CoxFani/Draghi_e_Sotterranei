@@ -11,9 +11,18 @@
 class Hero : public GameCharacter {
 public:
 
+    Hero();
+
+    void levelUp();
+
+    int getKill();
+
 
 
 protected:
+
+    int killCount;
+    int level;
 
 };
 

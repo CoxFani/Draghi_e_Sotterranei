@@ -10,7 +10,9 @@
 using namespace std;
 
 GameCharacter::GameCharacter(string name, int maxHp, int ac, int str, int intel, int dex) : maxHealth(maxHp), armorClass(ac),strength(str), intelligence(intel), dexterity(dex), posX(0), posY(0), weapon(
-        nullptr){}
+        nullptr){
+    health = maxHp;
+}
 
 GameCharacter::~GameCharacter() {
     if (weapon != nullptr)
@@ -52,7 +54,7 @@ const string GameCharacter::toString() {
     stringstream ss;
 
     ss << "Name: " << this -> name << "\n"
-       << "Health: " << this -> health << "\n"
+       << "Health: " << this -> health << "/" << this -> maxHealth <<"\n"
        << "Armor Class: " << this -> armorClass << "\n"
        << "Strength: " << this -> strength << "\n"
        << "Dexterity: " << this -> dexterity << "\n"

@@ -20,7 +20,7 @@ public:
     virtual ~Game();
 
     void update(); //
-    const bool& getQuit() const;
+    [[nodiscard]] const bool& getQuit() const;
 
 
 private:

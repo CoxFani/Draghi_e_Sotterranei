@@ -14,7 +14,7 @@ int main() {
 
         game.update();
     }
-    system("PAUSE");
+    system("read -p 'Press Enter to continue...' var");
     return 0;
 }
 
