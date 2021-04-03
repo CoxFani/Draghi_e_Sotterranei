@@ -4,9 +4,9 @@
 
 #include "GameState.h"
 
-GameState::GameState(GameCharacter* gameChar) {
+GameState::GameState(Hero* hero1) {
 
-    this -> gameCharacter = gameChar;
+    this -> hero = hero1;
 
 }
 
@@ -22,7 +22,8 @@ void GameState::printMenu() const {
         << " (0) Quit" << "\n"
         << " (1) Character Stats" << "\n"
         << " (2) Inventory" << "\n"
-        << " (3) Options" << "\n";
+        << " (3) Options" << "\n"
+        << " (4) Level Up" << "\n";
 
 }
 
@@ -45,7 +46,7 @@ void GameState::updateMenu() {
 
         case 1:
             cout << setw(7) << "---- Character Stats ----" << "\n" << "\n";
-            std::cout << this -> gameCharacter -> toString() << "\n";
+            std::cout << this -> hero -> toString() << "\n";
             break;
 
         case 2:
@@ -57,6 +58,12 @@ void GameState::updateMenu() {
             cout << setw(7) << "---- Options ----" << "\n";
             //TODO opzioni audio e video
             break;
+
+        case 4:
+            cout << setw(7) << "---- LEVEL UP! -----" << "\n" ;
+            this -> hero -> levelUpStats();
+            break;
+
 
         default:
             cout << setw(7) << "---- ERROR 404: OPTION NOT FOUD, try again! ----" << "\n";

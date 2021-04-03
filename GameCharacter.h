@@ -5,17 +5,17 @@
 #ifndef DRAGHI_E_SOTTERRANEI_GAMECHARACTER_H
 #define DRAGHI_E_SOTTERRANEI_GAMECHARACTER_H
 
-
 #include "Weapon.h"
 #include <iostream>
 #include <sstream>
+
 
 using namespace std;
 
 class GameCharacter {
 public:
     GameCharacter();
-    explicit GameCharacter(string name, int maxHP, int ac, int str, int intel, int dex);
+    explicit GameCharacter(int maxHP, int ac, int str, int intel, int dex);
     virtual ~GameCharacter();
 
     //virtual void move(); //TODO
@@ -91,6 +91,7 @@ public:
     const string toString();
 
 
+
 protected:
     int maxHealth;
     int health;
@@ -100,7 +101,6 @@ protected:
     int dexterity;
     int posX;
     int posY;
-    string name;
     Weapon* weapon;
 
 };

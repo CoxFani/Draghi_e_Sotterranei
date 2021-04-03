@@ -11,6 +11,7 @@
 #include "State.h"
 #include "GameState.h"
 #include "GameCharacter.h"
+#include "Hero.h"
 
 using namespace std;
 
@@ -27,7 +28,7 @@ private:
     bool quit;
     stack<State*> states;
 
-    GameCharacter* gameCharacter;
+    Hero* hero;
 
 };
 

@@ -9,15 +9,15 @@ Game::Game() {
 
     quit = false;
 
-    this -> gameCharacter = new GameCharacter("Beppe", 50, 16,16,10,12);
+    this -> hero = new Hero("Beppe", 50, 16,16,10,12);
 
-    this -> states.push(new GameState(this->gameCharacter));
+    this -> states.push(new GameState(this-> hero));
 
 }
 
 Game::~Game() {
 
-    delete this ->gameCharacter;
+    delete this -> hero;
 
     while ( !this -> states.empty()){
 

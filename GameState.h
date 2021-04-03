@@ -12,13 +12,14 @@
 
 #include "State.h"
 #include "GameCharacter.h"
+#include "Hero.h"
 
 using namespace std;
 
 class GameState: public State{
 
 public:
-    explicit GameState( GameCharacter* gameCharacter);
+    explicit GameState(Hero* hero);
     virtual ~GameState();
 
     void printMenu() const;
@@ -27,7 +28,7 @@ public:
     virtual void update();
 
 private:
-    GameCharacter* gameCharacter;
+    Hero* hero;
 
 
 };

@@ -5,24 +5,34 @@
 #ifndef DRAGHI_E_SOTTERRANEI_HERO_H
 #define DRAGHI_E_SOTTERRANEI_HERO_H
 
-
+#include <cmath>
+#include <sstream>
 #include "GameCharacter.h"
+#include "GameState.h"
 
 class Hero : public GameCharacter {
 public:
 
-    Hero();
+    Hero(string n, int maxHP, int ac, int str, int intel, int dex);
 
-    void levelUp();
+    bool canLevelUp();
+    void levelUpStats();
 
-    int getKill();
+    int getChoice();
+
+    int getExp();
+
+    const string toString();
 
 
 
 protected:
 
-    int killCount;
+    string name;
+    int exp;
+    int expNext;
     int level;
+    int statsPoints;
 
 };
 
