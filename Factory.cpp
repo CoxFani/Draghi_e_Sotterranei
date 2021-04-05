@@ -6,8 +6,8 @@
 #include "memory"
 
 using namespace std;
-/*
+
 unique_ptr <GameCharacter> Factory::Create() {
 //TODO
+    return unique_ptr<GameCharacter>();
 }
- */
