@@ -39,8 +39,8 @@ public:
 
 private:
 
-    sf::RenderWindow *window;
-    sf::Event sfEvent;
+    sf::RenderWindow *window{};
+    sf::Event sfEvent{};
 
     void initWindow();
 /* POINTZERO

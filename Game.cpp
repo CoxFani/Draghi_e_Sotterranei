@@ -38,6 +38,12 @@ const bool& Game::getQuit() const{
 */
 }
 
+void Game::initWindow() {
+
+    this->window = new sf::RenderWindow(sf::VideoMode(800,600), "DRAGHI_E_SOTTERRANEI");
+
+}
+
 void Game::update() {
 
     this->updateSFMLEvents();
@@ -81,12 +87,6 @@ void Game::updateSFMLEvents() {
         if (this->sfEvent.type == sf::Event::Closed)
             this->window->close();
     }
-
-}
-
-void Game::initWindow() {
-
-    this->window = new sf::RenderWindow(sf::VideoMode(800,600), "DRAGHI_E_SOTTERRANEI");
 
 }
 
