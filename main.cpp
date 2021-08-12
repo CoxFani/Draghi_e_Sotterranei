@@ -8,13 +8,17 @@
 
 int main() {
 
-    Game game;
+     Game game;
 
-    while (!game.getQuit()){
+     game.run();
 
-        game.update();
-    }
-    system("read -p 'Press Enter to continue...' var");
+/* POINTZERO
+     while (!game.getQuit()){
+
+         game.update();
+     }
+     system("read -p 'Press Enter to continue...' var");
+ */
     return 0;
 }
 

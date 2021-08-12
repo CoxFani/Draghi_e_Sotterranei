@@ -7,7 +7,7 @@
 #ifndef DRAGHI_E_SOTTERRANEI_TILEMAP_H
 #define DRAGHI_E_SOTTERRANEI_TILEMAP_H
 
-
+/* POINTZERO
 class TileMap {
 public:
     bool isFree;
@@ -20,6 +20,6 @@ public:
     bool setUpSprite(std::string);
 
 };
-
+*/
 
 #endif //DRAGHI_E_SOTTERRANEI_TILEMAP_H

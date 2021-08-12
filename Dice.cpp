@@ -6,7 +6,7 @@
 
 #include <ctime>
 #include <cstdlib>
-
+/* POINTZERO
 Dice::Dice(int f): faces(f){
     srand(time(0));
 }
@@ -19,3 +19,4 @@ int Dice::roll(int r){
         result += rand() % faces + 1;
     return result;
 }
+ */

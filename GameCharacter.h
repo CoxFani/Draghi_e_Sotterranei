@@ -2,14 +2,14 @@
 // Created by alpacox on 05/03/21.
 //
 
-#ifndef DRAGHI_E_SOTTERRANEI_GAMECHARACTER_H
+//POINTZERO #ifndef DRAGHI_E_SOTTERRANEI_GAMECHARACTER_H
 #define DRAGHI_E_SOTTERRANEI_GAMECHARACTER_H
 
 #include "Weapon.h"
 #include <iostream>
 #include <sstream>
 
-
+/* POINTZERO
 using namespace std;
 
 class GameCharacter {
@@ -107,3 +107,4 @@ protected:
 
 
 #endif //DRAGHI_E_SOTTERRANEI_GAMECHARACTER_H
+*/

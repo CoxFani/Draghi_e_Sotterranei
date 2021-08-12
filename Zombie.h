@@ -7,10 +7,10 @@
 
 
 #include "Enemy.h"
-
+/* POINTZERO
 class Zombie : public Enemy{
 
 };
-
+*/
 
 #endif //DRAGHI_E_SOTTERRANEI_ZOMBIE_H

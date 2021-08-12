@@ -3,7 +3,7 @@
 //
 
 #include "State.h"
-
+/* POINTZERO
 State::State() {
     this -> quit = false;
 }
@@ -21,3 +21,4 @@ void State::setQuit(const bool quit) {
 
     this -> quit = quit;
 }
+ */

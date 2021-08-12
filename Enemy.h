@@ -7,7 +7,7 @@
 
 
 #include "GameCharacter.h"
-
+/* POINTZERO
 class Enemy : public GameCharacter {
 public:
 
@@ -16,6 +16,6 @@ public:
 protected:
 
 };
-
+*/
 
 #endif //DRAGHI_E_SOTTERRANEI_ENEMY_H

@@ -3,7 +3,7 @@
 //
 
 #include "GameState.h"
-
+/* POINTZERO
 GameState::GameState(Hero* hero1) {
 
     this -> hero = hero1;
@@ -79,3 +79,4 @@ void GameState::update() {
     this -> updateMenu();
 
 }
+ */

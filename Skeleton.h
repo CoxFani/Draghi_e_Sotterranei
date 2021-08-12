@@ -7,10 +7,10 @@
 
 
 #include "Enemy.h"
-
+/* POINTZERO
 class Skeleton : public Enemy{
 
 };
-
+*/
 
 #endif //DRAGHI_E_SOTTERRANEI_SKELETON_H

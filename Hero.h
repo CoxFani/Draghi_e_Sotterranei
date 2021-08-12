@@ -9,7 +9,7 @@
 #include <sstream>
 #include "GameCharacter.h"
 #include "GameState.h"
-
+/* POINTZERO
 class Hero : public GameCharacter {
 public:
 
@@ -36,5 +36,5 @@ protected:
 
 };
 
-
+*/
 #endif //DRAGHI_E_SOTTERRANEI_HERO_H

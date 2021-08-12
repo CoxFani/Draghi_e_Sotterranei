@@ -5,7 +5,7 @@
 #ifndef DRAGHI_E_SOTTERRANEI_WEAPON_H
 #define DRAGHI_E_SOTTERRANEI_WEAPON_H
 
-
+/* POINTZERO
 class Weapon {
 public:
     Weapon();
@@ -47,5 +47,5 @@ protected:
 
 };
 
-
+*/
 #endif //DRAGHI_E_SOTTERRANEI_WEAPON_H

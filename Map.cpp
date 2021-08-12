@@ -3,7 +3,7 @@
 //
 
 #include "Map.h"
-
+/* POINTZERO
 Map::Map(){
     gridLength = 8;
     setUpInitialState();
@@ -25,3 +25,4 @@ void Map::setUpTiles() {
     tiles.clear();
     //TODO randomizzare struttura della mappa
 }
+ */

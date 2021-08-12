@@ -7,10 +7,10 @@
 
 
 #include "Enemy.h"
-
+/* POINTZERO
 class Orc : public Enemy{
 
 };
 
-
+*/
 #endif //DRAGHI_E_SOTTERRANEI_ORC_H

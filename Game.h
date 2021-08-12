@@ -6,6 +6,8 @@
 #define DRAGHI_E_SOTTERRANEI_GAME_H
 
 #include <iostream>
+#include <ctime>
+#include <cstdlib>
 #include <vector>
 #include <stack>
 #include "State.h"
@@ -13,7 +15,14 @@
 #include "GameCharacter.h"
 #include "Hero.h"
 
-using namespace std;
+#include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/System.hpp>
+#include <SFML/Audio.hpp>
+#include <SFML/Network.hpp>
+
+
+//POINT ZERO using namespace std;
 
 class Game {
 public:
@@ -21,15 +30,26 @@ public:
     virtual ~Game();
 
     void update(); //
-    [[nodiscard]] const bool& getQuit() const;
+    void render();
+    void run();
+    void updateSFMLEvents();
+
+//POINTZERO    [[nodiscard]] const bool& getQuit() const;
 
 
 private:
+
+    sf::RenderWindow *window;
+    sf::Event sfEvent;
+
+    void initWindow();
+/* POINTZERO
     bool quit;
+
     stack<State*> states;
 
     Hero* hero;
-
+*/
 };
 
 

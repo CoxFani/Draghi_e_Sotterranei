@@ -4,7 +4,7 @@
 
 #include "Weapon.h"
 #include "Dice.h"
-
+/* POINTZERO
 Weapon::Weapon(int s, bool m, bool h) : strength(s), magic(m), heavy(h) {
 }
 
@@ -23,3 +23,4 @@ int Weapon::basicUse() {
 
     return result;
 }
+ */

@@ -4,7 +4,7 @@
 
 #ifndef DRAGHI_E_SOTTERRANEI_OBSERVER_H
 #define DRAGHI_E_SOTTERRANEI_OBSERVER_H
-
+/* POINTZERO
 class Observer {
 
 public:
@@ -15,5 +15,5 @@ public:
     virtual void attach() = 0; //TODO
     virtual void detach() = 0; //TODO
 };
-
+*/
 #endif //DRAGHI_E_SOTTERRANEI_OBSERVER_H

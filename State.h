@@ -5,7 +5,7 @@
 #ifndef DRAGHI_E_SOTTERRANEI_STATE_H
 #define DRAGHI_E_SOTTERRANEI_STATE_H
 
-
+/* POINTZERO
 class State {
 
 public:
@@ -21,6 +21,6 @@ private:
     bool quit;
 
 };
-
+*/
 
 #endif //DRAGHI_E_SOTTERRANEI_STATE_H

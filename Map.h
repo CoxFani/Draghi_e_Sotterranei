@@ -8,7 +8,7 @@
 #ifndef DRAGHI_E_SOTTERRANEI_MAP_H
 #define DRAGHI_E_SOTTERRANEI_MAP_H
 
-
+/* POINTZERO
 class Map {
     sf::Vector2i exitPos;
     sf::Vector2i playerPos;
@@ -23,5 +23,5 @@ public:
 
 };
 
-
+*/
 #endif //DRAGHI_E_SOTTERRANEI_MAP_H

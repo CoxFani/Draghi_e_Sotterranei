@@ -6,7 +6,7 @@
 #include "Dice.h"
 
 #include <iostream>
-
+/* POINTZERO
 using namespace std;
 
 GameCharacter::GameCharacter(int maxHp, int ac, int str, int intel, int dex) {
@@ -71,3 +71,4 @@ const string GameCharacter::toString() {
     return ss.str();
 
 }
+*/

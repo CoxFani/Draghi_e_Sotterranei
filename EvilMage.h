@@ -7,10 +7,10 @@
 
 
 #include "Enemy.h"
-
+/* POINTZERO
 class EvilMage : public Enemy{
 
 };
-
+*/
 
 #endif //DRAGHI_E_SOTTERRANEI_EVILMAGE_H

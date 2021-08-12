@@ -3,7 +3,7 @@
 //
 
 #include "RangedWeapon.h"
-
+/* POINTZERO
 RangedWeapon::RangedWeapon(int s, int ar, bool m, bool h) : Weapon(s, m, h), ammos(ar){
 
 }
@@ -20,3 +20,4 @@ int RangedWeapon::use() {
 RangedWeapon* RangedWeapon::clone() const {
     return new RangedWeapon(*this);
 }
+ */

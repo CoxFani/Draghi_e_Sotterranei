@@ -13,7 +13,7 @@
 #include "State.h"
 #include "GameCharacter.h"
 #include "Hero.h"
-
+/* POINTZERO
 using namespace std;
 
 class GameState: public State{
@@ -33,5 +33,5 @@ private:
 
 };
 
-
+*/
 #endif //DRAGHI_E_SOTTERRANEI_GAMESTATE_H

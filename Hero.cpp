@@ -3,7 +3,7 @@
 //
 
 #include "Hero.h"
-
+/*POINTZERO
 Hero::Hero(string n, int maxHP, int ac, int str, int intel, int dex): GameCharacter(maxHP, ac, str, intel, dex) {
 
 
@@ -60,7 +60,7 @@ int Hero::getChoice() {
 }
 
 void Hero::levelUpStats() {
-    
+
     cout << "which stat do you want to level up?" << "\n"
          << " (0) Max HP: " << this -> maxHealth << " -> " << this -> maxHealth + this -> statsPoints * 5 << "\n"
          << " (1) Strength: " << this -> strength << " -> " << this -> strength + this -> statsPoints * 2 << "\n"
@@ -99,3 +99,4 @@ void Hero::levelUpStats() {
     }
 
 }
+*/

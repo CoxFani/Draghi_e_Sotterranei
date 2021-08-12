@@ -7,7 +7,7 @@
 
 #include "Weapon.h"
 
-
+/* POINTZERO
 class RangedWeapon: public Weapon {
 public:
     explicit RangedWeapon(int s = 10, int ar = 10, bool m = false, bool h = false);
@@ -29,6 +29,6 @@ protected:
 
 
 };
-
+*/
 
 #endif //DRAGHI_E_SOTTERRANEI_RANGEDWEAPON_H

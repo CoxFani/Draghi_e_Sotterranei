@@ -3,7 +3,7 @@
 //
 
 #include "MartialWeapon.h"
-
+/* POINTZERO
 MartialWeapon::MartialWeapon(int s, bool m, bool h): Weapon(s, m, h){
 
 }
@@ -18,3 +18,4 @@ MartialWeapon* MartialWeapon::clone() const {
     return new MartialWeapon(*this);
 }
 
+*/

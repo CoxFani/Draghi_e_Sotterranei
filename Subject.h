@@ -6,7 +6,7 @@
 #define DRAGHI_E_SOTTERRANEI_SUBJECT_H
 
 #include "Observer.h"
-
+/* POINTZERO
 class Subject {
 public:
     virtual void registerObserver(Observer *o) = 0;
@@ -15,5 +15,5 @@ public:
 
     virtual void notifyObservers() = 0;
 };
-
+*/
 #endif //DRAGHI_E_SOTTERRANEI_SUBJECT_H
