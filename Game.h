@@ -5,22 +5,12 @@
 #ifndef DRAGHI_E_SOTTERRANEI_GAME_H
 #define DRAGHI_E_SOTTERRANEI_GAME_H
 
-#include <iostream>
-#include <ctime>
-#include <cstdlib>
 #include <vector>
 #include <stack>
 #include "State.h"
 #include "GameState.h"
 #include "GameCharacter.h"
 #include "Hero.h"
-
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/System.hpp>
-#include <SFML/Audio.hpp>
-#include <SFML/Network.hpp>
-
 
 //POINT ZERO using namespace std;
 
@@ -29,7 +19,8 @@ public:
     Game();
     virtual ~Game();
 
-    void update(); //
+    void updateDt();
+    void update();
     void render();
     void run();
     void updateSFMLEvents();
@@ -39,8 +30,11 @@ public:
 
 private:
 
-    sf::RenderWindow *window{};
-    sf::Event sfEvent{};
+    sf::RenderWindow *window;
+    sf::Event sfEvent;
+
+    sf::Clock dtClock;
+    float dt;
 
     void initWindow();
 /* POINTZERO

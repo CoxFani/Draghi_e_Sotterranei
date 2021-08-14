@@ -75,8 +75,9 @@ void Game::run() {
 
     while (this->window->isOpen())
     {
-       this->update();
-       this->render();
+        this->updateDt();
+        this->update();
+        this->render();
     }
 }
 
@@ -87,6 +88,13 @@ void Game::updateSFMLEvents() {
         if (this->sfEvent.type == sf::Event::Closed)
             this->window->close();
     }
+
+}
+
+void Game::updateDt() {
+
+    this->dt = this->dtClock.restart().asSeconds();
+
 
 }
 
