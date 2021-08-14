@@ -40,8 +40,24 @@ const bool& Game::getQuit() const{
 
 void Game::initWindow() {
 
-    this->window = new sf::RenderWindow(sf::VideoMode(800,600), "DRAGHI_E_SOTTERRANEI");
+    std::ifstream ifs("Config/window.ini");
 
+    std::string title = "None";
+    sf::VideoMode window_bounds(800, 600);
+    unsigned framerate_limit = 120;
+    bool vertical_sync_enabled = false;
+
+    if (ifs.is_open())
+    {
+        std::getline(ifs, title);
+        ifs >> window_bounds.width >> window_bounds.height;
+        ifs >> framerate_limit;
+        ifs >> vertical_sync_enabled;
+    }
+
+    this->window = new sf::RenderWindow(window_bounds, title);
+    this->window->setFramerateLimit(framerate_limit);
+    this->window->setVerticalSyncEnabled(vertical_sync_enabled);
 }
 
 void Game::update() {
@@ -62,7 +78,6 @@ void Game::update() {
         this -> quit = true;
 */
 }
-
 void Game::render() {
 
     this->window->clear();
