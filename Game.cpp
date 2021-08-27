@@ -8,6 +8,7 @@
 Game::Game() {
 
     this->initWindow();
+    this->initStates();
 
 /* POINTZERO
     quit = false;
@@ -22,6 +23,11 @@ Game::~Game() {
 
     delete this->window;
 
+    while(this->states.empty())
+    {
+        delete this->states.top();
+        this->states.pop();
+    }
 /* POINTZERO
     delete this -> hero;
 
@@ -64,6 +70,10 @@ void Game::update() {
 
     this->updateSFMLEvents();
 
+    if(!this->states.empty())
+        this->states.top()->update(this->dt);
+
+
 /* POINTZERO
     this -> states.top()->update();
 
@@ -81,6 +91,9 @@ void Game::update() {
 void Game::render() {
 
     this->window->clear();
+
+    if(!this->states.empty())
+        this->states.top()->render();
 
     this->window->display();
 
@@ -111,5 +124,9 @@ void Game::updateDt() {
     this->dt = this->dtClock.restart().asSeconds();
 
 
+}
+
+void Game::initStates() {
+    this->states.push(new GameState(this->window));
 }
 

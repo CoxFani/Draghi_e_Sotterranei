@@ -10,6 +10,9 @@
 #include <cstdlib>
 #include <fstream>
 #include <sstream>
+#include <stack>
+#include <map>
+#include <vector>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
@@ -19,11 +22,13 @@
 class State {
 
 public:
-    State();
+    State(sf::RenderWindow* window);
     virtual ~State();
 
-    virtual void update() = 0;
-    virtual void render() = 0;
+    virtual void endState() = 0;
+
+    virtual void update(const float& dt) = 0;
+    virtual void render(sf::RenderTarget* target = nullptr) = 0;
 
     /* POINTZERO
             const bool& getQuit() const;
@@ -32,6 +37,7 @@ public:
             virtual void update() = 0;
         */
 private:
+    sf::RenderWindow* window;
     std::vector<sf::Texture> textures;
             //bool quit; [POINTZERO]
 

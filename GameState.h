@@ -13,12 +13,20 @@
 #include "State.h"
 #include "GameCharacter.h"
 #include "Hero.h"
-/* POINTZERO
+
 using namespace std;
 
 class GameState: public State{
 
 public:
+    GameState(sf::RenderWindow* window);
+    virtual ~GameState();
+
+    void endState();
+    void update(const float& dt);
+    void render(sf::RenderTarget* target = nullptr);
+
+    /* POINTZERO
     explicit GameState(Hero* hero);
     virtual ~GameState();
 
@@ -26,12 +34,13 @@ public:
     const int getChoice() const;
     void updateMenu();
     virtual void update();
-
+    */
 private:
-    Hero* hero;
 
+         /* POINTZERO
+    Hero* hero;
+*/
 
 };
 
-*/
 #endif //DRAGHI_E_SOTTERRANEI_GAMESTATE_H

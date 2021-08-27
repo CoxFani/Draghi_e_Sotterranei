@@ -12,7 +12,7 @@
 #include "GameCharacter.h"
 #include "Hero.h"
 
-//POINT ZERO using namespace std;
+using namespace std;
 
 class Game {
 public:
@@ -36,7 +36,10 @@ private:
     sf::Clock dtClock;
     float dt;
 
+    stack<State*> states;
+
     void initWindow();
+    void initStates();
 /* POINTZERO
     bool quit;
 
