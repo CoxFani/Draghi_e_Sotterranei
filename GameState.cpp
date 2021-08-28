@@ -3,9 +3,10 @@
 //
 
 #include "GameState.h"
+#include <map>
 
 GameState::GameState(sf::RenderWindow* window)
-: State(window)
+    : State(window)
 {
 
 }
@@ -15,15 +16,27 @@ GameState::~GameState() {
 }
 
 void GameState::update(const float& dt) {
-    std::cout << "Ciao, io sono GameState" << "\n";
+    this->updateKeybinds(dt);
+    this-> player.update(dt);
 }
 
 void GameState::render(sf::RenderTarget* target) {
+    if (target)
+    {
 
+    }
+    else
+    {
+        this->player.render(this->window);
+    }
 }
 
 void GameState::endState() {
+    std::cout << "GameState: io ho finito qui!" << "/n";
+}
 
+void GameState::updateKeybinds(const float &dt) {
+    this->checkForQuit();
 }
 
 /* POINTZERO

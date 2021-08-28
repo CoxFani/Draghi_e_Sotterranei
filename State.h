@@ -5,19 +5,7 @@
 #ifndef DRAGHI_E_SOTTERRANEI_STATE_H
 #define DRAGHI_E_SOTTERRANEI_STATE_H
 
-#include <iostream>
-#include <ctime>
-#include <cstdlib>
-#include <fstream>
-#include <sstream>
-#include <stack>
-#include <map>
-#include <vector>
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/System.hpp>
-#include <SFML/Audio.hpp>
-#include <SFML/Network.hpp>
+#include "GameCharacter.h"
 
 class State {
 
@@ -25,8 +13,11 @@ public:
     State(sf::RenderWindow* window);
     virtual ~State();
 
-    virtual void endState() = 0;
+    const bool& getQuit() const;
+    virtual void checkForQuit();
 
+    virtual void endState() = 0;
+    virtual void updateKeybinds(const float& dt) = 0;
     virtual void update(const float& dt) = 0;
     virtual void render(sf::RenderTarget* target = nullptr) = 0;
 
@@ -36,10 +27,12 @@ public:
 
             virtual void update() = 0;
         */
-private:
+protected:
     sf::RenderWindow* window;
     std::vector<sf::Texture> textures;
-            //bool quit; [POINTZERO]
+    bool quit;
+
+private:
 
     };
 #endif //DRAGHI_E_SOTTERRANEI_STATE_H

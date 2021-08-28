@@ -2,12 +2,38 @@
 // Created by alpacox on 05/03/21.
 //
 
-//POINTZERO #ifndef DRAGHI_E_SOTTERRANEI_GAMECHARACTER_H
+#ifndef DRAGHI_E_SOTTERRANEI_GAMECHARACTER_H
 #define DRAGHI_E_SOTTERRANEI_GAMECHARACTER_H
 
 #include "Weapon.h"
 #include <iostream>
+#include <ctime>
+#include <cstdlib>
+#include <fstream>
 #include <sstream>
+#include <stack>
+#include <map>
+#include <vector>
+#include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/System.hpp>
+#include <SFML/Audio.hpp>
+#include <SFML/Network.hpp>
+
+class GameCharacter {
+public:
+    GameCharacter();
+    virtual ~GameCharacter();
+
+    virtual void move(const float& dt, const float x, const float y);
+    virtual void update(const float& dt);
+    virtual void render(sf::RenderTarget* target);
+
+protected:
+    sf::RectangleShape shape;
+    float movementSpeed;
+
+private:
 
 /* POINTZERO
 using namespace std;
@@ -102,9 +128,7 @@ protected:
     int posX;
     int posY;
     Weapon* weapon;
-
+*/
 };
 
-
 #endif //DRAGHI_E_SOTTERRANEI_GAMECHARACTER_H
-*/
