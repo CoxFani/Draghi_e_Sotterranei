@@ -8,6 +8,7 @@
 Game::Game() {
 
     this->initWindow();
+    this->initKeys();
     this->initStates();
 
 /* POINTZERO
@@ -23,7 +24,7 @@ Game::~Game() {
 
     delete this->window;
 
-    while(this->states.empty())
+    while(!this->states.empty())
     {
         delete this->states.top();
         this->states.pop();
@@ -64,6 +65,41 @@ void Game::initWindow() {
     this->window = new sf::RenderWindow(window_bounds, title);
     this->window->setFramerateLimit(framerate_limit);
     this->window->setVerticalSyncEnabled(vertical_sync_enabled);
+}
+
+void Game::initKeys() {
+
+    /* TODO sostituire comandi con file
+     std::ifstream ifs("Config/supported_keys.ini");
+
+    if (ifs.is_open())
+    {
+        std::string key = "";
+        int key_value = 0;
+
+        while (ifs >> key >> key_value)
+        {
+            this->supportedKeys[key] = key_value;
+        }
+    }
+
+    ifs.close(); */
+
+    this->supportedKeys["Escape"] = sf::Keyboard::Escape;
+    this->supportedKeys["A"] = sf::Keyboard::A;
+    this->supportedKeys["D"] = sf::Keyboard::D;
+    this->supportedKeys["W"] = sf::Keyboard::W;
+    this->supportedKeys["S"] = sf::Keyboard::S;
+
+    //for debug (da rimuovere)
+    for (auto i : this->supportedKeys)
+        {
+            std::cout << i.first << " " << i.second << "/n";
+        }
+}
+
+void Game::initStates() {
+    this->states.push(new GameState(this->window, &this->supportedKeys));
 }
 
 void Game::update() {
@@ -126,7 +162,7 @@ void Game::updateDt() {
 
 }
 
-void Game::initStates() {
-    this->states.push(new GameState(this->window));
+void Game::endApplication() {
+    std::cout << "Ending Application!" << "/n";
 }
 

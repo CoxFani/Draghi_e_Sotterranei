@@ -19,13 +19,15 @@ using namespace std;
 class GameState: public State{
 
 public:
-    GameState(sf::RenderWindow* window);
+    GameState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys);
     virtual ~GameState();
 
     void endState();
-    void updateKeybinds(const float& dt);
+    void updateInput(const float& dt);
     void update(const float& dt);
     void render(sf::RenderTarget* target = nullptr);
+
+    //id keybinds;
 
     /* POINTZERO
     explicit GameState(Hero* hero);
@@ -38,6 +40,9 @@ public:
     */
 private:
     GameCharacter player;
+
+    void initKeybinds();
+
          /* POINTZERO
     Hero* hero;
 */

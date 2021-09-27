@@ -36,10 +36,15 @@ private:
     sf::Clock dtClock;
     float dt;
 
+    //sf::Keyboard supportedKeys;
     stack<State*> states;
+    map<std::string, int> supportedKeys;
 
     void initWindow();
+    void initKeys();
     void initStates();
+    void endApplication();
+
 /* POINTZERO
     bool quit;
 
@@ -47,6 +52,7 @@ private:
 
     Hero* hero;
 */
+
 };
 
 
