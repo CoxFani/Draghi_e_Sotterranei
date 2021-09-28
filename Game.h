@@ -8,9 +8,9 @@
 #include <vector>
 #include <stack>
 #include "State.h"
-#include "GameState.h"
 #include "GameCharacter.h"
 #include "Hero.h"
+#include "MainMenuState.h"
 
 using namespace std;
 
