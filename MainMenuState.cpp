@@ -3,6 +3,7 @@
 //
 
 
+#include <unistd.h>
 #include "MainMenuState.h"
 
 MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys)
@@ -50,9 +51,15 @@ void MainMenuState::update(const float& dt) {
 }
 
 void MainMenuState::iniFonts() {
-    // TODO ATTENZIONE!!! il percorso del file scritto funziona solo sul mio pc!!
-    // TODO ATTENZIONE!!! Trovare un modo di fargli cercare il file nella cartella del programma
-    if(!this->font.loadFromFile("/home/alpacox/Documenti/Ingegneria Informatica/Programmazione/Progetto/Draghi_e_Sotterranei/Fonts/yoster.ttf")){
+
+    /*char *stringa = get_current_dir_name();
+    if(stringa != nullptr){
+        std::cout<<"stringa piena" << "\n";
+        for(int i=0; i<100; i++){                 //Capiamo dove siamo
+    std::cout << stringa[i] ;} std::cout << endl;  } //Attuale percorso file
+    else
+        std::cout<<"stringa vuota" << endl ; */
+    if(!this->font.loadFromFile("../Fonts/yoster.ttf")){
         throw("ERROR::MAINMENUSTATE::COULD NOT LOAD FONT");
     }
 
