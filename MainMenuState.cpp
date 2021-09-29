@@ -6,8 +6,8 @@
 #include <unistd.h>
 #include "MainMenuState.h"
 
-MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys)
-        : State(window, supportedKeys)
+MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states)
+        : State(window, supportedKeys, states)
 {
     this->iniFonts();
     this->initKeybinds();
@@ -36,7 +36,7 @@ void MainMenuState::render(sf::RenderTarget* target) {
 }
 
 void MainMenuState::endState() {
-    std::cout << "GameState: io ho finito qui!" << "\n";
+    std::cout << "MainMenuState: io ho finito qui!" << "\n";
 }
 
 void MainMenuState::updateInput(const float &dt) {
@@ -70,7 +70,7 @@ void MainMenuState::iniFonts() {
 
 void MainMenuState::initKeybinds() {
 
-    std::ifstream ifs("../Config/gamestate_keybinds.ini");
+    std::ifstream ifs("../Config/mainmenustate_keybinds.ini");
 
     if (ifs.is_open())
     {
@@ -111,7 +111,7 @@ void MainMenuState::updateButtons() {
     }
 
     if (this->buttons["GAME_STATE"]->isPressed()){
-        //this->states.push(new MainMenuState(this->window, &this->supportedKeys));
+        this->states->push(new GameState(this->window, this->supportedKeys, this->states));
     }
 
     if (this->buttons["EXIT_STATE"]->isPressed()){
