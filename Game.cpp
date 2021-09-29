@@ -107,22 +107,21 @@ void Game::update() {
     this->updateSFMLEvents();
 
     if(!this->states.empty())
+    {
         this->states.top()->update(this->dt);
 
-
-/* POINTZERO
-    this -> states.top()->update();
-
-    if (this -> states.top()->getQuit()){
-
-        delete this -> states.top();
-        this -> states.pop();
+        if (this->states.top()->getQuit())
+        {
+            this->states.top()->endState();
+            delete this->states.top();
+            this->states.pop();
+        }
     }
-
-
-    if (this -> states.empty())
-        this -> quit = true;
-*/
+    else
+    {
+        this->endApplication();
+        this->window->close();
+    }
 }
 void Game::render() {
 
@@ -163,6 +162,6 @@ void Game::updateDt() {
 }
 
 void Game::endApplication() {
-    std::cout << "Ending Application!" << "/n";
+    std::cout << "Termina il gioco!" << "\n";
 }
 

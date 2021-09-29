@@ -35,7 +35,7 @@ void MainMenuState::render(sf::RenderTarget* target) {
 }
 
 void MainMenuState::endState() {
-    std::cout << "GameState: io ho finito qui!" << "/n";
+    std::cout << "GameState: io ho finito qui!" << "\n";
 }
 
 void MainMenuState::updateInput(const float &dt) {

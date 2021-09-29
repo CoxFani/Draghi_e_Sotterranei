@@ -23,7 +23,7 @@ void GameState::render(sf::RenderTarget* target) {
     }
 
 void GameState::endState() {
-    std::cout << "GameState: io ho finito qui!" << "/n";
+    std::cout << "GameState: io ho finito qui!" << "\n";
 }
 
 void GameState::updateInput(const float &dt) {
