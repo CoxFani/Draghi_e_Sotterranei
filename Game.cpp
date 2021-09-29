@@ -93,7 +93,7 @@ void Game::initKeys() {
     //for debug (da rimuovere)
     for (auto i : this->supportedKeys)
         {
-            std::cout << i.first << " " << i.second << "/n";
+            std::cout << i.first << " " << i.second << "\n";
         }
 }
 

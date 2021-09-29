@@ -61,7 +61,7 @@ void MainMenuState::iniFonts() {
     else
         std::cout<<"stringa vuota" << endl ;
         */
-    if(!this->font.loadFromFile("../Fonts/yoster.ttf")){
+    if(!this->font.loadFromFile("../Fonts/DeterminationMonoWebRegular-Z5oq.ttf")){
         throw("ERROR::MAINMENUSTATE::COULD NOT LOAD FONT");
     }
 
