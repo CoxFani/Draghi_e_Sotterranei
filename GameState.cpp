@@ -47,8 +47,7 @@ void GameState::update(const float& dt) {
 
 void GameState::initKeybinds() {
 
-    /* TODO sostituire comandi con file
-    std::ifstream ifs("Config/gamestate_keybinds.ini");
+    std::ifstream ifs("../Config/gamestate_keybinds.ini");
 
     if (ifs.is_open())
     {
@@ -61,13 +60,14 @@ void GameState::initKeybinds() {
         }
     }
 
-    ifs.close(); */
-
+    ifs.close();
+/*
     this->keybinds["CLOSE"] = this->supportedKeys->at("Escape");
     this->keybinds["MOVE_LEFT"] = this->supportedKeys->at("A");
     this->keybinds["MOVE_RIGHT"] = this->supportedKeys->at("D");
     this->keybinds["MOVE_UP"] = this->supportedKeys->at("W");
     this->keybinds["MOVE_DOWN"] = this->supportedKeys->at("S");
+    */
 }
 
 /* POINTZERO
