@@ -11,17 +11,18 @@ MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string, int
 {
     this->iniFonts();
     this->initKeybinds();
-
-    this->gamestate_btn = new Button(100, 100, 150, 50,
-                                     &this->font, "New Game",
-                                     sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
+    this->initButtons();
 
     this->background.setSize(sf::Vector2f(window->getSize().x, window->getSize().y));
     this->background.setFillColor(sf::Color::Magenta);
 }
 
 MainMenuState::~MainMenuState() {
-    delete this->gamestate_btn;
+    auto i = this->buttons.begin();
+    for (i = this->buttons.begin(); i != this->buttons.end(); ++i)
+    {
+        delete i->second;
+    }
 
 }
 
@@ -31,7 +32,7 @@ void MainMenuState::render(sf::RenderTarget* target) {
 
     target->draw(this->background);
 
-    this->gamestate_btn->render(target);
+    this->renderButtons(target);
 }
 
 void MainMenuState::endState() {
@@ -47,7 +48,7 @@ void MainMenuState::update(const float& dt) {
     this->updateMousePosition();
     this->updateInput(dt);
 
-    this->gamestate_btn->update(this->mousePosView);
+    this->updateButtons();
 }
 
 void MainMenuState::iniFonts() {
@@ -89,4 +90,39 @@ void MainMenuState::initKeybinds() {
     this->keybinds["MOVE_RIGHT"] = this->supportedKeys->at("D");
     this->keybinds["MOVE_UP"] = this->supportedKeys->at("W");
     this->keybinds["MOVE_DOWN"] = this->supportedKeys->at("S"); */
+}
+
+void MainMenuState::initButtons() {
+
+    this->buttons["GAME_STATE"] = new Button(100, 100, 150, 50,
+         &this->font, "New Game",
+ sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
+
+    this->buttons["EXIT_STATE"] = new Button(100, 300, 150, 50,
+         &this->font, "Quit",
+         sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
+}
+
+void MainMenuState::updateButtons() {
+
+    for (auto &i : this->buttons)
+    {
+        i.second->update(this->mousePosView);
+    }
+
+    if (this->buttons["GAME_STATE"]->isPressed()){
+        //this->states.push(new MainMenuState(this->window, &this->supportedKeys));
+    }
+
+    if (this->buttons["EXIT_STATE"]->isPressed()){
+        this->quit = true;
+    }
+}
+
+void MainMenuState::renderButtons(sf::RenderTarget *target) {
+
+    for (auto &i : this->buttons)
+    {
+        i.second->render(target);
+    }
 }
