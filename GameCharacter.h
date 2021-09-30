@@ -25,15 +25,20 @@ public:
     GameCharacter();
     virtual ~GameCharacter();
 
+    void createSprite(sf::Texture* texture);
+
     virtual void move(const float& dt, const float x, const float y);
     virtual void update(const float& dt);
     virtual void render(sf::RenderTarget* target);
 
 protected:
-    sf::RectangleShape shape;
+    sf::Texture* texture;
+    sf::Sprite* sprite;
+
     float movementSpeed;
 
 private:
+    void initVariables();
 
 /* POINTZERO
 using namespace std;

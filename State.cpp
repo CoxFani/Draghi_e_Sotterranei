@@ -17,19 +17,18 @@ State::~State() {
 
 const bool & State::getQuit() const {
     return this->quit;
-}
 
-void State::checkForQuit() {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE"))))
-    {
-        this->quit = true;
-    }
 }
 
 void State::updateMousePosition() {
     this->mousePosScreen = sf::Mouse::getPosition();
     this->mousePosWindow = sf::Mouse::getPosition(*this->window);
     this->mousePosView = this->window->mapPixelToCoords(sf::Mouse::getPosition(*this->window));
+}
+
+void State::endState() {
+    this->quit = true;
+
 }
 
 /* POINTZERO

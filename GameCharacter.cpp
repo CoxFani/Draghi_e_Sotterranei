@@ -74,17 +74,19 @@ const string GameCharacter::toString() {
 }
 */
 GameCharacter::GameCharacter() {
-    this->shape.setSize(sf::Vector2f(50.f, 50.f));
-    this->shape.setFillColor(sf::Color::White);
-    this->movementSpeed = 100.f;
+    this->initVariables();
 }
 
 GameCharacter::~GameCharacter() {
+    delete this->sprite;
+
 
 }
 
 void GameCharacter::move(const float& dt, const float dir_x, const float dir_y) {
-    this->shape.move(dir_x * this->movementSpeed * dt, dir_y * this->movementSpeed * dt);
+    if(this->sprite) {
+        this->sprite->move(dir_x * this->movementSpeed * dt, dir_y * this->movementSpeed * dt);
+    }
 }
 
 void GameCharacter::update(const float &dt) {
@@ -92,5 +94,20 @@ void GameCharacter::update(const float &dt) {
 }
 
 void GameCharacter::render(sf::RenderTarget* target) {
-    target->draw(this->shape);
+    if(this->sprite) {
+        target->draw(*this->sprite);
+    }
+}
+
+void GameCharacter::createSprite(sf::Texture *texture) {
+    this->texture = texture;
+    this->sprite->setTexture(*this->texture);
+
+}
+
+void GameCharacter::initVariables() {
+    this->texture = nullptr;
+    this->sprite = nullptr;
+    this->movementSpeed = 100.f;
+
 }
