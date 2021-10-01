@@ -3,7 +3,31 @@
 //
 
 #include "Hero.h"
-/*POINTZERO
+
+Hero::Hero(float x, float y, sf::Texture* texture) {
+
+    this->initVariables();
+    this->initComponents();
+
+    this->createSprite(texture);
+    this->setPosition(x, y);
+
+}
+
+Hero::~Hero() {
+
+}
+
+void Hero::initVariables() {
+
+}
+
+void Hero::initComponents() {
+
+
+}
+
+/*
 Hero::Hero(string n, int maxHP, int ac, int str, int intel, int dex): GameCharacter(maxHP, ac, str, intel, dex) {
 
 
@@ -100,3 +124,4 @@ void Hero::levelUpStats() {
 
 }
 */
+

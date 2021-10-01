@@ -5,7 +5,8 @@
 #ifndef DRAGHI_E_SOTTERRANEI_STATE_H
 #define DRAGHI_E_SOTTERRANEI_STATE_H
 
-#include "GameCharacter.h"
+//#include "GameCharacter.h"
+#include "Hero.h"
 
 class State {
 
@@ -41,7 +42,7 @@ protected:
     sf::Vector2f mousePosView;
 
 
-    std::vector<sf::Texture> textures;
+    std::map<std::string, sf::Texture> textures;
 
     virtual void initKeybinds() = 0;
 

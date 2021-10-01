@@ -8,11 +8,14 @@
 #include <cmath>
 #include <sstream>
 #include "GameCharacter.h"
-#include "GameState.h"
-/* POINTZERO
+//#include "GameState.h"
+
 class Hero : public GameCharacter {
 public:
 
+    Hero(float x, float y, sf::Texture* texture);
+    virtual ~Hero();
+/*
     Hero(string n, int maxHP, int ac, int str, int intel, int dex);
 
     bool canLevelUp();
@@ -23,18 +26,21 @@ public:
     int getExp();
 
     const string toString();
+*/
+private:
 
-
+    void initVariables();
+    void initComponents();
 
 protected:
-
+/*
     string name;
     int exp;
     int expNext;
     int level;
     int statsPoints;
-
+*/
 };
 
-*/
+
 #endif //DRAGHI_E_SOTTERRANEI_HERO_H

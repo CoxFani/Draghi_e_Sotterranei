@@ -101,7 +101,7 @@ void GameCharacter::render(sf::RenderTarget* target) {
 
 void GameCharacter::createSprite(sf::Texture *texture) {
     this->texture = texture;
-    this->sprite->setTexture(*this->texture);
+    this->sprite = new sf::Sprite(*this->texture);
 
 }
 
@@ -109,5 +109,13 @@ void GameCharacter::initVariables() {
     this->texture = nullptr;
     this->sprite = nullptr;
     this->movementSpeed = 100.f;
+
+}
+
+void GameCharacter::setPosition(const float x, const float y) {
+
+    if(this->sprite) {
+        this->sprite->setPosition(x, y);
+    }
 
 }

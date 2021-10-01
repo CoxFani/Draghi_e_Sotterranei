@@ -16,7 +16,7 @@
 
 using namespace std;
 
-class GameState: public State{
+class GameState: public State {
 
 public:
     GameState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states);
@@ -38,9 +38,11 @@ public:
     virtual void update();
     */
 private:
-    GameCharacter player;
+    Hero* hero;
 
     void initKeybinds();
+    void initTextures();
+    void initHeros();
 
          /* POINTZERO
     Hero* hero;
