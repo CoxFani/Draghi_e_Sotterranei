@@ -31,13 +31,13 @@ void GameState::render(sf::RenderTarget* target) {
 void GameState::updateInput(const float &dt) {
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_LEFT"))))
-        this->hero->move(dt, -1.f, 0.f);
+        this->hero->move(-1.f, 0.f, dt);
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_RIGHT"))))
-        this->hero->move(dt, 1.f, 0.f);
+        this->hero->move(1.f, 0.f, dt);
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_UP"))))
-        this->hero->move(dt, 0.f, -1.f);
+        this->hero->move(0.f, -1.f, dt);
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_DOWN"))))
-        this->hero->move(dt, 0.f, 1.f);
+        this->hero->move(0.f, 1.f, dt);
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE"))))
         this->endState();
@@ -85,7 +85,7 @@ void GameState::initTextures() {
 
 void GameState::initHeros() {
 
-    this->hero = new Hero(0, 0, &this->textures["HERO_IDLE"]);
+    this->hero = new Hero(0, 0, this->textures["HERO_IDLE"]);
 
 }
 

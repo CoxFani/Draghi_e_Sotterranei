@@ -13,7 +13,7 @@
 class Hero : public GameCharacter {
 public:
 
-    Hero(float x, float y, sf::Texture* texture);
+    Hero(float x, float y, sf::Texture& texture);
     virtual ~Hero();
 /*
     Hero(string n, int maxHP, int ac, int str, int intel, int dex);

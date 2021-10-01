@@ -4,12 +4,12 @@
 
 #include "Hero.h"
 
-Hero::Hero(float x, float y, sf::Texture* texture) {
+Hero::Hero(float x, float y, sf::Texture& texture) {
 
     this->initVariables();
     this->initComponents();
 
-    this->createSprite(texture);
+    this->setTexture(texture);
     this->setPosition(x, y);
 
 }
@@ -24,6 +24,7 @@ void Hero::initVariables() {
 
 void Hero::initComponents() {
 
+    this->createMovementComponent(300.f, 15.f, 5.f);
 
 }
 
