@@ -80,6 +80,7 @@ GameCharacter::GameCharacter() {
 GameCharacter::~GameCharacter() {
 
     delete this->movementComponent;
+    delete this->animationComponent;
 
 }
 
@@ -90,9 +91,6 @@ void GameCharacter::move(const float dir_x, const float dir_y,const float& dt) {
 }
 
 void GameCharacter::update(const float &dt) {
-
-    if(this->movementComponent)
-        this->movementComponent->update(dt);
 
 }
 
@@ -122,4 +120,9 @@ void GameCharacter::createMovementComponent(const float maxVelocity, const float
 
     this->movementComponent = new MovementComponent(this->sprite, maxVelocity, acceleration, deceleration);
 
+}
+
+void GameCharacter::createAnimationComponent(sf::Texture &texture_sheet) {
+
+    this->animationComponent = new AnimationComponent(this->sprite, texture_sheet);
 }

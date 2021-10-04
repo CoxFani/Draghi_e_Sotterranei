@@ -76,16 +76,16 @@ void GameState::initKeybinds() {
 
 void GameState::initTextures() {
 
-    if(!this->textures["HERO_IDLE"].loadFromFile("../Resources/Images/Images/Sprites/Hero/Woodcutter.png")){
+    if (!this->textures["HERO_SHEET"].loadFromFile("../Resources/Images/Images/Sprites/Hero/Woodcutter_idle.png")){
 
-        //throw "ERROR::GAME_STATE::COULD_NOT_LOAD_HERO_IDLE_TEXTURE";
+        throw "ERROR::GAME_STATE::COULD_NOT_LOAD_HERO_TEXTURE";
     };
 
 }
 
 void GameState::initHeros() {
 
-    this->hero = new Hero(0, 0, this->textures["HERO_IDLE"]);
+    this->hero = new Hero(0, 0, this->textures["HERO_SHEET"]);
 
 }
 

@@ -13,8 +13,10 @@
 class Hero : public GameCharacter {
 public:
 
-    Hero(float x, float y, sf::Texture& texture);
+    Hero(float x, float y, sf::Texture& texture_sheet);
     virtual ~Hero();
+
+    virtual void update(const float& dt);
 /*
     Hero(string n, int maxHP, int ac, int str, int intel, int dex);
 

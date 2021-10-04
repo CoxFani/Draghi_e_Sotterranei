@@ -4,14 +4,16 @@
 
 #include "Hero.h"
 
-Hero::Hero(float x, float y, sf::Texture& texture) {
+Hero::Hero(float x, float y, sf::Texture& texture_sheet) {
 
     this->initVariables();
-    this->initComponents();
 
-    this->setTexture(texture);
     this->setPosition(x, y);
 
+    this->createMovementComponent(300.f, 15.f, 5.f);
+    this->createAnimationComponent(texture_sheet);
+
+    this->animationComponent->addAnimation("IDLE_RIGHT", 10.f, 0, 0, 3, 0, 48, 48);
 }
 
 Hero::~Hero() {
@@ -24,8 +26,12 @@ void Hero::initVariables() {
 
 void Hero::initComponents() {
 
-    this->createMovementComponent(300.f, 15.f, 5.f);
+}
 
+void Hero::update(const float &dt) {
+    this->movementComponent->update(dt);
+
+    this->animationComponent->play("IDLE_RIGHT", dt);
 }
 
 /*
