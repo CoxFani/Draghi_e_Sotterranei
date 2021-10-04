@@ -14,6 +14,8 @@ Hero::Hero(float x, float y, sf::Texture& texture_sheet) {
     this->createAnimationComponent(texture_sheet);
 
     this->animationComponent->addAnimation("IDLE_RIGHT", 10.f, 0, 0, 3, 0, 48, 48);
+    this->animationComponent->addAnimation("WALK_RIGHT", 10.f, 0, 1, 5, 1, 48, 48);
+
 }
 
 Hero::~Hero() {
@@ -31,7 +33,11 @@ void Hero::initComponents() {
 void Hero::update(const float &dt) {
     this->movementComponent->update(dt);
 
-    this->animationComponent->play("IDLE_RIGHT", dt);
+    if(this->movementComponent->getState(IDLE))
+       this->animationComponent->play("IDLE_RIGHT", dt);
+    else if (this->movementComponent->getState(MOVING_RIGHT))
+        this->animationComponent->play("WALK_RIGHT", dt);
+
 }
 
 /*
