@@ -79,6 +79,7 @@ GameCharacter::GameCharacter() {
 
 GameCharacter::~GameCharacter() {
 
+    delete this->hitboxComponent;
     delete this->movementComponent;
     delete this->animationComponent;
 
@@ -107,7 +108,9 @@ void GameCharacter::setTexture(sf::Texture& texture) {
 
 void GameCharacter::initVariables() {
 
+    this->hitboxComponent = nullptr;
     this->movementComponent = nullptr;
+    this->animationComponent = nullptr;
 }
 
 void GameCharacter::setPosition(const float x, const float y) {

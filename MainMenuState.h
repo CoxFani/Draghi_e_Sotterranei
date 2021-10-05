@@ -2,6 +2,7 @@
 // Created by alpacox on 27/09/21.
 //
 #include "GameState.h"
+#include "EditorState.h"
 #include "Button.h"
 #ifndef DRAGHI_E_SOTTERRANEI_MAINMENUSTATE_H
 #define DRAGHI_E_SOTTERRANEI_MAINMENUSTATE_H

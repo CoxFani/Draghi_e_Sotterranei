@@ -6,6 +6,7 @@
 #define DRAGHI_E_SOTTERRANEI_GAMECHARACTER_H
 
 #include "Weapon.h"
+#include "HitboxComponent.h"
 #include "MovementComponent.h"
 #include "AnimationComponent.h"
 
@@ -26,6 +27,7 @@ public:
 protected:
     sf::Sprite sprite;
 
+    HitboxComponent* hitboxComponent;
     MovementComponent* movementComponent;
     AnimationComponent* animationComponent;
 
