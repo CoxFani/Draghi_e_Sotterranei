@@ -21,7 +21,9 @@ public:
     virtual ~AnimationComponent();
 
     void addAnimation(const std::string key, float animation_timer, int start_frame_x, int start_frame_y, int frames_x, int frames_y, int width, int height);
-    void play(const std::string key, const float& dt);
+    void play(const std::string key, const float& dt, const bool priority = false);
+    void play(const std::string key, const float& dt, const float& modifier, const float& modifier_max, const bool priority = false);
+
 
 private:
     class Animation {
@@ -48,7 +50,8 @@ private:
             this->sprite.setTextureRect(this->startRect);
         }
 
-        void play(const float& dt){
+        bool play(const float& dt){
+            bool done = false;
             this->timer += 100.f * dt;
             if (this->timer >= this->animationTimer){
                 this->timer = 0.f;
@@ -58,14 +61,40 @@ private:
                 }
                 else {
                     this->currentRect.left = this->startRect.left;
+                    done = true;
                 }
 
                 this->sprite.setTextureRect(this->currentRect);
             }
+            return done;
+        }
+
+        bool play(const float& dt,  float mod_percent){
+            if(mod_percent < 0.5f)
+                mod_percent = 0.5f;
+
+            bool done = false;
+
+            this->timer += mod_percent * 100.f * dt;
+            if (this->timer >= this->animationTimer){
+                this->timer = 0.f;
+
+                if (this->currentRect != this->endRect) {
+                    this->currentRect.left += this->width;
+                }
+                else {
+                    this->currentRect.left = this->startRect.left;
+                    bool done = true;
+
+                }
+
+                this->sprite.setTextureRect(this->currentRect);
+            }
+            return done;
         }
 
         void reset(){
-            this->timer = 0.f;
+            this->timer = animationTimer;
             this->currentRect = this->startRect;
         }
     };
@@ -74,6 +103,7 @@ private:
     sf::Texture& textureSheet;
     std::map<std::string, Animation*> animations;
     Animation* lastAnimation;
+    Animation* priorityAnimation;
 };
 
 

@@ -112,3 +112,7 @@ const bool MovementComponent::getState(const unsigned short state) const {
 
     return false;
 }
+
+const float &MovementComponent::getMaxVelocity() const {
+    return this->maxVelocity;
+}
