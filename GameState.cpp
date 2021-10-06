@@ -23,7 +23,7 @@ void GameState::render(sf::RenderTarget* target) {
     if (!target)
         target = this->window;
 
-    this->hero->render(target);
+    this->hero->render(*target);
     }
 
 

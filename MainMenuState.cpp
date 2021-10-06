@@ -32,7 +32,7 @@ void MainMenuState::render(sf::RenderTarget* target) {
 
     target->draw(this->background);
 
-    this->renderButtons(target);
+    this->renderButtons(*target);
 
     //DA COMMENTARE SUCCESSIVAMENTE: Aiuta a trovare le coordinate sullo schermo per posizionare cose
     /*
@@ -145,7 +145,7 @@ void MainMenuState::updateButtons() {
     }
 }
 
-void MainMenuState::renderButtons(sf::RenderTarget *target) {
+void MainMenuState::renderButtons(sf::RenderTarget& target) {
 
     for (auto &i : this->buttons)
     {

@@ -10,6 +10,7 @@ Hero::Hero(float x, float y, sf::Texture& texture_sheet) {
 
     this->setPosition(x, y);
 
+    this->createHitboxComponent(this->sprite, 0.f, 17.f, 32.f, 32.f);
     this->createMovementComponent(300.f, 15.f, 5.f);
     this->createAnimationComponent(texture_sheet);
 
@@ -38,6 +39,7 @@ void Hero::update(const float &dt) {
     else if (this->movementComponent->getState(MOVING_RIGHT))
         this->animationComponent->play("WALK_RIGHT", dt);
 
+    this->hitboxComponent->update();
 }
 
 /*

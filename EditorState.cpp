@@ -28,7 +28,7 @@ void EditorState::render(sf::RenderTarget* target) {
     if (!target)
         target = this->window;
 
-    this->renderButtons(target);
+    this->renderButtons(*target);
 
     //DA COMMENTARE SUCCESSIVAMENTE: Aiuta a trovare le coordinate sullo schermo per posizionare cose
     /*
@@ -112,7 +112,7 @@ void EditorState::updateButtons() {
     }
 }
 
-void EditorState::renderButtons(sf::RenderTarget *target) {
+void EditorState::renderButtons(sf::RenderTarget& target) {
 
     for (auto &i : this->buttons)
     {

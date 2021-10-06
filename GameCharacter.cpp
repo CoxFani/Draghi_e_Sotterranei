@@ -95,15 +95,16 @@ void GameCharacter::update(const float &dt) {
 
 }
 
-void GameCharacter::render(sf::RenderTarget* target) {
+void GameCharacter::render(sf::RenderTarget& target) {
 
-        target->draw(this->sprite);
+        target.draw(this->sprite);
 
+        if (this->hitboxComponent)
+            this->hitboxComponent->render(target);
 }
 
 void GameCharacter::setTexture(sf::Texture& texture) {
     this->sprite.setTexture(texture);
-
 }
 
 void GameCharacter::initVariables() {
@@ -128,4 +129,9 @@ void GameCharacter::createMovementComponent(const float maxVelocity, const float
 void GameCharacter::createAnimationComponent(sf::Texture &texture_sheet) {
 
     this->animationComponent = new AnimationComponent(this->sprite, texture_sheet);
+}
+
+void GameCharacter::createHitboxComponent(sf::Sprite &sprite, float offset_x, float offset_y, float width, float height) {
+
+    this->hitboxComponent = new HitboxComponent(sprite, offset_x, offset_y, width, height);
 }
