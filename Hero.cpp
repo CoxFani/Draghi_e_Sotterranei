@@ -43,25 +43,51 @@ void Hero::initComponents() {
 
 void Hero::update(const float &dt) {
     this->movementComponent->update(dt);
-/* //TODO ATTENZIONE, QUESTO COMANDO FA CRASHARE NEW GAME
+
+    this->updateAttack();
+
+    this->updateAnimation(dt);
+
+    this->hitboxComponent->update();
+}
+
+void Hero::updateAttack() {
+//TODO ATTENZIONE, QUESTO COMANDO FA CRASHARE NEW GAME
     if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
-        this->attacking = true;
+        //    this->attacking = true;
     }
-    */
+}
+
+void Hero::updateAnimation(const float &dt) {
+
     if(this->attacking){
-        this->animationComponent->play("ATTACK", dt);
+        /*if(this->sprite.getScale().x > 0.f){
+            this->sprite.setOrigin(0.f, 0.f);
+        }
+        else{
+            this->sprite.setOrigin(0.f, 0.f);
+        }*/
+        if(this->animationComponent->play("ATTACK", dt, true)){
+            this->attacking = false;
+
+        }
     }
 
     if(this->movementComponent->getState(IDLE))
-       this->animationComponent->play("IDLE", dt);
+        this->animationComponent->play("IDLE", dt);
     else if (this->movementComponent->getState(MOVING_RIGHT)){
-        this->sprite.setOrigin(0.f, 0.f);
-        this->sprite.setScale(1.f, 1.f);
+        if(this->sprite.getScale().x < 0.f){
+            this->sprite.setOrigin(0.f, 0.f);
+            this->sprite.setScale(1.f, 1.f);
+        }
+
         this->animationComponent->play("WALK", dt, this->movementComponent->getVelocity().x, this->movementComponent->getMaxVelocity());
     }
     else if(this->movementComponent->getState(MOVING_LEFT)){
-        this->sprite.setOrigin(30.f, 0.f);
-        this->sprite.setScale(-1.f, 1.f);
+        if(this->sprite.getScale().x > 0.f) {
+            this->sprite.setOrigin(30.f, 0.f);
+            this->sprite.setScale(-1.f, 1.f);
+        }
         this->animationComponent->play("WALK", dt, this->movementComponent->getVelocity().x, this->movementComponent->getMaxVelocity());
     }
     else if(this->movementComponent->getState(MOVING_UP)){
@@ -70,24 +96,10 @@ void Hero::update(const float &dt) {
     else if(this->movementComponent->getState(MOVING_DOWN)){
         this->animationComponent->play("WALK", dt, this->movementComponent->getVelocity().y, this->movementComponent->getMaxVelocity());
     }
-
-    this->hitboxComponent->update();
 }
 
 /*
-Hero::Hero(string n, int maxHP, int ac, int str, int intel, int dex): GameCharacter(maxHP, ac, str, intel, dex) {
 
-
-    name = n;
-    level =1;
-    exp = 30; // Test, di norma sarebbe 0
-    expNext = 3;
-    statsPoints = 0;
-
-    posX = 1;
-    posY = 1;
-
-}
 
 
 const string Hero::toString() {

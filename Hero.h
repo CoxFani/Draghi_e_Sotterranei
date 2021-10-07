@@ -16,9 +16,10 @@ public:
     Hero(float x, float y, sf::Texture& texture_sheet);
     virtual ~Hero();
 
+    void updateAttack();
+    void updateAnimation(const float& dt);
     virtual void update(const float& dt);
 /*
-    Hero(string n, int maxHP, int ac, int str, int intel, int dex);
 
     bool canLevelUp();
     void levelUpStats();
