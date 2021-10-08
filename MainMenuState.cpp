@@ -10,7 +10,7 @@ MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string, int
         : State(window, supportedKeys, states)
 {
     this->initVariables();
-    this->initBacground();
+    this->initBackground();
     this->iniFonts();
     this->initKeybinds();
     this->initButtons();
@@ -104,22 +104,26 @@ void MainMenuState::initKeybinds() {
 
 void MainMenuState::initButtons() {
 
-    this->buttons["GAME_STATE"] = new Button(100, 300, 200, 75,
+    this->buttons["GAME_STATE"] = new Button(
+            100.f, 300.f, 200.f, 75.f,
          &this->font, "New Game", 50,
  sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
  sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 
-    this->buttons["SETTINGS"] = new Button(100, 400, 200, 75,
+    this->buttons["SETTINGS_STATE"] = new Button(
+            100.f, 400.f, 200.f, 75.f,
          &this->font, "Settings", 50,
  sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
  sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 
-    this->buttons["EDITOR_STATE"] = new Button(100, 500, 200, 75,
+    this->buttons["EDITOR_STATE"] = new Button(
+            100.f, 500.f, 200.f, 75.f,
          &this->font, "Editor", 50,
  sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
  sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 
-    this->buttons["EXIT_STATE"] = new Button(100, 600, 200, 75,
+    this->buttons["EXIT_STATE"] = new Button(
+            100.f, 600.f, 200.f, 75.f,
          &this->font, "Quit", 50,
 sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
 sf::Color(100, 100, 100, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
@@ -134,6 +138,10 @@ void MainMenuState::updateButtons() {
 
     if (this->buttons["GAME_STATE"]->isPressed()){
         this->states->push(new GameState(this->window, this->supportedKeys, this->states));
+    }
+
+    if (this->buttons["SETTINGS_STATE"]->isPressed()){
+        this->states->push(new SettingState(this->window, this->supportedKeys, this->states));
     }
 
     if (this->buttons["EDITOR_STATE"]->isPressed()){
@@ -153,7 +161,7 @@ void MainMenuState::renderButtons(sf::RenderTarget& target) {
     }
 }
 
-void MainMenuState::initBacground() {
+void MainMenuState::initBackground() {
 
     this->background.setSize(
             sf::Vector2f(

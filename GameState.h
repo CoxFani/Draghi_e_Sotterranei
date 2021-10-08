@@ -22,6 +22,8 @@ public:
     virtual ~GameState();
 
     void updateInput(const float& dt);
+    void updateHeroInput(const float& dt);
+    void updatePauseMenuButtons();
     void update(const float& dt);
     void render(sf::RenderTarget* target = nullptr);
 
@@ -37,12 +39,15 @@ public:
     virtual void update();
     */
 private:
-    PauseMenu pmenu;
+    sf::Font font;
+    PauseMenu* pmenu;
 
     Hero* hero;
 
     void initKeybinds();
+    void initFonts();
     void initTextures();
+    void initPausedMenu();
     void initHeros();
 
          /* POINTZERO

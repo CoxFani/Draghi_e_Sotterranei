@@ -1,19 +1,18 @@
 //
-// Created by alpacox on 27/09/21.
+// Created by alpacox on 08/10/21.
 //
-#include "GameState.h"
-#include "EditorState.h"
-#include "SettingState.h"
+
+#ifndef DRAGHI_E_SOTTERRANEI_SETTINGSTATE_H
+#define DRAGHI_E_SOTTERRANEI_SETTINGSTATE_H
+
+#include "State.h"
 #include "Button.h"
-#ifndef DRAGHI_E_SOTTERRANEI_MAINMENUSTATE_H
-#define DRAGHI_E_SOTTERRANEI_MAINMENUSTATE_H
 
-
-class MainMenuState : public State {
-
+class SettingState :
+        public State {
 public:
-    MainMenuState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states);
-    virtual ~MainMenuState();
+    SettingState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states);
+    virtual ~SettingState();
 
     void updateInput(const float& dt);
     void updateButtons();
@@ -37,5 +36,4 @@ private:
 };
 
 
-
-#endif //DRAGHI_E_SOTTERRANEI_MAINMENUSTATE_H
+#endif //DRAGHI_E_SOTTERRANEI_SETTINGSTATE_H

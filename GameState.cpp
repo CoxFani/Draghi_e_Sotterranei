@@ -6,17 +6,18 @@
 #include <map>
 
 GameState::GameState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states)
-    : State(window, supportedKeys, states), pmenu(*window)
+    : State(window, supportedKeys, states)
 {
     this->initKeybinds();
+    this->initFonts();
     this->initTextures();
+    this->initPausedMenu();
     this->initHeros();
 }
 
 GameState::~GameState() {
-
+    delete this->pmenu;
     delete this->hero;
-
 }
 
 void GameState::render(sf::RenderTarget* target) {
@@ -26,13 +27,13 @@ void GameState::render(sf::RenderTarget* target) {
     this->hero->render(*target);
 
     if(this->paused){
-        this->pmenu.render(*target);
+        this->pmenu->render(*target);
     }
 }
 
 
 
-void GameState::updateInput(const float &dt) {
+void GameState::updateHeroInput(const float &dt) {
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_LEFT"))))
         this->hero->move(-1.f, 0.f, dt);
@@ -43,24 +44,29 @@ void GameState::updateInput(const float &dt) {
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_DOWN"))))
         this->hero->move(0.f, 1.f, dt);
 
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE")))){
+}
+
+void GameState::updateInput(const float &dt) {
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE"))) && this->getKeyTime()){
         if(!this->paused)
             this->pauseState();
-        //else
-            //this->unpauseState();
-
+        else
+            this->unpauseState();
     }
 }
 
 void GameState::update(const float& dt) {
+    this->updateMousePosition();
+    this->updateInput(dt);
+    this->updateKeyTime(dt);
+
     if(!this->paused) {
-        this->updateMousePosition();
-        this->updateInput(dt);
+        this->updateHeroInput(dt);
         this->hero->update(dt);
-        this->pmenu.update();
     }
     else{
-
+        this->pmenu->update(this->mousePosView);
+        this->updatePauseMenuButtons();
     }
 }
 
@@ -89,6 +95,14 @@ void GameState::initKeybinds() {
     */
 }
 
+void GameState::initFonts() {
+
+    if(!this->font.loadFromFile("../Fonts/DeterminationMonoWebRegular-Z5oq.ttf")){
+        throw("ERROR::MAINMENUSTATE::COULD NOT LOAD FONT");
+    }
+
+}
+
 void GameState::initTextures() {
 
     if (!this->textures["HERO_SHEET"].loadFromFile("../Resources/Images/Images/Sprites/Hero/Woodcutter_animations.png")){
@@ -103,6 +117,19 @@ void GameState::initHeros() {
     this->hero = new Hero(0, 0, this->textures["HERO_SHEET"]);
 
 }
+
+void GameState::initPausedMenu() {
+    this->pmenu = new PauseMenu(*this->window, this->font);
+
+    this->pmenu->addButton("QUIT", 450.f, "Quit");
+}
+
+void GameState::updatePauseMenuButtons() {
+    if(this->pmenu->isButtonPressed("QUIT"))
+        this->endState();
+}
+
+
 
 /* POINTZERO
 GameState::GameState(Hero* hero1) {
