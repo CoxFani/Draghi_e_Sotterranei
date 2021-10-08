@@ -6,7 +6,7 @@
 #include <map>
 
 GameState::GameState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states)
-    : State(window, supportedKeys, states)
+    : State(window, supportedKeys, states), pmenu(*window)
 {
     this->initKeybinds();
     this->initTextures();
@@ -24,7 +24,11 @@ void GameState::render(sf::RenderTarget* target) {
         target = this->window;
 
     this->hero->render(*target);
+
+    if(this->paused){
+        this->pmenu.render(*target);
     }
+}
 
 
 
@@ -39,14 +43,25 @@ void GameState::updateInput(const float &dt) {
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_DOWN"))))
         this->hero->move(0.f, 1.f, dt);
 
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE"))))
-        this->endState();
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE")))){
+        if(!this->paused)
+            this->pauseState();
+        //else
+            //this->unpauseState();
+
+    }
 }
 
 void GameState::update(const float& dt) {
-    this->updateMousePosition();
-    this->updateInput(dt);
-    this->hero->update(dt);
+    if(!this->paused) {
+        this->updateMousePosition();
+        this->updateInput(dt);
+        this->hero->update(dt);
+        this->pmenu.update();
+    }
+    else{
+
+    }
 }
 
 void GameState::initKeybinds() {

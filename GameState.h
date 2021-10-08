@@ -11,8 +11,7 @@
 #include <iomanip>
 
 #include "State.h"
-#include "GameCharacter.h"
-#include "Hero.h"
+#include "PauseMenu.h"
 
 using namespace std;
 
@@ -38,6 +37,8 @@ public:
     virtual void update();
     */
 private:
+    PauseMenu pmenu;
+
     Hero* hero;
 
     void initKeybinds();
