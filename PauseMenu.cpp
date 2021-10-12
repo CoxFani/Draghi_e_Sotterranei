@@ -61,7 +61,7 @@ void PauseMenu::render(sf::RenderTarget &target) {
 
 }
 
-std::map<std::string, Button *> &PauseMenu::getButtons() {
+std::map<std::string, gui::Button *> &PauseMenu::getButtons() {
     return this->buttons;
 }
 
@@ -70,7 +70,7 @@ void PauseMenu::addButton(const std::string key, float y, const std::string text
     float width = 200.f;
     float height = 75.f;
     float x = this->container.getPosition().x + this->container.getSize().x / 2.f - width / 2.f;
-    this->buttons[key] = new Button(
+    this->buttons[key] = new gui::Button(
             x, y, width, height,
          &this->font, text, 50,
  sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),

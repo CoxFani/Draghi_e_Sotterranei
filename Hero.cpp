@@ -52,9 +52,8 @@ void Hero::update(const float &dt) {
 }
 
 void Hero::updateAttack() {
-//TODO ATTENZIONE, QUESTO COMANDO FA CRASHARE NEW GAME
     if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
-        //    this->attacking = true;
+           this->attacking = true;
     }
 }
 
@@ -67,7 +66,7 @@ void Hero::updateAnimation(const float &dt) {
         else{
             this->sprite.setOrigin(0.f, 0.f);
         }*/
-        if(this->animationComponent->play("ATTACK", dt, true)){
+        if(this->animationComponent->play("ATTACK1", dt, true)){
             this->attacking = false;
 
         }

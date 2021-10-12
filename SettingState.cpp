@@ -21,6 +21,7 @@ SettingState::~SettingState() {
     {
         delete i->second;
     }
+    delete this->ddl;
 
 }
 
@@ -68,11 +69,14 @@ void SettingState::initKeybinds() {
 void SettingState::initButtons() {
 
 
-    this->buttons["EXIT_STATE"] = new Button(
+    this->buttons["EXIT_STATE"] = new gui::Button(
             100.f, 600.f, 200.f, 75.f,
             &this->font, "Quit", 50,
             sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
             sf::Color(100, 100, 100, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
+
+    std::string lis[] = {"a", "aaa", "aaaaaa", "aaaaaaaaaaaa", "aaaaaaaaaaaaaaaaaaaaaaaa"};
+    this->ddl = new gui::DropDownList(100, 100, 200, 50, font, lis,  5);
 }
 
 void SettingState::initBackground() {
@@ -101,6 +105,8 @@ void SettingState::update(const float& dt) {
     this->updateInput(dt);
 
     this->updateButtons();
+
+    this->ddl->update(this->mousePosView, dt);
 }
 
 void SettingState::updateInput(const float &dt) {
@@ -118,6 +124,7 @@ void SettingState::updateButtons() {
     if (this->buttons["EXIT_STATE"]->isPressed()){
         this->endState();
     }
+
 }
 
 void SettingState::render(sf::RenderTarget* target) {
@@ -127,6 +134,8 @@ void SettingState::render(sf::RenderTarget* target) {
     target->draw(this->background);
 
     this->renderButtons(*target);
+
+    this->ddl->render(*target);
 
     //DA COMMENTARE SUCCESSIVAMENTE: Aiuta a trovare le coordinate sullo schermo per posizionare cose
     /*

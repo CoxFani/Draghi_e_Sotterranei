@@ -4,7 +4,7 @@
 #include "GameState.h"
 #include "EditorState.h"
 #include "SettingState.h"
-#include "Button.h"
+#include "Gui.h"
 #ifndef DRAGHI_E_SOTTERRANEI_MAINMENUSTATE_H
 #define DRAGHI_E_SOTTERRANEI_MAINMENUSTATE_H
 
@@ -26,7 +26,7 @@ private:
     sf::RectangleShape background;
     sf::Font font;
 
-    std::map<std::string, Button*>buttons;
+    std::map<std::string, gui::Button*>buttons;
 
     void initVariables();
     void initBackground();
