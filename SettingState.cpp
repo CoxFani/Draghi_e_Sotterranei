@@ -12,7 +12,8 @@ SettingState::SettingState(sf::RenderWindow* window, std::map<std::string, int>*
     this->initBackground();
     this->iniFonts();
     this->initKeybinds();
-    this->initButtons();
+    this->initGui();
+    this->initText();
 }
 
 SettingState::~SettingState() {
@@ -21,8 +22,12 @@ SettingState::~SettingState() {
     {
         delete i->second;
     }
-    delete this->ddl;
 
+    auto count = this->dropdownList.begin();
+    for (count = this->dropdownList.begin(); count != this->dropdownList.end(); ++count)
+    {
+        delete count->second;
+    }
 }
 
 void SettingState::iniFonts() {
@@ -66,17 +71,27 @@ void SettingState::initKeybinds() {
     this->keybinds["MOVE_DOWN"] = this->supportedKeys->at("S"); */
 }
 
-void SettingState::initButtons() {
+void SettingState::initGui() {
 
 
-    this->buttons["EXIT_STATE"] = new gui::Button(
-            100.f, 600.f, 200.f, 75.f,
-            &this->font, "Quit", 50,
+    this->buttons["BACK"] = new gui::Button(
+            1100.f, 600.f, 200.f, 75.f,
+            &this->font, "Back", 50,
             sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
             sf::Color(100, 100, 100, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 
-    std::string lis[] = {"a", "aaa", "aaaaaa", "aaaaaaaaaaaa", "aaaaaaaaaaaaaaaaaaaaaaaa"};
-    this->ddl = new gui::DropDownList(100, 100, 200, 50, font, lis,  5);
+    this->buttons["APPLY"] = new gui::Button(
+            900.f, 600.f, 200.f, 75.f,
+            &this->font, "Apply", 50,
+            sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
+            sf::Color(100, 100, 100, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
+
+    std::vector<std::string> modes_str;
+    for (auto &i : this->modes){
+        modes_str.push_back(std::to_string(i.width) + 'x' + std::to_string(i.height));
+    }
+
+    this->dropdownList["RESOLUTION"] = new gui::DropDownList(400, 300, 200, 50, font, modes_str.data(), modes_str.size());
 }
 
 void SettingState::initBackground() {
@@ -97,23 +112,21 @@ void SettingState::initBackground() {
 }
 
 void SettingState::initVariables() {
-
+    this->modes = sf::VideoMode::getFullscreenModes();
 }
 
 void SettingState::update(const float& dt) {
     this->updateMousePosition();
     this->updateInput(dt);
 
-    this->updateButtons();
-
-    this->ddl->update(this->mousePosView, dt);
+    this->updateGui(dt);
 }
 
 void SettingState::updateInput(const float &dt) {
 
 }
 
-void SettingState::updateButtons() {
+void SettingState::updateGui(const float &dt) {
 
     for (auto &i : this->buttons)
     {
@@ -121,10 +134,19 @@ void SettingState::updateButtons() {
     }
 
 
-    if (this->buttons["EXIT_STATE"]->isPressed()){
+    if (this->buttons["BACK"]->isPressed()){
         this->endState();
     }
 
+    if (this->buttons["APPLY"]->isPressed()){
+        //TEST da rimuovere
+        this->window->create(this->modes[this->dropdownList["RESOLUTION"]->getActiveElementId()], "test", sf::Style::Default);
+    }
+
+    for (auto &i : this->dropdownList)
+    {
+        i.second->update(this->mousePosView, dt);
+    }
 }
 
 void SettingState::render(sf::RenderTarget* target) {
@@ -133,12 +155,10 @@ void SettingState::render(sf::RenderTarget* target) {
 
     target->draw(this->background);
 
-    this->renderButtons(*target);
+    this->renderGui(*target);
 
-    this->ddl->render(*target);
+    target->draw(this->optionsText);
 
-    //DA COMMENTARE SUCCESSIVAMENTE: Aiuta a trovare le coordinate sullo schermo per posizionare cose
-    /*
     sf::Text mouseText;
     mouseText.setPosition(this->mousePosView.x, this->mousePosView.y - 50);
     mouseText.setFont(this->font);
@@ -146,18 +166,28 @@ void SettingState::render(sf::RenderTarget* target) {
     std::stringstream  ss;
     ss << this->mousePosView.x << " " << this->mousePosView.y;
     mouseText.setString(ss.str());
-
     target-> draw(mouseText);
-     */
-    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 }
 
-void SettingState::renderButtons(sf::RenderTarget& target) {
+void SettingState::renderGui(sf::RenderTarget& target) {
 
     for (auto &i : this->buttons)
     {
         i.second->render(target);
     }
+
+    for (auto &i : this->dropdownList)
+    {
+        i.second->render(target);
+    }
+}
+
+void SettingState::initText() {
+    this->optionsText.setFont(this->font);
+    this->optionsText.setPosition(sf::Vector2f(100.f, 300.f));
+    this->optionsText.setCharacterSize(30);
+    this->optionsText.setFillColor(sf::Color(255, 255, 255, 200));
+    this->optionsText.setString("Resolution \n\n\nFullscreen \n\n\nVsync \n\n\nAntialising \n\n\n ");
 }
 
 
