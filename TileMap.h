@@ -7,19 +7,19 @@
 #ifndef DRAGHI_E_SOTTERRANEI_TILEMAP_H
 #define DRAGHI_E_SOTTERRANEI_TILEMAP_H
 
-/* POINTZERO
+#include "Tile.h"
+
 class TileMap {
 public:
-    bool isFree;
-    bool isExit;
-    sf::Vector2f pos;
-    sf::Texture texture;
-    sf::Sprite sprite;
 
-    TileMap(std::string, float, float, bool, bool);
-    bool setUpSprite(std::string);
+    TileMap();
+    virtual ~TileMap();
 
+private:
+    unsigned gridSizeU;
+    sf::Vector2u maxSize;
+    unsigned layers;
+    std::vector< std::vector< std::vector<Tile> > > map;
 };
-*/
 
 #endif //DRAGHI_E_SOTTERRANEI_TILEMAP_H
