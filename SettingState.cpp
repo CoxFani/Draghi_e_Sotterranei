@@ -5,8 +5,8 @@
 #include "SettingState.h"
 
 
-SettingState::SettingState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states)
-: State(window, supportedKeys, states){
+SettingState::SettingState(sf::RenderWindow* window, GraphicsSettings& gfxSettings, std::map<std::string, int>* supportedKeys, std::stack<State*>* states)
+: State(window, supportedKeys, states), gfxSettings(gfxSettings){
 
     this->initVariables();
     this->initBackground();
@@ -140,7 +140,9 @@ void SettingState::updateGui(const float &dt) {
 
     if (this->buttons["APPLY"]->isPressed()){
         //TEST da rimuovere
-        this->window->create(this->modes[this->dropdownList["RESOLUTION"]->getActiveElementId()], "test", sf::Style::Default);
+        this->gfxSettings.resolution = this->modes[this->dropdownList["RESOLUTION"]->getActiveElementId()];
+
+        this->window->create(this->gfxSettings.resolution, this->gfxSettings.title, sf::Style::Default);
     }
 
     for (auto &i : this->dropdownList)

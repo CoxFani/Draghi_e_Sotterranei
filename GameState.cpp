@@ -12,7 +12,7 @@ GameState::GameState(sf::RenderWindow* window, std::map<std::string, int>* suppo
     this->initFonts();
     this->initTextures();
     this->initPausedMenu();
-    this->initHeros();
+    this->initHeroes();
 }
 
 GameState::~GameState() {
@@ -23,6 +23,8 @@ GameState::~GameState() {
 void GameState::render(sf::RenderTarget* target) {
     if (!target)
         target = this->window;
+
+   // this->map.render(*target);
 
     this->hero->render(*target);
 
@@ -112,7 +114,7 @@ void GameState::initTextures() {
 
 }
 
-void GameState::initHeros() {
+void GameState::initHeroes() {
 
     this->hero = new Hero(0, 0, this->textures["HERO_SHEET"]);
 

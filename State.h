@@ -5,7 +5,7 @@
 #ifndef DRAGHI_E_SOTTERRANEI_STATE_H
 #define DRAGHI_E_SOTTERRANEI_STATE_H
 
-//#include "GameCharacter.h"
+#include "GraphicsSettings.h"
 #include "Hero.h"
 
 class State {

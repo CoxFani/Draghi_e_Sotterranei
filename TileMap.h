@@ -15,7 +15,11 @@ public:
     TileMap();
     virtual ~TileMap();
 
+    void update();
+    void render(sf::RenderTarget& target);
+
 private:
+    float gridSizeF;
     unsigned gridSizeU;
     sf::Vector2u maxSize;
     unsigned layers;

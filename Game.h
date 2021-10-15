@@ -16,6 +16,7 @@ using namespace std;
 
 class Game {
 public:
+
     Game();
     virtual ~Game();
 
@@ -30,11 +31,10 @@ public:
 
 private:
 
+    GraphicsSettings gfxSettings;
     sf::RenderWindow *window;
     sf::Event sfEvent;
-    std::vector<sf::VideoMode> videoModes;
-    sf::ContextSettings windowSettings;
-    bool fullscreen;
+
 
     sf::Clock dtClock;
     float dt;
@@ -44,6 +44,7 @@ private:
     map<std::string, int> supportedKeys;
 
     void initVariables();
+    void initGraphicsSettings();
     void initWindow();
     void initKeys();
     void initStates();

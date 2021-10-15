@@ -12,6 +12,7 @@
 
 #include "State.h"
 #include "PauseMenu.h"
+#include "TileMap.h"
 
 using namespace std;
 
@@ -43,16 +44,15 @@ private:
     PauseMenu* pmenu;
 
     Hero* hero;
+    sf::Texture texture;
+
+    TileMap map;
 
     void initKeybinds();
     void initFonts();
     void initTextures();
     void initPausedMenu();
-    void initHeros();
-
-         /* POINTZERO
-    Hero* hero;
-*/
+    void initHeroes();
 
 };
 
