@@ -8,10 +8,28 @@
 #include "GraphicsSettings.h"
 #include "Hero.h"
 
+class GraphicsSettings;
+class Hero;
+class State;
+
+class StateData{
+public:
+    StateData(){
+
+    }
+
+    float gridSize;
+    sf::RenderWindow* window;
+    GraphicsSettings* gfxSettings;
+    std::map<std::string, int>* supportedKeys;
+    std::stack<State*>* states;
+
+};
+
 class State {
 
 public:
-    State(sf::RenderWindow* window,  std::map<std::string, int>* supportedKeys,     std::stack<State*>* states);
+    State(StateData* state_data);
     virtual ~State();
 
     const bool& getQuit() const;
@@ -36,6 +54,7 @@ public:
             virtual void update() = 0;
         */
 protected:
+    StateData* stateData;
     std::stack<State*>* states;
     sf::RenderWindow* window;
     std::map<std::string, int>* supportedKeys;
@@ -44,6 +63,7 @@ protected:
     bool paused;
     float keyTime;
     float keyTimeMax;
+    float gridSize;
 
     sf::Vector2i mousePosScreen;
     sf::Vector2i mousePosWindow;

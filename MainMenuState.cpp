@@ -6,8 +6,8 @@
 #include <unistd.h>
 #include "MainMenuState.h"
 
-MainMenuState::MainMenuState(sf::RenderWindow* window, GraphicsSettings& gfxSettings, std::map<std::string, int>* supportedKeys, std::stack<State*>* states)
-        : State(window, supportedKeys, states), gfxSettings(gfxSettings)
+MainMenuState::MainMenuState(StateData* state_data)
+        : State(state_data)
 {
     this->initVariables();
     this->initBackground();
@@ -137,15 +137,15 @@ void MainMenuState::updateButtons() {
     }
 
     if (this->buttons["GAME_STATE"]->isPressed()){
-        this->states->push(new GameState(this->window, this->supportedKeys, this->states));
+        this->states->push(new GameState(this->stateData));
     }
 
     if (this->buttons["SETTINGS_STATE"]->isPressed()){
-        this->states->push(new SettingState(this->window, this->gfxSettings, this->supportedKeys, this->states));
+        this->states->push(new SettingState(this->stateData));
     }
 
     if (this->buttons["EDITOR_STATE"]->isPressed()){
-        this->states->push(new EditorState(this->window, this->supportedKeys, this->states));
+        this->states->push(new EditorState(this->stateData));
     }
 
     if (this->buttons["EXIT_STATE"]->isPressed()){

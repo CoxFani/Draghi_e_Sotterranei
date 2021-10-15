@@ -5,8 +5,8 @@
 #include "SettingState.h"
 
 
-SettingState::SettingState(sf::RenderWindow* window, GraphicsSettings& gfxSettings, std::map<std::string, int>* supportedKeys, std::stack<State*>* states)
-: State(window, supportedKeys, states), gfxSettings(gfxSettings){
+SettingState::SettingState(StateData* state_data)
+: State(state_data){
 
     this->initVariables();
     this->initBackground();
@@ -140,9 +140,9 @@ void SettingState::updateGui(const float &dt) {
 
     if (this->buttons["APPLY"]->isPressed()){
         //TEST da rimuovere
-        this->gfxSettings.resolution = this->modes[this->dropdownList["RESOLUTION"]->getActiveElementId()];
+        this->stateData->gfxSettings->resolution = this->modes[this->dropdownList["RESOLUTION"]->getActiveElementId()];
 
-        this->window->create(this->gfxSettings.resolution, this->gfxSettings.title, sf::Style::Default);
+        this->window->create(this->stateData->gfxSettings->resolution, this->stateData->gfxSettings->title, sf::Style::Default);
     }
 
     for (auto &i : this->dropdownList)
@@ -161,6 +161,7 @@ void SettingState::render(sf::RenderTarget* target) {
 
     target->draw(this->optionsText);
 
+    //TODO commentare le seguenti linee per togliere le coordinate del mouse
     sf::Text mouseText;
     mouseText.setPosition(this->mousePosView.x, this->mousePosView.y - 50);
     mouseText.setFont(this->font);
@@ -169,6 +170,7 @@ void SettingState::render(sf::RenderTarget* target) {
     ss << this->mousePosView.x << " " << this->mousePosView.y;
     mouseText.setString(ss.str());
     target-> draw(mouseText);
+    //***************************************************************************************
 }
 
 void SettingState::renderGui(sf::RenderTarget& target) {

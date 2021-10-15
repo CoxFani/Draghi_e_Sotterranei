@@ -12,6 +12,11 @@
 #include "Hero.h"
 #include "MainMenuState.h"
 
+class State;
+class GameCharacter;
+class Hero;
+class MainMenuState;
+
 using namespace std;
 
 class Game {
@@ -32,6 +37,7 @@ public:
 private:
 
     GraphicsSettings gfxSettings;
+    StateData stateData;
     sf::RenderWindow *window;
     sf::Event sfEvent;
 
@@ -43,8 +49,11 @@ private:
     stack<State*> states;
     map<std::string, int> supportedKeys;
 
+    float gridSize;
+
     void initVariables();
     void initGraphicsSettings();
+    void initStateData();
     void initWindow();
     void initKeys();
     void initStates();

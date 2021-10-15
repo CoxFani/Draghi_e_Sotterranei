@@ -4,13 +4,14 @@
 
 #include "EditorState.h"
 
-EditorState::EditorState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states)
-        : State(window, supportedKeys, states)
+EditorState::EditorState(StateData* state_data)
+        : State(state_data)
 {
     this->initVariables();
-    this->initBacground();
+    this->initBackground();
     this->iniFonts();
     this->initKeybinds();
+    this->initPausedMenu();
     this->initButtons();
 
 }
@@ -22,6 +23,8 @@ EditorState::~EditorState() {
         delete i->second;
     }
 
+    delete this->pmenu;
+
 }
 
 void EditorState::render(sf::RenderTarget* target) {
@@ -29,6 +32,13 @@ void EditorState::render(sf::RenderTarget* target) {
         target = this->window;
 
     this->renderButtons(*target);
+
+    this->map.render(*target);
+
+    if(this->paused){
+        this->pmenu->render(*target);
+    }
+
 
     //DA COMMENTARE SUCCESSIVAMENTE: Aiuta a trovare le coordinate sullo schermo per posizionare cose
     /*
@@ -47,16 +57,28 @@ void EditorState::render(sf::RenderTarget* target) {
 
 
 void EditorState::updateInput(const float &dt) {
-    if(sf::Keyboard::isKeyPressed((sf::Keyboard::Key(this->keybinds.at("CLOSE")))))
-        this->endState();
 
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE"))) && this->getKeyTime()){
+        if(!this->paused)
+            this->pauseState();
+        else
+            this->unpauseState();
+    }
 }
 
 void EditorState::update(const float& dt) {
     this->updateMousePosition();
+    this->updateKeyTime(dt);
     this->updateInput(dt);
 
-    this->updateButtons();
+    if( !this->paused){
+        this->updateButtons();
+
+    }
+    else{
+        this->pmenu->update(this->mousePosView);
+        this->updatePauseMenuButtons();
+    }
 }
 
 void EditorState::iniFonts() {
@@ -120,10 +142,21 @@ void EditorState::renderButtons(sf::RenderTarget& target) {
     }
 }
 
-void EditorState::initBacground() {
+void EditorState::initBackground() {
 
 }
 
 void EditorState::initVariables() {
 
+}
+
+void EditorState::initPausedMenu() {
+    this->pmenu = new PauseMenu(*this->window, this->font);
+
+    this->pmenu->addButton("QUIT", 450.f, "Quit");
+}
+
+void EditorState::updatePauseMenuButtons() {
+    if( this->pmenu->isButtonPressed("QUIT"))
+        this->endState();
 }

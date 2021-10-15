@@ -11,7 +11,7 @@
 class SettingState :
         public State {
 public:
-    SettingState(sf::RenderWindow* window, GraphicsSettings& gfxSettings, std::map<std::string, int>* supportedKeys, std::stack<State*>* states);
+    SettingState(StateData* state_data);
     virtual ~SettingState();
 
     void updateInput(const float& dt);
@@ -21,7 +21,6 @@ public:
     void render(sf::RenderTarget* target = nullptr);
 
 private:
-    GraphicsSettings& gfxSettings;
     sf::Texture backgroundTexture;
     sf::RectangleShape background;
     sf::Font font;
