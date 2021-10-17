@@ -12,12 +12,15 @@ GameState::GameState(StateData* state_data)
     this->initFonts();
     this->initTextures();
     this->initPausedMenu();
+
     this->initHeroes();
+    this->initTileMap();
 }
 
 GameState::~GameState() {
     delete this->pmenu;
     delete this->hero;
+    delete this->tileMap;
 }
 
 void GameState::render(sf::RenderTarget* target) {
@@ -129,6 +132,11 @@ void GameState::initPausedMenu() {
 void GameState::updatePauseMenuButtons() {
     if(this->pmenu->isButtonPressed("QUIT"))
         this->endState();
+}
+
+void GameState::initTileMap() {
+
+    this->tileMap = new TileMap(this->stateData->gridSize, 10, 10);
 }
 
 

@@ -24,9 +24,11 @@ public:
 
     void updateInput(const float& dt);
     void updateButtons();
+    void updateGui();
     void updatePauseMenuButtons();
     void update(const float& dt);
     void renderButtons(sf::RenderTarget& target);
+    void renderGui(sf::RenderTarget& target);
     void render(sf::RenderTarget* target = nullptr);
 
 private:
@@ -35,7 +37,9 @@ private:
 
     std::map<std::string, gui::Button*>buttons;
 
-    TileMap map;
+    TileMap* tileMap;
+
+    sf::RectangleShape selectorRect;
 
     void initVariables();
     void initBackground();
@@ -43,7 +47,8 @@ private:
     void initButtons();
     void initKeybinds();
     void initPausedMenu();
-
+    void initGui();
+    void initTileMap();
 
 };
 

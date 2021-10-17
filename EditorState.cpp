@@ -13,6 +13,8 @@ EditorState::EditorState(StateData* state_data)
     this->initKeybinds();
     this->initPausedMenu();
     this->initButtons();
+    this->initGui();
+    this->initTileMap();
 
 }
 
@@ -25,6 +27,8 @@ EditorState::~EditorState() {
 
     delete this->pmenu;
 
+    delete this->tileMap;
+
 }
 
 void EditorState::render(sf::RenderTarget* target) {
@@ -32,8 +36,9 @@ void EditorState::render(sf::RenderTarget* target) {
         target = this->window;
 
     this->renderButtons(*target);
+    this->renderGui(*target);
 
-    this->map.render(*target);
+    this->tileMap->render(*target);
 
     if(this->paused){
         this->pmenu->render(*target);
@@ -73,6 +78,8 @@ void EditorState::update(const float& dt) {
 
     if( !this->paused){
         this->updateButtons();
+        this->updateGui();
+
 
     }
     else{
@@ -159,4 +166,30 @@ void EditorState::initPausedMenu() {
 void EditorState::updatePauseMenuButtons() {
     if( this->pmenu->isButtonPressed("QUIT"))
         this->endState();
+}
+
+
+void EditorState::initTileMap() {
+
+    this->tileMap = new TileMap(this->stateData->gridSize, 10, 10);
+}
+
+void EditorState::initGui() {
+
+    this->selectorRect.setSize(sf::Vector2f(this->stateData->gridSize, this->stateData->gridSize));
+
+    this->selectorRect.setFillColor(sf::Color::Transparent);
+    this->selectorRect.setOutlineThickness(1.f);
+    this->selectorRect.setOutlineColor(sf::Color::Green);
+}
+
+void EditorState::updateGui() {
+
+    this->selectorRect.setPosition(this->mousePosView);
+
+}
+
+void EditorState::renderGui(sf::RenderTarget &target) {
+
+    target.draw(this->selectorRect);
 }

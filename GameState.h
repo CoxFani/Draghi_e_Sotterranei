@@ -50,13 +50,14 @@ private:
     Hero* hero;
     sf::Texture texture;
 
-    TileMap map;
+    TileMap* tileMap;
 
     void initKeybinds();
     void initFonts();
     void initTextures();
     void initPausedMenu();
     void initHeroes();
+    void initTileMap();
 
 };
 
