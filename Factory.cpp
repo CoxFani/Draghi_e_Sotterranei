@@ -2,8 +2,9 @@
 // Created by gabriele on 23/03/21.
 //
 
+#include "precompile.h"
 #include "Factory.h"
-#include "memory"
+
 /* POINTZERO
 using namespace std;
 

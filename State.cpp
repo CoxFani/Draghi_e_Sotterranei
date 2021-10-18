@@ -2,6 +2,7 @@
 // Created by alpacox on 26/03/21.
 //
 
+#include "precompile.h"
 #include "State.h"
 
 State::State(StateData* state_data) {

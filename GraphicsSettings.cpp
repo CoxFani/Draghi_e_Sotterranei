@@ -2,6 +2,7 @@
 // Created by alpacox on 15/10/21.
 //
 
+#include "precompile.h"
 #include "GraphicsSettings.h"
 
 GraphicsSettings::GraphicsSettings() {

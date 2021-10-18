@@ -5,10 +5,6 @@
 #ifndef DRAGHI_E_SOTTERRANEI_HITBOXCOMPONENT_H
 #define DRAGHI_E_SOTTERRANEI_HITBOXCOMPONENT_H
 
-#include <iostream>
-#include <ctime>
-#include <cstdlib>
-
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>

@@ -2,6 +2,7 @@
 // Created by alpacox on 12/03/21.
 //
 
+#include "precompile.h"
 #include "RangedWeapon.h"
 /* POINTZERO
 RangedWeapon::RangedWeapon(int s, int ar, bool m, bool h) : Weapon(s, m, h), ammos(ar){

@@ -2,6 +2,7 @@
 // Created by alpacox on 07/10/21.
 //
 
+#include "precompile.h"
 #include "Tile.h"
 
 Tile::Tile() {

@@ -2,8 +2,8 @@
 // Created by alpacox on 30/03/21.
 //
 
+#include "precompile.h"
 #include "Game.h"
-
 
 Game::Game() {
 

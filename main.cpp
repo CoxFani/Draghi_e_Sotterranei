@@ -1,5 +1,4 @@
-#include <iostream>
-#include <SFML/Graphics.hpp>
+#include "precompile.h"
 
 #include "Game.h"
 #include "Dice.h"

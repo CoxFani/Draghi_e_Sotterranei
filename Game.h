@@ -5,8 +5,6 @@
 #ifndef DRAGHI_E_SOTTERRANEI_GAME_H
 #define DRAGHI_E_SOTTERRANEI_GAME_H
 
-#include <vector>
-#include <stack>
 #include "State.h"
 #include "GameCharacter.h"
 #include "Hero.h"

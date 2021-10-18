@@ -2,6 +2,7 @@
 // Created by alpacox on 08/10/21.
 //
 
+#include "precompile.h"
 #include "SettingState.h"
 
 

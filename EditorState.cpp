@@ -2,6 +2,7 @@
 // Created by alpacox on 05/10/21.
 //
 
+#include "precompile.h"
 #include "EditorState.h"
 
 EditorState::EditorState(StateData* state_data)

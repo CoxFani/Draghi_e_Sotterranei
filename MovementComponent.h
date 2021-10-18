@@ -5,14 +5,6 @@
 #ifndef DRAGHI_E_SOTTERRANEI_MOVEMENTCOMPONENT_H
 #define DRAGHI_E_SOTTERRANEI_MOVEMENTCOMPONENT_H
 
-#include <iostream>
-#include <ctime>
-#include <cstdlib>
-#include <fstream>
-#include <sstream>
-#include <stack>
-#include <map>
-#include <vector>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>

@@ -1,13 +1,14 @@
 //
 // Created by alpacox on 27/09/21.
 //
+
+#ifndef DRAGHI_E_SOTTERRANEI_MAINMENUSTATE_H
+#define DRAGHI_E_SOTTERRANEI_MAINMENUSTATE_H
+
 #include "GameState.h"
 #include "EditorState.h"
 #include "SettingState.h"
 #include "Gui.h"
-#ifndef DRAGHI_E_SOTTERRANEI_MAINMENUSTATE_H
-#define DRAGHI_E_SOTTERRANEI_MAINMENUSTATE_H
-
 
 class MainMenuState : public State {
 

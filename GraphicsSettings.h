@@ -5,14 +5,6 @@
 #ifndef DRAGHI_E_SOTTERRANEI_GRAPHICSSETTINGS_H
 #define DRAGHI_E_SOTTERRANEI_GRAPHICSSETTINGS_H
 
-#include <iostream>
-#include <ctime>
-#include <cstdlib>
-#include <sstream>
-#include <vector>
-#include <fstream>
-
-
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>

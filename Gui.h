@@ -5,13 +5,6 @@
 #ifndef DRAGHI_E_SOTTERRANEI_GUI_H
 #define DRAGHI_E_SOTTERRANEI_GUI_H
 
-#include <iostream>
-#include <ctime>
-#include <cstdlib>
-#include <sstream>
-#include <vector>
-
-
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>

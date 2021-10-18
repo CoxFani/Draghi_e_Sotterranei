@@ -2,10 +2,9 @@
 // Created by alpacox on 05/03/21.
 //
 
+#include "precompile.h"
 #include "Dice.h"
 
-#include <ctime>
-#include <cstdlib>
 /* POINTZERO
 Dice::Dice(int f): faces(f){
     srand(time(0));

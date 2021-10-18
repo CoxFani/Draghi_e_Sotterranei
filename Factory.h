@@ -6,7 +6,6 @@
 #define DRAGHI_E_SOTTERRANEI_FACTORY_H
 
 #include "GameCharacter.h"
-#include "memory"
 
 using namespace std;
 

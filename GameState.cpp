@@ -2,8 +2,8 @@
 // Created by alpacox on 26/03/21.
 //
 
+#include "precompile.h"
 #include "GameState.h"
-#include <map>
 
 GameState::GameState(StateData* state_data)
     : State(state_data)

@@ -2,6 +2,7 @@
 // Created by gabriele on 02/10/21.
 //
 
+#include "precompile.h"
 #include "AnimationComponent.h"
 
 AnimationComponent::AnimationComponent(sf::Sprite& sprite, sf::Texture& texture_sheet)

@@ -1,12 +1,13 @@
 //
 // Created by alpacox on 25/03/21.
 //
-#include <SFML/Graphics.hpp>
-#include "TileMap.h"
-#include <vector>
 
 #ifndef DRAGHI_E_SOTTERRANEI_MAP_H
 #define DRAGHI_E_SOTTERRANEI_MAP_H
+
+#include "TileMap.h"
+
+#include <SFML/Graphics.hpp>
 
 /* POINTZERO
 class Map {

@@ -5,15 +5,6 @@
 #ifndef DRAGHI_E_SOTTERRANEI_PAUSEMENU_H
 #define DRAGHI_E_SOTTERRANEI_PAUSEMENU_H
 
-#include <iostream>
-#include <ctime>
-#include <cstdlib>
-#include <fstream>
-#include <sstream>
-#include <stack>
-#include <map>
-#include <vector>
-
 #include "Gui.h"
 
 #include <SFML/Graphics.hpp>
