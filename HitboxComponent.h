@@ -5,11 +5,6 @@
 #ifndef DRAGHI_E_SOTTERRANEI_HITBOXCOMPONENT_H
 #define DRAGHI_E_SOTTERRANEI_HITBOXCOMPONENT_H
 
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/System.hpp>
-#include <SFML/Audio.hpp>
-#include <SFML/Network.hpp>
 
 class HitboxComponent {
 public:

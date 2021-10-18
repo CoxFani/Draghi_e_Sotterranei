@@ -5,11 +5,6 @@
 #ifndef DRAGHI_E_SOTTERRANEI_MOVEMENTCOMPONENT_H
 #define DRAGHI_E_SOTTERRANEI_MOVEMENTCOMPONENT_H
 
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/System.hpp>
-#include <SFML/Audio.hpp>
-#include <SFML/Network.hpp>
 
 enum movement_states{ IDLE = 0, MOVING,  MOVING_RIGHT, MOVING_LEFT, MOVING_UP, MOVING_DOWN };
 

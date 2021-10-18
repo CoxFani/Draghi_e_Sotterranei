@@ -12,6 +12,7 @@
 #include <ctime>
 #include <deque>
 #include <fstream>
+#include <iomanip>
 #include <iostream>
 #include <list>
 #include <map>
@@ -24,6 +25,12 @@
 #include <stack>
 #include <string>
 #include <sstream>
+
+#include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/System.hpp>
+#include <SFML/Audio.hpp>
+#include <SFML/Network.hpp>
 
 
 #endif //DRAGHI_E_SOTTERRANEI_PRECOMPILE_H

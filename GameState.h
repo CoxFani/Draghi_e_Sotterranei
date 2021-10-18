@@ -5,11 +5,6 @@
 #ifndef DRAGHI_E_SOTTERRANEI_GAMESTATE_H
 #define DRAGHI_E_SOTTERRANEI_GAMESTATE_H
 
-#include <vector>
-#include <iostream>
-#include <fstream>
-#include <iomanip>
-
 #include "State.h"
 #include "PauseMenu.h"
 #include "TileMap.h"

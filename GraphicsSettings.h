@@ -5,9 +5,6 @@
 #ifndef DRAGHI_E_SOTTERRANEI_GRAPHICSSETTINGS_H
 #define DRAGHI_E_SOTTERRANEI_GRAPHICSSETTINGS_H
 
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/System.hpp>
 
 class GraphicsSettings{
 public:

@@ -7,7 +7,6 @@
 
 #include "Tile.h"
 
-#include <SFML/Graphics.hpp>
 
 class Tile;
 

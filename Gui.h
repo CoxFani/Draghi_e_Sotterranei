@@ -5,10 +5,6 @@
 #ifndef DRAGHI_E_SOTTERRANEI_GUI_H
 #define DRAGHI_E_SOTTERRANEI_GUI_H
 
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/System.hpp>
-#include <SFML/Audio.hpp>
 
 enum button_states{BTN_IDLE = 0, BTN_HOVER, BTN_ACTIVE};
 

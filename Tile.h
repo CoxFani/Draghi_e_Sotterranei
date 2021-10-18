@@ -5,9 +5,6 @@
 #ifndef DRAGHI_E_SOTTERRANEI_TILE_H
 #define DRAGHI_E_SOTTERRANEI_TILE_H
 
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/System.hpp>
 
 class Tile {
 public:

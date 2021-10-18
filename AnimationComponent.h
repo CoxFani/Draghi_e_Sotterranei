@@ -5,12 +5,6 @@
 #ifndef DRAGHI_E_SOTTERRANEI_ANIMATIONCOMPONENT_H
 #define DRAGHI_E_SOTTERRANEI_ANIMATIONCOMPONENT_H
 
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/System.hpp>
-#include <SFML/Audio.hpp>
-#include <SFML/Network.hpp>
-
 class AnimationComponent {
 
 public:

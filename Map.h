@@ -7,7 +7,6 @@
 
 #include "TileMap.h"
 
-#include <SFML/Graphics.hpp>
 
 /* POINTZERO
 class Map {
