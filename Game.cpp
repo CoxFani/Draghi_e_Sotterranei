@@ -14,13 +14,6 @@ Game::Game() {
     this->initStateData();
     this->initStates();
 
-/* POINTZERO
-    quit = false;
-
-    this -> hero = new Hero("Beppe", 50, 16,16,10,12);
-
-    this -> states.push(new GameState(this-> hero));
-*/
 }
 
 Game::~Game() {
@@ -32,20 +25,7 @@ Game::~Game() {
         delete this->states.top();
         this->states.pop();
     }
-/* POINTZERO
-    delete this -> hero;
 
-    while ( !this -> states.empty()){
-
-        delete this -> states.top();
-        this -> states.pop();
-    }
-}
-
-const bool& Game::getQuit() const{
-
-    return this -> quit;
-*/
 }
 
 void Game::initWindow() {
@@ -172,7 +152,7 @@ void Game::initVariables() {
 
     this->dt = 0.f;
 
-    this->gridSize = 50.f;
+    this->gridSize = 100.f;
 
 }
 

@@ -19,15 +19,16 @@ public:
     void update();
     void render(sf::RenderTarget& target);
 
-    void addTile();
-    void removeTile();
+    void addTile(const unsigned x, const unsigned y, const unsigned z);
+    void removeTile(const unsigned x, const unsigned y, const unsigned z);
 
 private:
     float gridSizeF;
     unsigned gridSizeU;
     sf::Vector2u maxSize;
     unsigned layers;
-    std::vector< std::vector< std::vector<Tile> > > map;
+    std::vector< std::vector< std::vector<Tile*> > > map;
+    sf::Texture tileTextureSheet;
 };
 
 #endif //DRAGHI_E_SOTTERRANEI_TILEMAP_H
