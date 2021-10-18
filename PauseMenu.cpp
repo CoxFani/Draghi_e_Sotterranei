@@ -2,7 +2,7 @@
 // Created by alpacox on 08/10/21.
 //
 
-#include "precompile.h"
+#include "precompiler.h"
 #include "PauseMenu.h"
 
 PauseMenu::PauseMenu(sf::RenderWindow& window, sf::Font& font)

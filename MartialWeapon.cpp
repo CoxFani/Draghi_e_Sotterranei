@@ -2,7 +2,7 @@
 // Created by alpacox on 12/03/21.
 //
 
-#include "precompile.h"
+#include "precompiler.h"
 #include "MartialWeapon.h"
 /* POINTZERO
 MartialWeapon::MartialWeapon(int s, bool m, bool h): Weapon(s, m, h){

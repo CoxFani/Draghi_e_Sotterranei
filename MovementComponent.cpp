@@ -2,7 +2,7 @@
 // Created by alpacox on 01/10/21.
 //
 
-#include "precompile.h"
+#include "precompiler.h"
 #include "MovementComponent.h"
 
 MovementComponent::MovementComponent(sf::Sprite& sprite, float maxVelocity, float acceleration, float deceleration)

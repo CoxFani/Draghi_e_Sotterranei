@@ -2,7 +2,7 @@
 // Created by alpacox on 05/10/21.
 //
 
-#include "precompile.h"
+#include "precompiler.h"
 #include "HitboxComponent.h"
 
 HitboxComponent::HitboxComponent(sf::Sprite& sprite,

@@ -2,7 +2,7 @@
 // Created by alpacox on 15/03/21.
 //
 
-#include "precompile.h"
+#include "precompiler.h"
 #include "MagicalWeapon.h"
 /* POINTZERO
 MagicalWeapon::MagicalWeapon(int s, int mf, bool m, bool h) : MartialWeapon(s, m, h), RangedWeapon(s, m, mf){

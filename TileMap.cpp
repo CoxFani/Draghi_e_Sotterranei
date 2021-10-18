@@ -2,7 +2,7 @@
 // Created by alpacox on 25/03/21.
 //
 
-#include "precompile.h"
+#include "precompiler.h"
 #include "TileMap.h"
 
 TileMap::TileMap(float gridSize, unsigned  width, unsigned  height) {

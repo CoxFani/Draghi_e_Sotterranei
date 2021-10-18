@@ -2,7 +2,7 @@
 // Created by alpacox on 26/03/21.
 //
 
-#include "precompile.h"
+#include "precompiler.h"
 #include "GameState.h"
 
 GameState::GameState(StateData* state_data)

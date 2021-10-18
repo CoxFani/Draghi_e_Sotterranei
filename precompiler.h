@@ -2,8 +2,8 @@
 // Created by gabriele on 18/10/21.
 //
 
-#ifndef DRAGHI_E_SOTTERRANEI_PRECOMPILE_H
-#define DRAGHI_E_SOTTERRANEI_PRECOMPILE_H
+#ifndef DRAGHI_E_SOTTERRANEI_PRECOMPILER_H
+#define DRAGHI_E_SOTTERRANEI_PRECOMPILER_H
 
 
 #include <algorithm>
@@ -33,4 +33,4 @@
 #include <SFML/Network.hpp>
 
 
-#endif //DRAGHI_E_SOTTERRANEI_PRECOMPILE_H
+#endif //DRAGHI_E_SOTTERRANEI_PRECOMPILER_H

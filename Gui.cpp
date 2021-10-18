@@ -2,7 +2,7 @@
 // Created by alpacox on 28/09/21.
 //
 
-#include "precompile.h"
+#include "precompiler.h"
 #include "Gui.h"
 
 gui::Button::Button(float x, float y, float width, float height,

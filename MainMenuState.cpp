@@ -2,7 +2,7 @@
 // Created by alpacox on 27/09/21.
 //
 
-#include "precompile.h"
+#include "precompiler.h"
 #include "MainMenuState.h"
 
 MainMenuState::MainMenuState(StateData* state_data)
