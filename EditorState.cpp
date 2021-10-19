@@ -10,12 +10,13 @@ EditorState::EditorState(StateData* state_data)
 {
     this->initVariables();
     this->initBackground();
-    this->iniFonts();
+    this->initFonts();
+    this->initText();
     this->initKeybinds();
     this->initPausedMenu();
     this->initButtons();
-    this->initGui();
     this->initTileMap();
+    this->initGui();
 
 }
 
@@ -30,35 +31,25 @@ EditorState::~EditorState() {
 
     delete this->tileMap;
 
+    delete this->textureSelector;
 }
 
 void EditorState::render(sf::RenderTarget* target) {
     if (!target)
         target = this->window;
 
+
+
+    this->tileMap->render(*target);
+
     this->renderButtons(*target);
     this->renderGui(*target);
 
-    this->tileMap->render(*target);
 
     if(this->paused){
         this->pmenu->render(*target);
     }
 
-
-    //DA COMMENTARE SUCCESSIVAMENTE: Aiuta a trovare le coordinate sullo schermo per posizionare cose
-    /*
-    sf::Text mouseText;
-    mouseText.setPosition(this->mousePosView.x, this->mousePosView.y - 50);
-    mouseText.setFont(this->font);
-    mouseText.setCharacterSize(20);
-    std::stringstream  ss;
-    ss << this->mousePosView.x << " " << this->mousePosView.y;
-    mouseText.setString(ss.str());
-
-    target-> draw(mouseText);
-     */
-    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 }
 
 
@@ -90,7 +81,7 @@ void EditorState::update(const float& dt) {
     }
 }
 
-void EditorState::iniFonts() {
+void EditorState::initFonts() {
 
     /*
       char *stringa = get_current_dir_name();
@@ -157,6 +148,7 @@ void EditorState::initBackground() {
 
 void EditorState::initVariables() {
 
+    this->textureRect = sf::IntRect(0, 0, static_cast<int>(this->stateData->gridSize), static_cast<int>(this->stateData->gridSize));
 }
 
 void EditorState::initPausedMenu() {
@@ -180,28 +172,61 @@ void EditorState::initGui() {
 
     this->selectorRect.setSize(sf::Vector2f(this->stateData->gridSize, this->stateData->gridSize));
 
-    this->selectorRect.setFillColor(sf::Color::Transparent);
+    this->selectorRect.setFillColor(sf::Color(255, 255, 255, 150));
     this->selectorRect.setOutlineThickness(1.f);
     this->selectorRect.setOutlineColor(sf::Color::Green);
+
+    this->selectorRect.setTexture(this->tileMap->getTileSheet());
+    this->selectorRect.setTextureRect(this->textureRect);
+
+    this->textureSelector = new gui::TextureSelector(20.f, 20.f, 500.f, 500.f, this->tileMap->getTileSheet());
+
 }
 
 void EditorState::updateGui() {
 
+    this->selectorRect.setTextureRect(this->textureRect);
     this->selectorRect.setPosition(this->mousePosGrid.x * this->stateData->gridSize, this->mousePosGrid.y * this->stateData->gridSize);
 
+    this->cursorText.setPosition(this->mousePosView.x + 100.f, this->mousePosView.y - 25.f);
+    std::stringstream  ss;
+    ss << this->mousePosView.x << " " << this->mousePosView.y <<
+  "\n" << this->mousePosGrid.x << " " << this->mousePosGrid.y <<
+  "\n" << this->textureRect.left << " " << this->textureRect.top;
+    this->cursorText.setString(ss.str());
+
+    this->textureSelector->update();
 }
 
 void EditorState::renderGui(sf::RenderTarget &target) {
 
     target.draw(this->selectorRect);
+    this->textureSelector->render(target);
+    target.draw(this->cursorText);
+
 }
 
 void EditorState::updateEditorInput(const float &dt) {
 
     if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->getKeyTime()){
-         this->tileMap->addTile(this->mousePosGrid.x, this->mousePosGrid.y, 0);
+         this->tileMap->addTile(this->mousePosGrid.x, this->mousePosGrid.y, 0, this->textureRect);
     }
     else if (sf::Mouse::isButtonPressed(sf::Mouse::Right) && this->getKeyTime()){
         this->tileMap->removeTile(this->mousePosGrid.x, this->mousePosGrid.y, 0);
     }
+
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && this->getKeyTime()){
+        if(this->textureRect.left < 100){
+            this->textureRect.left += 100;
+        }
+
+    }
+}
+
+void EditorState::initText() {
+
+    this->cursorText.setFont(this->font);
+    this->cursorText.setFillColor(sf::Color::White);
+    this->cursorText.setCharacterSize(20);
+    this->cursorText.setPosition(this->mousePosView.x, this->mousePosView.y - 50);
 }

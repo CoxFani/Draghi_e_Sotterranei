@@ -34,17 +34,22 @@ public:
 
 private:
     sf::Font font;
+    sf::Text cursorText;
     PauseMenu* pmenu;
 
     std::map<std::string, gui::Button*>buttons;
 
     TileMap* tileMap;
 
+    sf::IntRect textureRect;
     sf::RectangleShape selectorRect;
+
+    gui::TextureSelector* textureSelector;
 
     void initVariables();
     void initBackground();
-    void iniFonts();
+    void initFonts();
+    void initText();
     void initButtons();
     void initKeybinds();
     void initPausedMenu();

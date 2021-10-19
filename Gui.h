@@ -78,5 +78,21 @@ namespace gui {
 
     };
 
+
+    class TextureSelector{
+
+    public:
+        TextureSelector(float x, float y, float width, float height,const sf::Texture* texture_sheet);
+        ~TextureSelector();
+
+        void update();
+        void render(sf::RenderTarget &target);
+
+    private:
+        sf::RectangleShape bounds;
+        sf::Sprite sheet;
+
+    };
+
 }
 #endif //DRAGHI_E_SOTTERRANEI_GUI_H
