@@ -78,19 +78,34 @@ namespace gui {
 
     };
 
+//**************************** TEXTURE SELECTOR *********************************
+
 
     class TextureSelector{
 
     public:
-        TextureSelector(float x, float y, float width, float height,const sf::Texture* texture_sheet);
+        TextureSelector(float x, float y, float width, float height,
+                        float gridSize, const sf::Texture* texture_sheet,
+                        sf::Font& font, std::string text);
         ~TextureSelector();
 
-        void update();
+        const bool& getActive() const;
+        const sf::IntRect& getTextureRect() const;
+
+        void update(const sf::Vector2i& mousePosWindow);
         void render(sf::RenderTarget &target);
 
     private:
+        float gridSize;
+        bool active;
+        bool hidden;
+        gui::Button* hideButton;
         sf::RectangleShape bounds;
         sf::Sprite sheet;
+        sf::RectangleShape selector;
+        sf::Vector2u mousePosGrid;
+        sf::IntRect textureRect;
+
 
     };
 
