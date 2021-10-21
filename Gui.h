@@ -92,10 +92,14 @@ namespace gui {
         const bool& getActive() const;
         const sf::IntRect& getTextureRect() const;
 
-        void update(const sf::Vector2i& mousePosWindow);
+        const bool getKeytime();
+        void updateKeytime(const float& dt);
+        void update(const sf::Vector2i& mousePosWindow, const float& dt);
         void render(sf::RenderTarget &target);
 
     private:
+        float keytime;
+        const float keytimeMax;
         float gridSize;
         bool active;
         bool hidden;
