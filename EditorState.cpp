@@ -156,7 +156,7 @@ void EditorState::initPausedMenu() {
 
     this->pmenu->addButton("QUIT", 450.f, "Quit");
     this->pmenu->addButton("SAVE", 350.f, "Save");
-
+    this->pmenu->addButton("LOAD", 300.f, "Load");
 }
 
 void EditorState::updatePauseMenuButtons() {
@@ -165,6 +165,9 @@ void EditorState::updatePauseMenuButtons() {
 
     if( this->pmenu->isButtonPressed("SAVE"))
         this->tileMap->saveToFile("../save_files.txt");
+
+    if( this->pmenu->isButtonPressed("LOAD"))
+        this->tileMap->loadFromFile("../save_files.txt");
 }
 
 
