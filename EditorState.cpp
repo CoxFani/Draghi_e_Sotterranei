@@ -9,6 +9,7 @@ EditorState::EditorState(StateData* state_data)
         : State(state_data)
 {
     this->initVariables();
+    this->initView();
     this->initBackground();
     this->initFonts();
     this->initText();
@@ -38,20 +39,16 @@ void EditorState::render(sf::RenderTarget* target) {
     if (!target)
         target = this->window;
 
-
-
+    target->setView(this->view);
     this->tileMap->render(*target);
-
+    target->setView(this->window->getDefaultView());
     this->renderButtons(*target);
     this->renderGui(*target);
-
 
     if(this->paused){
         this->pmenu->render(*target);
     }
-
 }
-
 
 void EditorState::updateInput(const float &dt) {
 
@@ -68,12 +65,10 @@ void EditorState::update(const float& dt) {
     this->updateKeyTime(dt);
     this->updateInput(dt);
 
-    if( !this->paused){
+    if(!this->paused){
         this->updateButtons();
         this->updateGui(dt);
         this->updateEditorInput(dt);
-
-
     }
     else{
         this->pmenu->update(this->mousePosView);
@@ -197,7 +192,6 @@ void EditorState::initGui() {
     this->textureSelector = new gui::TextureSelector(20.f, 20.f, 800.f, 200.f,
                                                      this->stateData->gridSize, this->tileMap->getTileSheet(),
                                                      this->font, "TS");
-
 }
 
 void EditorState::updateGui(const float& dt) {
@@ -218,7 +212,6 @@ void EditorState::updateGui(const float& dt) {
     "\n" << "Collision: " << this->collision <<
     "\n" << "Type: " << this->type;
     this->cursorText.setString(ss.str());
-
 }
 
 void EditorState::renderGui(sf::RenderTarget &target) {
@@ -230,11 +223,13 @@ void EditorState::renderGui(sf::RenderTarget &target) {
     target.draw(this->cursorText);
 
     target.draw(this->sidebar);
-
 }
 
 void EditorState::updateEditorInput(const float &dt) {
 
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
+        this->view.move(50.f, 0.f); //valore regola velocità scorrimento schermo
+    }
     if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->getKeyTime()){
         if(!this->sidebar.getGlobalBounds().contains(sf::Vector2f(this->mousePosWindow))) {
             if (!this->textureSelector->getActive() ) {
@@ -271,4 +266,9 @@ void EditorState::initText() {
     this->cursorText.setFillColor(sf::Color::White);
     this->cursorText.setCharacterSize(20);
     this->cursorText.setPosition(this->mousePosView.x, this->mousePosView.y - 50);
+}
+
+void EditorState::initView() {
+    this->view.setSize(sf::Vector2f(this->stateData->gfxSettings->resolution.width, this->stateData->gfxSettings->resolution.height));
+    this->view.setCenter(this->stateData->gfxSettings->resolution.width / 2.f, this->stateData->gfxSettings->resolution.height / 2.f);
 }

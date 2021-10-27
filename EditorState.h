@@ -33,6 +33,7 @@ public:
     void render(sf::RenderTarget* target = nullptr);
 
 private:
+    sf::View view;
     sf::Font font;
     sf::Text cursorText;
     PauseMenu* pmenu;
@@ -60,6 +61,7 @@ private:
     void initPausedMenu();
     void initGui();
     void initTileMap();
+    void initView();
 
 };
 
