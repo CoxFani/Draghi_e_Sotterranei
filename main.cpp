@@ -12,6 +12,7 @@ int main() {
      game.run();
 
      //getchar(); /* Cosimo non esiste system("pause"); su linux mi sa */
+
 /* POINTZERO
      while (!game.getQuit()){
 
