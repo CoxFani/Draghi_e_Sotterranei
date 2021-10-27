@@ -26,11 +26,6 @@ public:
     void update();
     void render(sf::RenderTarget& target);
 
-
-
-
-
-
 private:
     float gridSizeF;
     unsigned gridSizeU;

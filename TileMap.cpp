@@ -142,8 +142,8 @@ void TileMap::loadFromFile(const std::string file_name) {
         unsigned trY = 0;
         bool collision = false;
         short type = 0;
-
         in_file >> size.x >> size.y >> gridSize >> layers >> texture_file;
+
         this->gridSizeF = static_cast<float>(gridSize);
         this->gridSizeU = gridSize;
         this->maxSize.x = size.x;
