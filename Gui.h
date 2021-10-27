@@ -27,7 +27,7 @@ namespace gui {
         const short unsigned& getId() const;
         void setText(const std::string text);
         void setId(const short unsigned Id);
-        void update(const sf::Vector2f &mousePos);
+        void update(const sf::Vector2i &mousePosWindow);
         void render(sf::RenderTarget &target);
 
 
@@ -62,7 +62,7 @@ namespace gui {
         ~DropDownList();
 
         const unsigned short& getActiveElementId() const;
-        void update(const sf::Vector2f &mousePos, const float& dt);
+        void update(const sf::Vector2i &mousePosWindow, const float& dt);
         void render(sf::RenderTarget &target);
         const bool getKeytime();
         void updateKeytime(const float& dt);

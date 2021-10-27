@@ -21,6 +21,7 @@ public:
     GameState(StateData* state_data);
     virtual ~GameState();
 
+    void updateView(const float& dt);
     void updateInput(const float& dt);
     void updateHeroInput(const float& dt);
     void updatePauseMenuButtons();
@@ -39,6 +40,10 @@ public:
     virtual void update();
     */
 private:
+    sf::View view;
+    sf::RenderTexture renderTexture;
+    sf::Sprite renderSprite;
+
     sf::Font font;
     PauseMenu* pmenu;
 
@@ -47,6 +52,7 @@ private:
 
     TileMap* tileMap;
 
+    void initView();
     void initKeybinds();
     void initFonts();
     void initTextures();

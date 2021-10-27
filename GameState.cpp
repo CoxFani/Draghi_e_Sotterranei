@@ -5,9 +5,15 @@
 #include "precompiler.h"
 #include "GameState.h"
 
+class PauseMenu;
+class Hero;
+class TileMap;
+
+
 GameState::GameState(StateData* state_data)
     : State(state_data)
 {
+    this->initView();
     this->initKeybinds();
     this->initFonts();
     this->initTextures();
@@ -27,11 +33,13 @@ void GameState::render(sf::RenderTarget* target) {
     if (!target)
         target = this->window;
 
-   // this->map.render(*target);
+    target->setView(this->view);
+    this->tileMap->render(*target);
 
     this->hero->render(*target);
 
     if(this->paused){
+        target->setView(this->window->getDefaultView());
         this->pmenu->render(*target);
     }
 }
@@ -61,16 +69,17 @@ void GameState::updateInput(const float &dt) {
 }
 
 void GameState::update(const float& dt) {
-    this->updateMousePosition();
+    this->updateMousePosition(&this->view);
     this->updateInput(dt);
     this->updateKeyTime(dt);
 
     if(!this->paused) {
+        this->updateView(dt);
         this->updateHeroInput(dt);
         this->hero->update(dt);
     }
     else{
-        this->pmenu->update(this->mousePosView);
+        this->pmenu->update(this->mousePosWindow);
         this->updatePauseMenuButtons();
     }
 }
@@ -137,84 +146,28 @@ void GameState::updatePauseMenuButtons() {
 void GameState::initTileMap() {
 
     this->tileMap = new TileMap(this->stateData->gridSize, 10, 10, "../Resources/Images/Tiles/tilesheet1.png");
+    this->tileMap->loadFromFile("../save_files.txt");
 }
 
+void GameState::initView() {
 
+    this->view.setSize(
+            sf::Vector2f(
+                    this->stateData->gfxSettings->resolution.width,
+                    this->stateData->gfxSettings->resolution.height
+            )
+    );
 
-/* POINTZERO
-GameState::GameState(Hero* hero1) {
-
-    this -> hero = hero1;
-
-}
-
-GameState::~GameState() noexcept {
-
-}
-
-void GameState::printMenu() const {
-    system("read -p 'Press Enter to continue...' var"); //Aspetta un mio comando per continuare
-    //
-    //system("clear"); //Ripulisce la schermata
-    cout<< "---- MAIN MENU ----" << "\n" << "\n"
-        << " (0) Quit" << "\n"
-        << " (1) Character Stats" << "\n"
-        << " (2) Inventory" << "\n"
-        << " (3) Options" << "\n"
-        << " (4) Level Up" << "\n";
+    this->view.setCenter(
+            sf::Vector2f(
+                    this->stateData->gfxSettings->resolution.width / 2.f,
+                    this->stateData->gfxSettings->resolution.height / 2.f
+            )
+    );
 
 }
 
-const int GameState::getChoice() const {
-    int choice = 0;
+void GameState::updateView(const float &dt) {
 
-    cout << "Enter choice: ";
-    cin >> choice;
-
-    return choice;
+this->view.setCenter(this->hero->getPosition());
 }
-
-void GameState::updateMenu() {
-
-    switch (this -> getChoice() ){
-        case 0:
-            cout << setw(7) << "---- QUITTING GAME ----" << "\n";  //setw(7) lascia 7 spazi da inizio riga
-            this->setQuit(true);
-            break;
-
-        case 1:
-            cout << setw(7) << "---- Character Stats ----" << "\n" << "\n";
-            std::cout << this -> hero -> toString() << "\n";
-            break;
-
-        case 2:
-            cout << setw(7) << "---- Inventory ----" << "\n";
-            //TODO stampa inventario
-            break;
-
-        case 3:
-            cout << setw(7) << "---- Options ----" << "\n";
-            //TODO opzioni audio e video
-            break;
-
-        case 4:
-            cout << setw(7) << "---- LEVEL UP! -----" << "\n" ;
-            this -> hero -> levelUpStats();
-            break;
-
-
-        default:
-            cout << setw(7) << "---- ERROR 404: OPTION NOT FOUD, try again! ----" << "\n";
-            break;
-
-    }
-}
-
-void GameState::update() {
-
-    this -> printMenu();
-
-    this -> updateMenu();
-
-}
- */

@@ -132,7 +132,7 @@ void MainMenuState::updateButtons() {
 
     for (auto &i : this->buttons)
     {
-        i.second->update(this->mousePosView);
+        i.second->update(this->mousePosWindow);
     }
 
     if (this->buttons["GAME_STATE"]->isPressed()){

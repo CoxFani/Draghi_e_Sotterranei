@@ -131,7 +131,7 @@ void SettingState::updateGui(const float &dt) {
 
     for (auto &i : this->buttons)
     {
-        i.second->update(this->mousePosView);
+        i.second->update(this->mousePosWindow);
     }
 
 
@@ -148,7 +148,7 @@ void SettingState::updateGui(const float &dt) {
 
     for (auto &i : this->dropdownList)
     {
-        i.second->update(this->mousePosView, dt);
+        i.second->update(this->mousePosWindow, dt);
     }
 }
 
