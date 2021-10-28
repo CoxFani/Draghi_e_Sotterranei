@@ -174,7 +174,7 @@ void EditorState::updatePauseMenuButtons() {
 
 void EditorState::initTileMap() {
 
-    this->tileMap = new TileMap(this->stateData->gridSize, 10, 10,"../Resources/Images/Tiles/tilesheet1.png");
+    this->tileMap = new TileMap(this->stateData->gridSize, 10, 10,"../Resources/Images/Tiles/tilesheet1.png"); //TODO cambiare file per texture selector
 }
 
 void EditorState::initGui() {
@@ -193,6 +193,7 @@ void EditorState::initGui() {
     this->selectorRect.setTexture(this->tileMap->getTileSheet());
     this->selectorRect.setTextureRect(this->textureRect);
 
+    //TODO cambiare dimensioni texture selector
     this->textureSelector = new gui::TextureSelector(20.f, 20.f, 800.f, 200.f,
                                                      this->stateData->gridSize, this->tileMap->getTileSheet(),
                                                      this->font, "TS");

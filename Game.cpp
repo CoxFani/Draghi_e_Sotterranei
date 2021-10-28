@@ -152,7 +152,7 @@ void Game::initVariables() {
 
     this->dt = 0.f;
 
-    this->gridSize = 100.f;
+    this->gridSize = 100.f;  //TODO cambiare dimensione singola tile
 
 }
 
