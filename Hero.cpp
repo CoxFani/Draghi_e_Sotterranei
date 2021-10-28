@@ -98,5 +98,11 @@ void Hero::updateAnimation(const float &dt) {
     }
 }
 
+void Hero::render(sf::RenderTarget &target) {
+    target.draw(this->sprite);
+
+        this->hitboxComponent->render(target);
+}
+
 
 

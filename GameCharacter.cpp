@@ -19,9 +19,8 @@ GameCharacter::~GameCharacter() {
 }
 
 void GameCharacter::move(const float dir_x, const float dir_y,const float& dt) {
-    if(this->movementComponent) {
+    if(this->movementComponent)
         this->movementComponent->move(dir_x, dir_y, dt);
-    }
 }
 
 void GameCharacter::update(const float &dt) {
@@ -30,10 +29,7 @@ void GameCharacter::update(const float &dt) {
 
 void GameCharacter::render(sf::RenderTarget& target) {
 
-        target.draw(this->sprite);
 
-        if (this->hitboxComponent)
-            this->hitboxComponent->render(target);
 }
 
 void GameCharacter::setTexture(sf::Texture& texture) {
@@ -49,6 +45,9 @@ void GameCharacter::initVariables() {
 
 void GameCharacter::setPosition(const float x, const float y) {
 
+    if(this->hitboxComponent)
+        this->hitboxComponent->setPosition(x, y);
+    else
         this->sprite.setPosition(x, y);
 
 }
@@ -70,5 +69,16 @@ void GameCharacter::createHitboxComponent(sf::Sprite &sprite, float offset_x, fl
 }
 
 const sf::Vector2f &GameCharacter::getPosition() const {
+
+    if(this->hitboxComponent)
+        return this->hitboxComponent->getPosition();
+
     return this->sprite.getPosition();
+}
+
+const sf::FloatRect GameCharacter::getGlobalBounds() const {
+
+    if(this->hitboxComponent)
+        return this->hitboxComponent->getGlobalBounds();
+    return this->sprite.getGlobalBounds();
 }

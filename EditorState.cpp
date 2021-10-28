@@ -197,6 +197,8 @@ void EditorState::initGui() {
     this->textureSelector = new gui::TextureSelector(20.f, 20.f, 800.f, 200.f,
                                                      this->stateData->gridSize, this->tileMap->getTileSheet(),
                                                      this->font, "TS");
+
+
 }
 
 void EditorState::updateGui(const float& dt) {
@@ -238,16 +240,16 @@ void EditorState::renderGui(sf::RenderTarget &target) {
 void EditorState::updateEditorInput(const float &dt) {
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_CAMERA_UP")))){
-        this->view.move(0.f, -this->cameraSpeed * dt); //valore regola velocità scorrimento schermo
+        this->view.move(0.f, -std::floor(this->cameraSpeed * dt)); //valore regola velocità scorrimento schermo
     }
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_CAMERA_DOWN")))){
-        this->view.move(0.f, this->cameraSpeed * dt); //valore regola velocità scorrimento schermo
+        this->view.move(0.f, std::floor(this->cameraSpeed * dt)); //valore regola velocità scorrimento schermo
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_CAMERA_LEFT")))){
-        this->view.move(-this->cameraSpeed * dt, 0.f); //valore regola velocità scorrimento schermo
+        this->view.move(-std::floor(this->cameraSpeed * dt), 0.f); //valore regola velocità scorrimento schermo
     }
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_CAMERA_RIGHT")))){
-        this->view.move(this->cameraSpeed * dt, 0.f); //valore regola velocità scorrimento schermo
+        this->view.move(std::floor(this->cameraSpeed * dt), 0.f); //valore regola velocità scorrimento schermo
     }
 
 

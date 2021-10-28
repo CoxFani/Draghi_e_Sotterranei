@@ -13,6 +13,8 @@ public:
     Tile(unsigned grid_x, unsigned grid_y, float gridSizeF, sf::Texture& texture, const sf::IntRect& texture_rect, bool collision = false, short type = TileTypes::DEFAULT);
     virtual ~Tile();
 
+    const bool & getCollision() const;
+    const sf::Vector2f& getPosition() const;
     const std::string getAsString() const;
     void update();
     void render(sf::RenderTarget& target);

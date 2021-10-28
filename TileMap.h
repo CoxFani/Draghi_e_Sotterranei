@@ -6,9 +6,11 @@
 #define DRAGHI_E_SOTTERRANEI_TILEMAP_H
 
 #include "Tile.h"
+#include "GameCharacter.h"
 
 
 class Tile;
+class GameCharacter;
 
 class TileMap {
 public:
@@ -23,17 +25,22 @@ public:
     void saveToFile(const std::string file_name);
     void loadFromFile(const std::string file_name);
 
+    void updateCollision(GameCharacter* gameCharacter);
+
     void update();
-    void render(sf::RenderTarget& target);
+    void render(sf::RenderTarget& target, GameCharacter* gameCharacter = nullptr);
 
 private:
     float gridSizeF;
     unsigned gridSizeU;
-    sf::Vector2u maxSize;
+    sf::Vector2u maxSizeWorldGrid;
+    sf::Vector2f maxSizeWorldF;
     unsigned layers;
     std::vector< std::vector< std::vector<Tile*> > > map;
     std::string  textureFile;
     sf::Texture tileSheet;
+    sf::RectangleShape collisionBox;
+
     void clear();
 };
 
