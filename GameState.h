@@ -59,6 +59,7 @@ private:
     void initPausedMenu();
     void initHeroes();
     void initTileMap();
+    void initDeferredRender();
 
 };
 

@@ -13,6 +13,7 @@ class TileMap;
 GameState::GameState(StateData* state_data)
     : State(state_data)
 {
+    this->initDeferredRender();
     this->initView();
     this->initKeybinds();
     this->initFonts();
@@ -33,15 +34,21 @@ void GameState::render(sf::RenderTarget* target) {
     if (!target)
         target = this->window;
 
-    target->setView(this->view);
-    this->tileMap->render(*target);
+    this->renderTexture.clear();
 
-    this->hero->render(*target);
+    this->renderTexture.setView(this->view);
+    this->tileMap->render(this->renderTexture);
+
+    this->hero->render(this->renderTexture);
 
     if(this->paused){
-        target->setView(this->window->getDefaultView());
-        this->pmenu->render(*target);
+        this->renderTexture.setView(this->renderTexture.getDefaultView());
+        this->pmenu->render(this->renderTexture);
     }
+
+    this->renderTexture.display();
+    this->renderSprite.setTexture(this->renderTexture.getTexture());
+    target->draw(this->renderSprite);
 }
 
 
@@ -168,6 +175,11 @@ void GameState::initView() {
 }
 
 void GameState::updateView(const float &dt) {
+    this->view.setCenter(this->hero->getPosition());
+}
 
-this->view.setCenter(this->hero->getPosition());
+void GameState::initDeferredRender() {
+    this->renderTexture.create(this->stateData->gfxSettings->resolution.width, this->stateData->gfxSettings->resolution.height);
+    this->renderSprite.setTexture(this->renderTexture.getTexture());
+    this->renderSprite.setTextureRect(sf::IntRect(0, 0, this->stateData->gfxSettings->resolution.width, this->stateData->gfxSettings->resolution.height));
 }
