@@ -42,6 +42,12 @@ private:
     sf::RectangleShape collisionBox;
 
     void clear();
+
+    unsigned fromX;
+    unsigned toX;
+    unsigned fromY;
+    unsigned toY;
+    unsigned layer;
 };
 
 #endif //DRAGHI_E_SOTTERRANEI_TILEMAP_H

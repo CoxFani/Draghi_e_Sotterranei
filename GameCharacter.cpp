@@ -69,16 +69,34 @@ void GameCharacter::createHitboxComponent(sf::Sprite &sprite, float offset_x, fl
 }
 
 const sf::Vector2f &GameCharacter::getPosition() const {
-
     if(this->hitboxComponent)
         return this->hitboxComponent->getPosition();
-
     return this->sprite.getPosition();
 }
 
 const sf::FloatRect GameCharacter::getGlobalBounds() const {
-
     if(this->hitboxComponent)
         return this->hitboxComponent->getGlobalBounds();
     return this->sprite.getGlobalBounds();
+}
+
+void GameCharacter::stopVelocity() {
+    if(this->movementComponent)
+        this->movementComponent->stopVelocity();
+}
+
+void GameCharacter::stopVelocityX() {
+    if(this->movementComponent)
+        this->movementComponent->stopVelocityX();
+}
+
+void GameCharacter::stopVelocityY() {
+    if(this->movementComponent)
+        this->movementComponent->stopVelocityY();
+}
+
+const sf::Vector2u GameCharacter::getGridPosition(const unsigned gridSizeU) const {
+    if(this->hitboxComponent)
+        return sf::Vector2u(static_cast<unsigned>(this->hitboxComponent->getPosition().x) / gridSizeU, static_cast<unsigned>(this->hitboxComponent->getPosition().y) / gridSizeU);
+    return sf::Vector2u(static_cast<unsigned>(this->sprite.getPosition().x) / gridSizeU, static_cast<unsigned>(this->sprite.getPosition().y) / gridSizeU);
 }

@@ -22,10 +22,15 @@ public:
 
     virtual const sf::Vector2f& getPosition() const;
     virtual const sf::FloatRect getGlobalBounds() const;
+    virtual const sf::Vector2u getGridPosition(const unsigned gridSizeU) const;
     virtual void setPosition(const float x, const float y);
     virtual void move(const float x, const float y, const float& dt);
     virtual void update(const float& dt) = 0;
     virtual void render(sf::RenderTarget& target) = 0;
+    virtual void stopVelocity();
+    virtual void stopVelocityX();
+    virtual void stopVelocityY();
+
 
 protected:
     sf::Sprite sprite;
