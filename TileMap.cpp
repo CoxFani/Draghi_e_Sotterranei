@@ -51,19 +51,62 @@ void TileMap::update() {
 
 void TileMap::render(sf::RenderTarget &target, GameCharacter* gameCharacter) {
 
-    for(auto &x : this->map){
-        for(auto &y : x){
-            for(auto *z : y){
-                if(z != nullptr){
-                    z->render(target);
-                    if(z->getCollision()){
-                        this->collisionBox.setPosition(z->getPosition());
-                        target.draw(this->collisionBox);
+    if(gameCharacter) {
+        this->layer = 0;
+
+        this->fromX = gameCharacter->getGridPosition(this->gridSizeU).x - 3;
+        if (this->fromX < 0)
+            this->fromX = 0;
+        else if (this->fromX > this->maxSizeWorldGrid.x)
+            this->fromX = this->maxSizeWorldGrid.x;
+
+        this->toX = gameCharacter->getGridPosition(this->gridSizeU).x + 5;
+        if (this->toX < 0)
+            this->toX = 0;
+        else if (this->toX > this->maxSizeWorldGrid.x)
+            this->toX = this->maxSizeWorldGrid.x;
+
+        this->fromY = gameCharacter->getGridPosition(this->gridSizeU).y - 3;
+        if (this->fromY < 0)
+            this->fromY = 0;
+        else if (this->fromY > this->maxSizeWorldGrid.y)
+            this->fromY = this->maxSizeWorldGrid.y;
+
+        this->toY = gameCharacter->getGridPosition(this->gridSizeU).y + 5;
+        if (this->toY < 0)
+            this->toY = 0;
+        else if (this->toY > this->maxSizeWorldGrid.y)
+            this->toY = this->maxSizeWorldGrid.y;
+
+        for (size_t x = this->fromX; x < this->toX; x++) {
+            for (size_t y = this->fromY; y < this->toY; y++) {
+                this->map[x][y][this->layer]->render(target);
+                if (this->map[x][y][this->layer]->getCollision()) {
+                    this->collisionBox.setPosition(this->map[x][y][this->layer]->getPosition());
+                    target.draw(this->collisionBox);
+                }
+            }
+
+        }
+    }
+    else{
+
+        for(auto &x : this->map){
+            for(auto &y : x){
+                for(auto *z : y){
+                    if(z != nullptr){
+                        z->render(target);
+                        if(z->getCollision()){
+                            this->collisionBox.setPosition(z->getPosition());
+                            target.draw(this->collisionBox);
+                        }
                     }
                 }
             }
         }
     }
+
+
 }
 
 void TileMap::addTile(const unsigned x, const unsigned y, const unsigned z, const sf::IntRect& texture_rect, const bool& collision, const short& type) {
@@ -226,33 +269,59 @@ void TileMap::updateCollision(GameCharacter *gameCharacter) {
         gameCharacter->stopVelocityY();
     }
 
-    this->fromX = gameCharacter->getGridPosition(this->gridSizeU).x - 2;
+    this->layer = 0;
+
+    this->fromX = gameCharacter->getGridPosition(this->gridSizeU).x - 1;
     if(this->fromX < 0)
         this->fromX = 0;
-    else if(this->fromX >= this->maxSizeWorldGrid.x)
-        this->fromX = this->maxSizeWorldGrid.x - 1;
+    else if(this->fromX > this->maxSizeWorldGrid.x)
+        this->fromX = this->maxSizeWorldGrid.x;
 
-    this->toX = gameCharacter->getGridPosition(this->gridSizeU).x + 1;
+    this->toX = gameCharacter->getGridPosition(this->gridSizeU).x + 3;
     if(this->toX < 0)
         this->toX = 0;
-    else if(this->toX >= this->maxSizeWorldGrid.x)
-        this->toX = this->maxSizeWorldGrid.x - 1;
+    else if(this->toX > this->maxSizeWorldGrid.x)
+        this->toX = this->maxSizeWorldGrid.x;
 
-    this->fromY = gameCharacter->getGridPosition(this->gridSizeU).y - 2;
+    this->fromY = gameCharacter->getGridPosition(this->gridSizeU).y - 1;
     if(this->fromY < 0)
         this->fromY = 0;
-    else if(this->fromY >= this->maxSizeWorldGrid.y)
-        this->fromY = this->maxSizeWorldGrid.y - 1;
+    else if(this->fromY > this->maxSizeWorldGrid.y)
+        this->fromY = this->maxSizeWorldGrid.y;
 
-    this->toY = gameCharacter->getGridPosition(this->gridSizeU).y + 1;
+    this->toY = gameCharacter->getGridPosition(this->gridSizeU).y + 3;
     if(this->toY < 0)
         this->toY = 0;
-    else if(this->toY >= this->maxSizeWorldGrid.y)
-        this->toY = this->maxSizeWorldGrid.y - 1;
+    else if(this->toY > this->maxSizeWorldGrid.y)
+        this->toY = this->maxSizeWorldGrid.y;
+
 
     for(size_t x = this->fromX; x < this->toX; x++){
         for(size_t y = this->fromY; y < this->toY; y++) {
 
+            sf::FloatRect heroBounds = gameCharacter->getGlobalBounds();
+            sf::FloatRect wallBounds = this->map[x][y][this->layer]->getGlobalBounds();
+            sf::FloatRect nextPositionBounds = gameCharacter->getNextPositionBounds();
+
+            if(this->map[x][y][this->layer]->getCollision() && this->map[x][y][this->layer]->intersects(nextPositionBounds)){
+
+                if(heroBounds.top < wallBounds.top
+                && heroBounds.top + heroBounds.height < wallBounds.top + wallBounds.height
+                && heroBounds.left < wallBounds.left + wallBounds.width
+                && heroBounds.left + heroBounds.width > wallBounds.left
+                ){
+                    gameCharacter->stopVelocityY();
+                    gameCharacter->setPosition(heroBounds.left, wallBounds.top - heroBounds.height);
+                }
+                else  if(heroBounds.top > wallBounds.top + wallBounds.height
+                         && heroBounds.top + heroBounds.height > wallBounds.top + wallBounds.height
+                         && heroBounds.left < wallBounds.left + wallBounds.width
+                         && heroBounds.left + heroBounds.width > wallBounds.left
+                        ){
+                    gameCharacter->stopVelocityY();
+                    gameCharacter->setPosition(heroBounds.left, wallBounds.top - wallBounds.height);
+                }
+            }
         }
 
     }

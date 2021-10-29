@@ -100,3 +100,10 @@ const sf::Vector2u GameCharacter::getGridPosition(const unsigned gridSizeU) cons
         return sf::Vector2u(static_cast<unsigned>(this->hitboxComponent->getPosition().x) / gridSizeU, static_cast<unsigned>(this->hitboxComponent->getPosition().y) / gridSizeU);
     return sf::Vector2u(static_cast<unsigned>(this->sprite.getPosition().x) / gridSizeU, static_cast<unsigned>(this->sprite.getPosition().y) / gridSizeU);
 }
+
+const sf::FloatRect &GameCharacter::getNextPositionBounds() const {
+    if(this->hitboxComponent && this->movementComponent){
+        return this->hitboxComponent->getNextPosition(this->movementComponent->getVelocity());
+    }
+    return sf::FloatRect();
+}

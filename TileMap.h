@@ -43,11 +43,11 @@ private:
 
     void clear();
 
-    unsigned fromX;
-    unsigned toX;
-    unsigned fromY;
-    unsigned toY;
-    unsigned layer;
+    int fromX;
+    int toX;
+    int fromY;
+    int toY;
+    int layer;
 };
 
 #endif //DRAGHI_E_SOTTERRANEI_TILEMAP_H
