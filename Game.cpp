@@ -157,17 +157,10 @@ void Game::initVariables() {
 }
 
 void Game::initGraphicsSettings() {
-
     this->gfxSettings.loadFromFile("../Config/graphics.ini");
-
-
-
-
-
 }
 
 void Game::initStateData() {
-
     this->stateData.window = this->window;
     this->stateData.gfxSettings = &this->gfxSettings;
     this->stateData.supportedKeys = &this->supportedKeys;

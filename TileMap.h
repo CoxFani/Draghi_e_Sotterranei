@@ -25,7 +25,7 @@ public:
     void saveToFile(const std::string file_name);
     void loadFromFile(const std::string file_name);
 
-    void updateCollision(GameCharacter* gameCharacter);
+    void updateCollision(GameCharacter* gameCharacter, const float& dt);
 
     void update();
     void render(sf::RenderTarget& target, GameCharacter* gameCharacter = nullptr);

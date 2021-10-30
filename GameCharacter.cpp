@@ -11,11 +11,9 @@ GameCharacter::GameCharacter() {
 }
 
 GameCharacter::~GameCharacter() {
-
     delete this->hitboxComponent;
     delete this->movementComponent;
     delete this->animationComponent;
-
 }
 
 void GameCharacter::move(const float dir_x, const float dir_y,const float& dt) {
@@ -44,27 +42,21 @@ void GameCharacter::initVariables() {
 }
 
 void GameCharacter::setPosition(const float x, const float y) {
-
     if(this->hitboxComponent)
         this->hitboxComponent->setPosition(x, y);
     else
         this->sprite.setPosition(x, y);
-
 }
 
 void GameCharacter::createMovementComponent(const float maxVelocity, const float acceleration, const float deceleration) {
-
     this->movementComponent = new MovementComponent(this->sprite, maxVelocity, acceleration, deceleration);
-
 }
 
 void GameCharacter::createAnimationComponent(sf::Texture &texture_sheet) {
-
     this->animationComponent = new AnimationComponent(this->sprite, texture_sheet);
 }
 
 void GameCharacter::createHitboxComponent(sf::Sprite &sprite, float offset_x, float offset_y, float width, float height) {
-
     this->hitboxComponent = new HitboxComponent(sprite, offset_x, offset_y, width, height);
 }
 
@@ -101,9 +93,9 @@ const sf::Vector2u GameCharacter::getGridPosition(const unsigned gridSizeU) cons
     return sf::Vector2u(static_cast<unsigned>(this->sprite.getPosition().x) / gridSizeU, static_cast<unsigned>(this->sprite.getPosition().y) / gridSizeU);
 }
 
-const sf::FloatRect &GameCharacter::getNextPositionBounds() const {
+const sf::FloatRect &GameCharacter::getNextPositionBounds(const float& dt) const {
     if(this->hitboxComponent && this->movementComponent){
-        return this->hitboxComponent->getNextPosition(this->movementComponent->getVelocity());
+        return this->hitboxComponent->getNextPosition(this->movementComponent->getVelocity() * dt);
     }
-    return sf::FloatRect();
+    return sf::FloatRect(); //TODO controllare
 }

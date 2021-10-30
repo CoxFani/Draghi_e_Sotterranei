@@ -250,7 +250,7 @@ void TileMap::clear() {
     //std::cout << this->map.size() << "\n";
 }
 
-void TileMap::updateCollision(GameCharacter *gameCharacter) {
+void TileMap::updateCollision(GameCharacter *gameCharacter, const float& dt) {
 
     if(gameCharacter->getPosition().x < 0.f) {
         gameCharacter->setPosition(0.f, gameCharacter->getPosition().y);
@@ -295,13 +295,12 @@ void TileMap::updateCollision(GameCharacter *gameCharacter) {
     else if(this->toY > this->maxSizeWorldGrid.y)
         this->toY = this->maxSizeWorldGrid.y;
 
-
     for(size_t x = this->fromX; x < this->toX; x++){
         for(size_t y = this->fromY; y < this->toY; y++) {
 
             sf::FloatRect heroBounds = gameCharacter->getGlobalBounds();
             sf::FloatRect wallBounds = this->map[x][y][this->layer]->getGlobalBounds();
-            sf::FloatRect nextPositionBounds = gameCharacter->getNextPositionBounds();
+            sf::FloatRect nextPositionBounds = gameCharacter->getNextPositionBounds(dt);
 
             if(this->map[x][y][this->layer]->getCollision() && this->map[x][y][this->layer]->intersects(nextPositionBounds)){
 
@@ -311,7 +310,7 @@ void TileMap::updateCollision(GameCharacter *gameCharacter) {
                 && heroBounds.left + heroBounds.width > wallBounds.left
                 ){
                     gameCharacter->stopVelocityY();
-                    gameCharacter->setPosition(heroBounds.left, wallBounds.top - heroBounds.height);
+                    gameCharacter->setPosition(heroBounds.left, wallBounds.top - heroBounds.height - 2.f);
                 }
                 else  if(heroBounds.top > wallBounds.top + wallBounds.height
                          && heroBounds.top + heroBounds.height > wallBounds.top + wallBounds.height
@@ -319,11 +318,24 @@ void TileMap::updateCollision(GameCharacter *gameCharacter) {
                          && heroBounds.left + heroBounds.width > wallBounds.left
                         ){
                     gameCharacter->stopVelocityY();
-                    gameCharacter->setPosition(heroBounds.left, wallBounds.top - wallBounds.height);
+                    gameCharacter->setPosition(heroBounds.left, wallBounds.top - wallBounds.height + 2.f);
+                }
+
+                if (heroBounds.left < wallBounds.left
+                    && heroBounds.left + heroBounds.width < wallBounds.left + wallBounds.width
+                    && heroBounds.top < wallBounds.top + wallBounds.height
+                    && heroBounds.top + heroBounds.height > wallBounds.top){
+                    gameCharacter->stopVelocityX();
+                    gameCharacter->setPosition(wallBounds.left - heroBounds.width - 2.f, heroBounds.top );
+                }
+                else if (heroBounds.left > wallBounds.left
+                         && heroBounds.left + heroBounds.width > wallBounds.left + wallBounds.width
+                         && heroBounds.top < wallBounds.top + wallBounds.height
+                         && heroBounds.top + heroBounds.height > wallBounds.top){
+                    gameCharacter->stopVelocityX();
+                    gameCharacter->setPosition(wallBounds.left - heroBounds.width  + 2.f, heroBounds.top);
                 }
             }
         }
-
     }
-    //da inserire parte sul file condiviso su drive "funzioni utili"
 }

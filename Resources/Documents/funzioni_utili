@@ -1,0 +1,88 @@
+#funzione che indica dove "runna" il progetto
+      char *stringa = get_current_dir_name();
+    if(stringa != nullptr){
+        std::cout<<"stringa piena" << "\n";
+        for(int i=0; i<100; i++){                 //Capiamo dove siamo
+    std::cout << stringa[i] ;} std::cout << endl;  } //Attuale percorso file
+    else
+        std::cout<<"stringa vuota" << endl ;
+
+#vecchio sistema di spostamento
+    this->keybinds["CLOSE"] = this->supportedKeys->at("Escape");
+    this->keybinds["MOVE_LEFT"] = this->supportedKeys->at("A");
+    this->keybinds["MOVE_RIGHT"] = this->supportedKeys->at("D");
+    this->keybinds["MOVE_UP"] = this->supportedKeys->at("W");
+    this->keybinds["MOVE_DOWN"] = this->supportedKeys->at("S");
+
+        this->supportedKeys["Escape"] = sf::Keyboard::Escape;
+        this->supportedKeys["A"] = sf::Keyboard::A;
+        this->supportedKeys["D"] = sf::Keyboard::D;
+        this->supportedKeys["W"] = sf::Keyboard::W;
+        this->supportedKeys["S"] = sf::Keyboard::S;
+
+#debug tasti accettati
+    for (auto i : this->supportedKeys)
+        {
+            std::cout << i.first << " " << i.second << "\n";
+        }
+
+#system("pause");
+getchar();
+
+#dado
+int value=0;
+   Dice d20(20);
+   for(int i= 0; i<50; i++) {
+       value = d20.roll(1);
+       std::cout<< value << std::endl;
+   }
+
+#funzione di collisione già adattata al nostro progetto
+if (heroBounds.left < wallBounds.left
+                    && heroBounds.left + heroBounds.width < wallBounds.left + wallBounds.width
+                    && heroBounds.top < wallBounds.top + wallBounds.height
+                    && heroBounds.top + heroBounds.height > wallBounds.top){
+                    gameCharacter->stopVelocityX();
+                    gameCharacter->setPosition(wallBounds.left - heroBounds.width, heroBounds.top);
+                }
+                else if (heroBounds.left > wallBounds.left
+                         && heroBounds.left + heroBounds.width > wallBounds.left + wallBounds.width
+                         && heroBounds.top < wallBounds.top + wallBounds.height
+                         && heroBounds.top + heroBounds.height > wallBounds.top){
+                    gameCharacter->stopVelocityX();
+                    gameCharacter->setPosition(wallBounds.left - heroBounds.width, heroBounds.top);
+                }
+
+#prova SFML
+unsigned int windowHeight = 400;
+    unsigned int windowWidth = 400;
+
+    sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "Draghi & Sotterranei");
+
+    sf::Texture texture;
+    if (!texture.loadFromFile("Images/Sprites_1.png")){              <- ||PROVA SFML||
+            return 0;
+    }
+    sf::Sprite sprite;
+    sprite.setTexture(texture);
+
+    Map map = Map();
+
+    while (window.isOpen()) {
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
+
+        window.clear();
+
+        for ( int i = 0; i < map.gridLength; i++){
+            for ( int j = 0; j < map.gridLength; j++){
+                window.draw(map.tiles[i][j]->sprite);
+            }
+        }
+
+        window.display();
+    }
