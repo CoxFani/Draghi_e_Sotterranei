@@ -10,7 +10,7 @@ enum TileTypes {DEFAULT = 0, OTHER = 1, ALTRA = 2}; //solo esempio, da completar
 class Tile {
 public:
     Tile();
-    Tile(unsigned grid_x, unsigned grid_y, float gridSizeF, sf::Texture& texture, const sf::IntRect& texture_rect, bool collision = false, short type = TileTypes::DEFAULT);
+    Tile(int grid_x, int grid_y, float gridSizeF, sf::Texture& texture, const sf::IntRect& texture_rect, bool collision = false, short type = TileTypes::DEFAULT);
     virtual ~Tile();
 
     const bool & getCollision() const;

@@ -8,6 +8,8 @@
 #include "GameCharacter.h"
 //#include "GameState.h"
 
+class  GameCharacter;
+
 class Hero : public GameCharacter {
 public:
 
