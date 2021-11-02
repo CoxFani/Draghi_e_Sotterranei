@@ -317,24 +317,25 @@ void TileMap::updateCollision(GameCharacter *gameCharacter, const float& dt) {
                          && heroBounds.left < wallBounds.left + wallBounds.width
                          && heroBounds.left + heroBounds.width > wallBounds.left
                         ){
-                    gameCharacter->stopVelocityY();
-                    gameCharacter->setPosition(heroBounds.left, wallBounds.top - wallBounds.height + 2.f);
-                }
+                            gameCharacter->stopVelocityY();
+                            gameCharacter->setPosition(heroBounds.left, wallBounds.top - wallBounds.height + 2.f);
+                        }
 
                 if (heroBounds.left < wallBounds.left
                     && heroBounds.left + heroBounds.width < wallBounds.left + wallBounds.width
                     && heroBounds.top < wallBounds.top + wallBounds.height
                     && heroBounds.top + heroBounds.height > wallBounds.top){
                     gameCharacter->stopVelocityX();
-                    gameCharacter->setPosition(wallBounds.left - heroBounds.width - 2.f, heroBounds.top );
+                    gameCharacter->setPosition(wallBounds.left - heroBounds.width - 2.f, heroBounds.top);
                 }
                 else if (heroBounds.left > wallBounds.left
                          && heroBounds.left + heroBounds.width > wallBounds.left + wallBounds.width
                          && heroBounds.top < wallBounds.top + wallBounds.height
-                         && heroBounds.top + heroBounds.height > wallBounds.top){
-                    gameCharacter->stopVelocityX();
-                    gameCharacter->setPosition(wallBounds.left - heroBounds.width  + 2.f, heroBounds.top);
-                }
+                         && heroBounds.top + heroBounds.height > wallBounds.top
+                         ){
+                            gameCharacter->stopVelocityX();
+                            gameCharacter->setPosition(wallBounds.left - heroBounds.width  + 2.f, heroBounds.top);
+                         }
             }
         }
     }
