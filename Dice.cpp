@@ -5,7 +5,7 @@
 #include "precompiler.h"
 #include "Dice.h"
 
-/* POINTZERO
+/*
 Dice::Dice(int f): faces(f){
     srand(time(0));
 }

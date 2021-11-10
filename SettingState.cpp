@@ -33,15 +33,6 @@ SettingState::~SettingState() {
 
 void SettingState::iniFonts() {
 
-    /*
-      char *stringa = get_current_dir_name();
-    if(stringa != nullptr){
-        std::cout<<"stringa piena" << "\n";
-        for(int i=0; i<100; i++){                 //Capiamo dove siamo
-    std::cout << stringa[i] ;} std::cout << endl;  } //Attuale percorso file
-    else
-        std::cout<<"stringa vuota" << endl ;
-        */
     if(!this->font.loadFromFile("../Fonts/DeterminationMonoWebRegular-Z5oq.ttf")){
         throw("ERROR::MAINMENUSTATE::COULD NOT LOAD FONT");
     }
@@ -65,11 +56,6 @@ void SettingState::initKeybinds() {
 
     ifs.close();
 
-    /* this->keybinds["CLOSE"] = this->supportedKeys->at("Escape");
-    this->keybinds["MOVE_LEFT"] = this->supportedKeys->at("A");
-    this->keybinds["MOVE_RIGHT"] = this->supportedKeys->at("D");
-    this->keybinds["MOVE_UP"] = this->supportedKeys->at("W");
-    this->keybinds["MOVE_DOWN"] = this->supportedKeys->at("S"); */
 }
 
 void SettingState::initGui() {

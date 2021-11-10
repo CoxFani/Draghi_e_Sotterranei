@@ -31,7 +31,7 @@ private:
         sf::IntRect startRect;
         sf::IntRect currentRect;
         sf::IntRect endRect;
-//Animation non inizializza timer (fare caso quando apre class Animation{} se è una dimenticanza o se fa così)
+
         Animation(sf::Sprite& sprite, sf::Texture& texture_sheet, float animation_timer, int start_frame_x, int start_frame_y, int frames_x, int frames_y, int width, int height)
                 : sprite(sprite), textureSheet(texture_sheet),
                 animationTimer(animation_timer), timer(0.f), done(false),

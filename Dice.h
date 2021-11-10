@@ -5,7 +5,7 @@
 #ifndef DRAGHI_E_SOTTERRANEI_DICE_H
 #define DRAGHI_E_SOTTERRANEI_DICE_H
 
-/* POINTZERO
+/*
 class Dice {
 public:
     explicit Dice(int f);
@@ -15,6 +15,6 @@ public:
 private:
     int faces;
 };
-
 */
+
 #endif //DRAGHI_E_SOTTERRANEI_DICE_H

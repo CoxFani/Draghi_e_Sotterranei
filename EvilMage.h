@@ -7,7 +7,7 @@
 
 
 #include "Enemy.h"
-/* POINTZERO
+/*
 class EvilMage : public Enemy{
 
 };

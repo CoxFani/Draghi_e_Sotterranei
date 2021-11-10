@@ -96,5 +96,5 @@ const sf::Vector2u GameCharacter::getGridPosition(const unsigned gridSizeU) cons
 const sf::FloatRect GameCharacter::getNextPositionBounds(const float& dt) const {
     if(this->hitboxComponent && this->movementComponent)
         return this->hitboxComponent->getNextPosition(this->movementComponent->getVelocity() * dt);
-    return sf::FloatRect(-1.f, -1.f, -1.f, -1.f); //TODO controllare
+    return sf::FloatRect(-1.f, -1.f, -1.f, -1.f);
 }

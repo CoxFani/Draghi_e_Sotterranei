@@ -29,17 +29,6 @@ public:
     void update(const float& dt);
     void render(sf::RenderTarget* target = nullptr);
 
-    //id keybinds;
-
-    /* POINTZERO
-    explicit GameState(Hero* hero);
-    virtual ~GameState();
-
-    void printMenu() const;
-    const int getChoice() const;
-    void updateMenu();
-    virtual void update();
-    */
 private:
     sf::View view;
     sf::RenderTexture renderTexture;

@@ -7,10 +7,5 @@
 
 
 #include "Enemy.h"
-/* POINTZERO
-class Troll : public Enemy{
-
-};
-*/
 
 #endif //DRAGHI_E_SOTTERRANEI_TROLL_H

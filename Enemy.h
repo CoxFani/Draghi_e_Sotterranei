@@ -7,7 +7,7 @@
 
 
 #include "GameCharacter.h"
-/* POINTZERO
+/*
 class Enemy : public GameCharacter {
 public:
 

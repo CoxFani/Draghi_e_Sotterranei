@@ -110,7 +110,6 @@ namespace gui {
         sf::Vector2u mousePosGrid;
         sf::IntRect textureRect;
 
-
     };
 
 }

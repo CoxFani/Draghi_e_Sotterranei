@@ -81,15 +81,6 @@ void EditorState::update(const float& dt) {
 
 void EditorState::initFonts() {
 
-    /*
-      char *stringa = get_current_dir_name();
-    if(stringa != nullptr){
-        std::cout<<"stringa piena" << "\n";
-        for(int i=0; i<100; i++){                 //Capiamo dove siamo
-    std::cout << stringa[i] ;} std::cout << endl;  } //Attuale percorso file
-    else
-        std::cout<<"stringa vuota" << endl ;
-        */
     if(!this->font.loadFromFile("../Fonts/DeterminationMonoWebRegular-Z5oq.ttf")){
         throw("ERROR::EDITORSTATE::COULD NOT LOAD FONT");
     }
@@ -113,11 +104,6 @@ void EditorState::initKeybinds() {
 
     ifs.close();
 
-    /* this->keybinds["CLOSE"] = this->supportedKeys->at("Escape");
-    this->keybinds["MOVE_LEFT"] = this->supportedKeys->at("A");
-    this->keybinds["MOVE_RIGHT"] = this->supportedKeys->at("D");
-    this->keybinds["MOVE_UP"] = this->supportedKeys->at("W");
-    this->keybinds["MOVE_DOWN"] = this->supportedKeys->at("S"); */
 }
 
 void EditorState::initButtons() {
@@ -165,10 +151,10 @@ void EditorState::updatePauseMenuButtons() {
         this->endState();
 
     if( this->pmenu->isButtonPressed("SAVE"))
-        this->tileMap->saveToFile("../save_files.txt");
+        this->tileMap->saveToFile("../saves_file.txt");
 
     if( this->pmenu->isButtonPressed("LOAD"))
-        this->tileMap->loadFromFile("../save_files.txt");
+        this->tileMap->loadFromFile("../saves_file.txt");
 }
 
 

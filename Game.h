@@ -29,7 +29,6 @@ public:
     void run();
     void updateSFMLEvents();
 
-//POINTZERO    [[nodiscard]] const bool& getQuit() const;
 
 
 private:
@@ -57,13 +56,7 @@ private:
     void initStates();
     void endApplication();
 
-/* POINTZERO
-    bool quit;
 
-    stack<State*> states;
-
-    Hero* hero;
-*/
 
 };
 

@@ -7,10 +7,5 @@
 
 
 #include "Hero.h"
-/* POINTZERO
-class Mage : public Hero{
 
-};
-
-*/
 #endif //DRAGHI_E_SOTTERRANEI_MAGE_H

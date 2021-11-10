@@ -7,10 +7,6 @@
 
 
 #include "Hero.h"
-/* POINTZERO
-class Warrior : public Hero{
 
-};
-*/
 
 #endif //DRAGHI_E_SOTTERRANEI_WARRIOR_H

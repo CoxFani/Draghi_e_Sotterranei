@@ -37,10 +37,6 @@ bool HitboxComponent::intersect(const sf::FloatRect& frect) {
 
     return this->hitbox.getGlobalBounds().intersects(frect);
 
-    /* if(this->hitbox.getGlobalBounds().intersects(frect))
-        return true;
-
-    return false;*/
 }
 
 const sf::Vector2f &HitboxComponent::getPosition() const {

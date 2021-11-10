@@ -5,15 +5,5 @@
 #ifndef DRAGHI_E_SOTTERRANEI_FACTORY_H
 #define DRAGHI_E_SOTTERRANEI_FACTORY_H
 
-#include "GameCharacter.h"
-
-using namespace std;
-
-class Factory {
-public:
-    static unique_ptr <GameCharacter>  Create(); //TODO
-};
-
-
-#endif //DRAGHI_E_SOTTERRANEI_FACTORY_H
-*/
+#endif DRAGHI_E_SOTTERRANEI_FACTORY_H
+ */

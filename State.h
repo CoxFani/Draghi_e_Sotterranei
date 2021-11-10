@@ -45,14 +45,6 @@ public:
     virtual void update(const float& dt) = 0;
     virtual void render(sf::RenderTarget* target = nullptr) = 0;
 
-
-
-    /* POINTZERO
-            const bool& getQuit() const;
-            void setQuit(const bool quit);
-
-            virtual void update() = 0;
-        */
 protected:
     StateData* stateData;
     std::stack<State*>* states;

@@ -21,17 +21,7 @@ public:
     void update(const float& dt);
 
     void render(sf::RenderTarget& target);
-/*
 
-    bool canLevelUp();
-    void levelUpStats();
-
-    int getChoice();
-
-    int getExp();
-
-    const string toString();
-*/
 private:
 
     bool attacking;
@@ -40,13 +30,7 @@ private:
     void initComponents();
 
 protected:
-/*
-    string name;
-    int exp;
-    int expNext;
-    int level;
-    int statsPoints;
-*/
+
 };
 
 

@@ -65,13 +65,7 @@ void Game::initKeys() {
     }
 
     ifs.close();
-/*
-    this->supportedKeys["Escape"] = sf::Keyboard::Escape;
-    this->supportedKeys["A"] = sf::Keyboard::A;
-    this->supportedKeys["D"] = sf::Keyboard::D;
-    this->supportedKeys["W"] = sf::Keyboard::W;
-    this->supportedKeys["S"] = sf::Keyboard::S;
-*/
+
     //for debug (da rimuovere)
     for (auto i : this->supportedKeys)
         {

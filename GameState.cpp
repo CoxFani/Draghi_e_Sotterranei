@@ -108,13 +108,7 @@ void GameState::initKeybinds() {
     }
 
     ifs.close();
-/*
-    this->keybinds["CLOSE"] = this->supportedKeys->at("Escape");
-    this->keybinds["MOVE_LEFT"] = this->supportedKeys->at("A");
-    this->keybinds["MOVE_RIGHT"] = this->supportedKeys->at("D");
-    this->keybinds["MOVE_UP"] = this->supportedKeys->at("W");
-    this->keybinds["MOVE_DOWN"] = this->supportedKeys->at("S");
-    */
+
 }
 
 void GameState::initFonts() {
@@ -154,7 +148,7 @@ void GameState::updatePauseMenuButtons() {
 void GameState::initTileMap() {
 //TODO cambiare dimensioni mappa
     this->tileMap = new TileMap(this->stateData->gridSize, 10, 10, "../Resources/Images/Tiles/tilesheet1.png");
-    this->tileMap->loadFromFile("../save_files.txt");
+    this->tileMap->loadFromFile("../saves_file.txt");
 }
 
 void GameState::initView() {

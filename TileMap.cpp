@@ -12,13 +12,13 @@ TileMap::TileMap(float gridSize, int  width, int  height, std::string texture_fi
     this->maxSizeWorldGrid.y = height;
     this->maxSizeWorldF.x = static_cast<float>(width) * gridSize;
     this->maxSizeWorldF.y = static_cast<float>(height) * gridSize;
-    this->layers = 1;
+    this->layers = 1; //layers<>layer
     this->textureFile = texture_file;
     this->fromX = 0;
     this->toX = 0;
     this->fromY = 0;
     this->toY = 0;
-    this->layer = 0; //attento trovato con nome simile poi da sostituire semmai
+    this->layer = 0; //layer<>layers
 
     this->map.resize(this->maxSizeWorldGrid.x, std::vector< std::vector<Tile*> >());
     for(int x = 0; x < this->maxSizeWorldGrid.x; x++){
