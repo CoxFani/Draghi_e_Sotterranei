@@ -38,7 +38,7 @@ TileMap::TileMap(float gridSize, int  width, int  height, std::string texture_fi
     this->collisionBox.setSize(sf::Vector2f(gridSize, gridSize));
     this->collisionBox.setFillColor(sf::Color(255, 0, 0, 50));
     this->collisionBox.setOutlineColor(sf::Color::Red);
-    this->collisionBox.setOutlineThickness(1.f);
+    this->collisionBox.setOutlineThickness(-1.f);
 }
 
 TileMap::~TileMap() {
@@ -310,15 +310,15 @@ void TileMap::updateCollision(GameCharacter *gameCharacter, const float& dt) {
                 && heroBounds.left + heroBounds.width > wallBounds.left
                 ){
                     gameCharacter->stopVelocityY();
-                    gameCharacter->setPosition(heroBounds.left, wallBounds.top - heroBounds.height - 2.f);
+                    gameCharacter->setPosition(heroBounds.left, wallBounds.top - heroBounds.height);
                 }
-                else  if(heroBounds.top > wallBounds.top + wallBounds.height
+                else  if(heroBounds.top > wallBounds.top
                          && heroBounds.top + heroBounds.height > wallBounds.top + wallBounds.height
                          && heroBounds.left < wallBounds.left + wallBounds.width
                          && heroBounds.left + heroBounds.width > wallBounds.left
                         ){
                             gameCharacter->stopVelocityY();
-                            gameCharacter->setPosition(heroBounds.left, wallBounds.top - wallBounds.height + 2.f);
+                            gameCharacter->setPosition(heroBounds.left, wallBounds.top + wallBounds.height);
                         }
 
                 if (heroBounds.left < wallBounds.left
@@ -326,7 +326,7 @@ void TileMap::updateCollision(GameCharacter *gameCharacter, const float& dt) {
                     && heroBounds.top < wallBounds.top + wallBounds.height
                     && heroBounds.top + heroBounds.height > wallBounds.top){
                     gameCharacter->stopVelocityX();
-                    gameCharacter->setPosition(wallBounds.left - heroBounds.width - 2.f, heroBounds.top);
+                    gameCharacter->setPosition(wallBounds.left - heroBounds.width, heroBounds.top);
                 }
                 else if (heroBounds.left > wallBounds.left
                          && heroBounds.left + heroBounds.width > wallBounds.left + wallBounds.width
@@ -334,7 +334,7 @@ void TileMap::updateCollision(GameCharacter *gameCharacter, const float& dt) {
                          && heroBounds.top + heroBounds.height > wallBounds.top
                          ){
                             gameCharacter->stopVelocityX();
-                            gameCharacter->setPosition(wallBounds.left - heroBounds.width  + 2.f, heroBounds.top);
+                            gameCharacter->setPosition(wallBounds.left + wallBounds.width, heroBounds.top);
                          }
             }
         }

@@ -157,7 +157,7 @@ void EditorState::initPausedMenu() {
 
     this->pmenu->addButton("QUIT", 450.f, "Quit");
     this->pmenu->addButton("SAVE", 350.f, "Save");
-    this->pmenu->addButton("LOAD", 300.f, "Load");
+    this->pmenu->addButton("LOAD", 250.f, "Load");
 }
 
 void EditorState::updatePauseMenuButtons() {
