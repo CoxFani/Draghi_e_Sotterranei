@@ -6,32 +6,24 @@
 #include "Game.h"
 
 Game::Game() {
-
     this->initVariables();
     this->initGraphicsSettings();
     this->initWindow();
     this->initKeys();
     this->initStateData();
     this->initStates();
-
 }
 
 Game::~Game() {
-
     delete this->window;
-
     while(!this->states.empty())
     {
         delete this->states.top();
         this->states.pop();
     }
-
 }
 
 void Game::initWindow() {
-
-
-
     if(this->gfxSettings.fullscreen)
        this->window = new sf::RenderWindow(
                this->gfxSettings.resolution,
@@ -50,7 +42,6 @@ void Game::initWindow() {
 }
 
 void Game::initKeys() {
-
      std::ifstream ifs("../Config/supported_keys.ini");
 
     if (ifs.is_open())
@@ -81,22 +72,19 @@ void Game::initKeys() {
 
 void Game::initStates() {
     this->states.push(new MainMenuState(&this->stateData));
-
 }
 
 void Game::update() {
-
     this->updateSFMLEvents();
 
-    if(!this->states.empty())
-    {
-        this->states.top()->update(this->dt);
-
-        if (this->states.top()->getQuit())
-        {
-            this->states.top()->endState();
-            delete this->states.top();
-            this->states.pop();
+    if(!this->states.empty()) {
+        if(this->window->hasFocus()) {
+            this->states.top()->update(this->dt);
+            if (this->states.top()->getQuit()) {
+                this->states.top()->endState();
+                delete this->states.top();
+                this->states.pop();
+            }
         }
     }
     else

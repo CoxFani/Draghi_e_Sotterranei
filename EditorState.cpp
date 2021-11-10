@@ -236,18 +236,17 @@ void EditorState::renderGui(sf::RenderTarget &target) {
 }
 
 void EditorState::updateEditorInput(const float &dt) {
-
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_CAMERA_UP")))){
-        this->view.move(0.f, -this->cameraSpeed * dt); //valore regola velocità scorrimento schermo
+        this->view.move(0.f, -std::floor(this->cameraSpeed * dt)); //valore regola velocità scorrimento schermo
     }
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_CAMERA_DOWN")))){
-        this->view.move(0.f, this->cameraSpeed * dt); //valore regola velocità scorrimento schermo
+        this->view.move(0.f, std::floor(this->cameraSpeed * dt)); //valore regola velocità scorrimento schermo
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_CAMERA_LEFT")))){
-        this->view.move(-this->cameraSpeed * dt, 0.f); //valore regola velocità scorrimento schermo
+        this->view.move(-std::floor(this->cameraSpeed * dt), 0.f); //valore regola velocità scorrimento schermo
     }
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_CAMERA_RIGHT")))){
-        this->view.move(this->cameraSpeed * dt, 0.f); //valore regola velocità scorrimento schermo
+        this->view.move(std::floor(this->cameraSpeed * dt), 0.f); //valore regola velocità scorrimento schermo
     }
 
 
@@ -290,6 +289,6 @@ void EditorState::initText() {
 }
 
 void EditorState::initView() {
-    this->view.setSize(sf::Vector2f(this->stateData->gfxSettings->resolution.width, this->stateData->gfxSettings->resolution.height));
-    this->view.setCenter(this->stateData->gfxSettings->resolution.width / 2.f, this->stateData->gfxSettings->resolution.height / 2.f);
+    this->view.setSize(sf::Vector2f(static_cast<float>(this->stateData->gfxSettings->resolution.width), static_cast<float>(this->stateData->gfxSettings->resolution.height)));
+    this->view.setCenter(static_cast<float>(this->stateData->gfxSettings->resolution.width) / 2.f, static_cast<float>(this->stateData->gfxSettings->resolution.height) / 2.f);
 }

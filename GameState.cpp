@@ -37,7 +37,7 @@ void GameState::render(sf::RenderTarget* target) {
     this->renderTexture.clear();
 
     this->renderTexture.setView(this->view);
-    this->tileMap->render(this->renderTexture);
+    this->tileMap->render(this->renderTexture, this->hero);
 
     this->hero->render(this->renderTexture);
 
@@ -83,6 +83,7 @@ void GameState::update(const float& dt) {
     if(!this->paused) {
         this->updateView(dt);
         this->updateHeroInput(dt);
+        this->updateTileMap(dt);
         this->hero->update(dt);
     }
     else{
@@ -160,26 +161,31 @@ void GameState::initView() {
 
     this->view.setSize(
             sf::Vector2f(
-                    this->stateData->gfxSettings->resolution.width,
-                    this->stateData->gfxSettings->resolution.height
+                    static_cast<float>(this->stateData->gfxSettings->resolution.width),
+                    static_cast<float>(this->stateData->gfxSettings->resolution.height)
             )
     );
 
     this->view.setCenter(
             sf::Vector2f(
-                    this->stateData->gfxSettings->resolution.width / 2.f,
-                    this->stateData->gfxSettings->resolution.height / 2.f
+                    static_cast<float>(this->stateData->gfxSettings->resolution.width) / 2.f,
+                    static_cast<float>(this->stateData->gfxSettings->resolution.height) / 2.f
             )
     );
 
 }
 
 void GameState::updateView(const float &dt) {
-    this->view.setCenter(this->hero->getPosition());
+    this->view.setCenter(std::floor(this->hero->getPosition().x), std::floor(this->hero->getPosition().y));
 }
 
 void GameState::initDeferredRender() {
     this->renderTexture.create(this->stateData->gfxSettings->resolution.width, this->stateData->gfxSettings->resolution.height);
     this->renderSprite.setTexture(this->renderTexture.getTexture());
     this->renderSprite.setTextureRect(sf::IntRect(0, 0, this->stateData->gfxSettings->resolution.width, this->stateData->gfxSettings->resolution.height));
+}
+
+void GameState::updateTileMap(const float& dt) {
+    this->tileMap->update();
+    this->tileMap->updateCollision(this->hero, dt);
 }

@@ -8,6 +8,8 @@
 #include "GameCharacter.h"
 //#include "GameState.h"
 
+class GameCharacter;
+
 class Hero : public GameCharacter {
 public:
 
@@ -16,7 +18,8 @@ public:
 
     void updateAttack();
     void updateAnimation(const float& dt);
-    virtual void update(const float& dt);
+    void update(const float& dt);
+    void render(sf::RenderTarget& target);
 /*
 
     bool canLevelUp();

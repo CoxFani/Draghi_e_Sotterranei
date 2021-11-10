@@ -13,7 +13,14 @@ public:
                     float width, float height);
     ~HitboxComponent();
 
-    bool checkIntersect(const sf::FloatRect& frect);
+    const sf::Vector2f& getPosition() const;
+    const sf::FloatRect getGlobalBounds() const;
+    const sf::FloatRect& getNextPosition(const sf::Vector2f& velocity);
+
+    void setPosition(const sf::Vector2f& position);
+    void setPosition(const float x, const float y);
+
+    bool intersects(const sf::FloatRect& frect);
 
     void update();
     void render(sf::RenderTarget& target);
@@ -21,6 +28,7 @@ public:
 private:
     sf::RectangleShape hitbox;
     sf::Sprite& sprite;
+    sf::FloatRect nextPosition;
     float offsetX;
     float offsetY;
 

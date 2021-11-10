@@ -25,8 +25,6 @@ Hero::Hero(float x, float y, sf::Texture& texture_sheet) {
     this->animationComponent->addAnimation("JUMP", 7.f, 0, 7, 5, 7, 48, 48);
     this->animationComponent->addAnimation("RUN", 6.f, 0, 8, 5, 8, 48, 48);
 
-
-
 }
 
 Hero::~Hero() {
@@ -96,6 +94,11 @@ void Hero::updateAnimation(const float &dt) {
     else if(this->movementComponent->getState(MOVING_DOWN)){
         this->animationComponent->play("WALK", dt, this->movementComponent->getVelocity().y, this->movementComponent->getMaxVelocity());
     }
+}
+
+void Hero::render(sf::RenderTarget &target) {
+    target.draw(this->sprite);
+    this->hitboxComponent->render(target);
 }
 
 

@@ -5,17 +5,21 @@
 #ifndef DRAGHI_E_SOTTERRANEI_TILE_H
 #define DRAGHI_E_SOTTERRANEI_TILE_H
 
-enum TileTypes {DEFAULT = 0, OTHER = 1, ALTRA = 2}; //solo esempio, da completare in seguito
+enum TileTypes {DEFAULT = 0, DAMAGING}; //solo esempio, da completare in seguito
 
 class Tile {
 public:
     Tile();
-    Tile(unsigned grid_x, unsigned grid_y, float gridSizeF, sf::Texture& texture, const sf::IntRect& texture_rect, bool collision = false, short type = TileTypes::DEFAULT);
+    Tile(int grid_x, int grid_y, float gridSizeF, sf::Texture& texture, const sf::IntRect& texture_rect, bool collision = false, short type = TileTypes::DEFAULT);
     virtual ~Tile();
 
     const std::string getAsString() const;
     void update();
     void render(sf::RenderTarget& target);
+    const sf::Vector2f& getPosition() const;
+    const bool &getCollision() const;
+    const bool intersects(const sf::FloatRect bounds) const;
+    const sf::FloatRect getGlobalBounds() const;
 
 protected:
     sf::RectangleShape shape;
