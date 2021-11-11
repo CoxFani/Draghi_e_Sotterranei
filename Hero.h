@@ -12,7 +12,6 @@ class  GameCharacter;
 
 class Hero : public GameCharacter {
 public:
-
     Hero(float x, float y, sf::Texture& texture_sheet);
     virtual ~Hero();
 
@@ -23,7 +22,6 @@ public:
     void render(sf::RenderTarget& target);
 
 private:
-
     bool attacking;
 
     void initVariables();

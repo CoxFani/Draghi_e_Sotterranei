@@ -11,7 +11,6 @@ enum button_states{BTN_IDLE = 0, BTN_HOVER, BTN_ACTIVE};
 namespace gui {
 
     class Button {
-
     public:
         Button(float x, float y, float width, float height,
             sf::Font *font, std::string text, unsigned character_size,
@@ -57,7 +56,6 @@ namespace gui {
     class DropDownList{
 
     public:
-
         DropDownList(float x, float y, float width, float height, sf::Font& font, std::string list[], unsigned elements, unsigned default_index = 0);
         ~DropDownList();
 
@@ -82,7 +80,6 @@ namespace gui {
 
 
     class TextureSelector{
-
     public:
         TextureSelector(float x, float y, float width, float height,
                         float gridSize, const sf::Texture* texture_sheet,

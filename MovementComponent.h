@@ -34,7 +34,6 @@ private:
 
     sf::Vector2f velocity;
 
-
 };
 
 

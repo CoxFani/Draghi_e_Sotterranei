@@ -46,10 +46,9 @@ protected:
     MovementComponent* movementComponent;
     AnimationComponent* animationComponent;
 
+
 private:
     void initVariables();
-
-
 
 };
 

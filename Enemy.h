@@ -11,8 +11,6 @@
 class Enemy : public GameCharacter {
 public:
 
-
-
 protected:
 
 };

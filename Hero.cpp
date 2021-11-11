@@ -6,7 +6,6 @@
 #include "Hero.h"
 
 Hero::Hero(float x, float y, sf::Texture& texture_sheet) {
-
     this->initVariables();
 
     this->setPosition(x, y);
@@ -24,9 +23,6 @@ Hero::Hero(float x, float y, sf::Texture& texture_sheet) {
     this->animationComponent->addAnimation("HURT", 7.f, 0, 6, 2, 6, 48, 48);
     this->animationComponent->addAnimation("JUMP", 7.f, 0, 7, 5, 7, 48, 48);
     this->animationComponent->addAnimation("RUN", 6.f, 0, 8, 5, 8, 48, 48);
-
-
-
 }
 
 Hero::~Hero() {
@@ -35,7 +31,6 @@ Hero::~Hero() {
 
 void Hero::initVariables() {
     this->attacking = false;
-
 }
 
 void Hero::initComponents() {
@@ -59,7 +54,6 @@ void Hero::updateAttack() {
 }
 
 void Hero::updateAnimation(const float &dt) {
-
     if(this->attacking){
         /*if(this->sprite.getScale().x > 0.f){
             this->sprite.setOrigin(0.f, 0.f);
@@ -69,7 +63,6 @@ void Hero::updateAnimation(const float &dt) {
         }*/
         if(this->animationComponent->play("ATTACK1", dt, true)){
             this->attacking = false;
-
         }
     }
 
@@ -80,7 +73,6 @@ void Hero::updateAnimation(const float &dt) {
             this->sprite.setOrigin(0.f, 0.f);
             this->sprite.setScale(1.f, 1.f);
         }
-
         this->animationComponent->play("WALK", dt, this->movementComponent->getVelocity().x, this->movementComponent->getMaxVelocity());
     }
     else if(this->movementComponent->getState(MOVING_LEFT)){
@@ -100,8 +92,7 @@ void Hero::updateAnimation(const float &dt) {
 
 void Hero::render(sf::RenderTarget &target) {
     target.draw(this->sprite);
-
-        this->hitboxComponent->render(target);
+    this->hitboxComponent->render(target);
 }
 
 

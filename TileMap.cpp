@@ -28,7 +28,6 @@ TileMap::TileMap(float gridSize, int  width, int  height, std::string texture_fi
 
             for (int z = 0; z < this->layers; z++) {
                 this->map[x][y].resize(this->layers, nullptr);
-
             }
         }
     }
@@ -50,7 +49,6 @@ void TileMap::update() {
 }
 
 void TileMap::render(sf::RenderTarget &target, GameCharacter* gameCharacter) {
-
     if(gameCharacter) {
         this->layer = 0;
 
@@ -86,11 +84,9 @@ void TileMap::render(sf::RenderTarget &target, GameCharacter* gameCharacter) {
                     target.draw(this->collisionBox);
                 }
             }
-
         }
     }
     else{
-
         for(auto &x : this->map){
             for(auto &y : x){
                 for(auto *z : y){
@@ -105,12 +101,9 @@ void TileMap::render(sf::RenderTarget &target, GameCharacter* gameCharacter) {
             }
         }
     }
-
-
 }
 
 void TileMap::addTile(const int x, const int y, const int z, const sf::IntRect& texture_rect, const bool& collision, const short& type) {
-
     if(x < this->maxSizeWorldGrid.x && x >= 0 &&
        y < this->maxSizeWorldGrid.y && y >= 0 &&
        z < this->layers && z >= 0){
@@ -124,7 +117,6 @@ void TileMap::addTile(const int x, const int y, const int z, const sf::IntRect& 
 }
 
 void TileMap::removeTile(const int x, const int y, const int z) {
-
     if(x < this->maxSizeWorldGrid.x && x >= 0 &&
        y < this->maxSizeWorldGrid.y && y >= 0 &&
        z < this->layers && z >= 0){
@@ -251,7 +243,6 @@ void TileMap::clear() {
 }
 
 void TileMap::updateCollision(GameCharacter *gameCharacter, const float& dt) {
-
     if(gameCharacter->getPosition().x < 0.f) {
         gameCharacter->setPosition(0.f, gameCharacter->getPosition().y);
         gameCharacter->stopVelocityX();
@@ -335,7 +326,7 @@ void TileMap::updateCollision(GameCharacter *gameCharacter, const float& dt) {
                          ){
                             gameCharacter->stopVelocityX();
                             gameCharacter->setPosition(wallBounds.left + wallBounds.width, heroBounds.top);
-                         }
+                }
             }
         }
     }

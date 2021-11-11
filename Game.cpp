@@ -6,32 +6,24 @@
 #include "Game.h"
 
 Game::Game() {
-
     this->initVariables();
     this->initGraphicsSettings();
     this->initWindow();
     this->initKeys();
     this->initStateData();
     this->initStates();
-
 }
 
 Game::~Game() {
-
     delete this->window;
 
-    while(!this->states.empty())
-    {
+    while(!this->states.empty()){
         delete this->states.top();
         this->states.pop();
     }
-
 }
 
 void Game::initWindow() {
-
-
-
     if(this->gfxSettings.fullscreen)
        this->window = new sf::RenderWindow(
                this->gfxSettings.resolution,
@@ -50,16 +42,13 @@ void Game::initWindow() {
 }
 
 void Game::initKeys() {
+    std::ifstream ifs("../Config/supported_keys.ini");
 
-     std::ifstream ifs("../Config/supported_keys.ini");
-
-    if (ifs.is_open())
-    {
+    if (ifs.is_open()){
         std::string key = "";
         int key_value = 0;
 
-        while (ifs >> key >> key_value)
-        {
+        while (ifs >> key >> key_value){
             this->supportedKeys[key] = key_value;
         }
     }
@@ -79,7 +68,6 @@ void Game::initStates() {
 }
 
 void Game::update() {
-
     this->updateSFMLEvents();
 
     if(!this->states.empty()) {
@@ -99,21 +87,18 @@ void Game::update() {
         this->window->close();
     }
 }
-void Game::render() {
 
+void Game::render() {
     this->window->clear();
 
     if(!this->states.empty())
         this->states.top()->render();
 
     this->window->display();
-
 }
 
 void Game::run() {
-
-    while (this->window->isOpen())
-    {
+    while (this->window->isOpen()){
         this->updateDt();
         this->update();
         this->render();
@@ -121,20 +106,14 @@ void Game::run() {
 }
 
 void Game::updateSFMLEvents() {
-
-    while (this->window->pollEvent(this->sfEvent))
-    {
+    while (this->window->pollEvent(this->sfEvent)){
         if (this->sfEvent.type == sf::Event::Closed)
             this->window->close();
     }
-
 }
 
 void Game::updateDt() {
-
     this->dt = this->dtClock.restart().asSeconds();
-
-
 }
 
 void Game::endApplication() {
@@ -147,7 +126,6 @@ void Game::initVariables() {
     this->dt = 0.f;
 
     this->gridSize = 100.f;  //TODO cambiare dimensione singola tile
-
 }
 
 void Game::initGraphicsSettings() {

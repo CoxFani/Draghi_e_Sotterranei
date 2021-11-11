@@ -24,14 +24,9 @@ EditorState::EditorState(StateData* state_data)
 EditorState::~EditorState() {
     auto i = this->buttons.begin();
     for (i = this->buttons.begin(); i != this->buttons.end(); ++i)
-    {
         delete i->second;
-    }
-
     delete this->pmenu;
-
     delete this->tileMap;
-
     delete this->textureSelector;
 }
 
@@ -91,19 +86,14 @@ void EditorState::initKeybinds() {
 
     std::ifstream ifs("../Config/editorstate_keybinds.ini");
 
-    if (ifs.is_open())
-    {
+    if (ifs.is_open()){
         std::string key = "";
         std::string key2 = "";
-
-        while (ifs >> key >> key2)
-        {
+        while (ifs >> key >> key2){
             this->keybinds[key] = this->supportedKeys->at(key2);
         }
     }
-
     ifs.close();
-
 }
 
 void EditorState::initButtons() {
@@ -111,17 +101,13 @@ void EditorState::initButtons() {
 }
 
 void EditorState::updateButtons() {
-
-    for (auto &i : this->buttons)
-    {
+    for (auto &i : this->buttons){
         i.second->update(this->mousePosWindow);
     }
 }
 
 void EditorState::renderButtons(sf::RenderTarget& target) {
-
-    for (auto &i : this->buttons)
-    {
+    for (auto &i : this->buttons){
         i.second->render(target);
     }
 }
@@ -131,7 +117,6 @@ void EditorState::initBackground() {
 }
 
 void EditorState::initVariables() {
-
     this->textureRect = sf::IntRect(0, 0, static_cast<int>(this->stateData->gridSize), static_cast<int>(this->stateData->gridSize));
     this->collision = false;
     this->type = TileTypes::DEFAULT;
@@ -159,7 +144,6 @@ void EditorState::updatePauseMenuButtons() {
 
 
 void EditorState::initTileMap() {
-
     this->tileMap = new TileMap(this->stateData->gridSize, 10, 10,"../Resources/Images/Tiles/tilesheet1.png"); //TODO cambiare file per texture selector
 }
 
@@ -188,7 +172,6 @@ void EditorState::initGui() {
 }
 
 void EditorState::updateGui(const float& dt) {
-
     this->textureSelector->update(this->mousePosWindow, dt);
 
     if(!this->textureSelector->getActive()) {
@@ -208,7 +191,6 @@ void EditorState::updateGui(const float& dt) {
 }
 
 void EditorState::renderGui(sf::RenderTarget &target) {
-
     if(!this->textureSelector->getActive()) {
         target.setView(this->view);
         target.draw(this->selectorRect);
@@ -220,11 +202,9 @@ void EditorState::renderGui(sf::RenderTarget &target) {
 
     target.setView(this->view);
     target.draw(this->cursorText);
-
 }
 
 void EditorState::updateEditorInput(const float &dt) {
-
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_CAMERA_UP")))){
         this->view.move(0.f, -std::floor(this->cameraSpeed * dt)); //valore regola velocità scorrimento schermo
     }
@@ -237,7 +217,6 @@ void EditorState::updateEditorInput(const float &dt) {
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_CAMERA_RIGHT")))){
         this->view.move(std::floor(this->cameraSpeed * dt), 0.f); //valore regola velocità scorrimento schermo
     }
-
 
     if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->getKeyTime()){
         if(!this->sidebar.getGlobalBounds().contains(sf::Vector2f(this->mousePosWindow))) {
@@ -270,7 +249,6 @@ void EditorState::updateEditorInput(const float &dt) {
 }
 
 void EditorState::initText() {
-
     this->cursorText.setFont(this->font);
     this->cursorText.setFillColor(sf::Color::White);
     this->cursorText.setCharacterSize(20);

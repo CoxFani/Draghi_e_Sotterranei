@@ -30,36 +30,29 @@ PauseMenu::PauseMenu(sf::RenderWindow& window, sf::Font& font)
     this->menuText.setString("PAUSED");
     this->menuText.setPosition(this->container.getPosition().x + this->container.getSize().x / 2.f - this->menuText.getGlobalBounds().width / 2.f,
                                this->container.getPosition().y + 20.f);
-
-
 }
 
 PauseMenu::~PauseMenu() {
     auto i = this->buttons.begin();
-    for (i = this->buttons.begin(); i != this->buttons.end(); ++i)
-    {
+    for (i = this->buttons.begin(); i != this->buttons.end(); ++i){
         delete i->second;
     }
-
 }
 
 void PauseMenu::update(const sf::Vector2i& mousePosWindow) {
     for(auto &i : this->buttons){
         i.second->update(mousePosWindow);
     }
-
 }
 
 void PauseMenu::render(sf::RenderTarget &target) {
     target.draw(this->background);
     target.draw(this->container);
 
-    for(auto &i : this->buttons){
+    for(auto &i : this->buttons)
         i.second->render(target);
-    }
 
     target.draw(this->menuText);
-
 }
 
 std::map<std::string, gui::Button *> &PauseMenu::getButtons() {
@@ -67,7 +60,6 @@ std::map<std::string, gui::Button *> &PauseMenu::getButtons() {
 }
 
 void PauseMenu::addButton(const std::string key, float y, const std::string text) {
-
     float width = 200.f;
     float height = 75.f;
     float x = this->container.getPosition().x + this->container.getSize().x / 2.f - width / 2.f;
@@ -76,7 +68,6 @@ void PauseMenu::addButton(const std::string key, float y, const std::string text
          &this->font, text, 50,
  sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
      sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
-
 }
 
 const bool PauseMenu::isButtonPressed(const std::string key) {

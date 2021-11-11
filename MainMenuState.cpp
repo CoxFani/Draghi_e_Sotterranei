@@ -33,7 +33,7 @@ void MainMenuState::render(sf::RenderTarget* target) {
 
     this->renderButtons(*target);
 
-    //DA COMMENTARE SUCCESSIVAMENTE: Aiuta a trovare le coordinate sullo schermo per posizionare cose
+    //DA COMMENTARE SUCCESSIVAMENTE (fatto): Aiuta a trovare le coordinate sullo schermo per posizionare cose
     /*
     sf::Text mouseText;
     mouseText.setPosition(this->mousePosView.x, this->mousePosView.y - 50);
@@ -61,7 +61,6 @@ void MainMenuState::update(const float& dt) {
 }
 
 void MainMenuState::iniFonts() {
-
     if(!this->font.loadFromFile("../Fonts/DeterminationMonoWebRegular-Z5oq.ttf")){
         throw("ERROR::MAINMENUSTATE::COULD NOT LOAD FONT");
     }
@@ -69,7 +68,6 @@ void MainMenuState::iniFonts() {
 }
 
 void MainMenuState::initKeybinds() {
-
     std::ifstream ifs("../Config/mainmenustate_keybinds.ini");
 
     if (ifs.is_open())
@@ -84,11 +82,9 @@ void MainMenuState::initKeybinds() {
     }
 
     ifs.close();
-
 }
 
 void MainMenuState::initButtons() {
-
     this->buttons["GAME_STATE"] = new gui::Button(
             100.f, 300.f, 200.f, 75.f,
          &this->font, "New Game", 50,
@@ -115,9 +111,7 @@ sf::Color(100, 100, 100, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 
 }
 
 void MainMenuState::updateButtons() {
-
-    for (auto &i : this->buttons)
-    {
+    for (auto &i : this->buttons){
         i.second->update(this->mousePosWindow);
     }
 
@@ -139,15 +133,12 @@ void MainMenuState::updateButtons() {
 }
 
 void MainMenuState::renderButtons(sf::RenderTarget& target) {
-
-    for (auto &i : this->buttons)
-    {
+    for (auto &i : this->buttons){
         i.second->render(target);
     }
 }
 
 void MainMenuState::initBackground() {
-
     this->background.setSize(
             sf::Vector2f(
                     static_cast<float>(this->window->getSize().x),

@@ -23,7 +23,6 @@ State::~State() {
 
 const bool & State::getQuit() const {
     return this->quit;
-
 }
 
 void State::updateMousePosition(sf::View* view) {
@@ -41,7 +40,6 @@ void State::updateMousePosition(sf::View* view) {
 
 void State::endState() {
     this->quit = true;
-
 }
 
 void State::pauseState() {
@@ -63,6 +61,5 @@ const bool State::getKeyTime() {
         return true;
     }
     return false;
-
 }
 

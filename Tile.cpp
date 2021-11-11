@@ -11,7 +11,6 @@ Tile::Tile() {
 }
 
 Tile::Tile(int grid_x, int grid_y, float gridSizeF, sf::Texture& texture, const sf::IntRect& texture_rect, bool collision, short type) {
-
     this->shape.setSize(sf::Vector2f(gridSizeF, gridSizeF));
     this->shape.setFillColor(sf::Color::White);
     //this->shape.setOutlineThickness(1.f);
@@ -32,7 +31,6 @@ void Tile::update() {
 }
 
 void Tile::render(sf::RenderTarget &target) {
-
     target.draw(this->shape);
 }
 

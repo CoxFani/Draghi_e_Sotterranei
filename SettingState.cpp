@@ -8,7 +8,6 @@
 
 SettingState::SettingState(StateData* state_data)
 : State(state_data){
-
     this->initVariables();
     this->initBackground();
     this->iniFonts();
@@ -19,48 +18,38 @@ SettingState::SettingState(StateData* state_data)
 
 SettingState::~SettingState() {
     auto i = this->buttons.begin();
-    for (i = this->buttons.begin(); i != this->buttons.end(); ++i)
-    {
+    for (i = this->buttons.begin(); i != this->buttons.end(); ++i){
         delete i->second;
     }
 
     auto count = this->dropdownList.begin();
-    for (count = this->dropdownList.begin(); count != this->dropdownList.end(); ++count)
-    {
+    for (count = this->dropdownList.begin(); count != this->dropdownList.end(); ++count){
         delete count->second;
     }
 }
 
 void SettingState::iniFonts() {
-
     if(!this->font.loadFromFile("../Fonts/DeterminationMonoWebRegular-Z5oq.ttf")){
         throw("ERROR::MAINMENUSTATE::COULD NOT LOAD FONT");
     }
-
 }
 
 void SettingState::initKeybinds() {
-
     std::ifstream ifs("../Config/mainmenustate_keybinds.ini");
 
-    if (ifs.is_open())
-    {
+    if (ifs.is_open()){
         std::string key = "";
         std::string key2 = "";
 
-        while (ifs >> key >> key2)
-        {
+        while (ifs >> key >> key2){
             this->keybinds[key] = this->supportedKeys->at(key2);
         }
     }
 
     ifs.close();
-
 }
 
 void SettingState::initGui() {
-
-
     this->buttons["BACK"] = new gui::Button(
             1100.f, 600.f, 200.f, 75.f,
             &this->font, "Back", 50,
@@ -74,15 +63,13 @@ void SettingState::initGui() {
             sf::Color(100, 100, 100, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 
     std::vector<std::string> modes_str;
-    for (auto &i : this->modes){
+    for (auto &i : this->modes)
         modes_str.push_back(std::to_string(i.width) + 'x' + std::to_string(i.height));
-    }
 
     this->dropdownList["RESOLUTION"] = new gui::DropDownList(400, 300, 200, 50, font, modes_str.data(), modes_str.size());
 }
 
 void SettingState::initBackground() {
-
     this->background.setSize(
             sf::Vector2f(
                     static_cast<float>(this->window->getSize().x),
@@ -95,7 +82,6 @@ void SettingState::initBackground() {
     }
 
     this->background.setTexture(&this->backgroundTexture);
-
 }
 
 void SettingState::initVariables() {
@@ -114,16 +100,11 @@ void SettingState::updateInput(const float &dt) {
 }
 
 void SettingState::updateGui(const float &dt) {
-
     for (auto &i : this->buttons)
-    {
         i.second->update(this->mousePosWindow);
-    }
 
-
-    if (this->buttons["BACK"]->isPressed()){
+    if (this->buttons["BACK"]->isPressed())
         this->endState();
-    }
 
     if (this->buttons["APPLY"]->isPressed()){
         //TEST da rimuovere
@@ -133,9 +114,7 @@ void SettingState::updateGui(const float &dt) {
     }
 
     for (auto &i : this->dropdownList)
-    {
         i.second->update(this->mousePosWindow, dt);
-    }
 }
 
 void SettingState::render(sf::RenderTarget* target) {
@@ -163,14 +142,10 @@ void SettingState::render(sf::RenderTarget* target) {
 void SettingState::renderGui(sf::RenderTarget& target) {
 
     for (auto &i : this->buttons)
-    {
         i.second->render(target);
-    }
 
     for (auto &i : this->dropdownList)
-    {
         i.second->render(target);
-    }
 }
 
 void SettingState::initText() {

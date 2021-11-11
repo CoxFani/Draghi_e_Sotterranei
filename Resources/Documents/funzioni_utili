@@ -7,6 +7,17 @@
     else
         std::cout<<"stringa vuota" << endl ;
 
+#Aiuta a trovare le coordinate sullo schermo per posizionare cose
+            sf::Text mouseText;
+            mouseText.setPosition(this->mousePosView.x, this->mousePosView.y - 50);
+            mouseText.setFont(this->font);
+            mouseText.setCharacterSize(20);
+            std::stringstream  ss;
+            ss << this->mousePosView.x << " " << this->mousePosView.y;
+            mouseText.setString(ss.str());
+
+            target-> draw(mouseText);
+
 #vecchio sistema di spostamento
     this->keybinds["CLOSE"] = this->supportedKeys->at("Escape");
     this->keybinds["MOVE_LEFT"] = this->supportedKeys->at("A");

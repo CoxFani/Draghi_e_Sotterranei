@@ -19,7 +19,6 @@ using namespace std;
 
 class Game {
 public:
-
     Game();
     virtual ~Game();
 
@@ -30,20 +29,17 @@ public:
     void updateSFMLEvents();
 
 
-
 private:
-
     GraphicsSettings gfxSettings;
     StateData stateData;
     sf::RenderWindow *window;
     sf::Event sfEvent;
 
-
     sf::Clock dtClock;
     float dt;
 
-    //sf::Keyboard supportedKeys;
     stack<State*> states;
+
     map<std::string, int> supportedKeys;
 
     float gridSize;
@@ -55,8 +51,6 @@ private:
     void initKeys();
     void initStates();
     void endApplication();
-
-
 
 };
 
