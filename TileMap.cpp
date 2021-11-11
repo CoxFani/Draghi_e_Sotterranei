@@ -217,7 +217,7 @@ void TileMap::loadFromFile(const std::string file_name) {
         if(!this->tileSheet.loadFromFile(textureFile))
             std::cout << "ERROR::TILEMAP::FAILED TO LOAD TILETEXTURESHEET::FILENAME: " << texture_file <<"\n";
         while(in_file >> x >> y >> z >> trX >> trY >> collision >> type){
-            this->map[x][y][z] = new Tile(x, y, this->gridSizeF, this->tileSheet, sf::IntRect(trX, trY, gridSizeI, gridSizeI), collision, type);
+            this->map[x][y][z] = new Tile(x, y, this->gridSizeF, this->tileSheet, sf::IntRect(trX, trY, this->gridSizeI, this->gridSizeI), collision, type);
         }
     }
     else{
