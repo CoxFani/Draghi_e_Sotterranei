@@ -20,14 +20,14 @@ TileMap::TileMap(float gridSize, int  width, int  height, std::string texture_fi
     this->toY = 0;
     this->layer = 0; //layer<>layers
 
-    this->map.resize(this->maxSizeWorldGrid.x, std::vector< std::vector<Tile*> >());
+    this->map.resize(this->maxSizeWorldGrid.x, std::vector< std::vector< std::vector< Tile*> > >());
     for(int x = 0; x < this->maxSizeWorldGrid.x; x++){
 
         for(int y = 0; y < this->maxSizeWorldGrid.y; y++) {
-            this->map[x].resize(this->maxSizeWorldGrid.y, std::vector<Tile*>());
+            this->map[x].resize(this->maxSizeWorldGrid.y, std::vector< std::vector < Tile*> >());
 
             for (int z = 0; z < this->layers; z++) {
-                this->map[x][y].resize(this->layers, nullptr);
+                this->map[x][y].resize(this->layers, std::vector<Tile*>());
             }
         }
     }
@@ -52,7 +52,7 @@ void TileMap::render(sf::RenderTarget &target, GameCharacter* gameCharacter) {
     if(gameCharacter) {
         this->layer = 0;
 
-        this->fromX = gameCharacter->getGridPosition(this->gridSizeI).x - 3;
+        this->fromX = gameCharacter->getGridPosition(this->gridSizeI).x - 4;
         if (this->fromX < 0)
             this->fromX = 0;
         else if (this->fromX > this->maxSizeWorldGrid.x)
@@ -78,18 +78,20 @@ void TileMap::render(sf::RenderTarget &target, GameCharacter* gameCharacter) {
 
         for (int x = this->fromX; x < this->toX; x++) {
             for (int y = this->fromY; y < this->toY; y++) {
-                this->map[x][y][this->layer]->render(target);
-                if (this->map[x][y][this->layer]->getCollision()) {
-                    this->collisionBox.setPosition(this->map[x][y][this->layer]->getPosition());
-                    target.draw(this->collisionBox);
+                for (int k = 0; k < this->map[x][y][this->layer].size(); k++){
+                    this->map[x][y][this->layer][k]->render(target);
+                    if (this->map[x][y][this->layer][k]->getCollision()) {
+                        this->collisionBox.setPosition(this->map[x][y][this->layer][k]->getPosition());
+                        target.draw(this->collisionBox);
+                    }
                 }
             }
         }
     }
-    else{
+    /*else{
         for(auto &x : this->map){
             for(auto &y : x){
-                for(auto *z : y){
+                for(auto &z : y){
                     if(z != nullptr){
                         z->render(target);
                         if(z->getCollision()){
@@ -100,7 +102,7 @@ void TileMap::render(sf::RenderTarget &target, GameCharacter* gameCharacter) {
                 }
             }
         }
-    }
+    }*/
 }
 
 void TileMap::addTile(const int x, const int y, const int z, const sf::IntRect& texture_rect, const bool& collision, const short& type) {
@@ -108,11 +110,11 @@ void TileMap::addTile(const int x, const int y, const int z, const sf::IntRect& 
        y < this->maxSizeWorldGrid.y && y >= 0 &&
        z < this->layers && z >= 0){
 
-        if(this->map[x][y][z] == nullptr){
 
-            this->map[x][y][z] = new Tile(x, y, this->gridSizeF, this->tileSheet,  texture_rect, collision, type);
+
+            this->map[x][y][z].push_back(new Tile(x, y, this->gridSizeF, this->tileSheet,  texture_rect, collision, type));
             std::cout <<"DEBUG: ADDED A TILE!" << "\n";
-        }
+
     }
 }
 
@@ -121,10 +123,10 @@ void TileMap::removeTile(const int x, const int y, const int z) {
        y < this->maxSizeWorldGrid.y && y >= 0 &&
        z < this->layers && z >= 0){
 
-        if(this->map[x][y][z] != nullptr){
+        if(!this->map[x][y][z].empty()){
 
-            delete this->map[x][y][z];
-            this->map[x][y][z] = nullptr;
+            delete this->map[x][y][z][this->map[x][y][z].size()-1];
+            this->map[x][y][z].pop_back();
             std::cout <<"DEBUG: REMOVED A TILE!" << "\n";
         }
     }
@@ -164,8 +166,13 @@ void TileMap::saveToFile(const std::string file_name) {
         for(int x = 0; x < this->maxSizeWorldGrid.x; x++){
             for(int y = 0; y < this->maxSizeWorldGrid.y; y++) {
                 for (int z = 0; z < this->layers; z++) {
-                    if(this->map[x][y][z])
-                        out_file << x << " " << y << " " << z << " " << this->map[x][y][z]->getAsString() << " ";
+                    if(!this->map[x][y][z].empty()) {
+                        for(int k = 0; k < this->map[x][y][z].size(); k++){
+                            out_file << x << " " << y << " " << z << " " <<
+                                     this->map[x][y][z][k]->getAsString()
+                                     << " ";
+                        }
+                    }
                 }
             }
         }
@@ -205,19 +212,27 @@ void TileMap::loadFromFile(const std::string file_name) {
 
         this->clear();
 
-        this->map.resize(this->maxSizeWorldGrid.x, std::vector< std::vector<Tile*> >());
+        this->map.resize(this->maxSizeWorldGrid.x, std::vector< std::vector< std::vector< Tile*> > >());
         for(size_t x = 0; x < this->maxSizeWorldGrid.x; x++){
             for(size_t y = 0; y < this->maxSizeWorldGrid.y; y++) {
-                this->map[x].resize(this->maxSizeWorldGrid.y, std::vector<Tile*>());
+                this->map[x].resize(this->maxSizeWorldGrid.y, std::vector< std::vector< Tile*> >());
                 for (size_t z = 0; z < this->layers; z++) {
-                    this->map[x][y].resize(this->layers, nullptr);
+                    this->map[x][y].resize(this->layers, std::vector< Tile*>());
                 }
             }
         }
         if(!this->tileSheet.loadFromFile(textureFile))
             std::cout << "ERROR::TILEMAP::FAILED TO LOAD TILETEXTURESHEET::FILENAME: " << texture_file <<"\n";
         while(in_file >> x >> y >> z >> trX >> trY >> collision >> type){
-            this->map[x][y][z] = new Tile(x, y, this->gridSizeF, this->tileSheet, sf::IntRect(trX, trY, this->gridSizeI, this->gridSizeI), collision, type);
+            this->map[x][y][z].push_back(new Tile(
+                    x, y,
+                    this->gridSizeF,
+                    this->tileSheet,
+                    sf::IntRect(trX, trY, this->gridSizeI, this->gridSizeI),
+                    collision,
+                    type
+                    )
+                    );
         }
     }
     else{
@@ -231,8 +246,11 @@ void TileMap::clear() {
     for(int x = 0; x < this->maxSizeWorldGrid.x; x++){
         for(int y = 0; y < this->maxSizeWorldGrid.y; y++) {
             for (int z = 0; z < this->layers; z++) {
-                delete this->map[x][y][z];
-                this->map[x][y][z] = nullptr;
+                for(int k = 0; k < this->map[x][y][z].size(); k++) {
+                    delete this->map[x][y][z][k];
+                    this->map[x][y][z][k] = nullptr;
+                }
+                this->map[x][y][z].clear();
             }
             this->map[x][y].clear();
         }
@@ -288,46 +306,49 @@ void TileMap::updateCollision(GameCharacter *gameCharacter, const float& dt) {
 
     for(int x = this->fromX; x < this->toX; x++){
         for(int y = this->fromY; y < this->toY; y++) {
+            for (int k = 0; k < this->map[x][y][this->layer].size(); k++) {
+                sf::FloatRect heroBounds = gameCharacter->getGlobalBounds();
+                sf::FloatRect wallBounds = this->map[x][y][this->layer][k]->getGlobalBounds();
+                sf::FloatRect nextPositionBounds = gameCharacter->getNextPositionBounds(dt);
 
-            sf::FloatRect heroBounds = gameCharacter->getGlobalBounds();
-            sf::FloatRect wallBounds = this->map[x][y][this->layer]->getGlobalBounds();
-            sf::FloatRect nextPositionBounds = gameCharacter->getNextPositionBounds(dt);
+                if (this->map[x][y][this->layer][k]->getCollision() &&
+                    this->map[x][y][this->layer][k]->intersects(nextPositionBounds)) {
 
-            if(this->map[x][y][this->layer]->getCollision() && this->map[x][y][this->layer]->intersects(nextPositionBounds)){
+                    if (heroBounds.top < wallBounds.top
+                        && heroBounds.top + heroBounds.height < wallBounds.top + wallBounds.height
+                        && heroBounds.left < wallBounds.left + wallBounds.width
+                        && heroBounds.left + heroBounds.width > wallBounds.left
+                            ) {
+                        gameCharacter->stopVelocityY();
+                        gameCharacter->setPosition(heroBounds.left, wallBounds.top - heroBounds.height);
+                    } else if (heroBounds.top > wallBounds.top
+                               && heroBounds.top + heroBounds.height > wallBounds.top + wallBounds.height
+                               && heroBounds.left < wallBounds.left + wallBounds.width
+                               && heroBounds.left + heroBounds.width > wallBounds.left
+                            ) {
+                        gameCharacter->stopVelocityY();
+                        gameCharacter->setPosition(heroBounds.left, wallBounds.top + wallBounds.height);
+                    }
 
-                if(heroBounds.top < wallBounds.top
-                && heroBounds.top + heroBounds.height < wallBounds.top + wallBounds.height
-                && heroBounds.left < wallBounds.left + wallBounds.width
-                && heroBounds.left + heroBounds.width > wallBounds.left
-                ){
-                    gameCharacter->stopVelocityY();
-                    gameCharacter->setPosition(heroBounds.left, wallBounds.top - heroBounds.height);
-                }
-                else  if(heroBounds.top > wallBounds.top
-                         && heroBounds.top + heroBounds.height > wallBounds.top + wallBounds.height
-                         && heroBounds.left < wallBounds.left + wallBounds.width
-                         && heroBounds.left + heroBounds.width > wallBounds.left
-                        ){
-                            gameCharacter->stopVelocityY();
-                            gameCharacter->setPosition(heroBounds.left, wallBounds.top + wallBounds.height);
-                        }
-
-                if (heroBounds.left < wallBounds.left
-                    && heroBounds.left + heroBounds.width < wallBounds.left + wallBounds.width
-                    && heroBounds.top < wallBounds.top + wallBounds.height
-                    && heroBounds.top + heroBounds.height > wallBounds.top){
-                    gameCharacter->stopVelocityX();
-                    gameCharacter->setPosition(wallBounds.left - heroBounds.width, heroBounds.top);
-                }
-                else if (heroBounds.left > wallBounds.left
-                         && heroBounds.left + heroBounds.width > wallBounds.left + wallBounds.width
-                         && heroBounds.top < wallBounds.top + wallBounds.height
-                         && heroBounds.top + heroBounds.height > wallBounds.top
-                         ){
-                            gameCharacter->stopVelocityX();
-                            gameCharacter->setPosition(wallBounds.left + wallBounds.width, heroBounds.top);
+                    if (heroBounds.left < wallBounds.left
+                        && heroBounds.left + heroBounds.width < wallBounds.left + wallBounds.width
+                        && heroBounds.top < wallBounds.top + wallBounds.height
+                        && heroBounds.top + heroBounds.height > wallBounds.top) {
+                        gameCharacter->stopVelocityX();
+                        gameCharacter->setPosition(wallBounds.left - heroBounds.width, heroBounds.top);
+                    } else if (heroBounds.left > wallBounds.left
+                               && heroBounds.left + heroBounds.width > wallBounds.left + wallBounds.width
+                               && heroBounds.top < wallBounds.top + wallBounds.height
+                               && heroBounds.top + heroBounds.height > wallBounds.top
+                            ) {
+                        gameCharacter->stopVelocityX();
+                        gameCharacter->setPosition(wallBounds.left + wallBounds.width, heroBounds.top);
+                    }
                 }
             }
+
+
+
         }
     }
 }

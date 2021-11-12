@@ -55,7 +55,6 @@ void gui::Button::render(sf::RenderTarget& target) {
 }
 
 void gui::Button::update(const sf::Vector2i& mousePosWindow) {
-    /*Update the booleans for hover and pressed */
 
     //Idle
     this-> buttonState = BTN_IDLE;
@@ -116,7 +115,7 @@ const short unsigned &gui::Button::getId() const {
     return this->id;
 }
 
-void gui::Button::setId(const unsigned short Id) {
+void gui::Button::setId(const unsigned short id) {
     this->id = id;
 }
 

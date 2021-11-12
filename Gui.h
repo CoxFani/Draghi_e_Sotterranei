@@ -25,7 +25,7 @@ namespace gui {
         const std::string getText() const;
         const short unsigned& getId() const;
         void setText(const std::string text);
-        void setId(const short unsigned Id);
+        void setId(const short unsigned id);
         void update(const sf::Vector2i &mousePosWindow);
         void render(sf::RenderTarget &target);
 

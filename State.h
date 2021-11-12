@@ -66,7 +66,6 @@ protected:
 
     virtual void initKeybinds() = 0;
 
-private:
 
     };
 #endif //DRAGHI_E_SOTTERRANEI_STATE_H
