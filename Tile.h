@@ -5,13 +5,15 @@
 #ifndef DRAGHI_E_SOTTERRANEI_TILE_H
 #define DRAGHI_E_SOTTERRANEI_TILE_H
 
-enum TileTypes {DEFAULT = 0, OTHER = 1, ALTRA = 2}; //solo esempio, da completare in seguito
+enum TileTypes {DEFAULT = 0, DAMAGING, FLAVOUR}; //solo esempio, da completare in seguito
 
 class Tile {
 public:
     Tile();
     Tile(int grid_x, int grid_y, float gridSizeF, sf::Texture& texture, const sf::IntRect& texture_rect, bool collision = false, short type = TileTypes::DEFAULT);
     virtual ~Tile();
+
+    const short& getType() const;
 
     const bool & getCollision() const;
     const sf::Vector2f& getPosition() const;

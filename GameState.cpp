@@ -36,9 +36,11 @@ void GameState::render(sf::RenderTarget* target) {
     this->renderTexture.clear();
 
     this->renderTexture.setView(this->view);
-    this->tileMap->render(this->renderTexture, this->hero);
+    this->tileMap->render(this->renderTexture, this->hero->getGridPosition(static_cast<int>(this->stateData->gridSize)));
 
     this->hero->render(this->renderTexture);
+
+    this->tileMap->renderDeferred(this->renderTexture);
 
     if(this->paused){
         this->renderTexture.setView(this->renderTexture.getDefaultView());
@@ -129,7 +131,7 @@ void GameState::updatePauseMenuButtons() {
 
 void GameState::initTileMap() {
 //TODO cambiare dimensioni mappa
-    this->tileMap = new TileMap(this->stateData->gridSize, 10, 10, "../Resources/Images/Tiles/tilesheet1.png");
+    this->tileMap = new TileMap(this->stateData->gridSize, 1000, 1000, "../Resources/Images/Tiles/tilesheet1.png");
     this->tileMap->loadFromFile("../saves_file.txt");
 }
 

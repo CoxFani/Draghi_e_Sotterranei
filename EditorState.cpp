@@ -35,7 +35,8 @@ void EditorState::render(sf::RenderTarget* target) {
         target = this->window;
 
     target->setView(this->view);
-    this->tileMap->render(*target);
+    this->tileMap->render(*target, this->mousePosGrid);
+    this->tileMap->renderDeferred(*target);
 
     target->setView(this->window->getDefaultView());
     this->renderButtons(*target);
@@ -121,6 +122,7 @@ void EditorState::initVariables() {
     this->collision = false;
     this->type = TileTypes::DEFAULT;
     this->cameraSpeed = 300.f;
+    this->layer = 0;
 }
 
 void EditorState::initPausedMenu() {
@@ -144,7 +146,7 @@ void EditorState::updatePauseMenuButtons() {
 
 
 void EditorState::initTileMap() {
-    this->tileMap = new TileMap(this->stateData->gridSize, 10, 10,"../Resources/Images/Tiles/tilesheet1.png"); //TODO cambiare file per texture selector
+    this->tileMap = new TileMap(this->stateData->gridSize, 1000, 1000,"../Resources/Images/Tiles/tilesheet1.png"); //TODO cambiare file per texture selector
 }
 
 void EditorState::initGui() {
@@ -186,7 +188,8 @@ void EditorState::updateGui(const float& dt) {
     "\n" << this->mousePosGrid.x << " " << this->mousePosGrid.y <<
     "\n" << this->textureRect.left << " " << this->textureRect.top <<
     "\n" << "Collision: " << this->collision <<
-    "\n" << "Type: " << this->type;
+    "\n" << "Type: " << this->type <<
+    "\n" << "Tiles: " << this->tileMap->getLayerSize(this->mousePosGrid.x, this->mousePosGrid.y, this->layer);
     this->cursorText.setString(ss.str());
 }
 
