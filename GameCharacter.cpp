@@ -14,6 +14,7 @@ GameCharacter::~GameCharacter() {
     delete this->hitboxComponent;
     delete this->movementComponent;
     delete this->animationComponent;
+    delete this->attributeComponent;
 }
 
 void GameCharacter::move(const float dir_x, const float dir_y,const float& dt) {
@@ -103,4 +104,8 @@ const sf::FloatRect GameCharacter::getNextPositionBounds(const float& dt) const 
     if(this->hitboxComponent && this->movementComponent)
         return this->hitboxComponent->getNextPosition(this->movementComponent->getVelocity() * dt);
     return sf::FloatRect(-1.f, -1.f, -1.f, -1.f);
+}
+
+void GameCharacter::createAttributeComponent() {
+    this->attributeComponent = new AttributeComponent();
 }
