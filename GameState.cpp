@@ -131,7 +131,7 @@ void GameState::updatePauseMenuButtons() {
 
 void GameState::initTileMap() {
 //TODO cambiare dimensioni mappa
-    this->tileMap = new TileMap(this->stateData->gridSize, 1000, 1000, "../Resources/Images/Tiles/tilesheet1.png");
+    this->tileMap = new TileMap(this->stateData->gridSize, 100, 100, "../Resources/Images/Tiles/tilesheet1.png");
     this->tileMap->loadFromFile("../saves_file.txt");
 }
 

@@ -146,7 +146,7 @@ void EditorState::updatePauseMenuButtons() {
 
 
 void EditorState::initTileMap() {
-    this->tileMap = new TileMap(this->stateData->gridSize, 1000, 1000,"../Resources/Images/Tiles/tilesheet1.png"); //TODO cambiare file per texture selector
+    this->tileMap = new TileMap(this->stateData->gridSize, 100, 100,"../Resources/Images/Tiles/tilesheet1.png"); //TODO cambiare file per texture selector
 }
 
 void EditorState::initGui() {
