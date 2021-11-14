@@ -20,12 +20,14 @@ GameState::GameState(StateData* state_data)
     this->initPausedMenu();
 
     this->initHeroes();
+    this->initHeroGUI();
     this->initTileMap();
 }
 
 GameState::~GameState() {
     delete this->pmenu;
     delete this->hero;
+    delete this->heroGUI;
     delete this->tileMap;
 }
 
@@ -42,8 +44,11 @@ void GameState::render(sf::RenderTarget* target) {
 
     this->tileMap->renderDeferred(this->renderTexture);
 
+    this->renderTexture.setView(this->renderTexture.getDefaultView());
+    this->heroGUI->render(this->renderTexture);
+
     if(this->paused){
-        this->renderTexture.setView(this->renderTexture.getDefaultView());
+        //this->renderTexture.setView(this->renderTexture.getDefaultView());
         this->pmenu->render(this->renderTexture);
     }
 
@@ -84,6 +89,7 @@ void GameState::update(const float& dt) {
         this->updateHeroInput(dt);
         this->updateTileMap(dt);
         this->hero->update(dt);
+        this->heroGUI->update(dt);
     }
     else{
         this->pmenu->update(this->mousePosWindow);
@@ -166,4 +172,14 @@ void GameState::initDeferredRender() {
 void GameState::updateTileMap(const float &dt) {
     this->tileMap->update();
     this->tileMap->updateCollision(this->hero, dt);
+}
+
+void GameState::initHeroGUI() {
+
+    this->heroGUI = new HeroGUI(this->hero);
+}
+
+void GameState::updateHeroGUI(const float &dt) {
+
+    this->heroGUI->update(dt);
 }

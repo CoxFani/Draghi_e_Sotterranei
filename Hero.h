@@ -15,6 +15,8 @@ public:
     Hero(float x, float y, sf::Texture& texture_sheet);
     virtual ~Hero();
 
+    AttributeComponent* getAttributeComponent();
+
     void updateAttack();
     void updateAnimation(const float& dt);
     void update(const float& dt);

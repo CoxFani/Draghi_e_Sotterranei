@@ -8,10 +8,14 @@
 #include "State.h"
 #include "PauseMenu.h"
 #include "TileMap.h"
+#include "HeroGUI.h"
 
-class State;
 class PauseMenu;
+class Hero;
+class HeroGUI;
+class State;
 class TileMap;
+
 
 using namespace std;
 
@@ -24,6 +28,7 @@ public:
     void updateView(const float& dt);
     void updateInput(const float& dt);
     void updateHeroInput(const float& dt);
+    void updateHeroGUI(const float& dt);
     void updatePauseMenuButtons();
     void updateTileMap(const float& dt);
     void update(const float& dt);
@@ -38,6 +43,7 @@ private:
     PauseMenu* pmenu;
 
     Hero* hero;
+    HeroGUI* heroGUI;
     sf::Texture texture;
 
     TileMap* tileMap;
@@ -48,6 +54,7 @@ private:
     void initTextures();
     void initPausedMenu();
     void initHeroes();
+    void initHeroGUI();
     void initTileMap();
     void initDeferredRender();
 

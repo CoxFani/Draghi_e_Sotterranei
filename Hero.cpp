@@ -13,7 +13,7 @@ Hero::Hero(float x, float y, sf::Texture& texture_sheet) {
     this->createHitboxComponent(this->sprite, 0.f, 17.f, 32.f, 32.f);
     this->createMovementComponent(350.f, 1500.f, 500.f);
     this->createAnimationComponent(texture_sheet);
-    this->createAttributeComponent(0);
+    this->createAttributeComponent(1);
 
     this->animationComponent->addAnimation("IDLE", 11.f, 0, 0, 3, 0, 48, 48);
     this->animationComponent->addAnimation("WALK", 8.f, 0, 1, 5, 1, 48, 48);
@@ -91,6 +91,10 @@ void Hero::updateAnimation(const float &dt) {
 void Hero::render(sf::RenderTarget &target) {
     target.draw(this->sprite);
     this->hitboxComponent->render(target);
+}
+
+AttributeComponent *Hero::getAttributeComponent() {
+    return this->attributeComponent;
 }
 
 
