@@ -106,6 +106,6 @@ const sf::FloatRect GameCharacter::getNextPositionBounds(const float& dt) const 
     return sf::FloatRect(-1.f, -1.f, -1.f, -1.f);
 }
 
-void GameCharacter::createAttributeComponent() {
-    this->attributeComponent = new AttributeComponent();
+void GameCharacter::createAttributeComponent(const unsigned level) {
+    this->attributeComponent = new AttributeComponent(level);
 }

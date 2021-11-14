@@ -18,6 +18,9 @@
 
             target-> draw(mouseText);
 
+#equazione per calcolare aumento di livello
+(50/3)*(pow(this->level, 3)-6*pow(this->level, 2)+(this->level * 17)-12);
+
 #vecchio sistema di spostamento
     this->keybinds["CLOSE"] = this->supportedKeys->at("Escape");
     this->keybinds["MOVE_LEFT"] = this->supportedKeys->at("A");
