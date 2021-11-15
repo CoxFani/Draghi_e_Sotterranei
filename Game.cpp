@@ -23,6 +23,26 @@ Game::~Game() {
     }
 }
 
+void Game::initVariables() {
+    this->window = nullptr;
+
+    this->dt = 0.f;
+
+    this->gridSize = 32.f;  //TODO cambiare dimensione singola tile
+}
+
+void Game::initGraphicsSettings() {
+    this->gfxSettings.loadFromFile("../Config/graphics.ini");
+}
+
+void Game::initStateData() {
+    this->stateData.window = this->window;
+    this->stateData.gfxSettings = &this->gfxSettings;
+    this->stateData.supportedKeys = &this->supportedKeys;
+    this->stateData.states = &this->states;
+    this->stateData.gridSize = this->gridSize;
+}
+
 void Game::initWindow() {
     if(this->gfxSettings.fullscreen)
        this->window = new sf::RenderWindow(
@@ -65,6 +85,10 @@ void Game::initKeys() {
 void Game::initStates() {
     this->states.push(new MainMenuState(&this->stateData));
 
+}
+
+void Game::updateDt() {
+    this->dt = this->dtClock.restart().asSeconds();
 }
 
 void Game::update() {
@@ -112,31 +136,9 @@ void Game::updateSFMLEvents() {
     }
 }
 
-void Game::updateDt() {
-    this->dt = this->dtClock.restart().asSeconds();
-}
+
 
 void Game::endApplication() {
     std::cout << "Termina il gioco!" << "\n";
-}
-
-void Game::initVariables() {
-    this->window = nullptr;
-
-    this->dt = 0.f;
-
-    this->gridSize = 100.f;  //TODO cambiare dimensione singola tile
-}
-
-void Game::initGraphicsSettings() {
-    this->gfxSettings.loadFromFile("../Config/graphics.ini");
-}
-
-void Game::initStateData() {
-    this->stateData.window = this->window;
-    this->stateData.gfxSettings = &this->gfxSettings;
-    this->stateData.supportedKeys = &this->supportedKeys;
-    this->stateData.states = &this->states;
-    this->stateData.gridSize = this->gridSize;
 }
 

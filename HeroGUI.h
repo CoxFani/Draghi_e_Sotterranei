@@ -14,9 +14,11 @@ public:
     HeroGUI(Hero* hero);
     virtual ~HeroGUI();
 
+    void updateEXPBar();
     void updateHPBar();
     void update(const float& dt);
 
+    void renderEXPBar(sf::RenderTarget &target);
     void renderHPBar(sf::RenderTarget &target);
     void render(sf::RenderTarget& target);
 
@@ -24,12 +26,22 @@ private:
     Hero* hero;
 
     sf::Font font;
+
+    std::string expBarString;
+    sf::Text expBarText;
+    float expBarMaxWidth;
+    sf::RectangleShape expBarBack;
+    sf::RectangleShape expBarInner;
+
+    std::string hpBarString;
+    sf::Text hpBarText;
+    float hpBarMaxWidth;
     sf::RectangleShape hpBarBack;
     sf::RectangleShape hpBarInner;
-    float hpBarMaxWidth;
 
     void initFont();
     void initHPBar();
+    void initEXPBar();
 
 };
 

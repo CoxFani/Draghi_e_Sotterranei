@@ -38,11 +38,40 @@ void Hero::initComponents() {
 
 }
 
-void Hero::update(const float &dt) {
-    this->movementComponent->update(dt);
-    this->updateAttack();
-    this->updateAnimation(dt);
-    this->hitboxComponent->update();
+AttributeComponent *Hero::getAttributeComponent() {
+    return this->attributeComponent;
+}
+
+void Hero::loseHP(const int hp) {
+
+    this->attributeComponent->hp -= hp;
+
+    if(this->attributeComponent->hp < 0)
+        this->attributeComponent->hp = 0;
+}
+
+void Hero::gainHP(const int hp) {
+
+    this->attributeComponent->hp += hp;
+
+    if(this->attributeComponent->hp > this->attributeComponent->hpMax)
+        this->attributeComponent->hp = this->attributeComponent->hpMax;
+}
+
+void Hero::loseEXP(const unsigned exp) {
+
+    this->attributeComponent->exp -= exp;
+
+    if(this->attributeComponent->exp < 0)
+        this->attributeComponent->exp = 0;
+}
+
+
+
+void Hero::gainEXP(const unsigned exp) {
+
+    this->attributeComponent->gainExp(exp);
+
 }
 
 void Hero::updateAttack() {
@@ -88,14 +117,20 @@ void Hero::updateAnimation(const float &dt) {
     }
 }
 
+void Hero::update(const float &dt) {
+    this->movementComponent->update(dt);
+    this->updateAttack();
+    this->updateAnimation(dt);
+    this->hitboxComponent->update();
+}
+
 void Hero::render(sf::RenderTarget &target) {
     target.draw(this->sprite);
     this->hitboxComponent->render(target);
 }
 
-AttributeComponent *Hero::getAttributeComponent() {
-    return this->attributeComponent;
-}
+
+
 
 
 

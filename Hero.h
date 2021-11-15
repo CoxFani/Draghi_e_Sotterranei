@@ -17,14 +17,15 @@ public:
 
     AttributeComponent* getAttributeComponent();
 
+    void loseHP(const int hp);
+    void gainHP(const int hp);
+    void loseEXP(const unsigned exp);
+    void gainEXP(const unsigned exp);
     void updateAttack();
     void updateAnimation(const float& dt);
     void update(const float& dt);
-    //TODO definire
-    void loseHP(const int hp);
-    void loseEXP(const int exp);
-    void gainHP(const int hp);
-    void gainEXP(const int exp);
+
+
 
     void render(sf::RenderTarget& target);
 

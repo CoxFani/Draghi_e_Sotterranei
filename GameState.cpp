@@ -31,70 +31,20 @@ GameState::~GameState() {
     delete this->tileMap;
 }
 
-void GameState::render(sf::RenderTarget* target) {
-    if (!target)
-        target = this->window;
+void GameState::initView() {
+    this->view.setSize(
+            sf::Vector2f(
+                    static_cast<float>(this->stateData->gfxSettings->resolution.width),
+                    static_cast<float>(this->stateData->gfxSettings->resolution.height)
+            )
+    );
 
-    this->renderTexture.clear();
-
-    this->renderTexture.setView(this->view);
-    this->tileMap->render(this->renderTexture, this->hero->getGridPosition(static_cast<int>(this->stateData->gridSize)));
-
-    this->hero->render(this->renderTexture);
-
-    this->tileMap->renderDeferred(this->renderTexture);
-
-    this->renderTexture.setView(this->renderTexture.getDefaultView());
-    this->heroGUI->render(this->renderTexture);
-
-    if(this->paused){
-        //this->renderTexture.setView(this->renderTexture.getDefaultView());
-        this->pmenu->render(this->renderTexture);
-    }
-
-    this->renderTexture.display();
-    this->renderSprite.setTexture(this->renderTexture.getTexture());
-    target->draw(this->renderSprite);
-}
-
-
-
-void GameState::updateHeroInput(const float &dt) {
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_LEFT"))))
-        this->hero->move(-1.f, 0.f, dt);
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_RIGHT"))))
-        this->hero->move(1.f, 0.f, dt);
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_UP"))))
-        this->hero->move(0.f, -1.f, dt);
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_DOWN"))))
-        this->hero->move(0.f, 1.f, dt);
-}
-
-void GameState::updateInput(const float &dt) {
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE"))) && this->getKeyTime()){
-        if(!this->paused)
-            this->pauseState();
-        else
-            this->unpauseState();
-    }
-}
-
-void GameState::update(const float& dt) {
-    this->updateMousePosition(&this->view);
-    this->updateInput(dt);
-    this->updateKeyTime(dt);
-
-    if(!this->paused) {
-        this->updateView(dt);
-        this->updateHeroInput(dt);
-        this->updateTileMap(dt);
-        this->hero->update(dt);
-        this->heroGUI->update(dt);
-    }
-    else{
-        this->pmenu->update(this->mousePosWindow);
-        this->updatePauseMenuButtons();
-    }
+    this->view.setCenter(
+            sf::Vector2f(
+                    static_cast<float>(this->stateData->gfxSettings->resolution.width) / 2.f,
+                    static_cast<float>(this->stateData->gfxSettings->resolution.height) / 2.f
+            )
+    );
 }
 
 void GameState::initKeybinds() {
@@ -120,9 +70,6 @@ void GameState::initTextures() {
         throw "ERROR::GAME_STATE::COULD_NOT_LOAD_HERO_TEXTURE";
 }
 
-void GameState::initHeroes() {
-    this->hero = new Hero(0, 0, this->textures["HERO_SHEET"]);
-}
 
 void GameState::initPausedMenu() {
     this->pmenu = new PauseMenu(*this->window, this->font);
@@ -130,9 +77,12 @@ void GameState::initPausedMenu() {
     this->pmenu->addButton("QUIT", 450.f, "Quit");
 }
 
-void GameState::updatePauseMenuButtons() {
-    if(this->pmenu->isButtonPressed("QUIT"))
-        this->endState();
+void GameState::initHeroes() {
+    this->hero = new Hero(1, 1, this->textures["HERO_SHEET"]);
+}
+
+void GameState::initHeroGUI() {
+    this->heroGUI = new HeroGUI(this->hero);
 }
 
 void GameState::initTileMap() {
@@ -141,30 +91,49 @@ void GameState::initTileMap() {
     this->tileMap->loadFromFile("../saves_file.txt");
 }
 
-void GameState::initView() {
-    this->view.setSize(
-            sf::Vector2f(
-                    static_cast<float>(this->stateData->gfxSettings->resolution.width),
-                    static_cast<float>(this->stateData->gfxSettings->resolution.height)
-            )
-    );
-
-    this->view.setCenter(
-            sf::Vector2f(
-                    static_cast<float>(this->stateData->gfxSettings->resolution.width) / 2.f,
-                    static_cast<float>(this->stateData->gfxSettings->resolution.height) / 2.f
-            )
-    );
+void GameState::initDeferredRender() {
+    this->renderTexture.create(this->stateData->gfxSettings->resolution.width, this->stateData->gfxSettings->resolution.height);
+    this->renderSprite.setTexture(this->renderTexture.getTexture());
+    this->renderSprite.setTextureRect(sf::IntRect(0, 0, this->stateData->gfxSettings->resolution.width, this->stateData->gfxSettings->resolution.height));
 }
 
 void GameState::updateView(const float &dt) {
     this->view.setCenter(std::floor(this->hero->getPosition().x), std::floor(this->hero->getPosition().y));
 }
 
-void GameState::initDeferredRender() {
-    this->renderTexture.create(this->stateData->gfxSettings->resolution.width, this->stateData->gfxSettings->resolution.height);
-    this->renderSprite.setTexture(this->renderTexture.getTexture());
-    this->renderSprite.setTextureRect(sf::IntRect(0, 0, this->stateData->gfxSettings->resolution.width, this->stateData->gfxSettings->resolution.height));
+void GameState::updateInput(const float &dt) {
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE"))) && this->getKeyTime()){
+        if(!this->paused)
+            this->pauseState();
+        else
+            this->unpauseState();
+    }
+}
+
+void GameState::updateHeroInput(const float &dt) {
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_LEFT"))))
+        this->hero->move(-1.f, 0.f, dt);
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_RIGHT"))))
+        this->hero->move(1.f, 0.f, dt);
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_UP")))){
+        this->hero->move(0.f, -1.f, dt);
+        if(this->getKeyTime())
+        this->hero->gainEXP(10);
+    }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_DOWN")))){
+        this->hero->move(0.f, 1.f, dt);
+        if(this->getKeyTime())
+            this->hero->loseEXP(10);
+    }
+}
+
+void GameState::updateHeroGUI(const float &dt) {
+    this->heroGUI->update(dt);
+}
+
+void GameState::updatePauseMenuButtons() {
+    if(this->pmenu->isButtonPressed("QUIT"))
+        this->endState();
 }
 
 void GameState::updateTileMap(const float &dt) {
@@ -172,10 +141,46 @@ void GameState::updateTileMap(const float &dt) {
     this->tileMap->updateCollision(this->hero, dt);
 }
 
-void GameState::initHeroGUI() {
-    this->heroGUI = new HeroGUI(this->hero);
+void GameState::update(const float& dt) {
+    this->updateMousePosition(&this->view);
+    this->updateInput(dt);
+    this->updateKeyTime(dt);
+
+    if(!this->paused) {
+        this->updateView(dt);
+        this->updateHeroInput(dt);
+        this->updateTileMap(dt);
+        this->hero->update(dt);
+        this->heroGUI->update(dt);
+    }
+    else{
+        this->pmenu->update(this->mousePosWindow);
+        this->updatePauseMenuButtons();
+    }
 }
 
-void GameState::updateHeroGUI(const float &dt) {
-    this->heroGUI->update(dt);
+void GameState::render(sf::RenderTarget* target) {
+    if (!target)
+        target = this->window;
+
+    this->renderTexture.clear();
+
+    this->renderTexture.setView(this->view);
+    this->tileMap->render(this->renderTexture, this->hero->getGridPosition(static_cast<int>(this->stateData->gridSize)));
+
+    this->hero->render(this->renderTexture);
+
+    this->tileMap->renderDeferred(this->renderTexture);
+
+    this->renderTexture.setView(this->renderTexture.getDefaultView());
+    this->heroGUI->render(this->renderTexture);
+
+    if(this->paused){
+        //this->renderTexture.setView(this->renderTexture.getDefaultView());
+        this->pmenu->render(this->renderTexture);
+    }
+
+    this->renderTexture.display();
+    this->renderSprite.setTexture(this->renderTexture.getTexture());
+    target->draw(this->renderSprite);
 }
