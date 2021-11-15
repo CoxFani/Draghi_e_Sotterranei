@@ -26,6 +26,7 @@ private:
     sf::Font font;
     sf::RectangleShape hpBarBack;
     sf::RectangleShape hpBarInner;
+    float hpBarMaxWidth;
 
     void initFont();
     void initHPBar();

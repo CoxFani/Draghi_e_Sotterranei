@@ -33,9 +33,8 @@ void AttributeComponent::updateStats(const bool reset) {
     this->defence = this->agility * 2 + this->agility / 4 + this->intelligence / 5;
     this->luck = this->intelligence * 2 + this->intelligence / 5;
 
-    if(reset) {
+    if(reset)
         this->hp = this->hpMax;
-    }
 }
 
 void AttributeComponent::updateLevel() {

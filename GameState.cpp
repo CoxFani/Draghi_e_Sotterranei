@@ -142,7 +142,6 @@ void GameState::initTileMap() {
 }
 
 void GameState::initView() {
-
     this->view.setSize(
             sf::Vector2f(
                     static_cast<float>(this->stateData->gfxSettings->resolution.width),
@@ -156,7 +155,6 @@ void GameState::initView() {
                     static_cast<float>(this->stateData->gfxSettings->resolution.height) / 2.f
             )
     );
-
 }
 
 void GameState::updateView(const float &dt) {
@@ -175,11 +173,9 @@ void GameState::updateTileMap(const float &dt) {
 }
 
 void GameState::initHeroGUI() {
-
     this->heroGUI = new HeroGUI(this->hero);
 }
 
 void GameState::updateHeroGUI(const float &dt) {
-
     this->heroGUI->update(dt);
 }
