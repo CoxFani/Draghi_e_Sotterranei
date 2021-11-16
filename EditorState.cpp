@@ -34,6 +34,7 @@ void EditorState::render(sf::RenderTarget* target) {
     if (!target)
         target = this->window;
 
+
     target->setView(this->view);
     this->tileMap->render(*target, this->mousePosGrid);
     this->tileMap->renderDeferred(*target);
@@ -146,7 +147,7 @@ void EditorState::updatePauseMenuButtons() {
 
 
 void EditorState::initTileMap() {
-    this->tileMap = new TileMap(this->stateData->gridSize, 100, 100,"../Resources/Images/Tiles/Dungeon_Tileset1.png"); //TODO cambiare file per texture selector
+    this->tileMap = new TileMap(this->stateData->gridSize, 100, 100,"../Resources/Images/Tiles/TileSet.png"); //TODO cambiare file per texture selector
 }
 
 void EditorState::initGui() {
@@ -166,7 +167,7 @@ void EditorState::initGui() {
     this->selectorRect.setTextureRect(this->textureRect);
 
     //TODO cambiare dimensioni texture selector
-    this->textureSelector = new gui::TextureSelector(60.f, 20.f, 512.f, 640.f,
+    this->textureSelector = new gui::TextureSelector(60.f, 20.f, 448.f, 416.f,
                                                      this->stateData->gridSize, this->tileMap->getTileSheet(),
                                                      this->font, "TS");
 

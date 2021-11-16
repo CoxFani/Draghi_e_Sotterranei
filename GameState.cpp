@@ -78,7 +78,7 @@ void GameState::initPausedMenu() {
 }
 
 void GameState::initHeroes() {
-    this->hero = new Hero(1, 1, this->textures["HERO_SHEET"]);
+    this->hero = new Hero(20, 20, this->textures["HERO_SHEET"]);
 }
 
 void GameState::initHeroGUI() {
