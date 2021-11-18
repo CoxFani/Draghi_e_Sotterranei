@@ -23,7 +23,6 @@ public:
     GraphicsSettings* gfxSettings;
     std::map<std::string, int>* supportedKeys;
     std::stack<State*>* states;
-
 };
 
 class State {
@@ -44,6 +43,9 @@ public:
     virtual void updateInput(const float& dt) = 0;
     virtual void update(const float& dt) = 0;
     virtual void render(sf::RenderTarget* target = nullptr) = 0;
+
+    const float p2pX(const float perc);
+    const float p2pY(const float perc);
 
 protected:
     StateData* stateData;

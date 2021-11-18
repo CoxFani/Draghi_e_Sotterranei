@@ -63,5 +63,30 @@ void State::updateKeyTime(const float& dt) {
         this->keyTime += 100.f * dt;
 }
 
+const float State::p2pX(const float perc) {
+    /*
+     * Convertire un valore percentuale in pixelsrelativamente alla risoluzione corrente nelle ascisse x.
+     *
+     * @param float perc        Il valore percentuale.
+     *
+     * @return float            Il valore calcolato in pixels.
+     *
+     */
+    return std::floor(static_cast<float>(this->stateData->gfxSettings->resolution.width) * (perc/100.f));
+}
+
+const float State::p2pY(const float perc) {
+    /*
+    * Convertire un valore percentuale in pixelsrelativamente alla risoluzione corrente nelle ordinate y.
+    *
+    * @param float perc        Il valore percentuale.
+    *
+    * @return float            Il valore calcolato in pixels.
+    *
+    */
+    return std::floor(static_cast<float>(this->stateData->gfxSettings->resolution.height) * (perc/100.f));
+
+}
+
 
 
