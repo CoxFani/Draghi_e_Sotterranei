@@ -345,9 +345,9 @@ void TileMap::updateCollision(GameCharacter *gameCharacter, const float& dt) {
 }
 
 const int TileMap::getLayerSize(const int x, const int y, const int layer) const{
-    if(x >= 0 && x < this->map.size()){
-        if(y >= 0 && y < this->map[x].size()){
-            if(layer >= 0 && layer < this->map[x][y].size()){
+    if(x >= 0 && x <static_cast<int>(this->map.size())){
+        if(y >= 0 && y <static_cast<int>(this->map[x].size())){
+            if(layer >= 0 && layer <static_cast<int>(this->map[x][y].size())){
                 return this->map[x][y][layer].size();
             }
         }

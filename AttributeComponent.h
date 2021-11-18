@@ -9,13 +9,13 @@
 class AttributeComponent {
 
 public:
-    AttributeComponent(unsigned level);
+    AttributeComponent(int level);
     virtual ~AttributeComponent();
 
-    unsigned level;
-    unsigned exp;
-    unsigned expNext;
-    unsigned attributePoints;
+    int level;
+    int exp;
+    int expNext;
+    int attributePoints;
     int strength;
     int vitality;
     int dexterity;
@@ -33,7 +33,7 @@ public:
     void updateStats(const bool reset);
     void updateLevel();
     void update();
-    void gainExp(const unsigned exp);
+    void gainExp(const int exp);
 
     std::string debugPrint() const;
 
