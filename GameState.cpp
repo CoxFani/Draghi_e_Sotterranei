@@ -83,7 +83,7 @@ void GameState::initHeroes() {
 }
 
 void GameState::initHeroGUI() {
-    this->heroGUI = new HeroGUI(this->hero);
+    this->heroGUI = new HeroGUI(this->hero, this->stateData->gfxSettings->resolution);
 }
 
 void GameState::initTileMap() {

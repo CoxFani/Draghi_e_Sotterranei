@@ -33,11 +33,10 @@ private:
     std::vector<sf::VideoMode> modes;
 
     void initVariables();
-    void initBackground();
     void iniFonts();
     void initGui();
     void initKeybinds();
-    void initText();
+    void resetGui();
 
 };
 

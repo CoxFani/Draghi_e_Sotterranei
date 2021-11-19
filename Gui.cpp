@@ -30,16 +30,18 @@ const float gui::p2pY(const float perc, const sf::VideoMode& vm) {
 
 }
 
-const unsigned gui::calcCharSize(const sf::VideoMode& vm) {
+const unsigned gui::calcCharSize(const sf::VideoMode& vm, const unsigned modifier) {
     /*
     * Calcola la dimensione del testo usando la risoluzione corrente e una costante
     *
     * @param sf::VideoMode& vm     Attuale risoluzione della finestra.
+    * @param unsigned modifier     Usato per modificare la grandezza del testo.
+    *
     *
     * @return unsigned             Il valore calcolato della dimensione del testo.
     */
 
-    return static_cast<unsigned>((vm.width + vm.height)/40); // (1280 + 720) / 50 = 40 dove 50 è la vecchia dimensione de testo standard
+    return static_cast<unsigned>((vm.width + vm.height)/modifier); // (1280 + 720) / 50 = 40 dove 50 è la vecchia dimensione de testo standard
 }
 
 gui::Button::Button(float x, float y, float width, float height,

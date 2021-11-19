@@ -6,12 +6,13 @@
 #define DRAGHI_E_SOTTERRANEI_HEROGUI_H
 
 #include "Hero.h"
+#include "Gui.h"
 
 class Hero;
 
 class HeroGUI {
 public:
-    HeroGUI(Hero* hero);
+    HeroGUI(Hero* hero, sf::VideoMode& vm);
     virtual ~HeroGUI();
 
     void updateLevelBar();
@@ -27,6 +28,7 @@ public:
 private:
     Hero* hero;
 
+    sf::VideoMode& vm;
     sf::Font font;
 
     std::string expBarString;

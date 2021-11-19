@@ -9,10 +9,10 @@ MainMenuState::MainMenuState(StateData* state_data)
         : State(state_data)
 {
     this->initVariables();
-    this->initBackground();
     this->iniFonts();
     this->initKeybinds();
-    this->initButtons();
+    this->initGui();
+    this->resetGui();
 
 }
 
@@ -57,7 +57,7 @@ void MainMenuState::update(const float& dt) {
     this->updateMousePosition();
     this->updateInput(dt);
 
-    this->updateButtons();
+    this->updateGui();
 }
 
 void MainMenuState::iniFonts() {
@@ -84,39 +84,72 @@ void MainMenuState::initKeybinds() {
     ifs.close();
 }
 
-void MainMenuState::initButtons() {
+void MainMenuState::initGui() {
+
     const sf::VideoMode& vm = this->stateData->gfxSettings->resolution;
+
+//Background
+    this->background.setSize(
+            sf::Vector2f(
+                    static_cast<float>(vm.width),
+                    static_cast<float>(vm.height)
+            )
+    );
+
+    if(this->backgroundTexture.loadFromFile("../Resources/Images/Backgrounds/Menu002.png")){
+        //throw"ERROR::MAIN_MENU_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE"; <--- DA ERRORE
+    }
+
+    this->background.setTexture(&this->backgroundTexture);
 
     this->buttons["GAME_STATE"] = new gui::Button(
             gui::p2pX(7.81f, vm), gui::p2pY(41.6f, vm),
             gui::p2pX(15.6f, vm), gui::p2pY(10.4f, vm),
             &this->font, "New Game", gui::calcCharSize(vm),
-            sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
+            sf::Color(200, 200, 200, 200), sf::Color(255, 255, 255, 255), sf::Color(20, 20, 20, 50),
             sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 
     this->buttons["SETTINGS_STATE"] = new gui::Button(
             gui::p2pX(7.81f, vm), gui::p2pY(55.5f, vm),
             gui::p2pX(15.6f, vm), gui::p2pY(10.4f, vm),
             &this->font, "Settings", gui::calcCharSize(vm),
-            sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
+            sf::Color(200, 200, 200, 200), sf::Color(255, 255, 255, 255), sf::Color(20, 20, 20, 50),
             sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 
     this->buttons["EDITOR_STATE"] = new gui::Button(
             gui::p2pX(7.81f, vm), gui::p2pY(69.4f, vm),
             gui::p2pX(15.6f, vm), gui::p2pY(10.4f, vm),
             &this->font, "Editor", gui::calcCharSize(vm),
-            sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
+            sf::Color(200, 200, 200, 200), sf::Color(255, 255, 255, 255), sf::Color(20, 20, 20, 50),
             sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 
     this->buttons["EXIT_STATE"] = new gui::Button(
             gui::p2pX(7.81f, vm), gui::p2pY(83.3f, vm),
             gui::p2pX(15.6f, vm), gui::p2pY(10.4f, vm),
             &this->font, "Quit", gui::calcCharSize(vm),
-            sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
+            sf::Color(200, 200, 200, 200), sf::Color(255, 255, 255, 255), sf::Color(20, 20, 20, 50),
             sf::Color(100, 100, 100, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 }
 
-void MainMenuState::updateButtons() {
+void MainMenuState::resetGui() {
+    /*
+     * cancella gli elementi della GUI e li re-inizializza
+     *
+     * @return void
+     */
+
+    auto i = this->buttons.begin();
+    for (i = this->buttons.begin(); i != this->buttons.end(); ++i)
+    {
+        delete i->second;
+    }
+    this->buttons.clear();
+
+    this->initGui();
+
+}
+
+void MainMenuState::updateGui() {
     for (auto &i : this->buttons){
         i.second->update(this->mousePosWindow);
     }
@@ -144,22 +177,10 @@ void MainMenuState::renderButtons(sf::RenderTarget& target) {
     }
 }
 
-void MainMenuState::initBackground() {
-    this->background.setSize(
-            sf::Vector2f(
-                    static_cast<float>(this->window->getSize().x),
-                    static_cast<float>(this->window->getSize().y)
-            )
-    );
 
-    if(this->backgroundTexture.loadFromFile("../Resources/Images/Backgrounds/Menu002.png")){
-        //throw"ERROR::MAIN_MENU_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE"; <--- DA ERRORE
-    }
-
-    this->background.setTexture(&this->backgroundTexture);
-
-}
 
 void MainMenuState::initVariables() {
 
 }
+
+

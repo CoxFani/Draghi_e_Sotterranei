@@ -17,10 +17,11 @@ public:
     virtual ~MainMenuState();
 
     void updateInput(const float& dt);
-    void updateButtons();
+    void updateGui();
     void update(const float& dt);
     void renderButtons(sf::RenderTarget& target);
     void render(sf::RenderTarget* target = nullptr);
+
 
 private:
     sf::Texture backgroundTexture;
@@ -30,10 +31,10 @@ private:
     std::map<std::string, gui::Button*>buttons;
 
     void initVariables();
-    void initBackground();
     void iniFonts();
-    void initButtons();
+    void initGui();
     void initKeybinds();
+    void resetGui();
 
 };
 

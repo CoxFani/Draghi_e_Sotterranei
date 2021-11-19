@@ -5,7 +5,8 @@
 #include "precompiler.h"
 #include "HeroGUI.h"
 
-HeroGUI::HeroGUI(Hero* hero) {
+HeroGUI::HeroGUI(Hero* hero, sf::VideoMode& vm)
+: vm(vm){
     this->hero = hero;
 
     this->initFont();
@@ -23,25 +24,28 @@ void HeroGUI::initFont() {
 }
 
 void HeroGUI::initLevelBar() {
-    float width = 30.f;
-    float height = 30.f;
-    float x = 20.f;
-    float y = 20.f;
+    float width = gui::p2pX(2.34f, this->vm);
+    float height = gui::p2pY(4.16f, this->vm);
+    float x = gui::p2pX(1.56f, this->vm);
+    float y = gui::p2pY(2.77f, this->vm);
 
     this->levelBarBack.setSize(sf::Vector2f(width, height));
     this->levelBarBack.setFillColor(sf::Color(50, 50, 50, 200));
     this->levelBarBack.setPosition(x, y);
 
     this->levelBarText.setFont(this->font);
-    this->levelBarText.setCharacterSize(28);
-    this->levelBarText.setPosition(this->levelBarBack.getPosition().x + 10.f, this->levelBarBack.getPosition().y - 5.f);
+    this->levelBarText.setCharacterSize(gui::calcCharSize(this->vm, 90));
+    this->levelBarText.setPosition(
+            this->levelBarBack.getPosition().x + gui::p2pX(0.78f, this->vm),
+            this->levelBarBack.getPosition().y + gui::p2pY(0.69f, this->vm)
+            );
 }
 
 void HeroGUI::initEXPBar() {
-    float width = 200.f;
-    float height = 20.f;
-    float x = 20.f;
-    float y = 80.f;
+    float width = gui::p2pX(15.6f, this->vm);
+    float height = gui::p2pY(2.77f, this->vm);
+    float x = gui::p2pX(1.56f, this->vm);
+    float y = gui::p2pY(6.94, this->vm);
 
     this->expBarMaxWidth = width;
 
@@ -56,15 +60,18 @@ void HeroGUI::initEXPBar() {
     this->expBarInner.setPosition(this->expBarBack.getPosition());
 
     this->expBarText.setFont(this->font);
-    this->expBarText.setCharacterSize(22);
-    this->expBarText.setPosition(this->expBarInner.getPosition().x + 10.f, this->expBarInner.getPosition().y - 5.f);
+    this->expBarText.setCharacterSize(gui::calcCharSize(this->vm, 130));
+    this->expBarText.setPosition(
+            this->expBarInner.getPosition().x + gui::p2pX(0.78f, this->vm),
+            this->expBarInner.getPosition().y + gui::p2pY(0.69f, this->vm)
+            );
 }
 
 void HeroGUI::initHPBar() {
-    float width = 200.f;
-    float height = 30.f;
-    float x = 20.f;
-    float y = 50.f;
+    float width = gui::p2pX(15.6f, this->vm);
+    float height = gui::p2pY(4.16f, this->vm);
+    float x = gui::p2pX(1.56f, this->vm);
+    float y = gui::p2pY(12.5f, this->vm);
 
     this->hpBarMaxWidth = width;
 
@@ -79,8 +86,11 @@ void HeroGUI::initHPBar() {
     this->hpBarInner.setPosition(this->hpBarBack.getPosition());
 
     this->hpBarText.setFont(this->font);
-    this->hpBarText.setCharacterSize(27);
-    this->hpBarText.setPosition(this->hpBarInner.getPosition().x + 10.f, this->hpBarInner.getPosition().y - 5.f);
+    this->hpBarText.setCharacterSize(gui::calcCharSize(this->vm, 85));
+    this->hpBarText.setPosition(
+            this->hpBarInner.getPosition().x + gui::p2pX(0.78f, this->vm),
+            this->hpBarInner.getPosition().y + gui::p2pY(0.69f, this->vm)
+            );
 }
 
 void HeroGUI::updateLevelBar() {

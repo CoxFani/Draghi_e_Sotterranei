@@ -9,11 +9,9 @@
 SettingState::SettingState(StateData* state_data)
 : State(state_data){
     this->initVariables();
-    this->initBackground();
     this->iniFonts();
     this->initKeybinds();
     this->initGui();
-    this->initText();
 }
 
 SettingState::~SettingState() {
@@ -52,6 +50,21 @@ void SettingState::initKeybinds() {
 void SettingState::initGui() {
     const sf::VideoMode& vm = this->stateData->gfxSettings->resolution;
 
+    //Background
+    this->background.setSize(
+            sf::Vector2f(
+                    static_cast<float>(vm.width),
+                    static_cast<float>(vm.height)
+            )
+    );
+
+    if(this->backgroundTexture.loadFromFile("../Resources/Images/Backgrounds/Menu002.png")){
+        //throw"ERROR::MAIN_MENU_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE"; <--- DA ERRORE
+    }
+
+    this->background.setTexture(&this->backgroundTexture);
+
+    //Buttons
     this->buttons["BACK"] = new gui::Button(
             gui::p2pX(85.9f, vm), gui::p2pY(83.3f, vm),
             gui::p2pX(15.6f, vm), gui::p2pY(10.4f, vm),
@@ -66,28 +79,46 @@ void SettingState::initGui() {
             sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
             sf::Color(100, 100, 100, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 
+    //Modes
     std::vector<std::string> modes_str;
     for (auto &i : this->modes)
         modes_str.push_back(std::to_string(i.width) + 'x' + std::to_string(i.height));
 
+    //DropDownList
     this->dropdownList["RESOLUTION"] = new gui::DropDownList(gui::p2pX(31.2f, vm), gui::p2pY(41.6f, vm),
                                                              gui::p2pX(15.6f, vm), gui::p2pY(6.9f, vm),
                                                              font, modes_str.data(), modes_str.size());
+
+    //Text
+    this->optionsText.setFont(this->font);
+    this->optionsText.setPosition(sf::Vector2f(gui::p2pX(7.81f, vm), gui::p2pY(41.6f, vm)));
+    this->optionsText.setCharacterSize(gui::calcCharSize(vm, 60));
+    this->optionsText.setFillColor(sf::Color(255, 255, 255, 200));
+    this->optionsText.setString("Resolution \n\n\nFullscreen \n\n\nVsync \n\n\nAntialising \n\n\n ");
 }
 
-void SettingState::initBackground() {
-    this->background.setSize(
-            sf::Vector2f(
-                    static_cast<float>(this->window->getSize().x),
-                    static_cast<float>(this->window->getSize().y)
-            )
-    );
 
-    if(this->backgroundTexture.loadFromFile("../Resources/Images/Backgrounds/Menu002.png")){
-        //throw"ERROR::MAIN_MENU_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE"; <--- DA ERRORE
+
+void SettingState::resetGui() {
+/*
+     * cancella gli elementi della GUI e li re-inizializza
+     *
+     * @return void
+     */
+
+    auto i = this->buttons.begin();
+    for(i = this->buttons.begin(); i != this->buttons.end(); ++i){
+        delete i->second;
     }
+    this->buttons.clear();
 
-    this->background.setTexture(&this->backgroundTexture);
+    auto j = this->dropdownList.begin();
+    for(j = this->dropdownList.begin(); j != dropdownList.end(); ++j){
+        delete j->second;
+    }
+    this->dropdownList.clear();
+
+    this->initGui();
 }
 
 void SettingState::initVariables() {
@@ -117,6 +148,8 @@ void SettingState::updateGui(const float &dt) {
         this->stateData->gfxSettings->resolution = this->modes[this->dropdownList["RESOLUTION"]->getActiveElementId()];
 
         this->window->create(this->stateData->gfxSettings->resolution, this->stateData->gfxSettings->title, sf::Style::Default);
+
+        this->resetGui();
     }
 
     for (auto &i : this->dropdownList)
@@ -154,12 +187,10 @@ void SettingState::renderGui(sf::RenderTarget& target) {
         i.second->render(target);
 }
 
-void SettingState::initText() {
-    this->optionsText.setFont(this->font);
-    this->optionsText.setPosition(sf::Vector2f(100.f, 300.f));
-    this->optionsText.setCharacterSize(30);
-    this->optionsText.setFillColor(sf::Color(255, 255, 255, 200));
-    this->optionsText.setString("Resolution \n\n\nFullscreen \n\n\nVsync \n\n\nAntialising \n\n\n ");
-}
+
+
+
+
+
 
 
