@@ -63,39 +63,5 @@ void State::updateKeyTime(const float& dt) {
         this->keyTime += 100.f * dt;
 }
 
-const float State::p2pX(const float perc) const{
-    /*
-     * Convertire un valore percentuale in pixelsrelativamente alla risoluzione corrente nelle ascisse x.
-     *
-     * @param float perc        Il valore percentuale.
-     *
-     * @return float            Il valore calcolato in pixels.
-     */
-    return std::floor(static_cast<float>(this->stateData->gfxSettings->resolution.width) * (perc/100.f));
-}
-
-const float State::p2pY(const float perc) const{
-    /*
-    * Convertire un valore percentuale in pixelsrelativamente alla risoluzione corrente nelle ordinate y.
-    *
-    * @param float perc        Il valore percentuale.
-    *
-    * @return float            Il valore calcolato in pixels.
-    */
-    return std::floor(static_cast<float>(this->stateData->gfxSettings->resolution.height) * (perc/100.f));
-
-}
-
-const unsigned State::calcCharSize() const {
-    /*
-    * Calcola la dimensione del testo usando la risoluzione corrente e una costante
-    *
-    *
-    * @return unsigned            Il valore calcolato della dimensione del testo.
-    */
-
-    return static_cast<unsigned>((this->stateData->gfxSettings->resolution.width + this->stateData->gfxSettings->resolution.height)/40); // (1280 + 720) / 50 = 40 dove 50 è la vecchia dimensione de testo standard
-}
-
 
 

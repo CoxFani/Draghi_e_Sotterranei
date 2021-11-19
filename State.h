@@ -44,10 +44,6 @@ public:
     virtual void update(const float& dt) = 0;
     virtual void render(sf::RenderTarget* target = nullptr) = 0;
 
-    const float p2pX(const float perc) const;
-    const float p2pY(const float perc) const;
-    const unsigned calcCharSize() const;
-
 protected:
     StateData* stateData;
     std::stack<State*>* states;

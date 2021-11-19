@@ -9,6 +9,9 @@
 enum button_states{BTN_IDLE = 0, BTN_HOVER, BTN_ACTIVE};
 
 namespace gui {
+    const float p2pX(const float perc, const sf::VideoMode& vm);
+    const float p2pY(const float perc, const sf::VideoMode& vm);
+    const unsigned calcCharSize(const sf::VideoMode& vm);
 
     class Button {
     public:
@@ -28,7 +31,6 @@ namespace gui {
         void setId(const short unsigned id);
         void update(const sf::Vector2i &mousePosWindow);
         void render(sf::RenderTarget &target);
-
 
     private:
         short unsigned buttonState;

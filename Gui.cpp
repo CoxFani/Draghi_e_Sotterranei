@@ -5,6 +5,43 @@
 #include "precompiler.h"
 #include "Gui.h"
 
+const float gui::p2pX(const float perc, const sf::VideoMode& vm) {
+    /*
+     * Convertire un valore percentuale in pixelsrelativamente alla risoluzione corrente nelle ascisse x.
+     *
+     * @param float perc            Il valore percentuale.
+     * @param sf::VideoMode& vm     Attuale risoluzione della finestra.
+     *
+     * @return float                Il valore calcolato in pixels.
+     */
+    return std::floor(static_cast<float>(vm.width) * (perc/100.f));
+}
+
+const float gui::p2pY(const float perc, const sf::VideoMode& vm) {
+    /*
+    * Convertire un valore percentuale in pixelsrelativamente alla risoluzione corrente nelle ordinate y.
+    *
+    * @param float perc             Il valore percentuale.
+     * @param sf::VideoMode& vm     Attuale risoluzione della finestra.
+     *
+    * @return float                 Il valore calcolato in pixels.
+    */
+    return std::floor(static_cast<float>(vm.height) * (perc/100.f));
+
+}
+
+const unsigned gui::calcCharSize(const sf::VideoMode& vm) {
+    /*
+    * Calcola la dimensione del testo usando la risoluzione corrente e una costante
+    *
+    * @param sf::VideoMode& vm     Attuale risoluzione della finestra.
+    *
+    * @return unsigned             Il valore calcolato della dimensione del testo.
+    */
+
+    return static_cast<unsigned>((vm.width + vm.height)/40); // (1280 + 720) / 50 = 40 dove 50 è la vecchia dimensione de testo standard
+}
+
 gui::Button::Button(float x, float y, float width, float height,
               sf::Font* font, std::string text, unsigned character_size,
               sf::Color text_idle_color, sf::Color text_hover_color, sf::Color text_active_color,
@@ -327,5 +364,3 @@ void gui::TextureSelector::render(sf::RenderTarget &target) {
 
     this->hideButton->render(target);
 }
-
-
