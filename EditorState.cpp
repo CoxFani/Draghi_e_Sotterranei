@@ -127,11 +127,12 @@ void EditorState::initVariables() {
 }
 
 void EditorState::initPausedMenu() {
-    this->pmenu = new PauseMenu(*this->window, this->font);
+    const sf::VideoMode& vm = this->stateData->gfxSettings->resolution;
+    this->pmenu = new PauseMenu(this->stateData->gfxSettings->resolution, this->font);
 
-    this->pmenu->addButton("QUIT", 450.f, "Quit");
-    this->pmenu->addButton("SAVE", 350.f, "Save");
-    this->pmenu->addButton("LOAD", 250.f, "Load");
+    this->pmenu->addButton("QUIT", gui::p2pY(62.5f, vm)/*450.f*/, gui::p2pX(15.6f, vm), gui::p2pY(10.4f, vm), gui::calcCharSize(vm), "Quit");
+    this->pmenu->addButton("SAVE", gui::p2pY(48.6f, vm)/*350.f*/, gui::p2pX(15.6f, vm), gui::p2pY(10.4f, vm), gui::calcCharSize(vm), "Save");
+    this->pmenu->addButton("LOAD", gui::p2pY(34.7f, vm)/*250.f*/, gui::p2pX(15.6f, vm), gui::p2pY(10.4f, vm), gui::calcCharSize(vm), "Load");
 }
 
 void EditorState::updatePauseMenuButtons() {

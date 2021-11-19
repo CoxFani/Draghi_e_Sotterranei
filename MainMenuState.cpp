@@ -90,30 +90,30 @@ void MainMenuState::initButtons() {
     this->buttons["GAME_STATE"] = new gui::Button(
             gui::p2pX(7.81f, vm), gui::p2pY(41.6f, vm),
             gui::p2pX(15.6f, vm), gui::p2pY(10.4f, vm),
-         &this->font, "New Game", gui::calcCharSize(vm),
- sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
- sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
+            &this->font, "New Game", gui::calcCharSize(vm),
+            sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
+            sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 
     this->buttons["SETTINGS_STATE"] = new gui::Button(
             gui::p2pX(7.81f, vm), gui::p2pY(55.5f, vm),
             gui::p2pX(15.6f, vm), gui::p2pY(10.4f, vm),
-         &this->font, "Settings", gui::calcCharSize(vm),
- sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
- sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
+            &this->font, "Settings", gui::calcCharSize(vm),
+            sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
+            sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 
     this->buttons["EDITOR_STATE"] = new gui::Button(
             gui::p2pX(7.81f, vm), gui::p2pY(69.4f, vm),
             gui::p2pX(15.6f, vm), gui::p2pY(10.4f, vm),
-         &this->font, "Editor", gui::calcCharSize(vm),
- sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
- sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
+            &this->font, "Editor", gui::calcCharSize(vm),
+            sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
+            sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 
     this->buttons["EXIT_STATE"] = new gui::Button(
             gui::p2pX(7.81f, vm), gui::p2pY(83.3f, vm),
             gui::p2pX(15.6f, vm), gui::p2pY(10.4f, vm),
-         &this->font, "Quit", gui::calcCharSize(vm),
-sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
-sf::Color(100, 100, 100, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
+            &this->font, "Quit", gui::calcCharSize(vm),
+            sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
+            sf::Color(100, 100, 100, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 }
 
 void MainMenuState::updateButtons() {
