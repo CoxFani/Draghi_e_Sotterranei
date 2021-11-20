@@ -27,7 +27,7 @@ public:
 
 
 
-    void render(sf::RenderTarget& target);
+    void render(sf::RenderTarget& target, sf::Shader* shader = nullptr, const bool show_hitbox = false);
 
 private:
     bool attacking;

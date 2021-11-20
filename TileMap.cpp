@@ -48,29 +48,29 @@ void TileMap::update() {
 
 }
 
-void TileMap::render(sf::RenderTarget &target, const sf::Vector2i& gridPosition) {
+void TileMap::render(sf::RenderTarget &target, const sf::Vector2i& gridPosition, sf::Shader* shader, const sf::Vector2f heroPosition, const bool show_collision) {
 
         this->layer = 0;
 
-        this->fromX = gridPosition.x - 4;
+        this->fromX = gridPosition.x - 12;
         if (this->fromX < 0)
             this->fromX = 0;
         else if (this->fromX > this->maxSizeWorldGrid.x)
             this->fromX = this->maxSizeWorldGrid.x;
 
-        this->toX = gridPosition.x + 5;
+        this->toX = gridPosition.x + 16;
         if (this->toX < 0)
             this->toX = 0;
         else if (this->toX > this->maxSizeWorldGrid.x)
             this->toX = this->maxSizeWorldGrid.x;
 
-        this->fromY = gridPosition.y - 3;
+        this->fromY = gridPosition.y - 9;
         if (this->fromY < 0)
             this->fromY = 0;
         else if (this->fromY > this->maxSizeWorldGrid.y)
             this->fromY = this->maxSizeWorldGrid.y;
 
-        this->toY = gridPosition.y + 5;
+        this->toY = gridPosition.y + 10;
         if (this->toY < 0)
             this->toY = 0;
         else if (this->toY > this->maxSizeWorldGrid.y)
@@ -83,16 +83,33 @@ void TileMap::render(sf::RenderTarget &target, const sf::Vector2i& gridPosition)
                         this->deferredRenderStack.push(this->map[x][y][layer][k]);
                     }
                     else{
-                        this->map[x][y][this->layer][k]->render(target);
+                        if(shader)
+                            this->map[x][y][this->layer][k]->render(target, shader, heroPosition);
+                        else
+                            this->map[x][y][this->layer][k]->render(target);
 
                     }
-                    if (this->map[x][y][this->layer][k]->getCollision()) {
-                        this->collisionBox.setPosition(this->map[x][y][this->layer][k]->getPosition());
-                        target.draw(this->collisionBox);
+                    if(show_collision){
+                        if (this->map[x][y][this->layer][k]->getCollision()) {
+                            this->collisionBox.setPosition(this->map[x][y][this->layer][k]->getPosition());
+                            target.draw(this->collisionBox);
+                        }
                     }
                 }
             }
         }
+
+}
+
+void TileMap::renderDeferred(sf::RenderTarget &target, sf::Shader* shader, const sf::Vector2f heroPosition) {
+    while(!this->deferredRenderStack.empty()){
+        if(shader)
+            deferredRenderStack.top()->render(target, shader, heroPosition);
+        else
+            deferredRenderStack.top()->render(target);
+
+        deferredRenderStack.pop();
+    }
 
 }
 
@@ -355,10 +372,4 @@ const int TileMap::getLayerSize(const int x, const int y, const int layer) const
     return -1;
 }
 
-void TileMap::renderDeferred(sf::RenderTarget &target) {
-    while(!this->deferredRenderStack.empty()){
-        deferredRenderStack.top()->render(target);
-        deferredRenderStack.pop();
-    }
 
-}

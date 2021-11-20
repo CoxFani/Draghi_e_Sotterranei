@@ -42,6 +42,8 @@ private:
     sf::Font font;
     PauseMenu* pmenu;
 
+    sf::Shader core_shader;
+
     Hero* hero;
     HeroGUI* heroGUI;
     sf::Texture texture;
@@ -53,6 +55,7 @@ private:
     void initFonts();
     void initTextures();
     void initPausedMenu();
+    void initShaders();
     void initHeroes();
     void initHeroGUI();
     void initTileMap();

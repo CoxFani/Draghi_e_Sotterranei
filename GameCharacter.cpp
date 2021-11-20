@@ -22,15 +22,6 @@ void GameCharacter::move(const float dir_x, const float dir_y,const float& dt) {
         this->movementComponent->move(dir_x, dir_y, dt);
 }
 
-void GameCharacter::update(const float &dt) {
-
-}
-
-void GameCharacter::render(sf::RenderTarget& target) {
-
-
-}
-
 void GameCharacter::setTexture(sf::Texture& texture) {
     this->sprite.setTexture(texture);
 }
@@ -66,6 +57,22 @@ const sf::Vector2f &GameCharacter::getPosition() const {
         return this->hitboxComponent->getPosition();
     return this->sprite.getPosition();
 }
+
+const sf::Vector2f GameCharacter::getCenter() const {
+    if(this->hitboxComponent)
+        return this->hitboxComponent->getPosition() +
+        sf::Vector2f(
+                this->hitboxComponent->getGlobalBounds().width / 2.f,
+                this->hitboxComponent->getGlobalBounds().height / 2
+                );
+    return
+          this->sprite.getPosition() +
+            sf::Vector2f(
+                    this->sprite.getGlobalBounds().width / 2.f,
+                    this->sprite.getGlobalBounds().height / 2
+            );
+}
+
 
 const sf::FloatRect GameCharacter::getGlobalBounds() const {
     if(this->hitboxComponent)
@@ -109,3 +116,4 @@ const sf::FloatRect GameCharacter::getNextPositionBounds(const float& dt) const 
 void GameCharacter::createAttributeComponent(const unsigned level) {
     this->attributeComponent = new AttributeComponent(level);
 }
+

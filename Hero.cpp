@@ -124,9 +124,19 @@ void Hero::update(const float &dt) {
     this->hitboxComponent->update();
 }
 
-void Hero::render(sf::RenderTarget &target) {
-    target.draw(this->sprite);
-    this->hitboxComponent->render(target);
+void Hero::render(sf::RenderTarget &target, sf::Shader* shader, const bool show_hitbox) {
+
+    if(shader){
+        shader->setUniform("hasTexture", true);
+        shader->setUniform("lightPos", this->getCenter());
+
+        target.draw(this->sprite, shader);
+    }
+    else
+        target.draw(this->sprite);
+
+    if(show_hitbox)
+        this->hitboxComponent->render(target);
 }
 
 

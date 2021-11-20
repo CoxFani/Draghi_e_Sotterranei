@@ -34,10 +34,10 @@ void HeroGUI::initLevelBar() {
     this->levelBarBack.setPosition(x, y);
 
     this->levelBarText.setFont(this->font);
-    this->levelBarText.setCharacterSize(gui::calcCharSize(this->vm, 90));
+    this->levelBarText.setCharacterSize(gui::calcCharSize(this->vm, 75));
     this->levelBarText.setPosition(
             this->levelBarBack.getPosition().x + gui::p2pX(0.78f, this->vm),
-            this->levelBarBack.getPosition().y + gui::p2pY(0.69f, this->vm)
+            this->levelBarBack.getPosition().y - gui::p2pY(0.69f, this->vm)
             );
 }
 
@@ -60,10 +60,10 @@ void HeroGUI::initEXPBar() {
     this->expBarInner.setPosition(this->expBarBack.getPosition());
 
     this->expBarText.setFont(this->font);
-    this->expBarText.setCharacterSize(gui::calcCharSize(this->vm, 130));
+    this->expBarText.setCharacterSize(gui::calcCharSize(this->vm, 100));
     this->expBarText.setPosition(
             this->expBarInner.getPosition().x + gui::p2pX(0.78f, this->vm),
-            this->expBarInner.getPosition().y + gui::p2pY(0.69f, this->vm)
+            this->expBarInner.getPosition().y - gui::p2pY(0.69f, this->vm)
             );
 }
 
@@ -86,10 +86,10 @@ void HeroGUI::initHPBar() {
     this->hpBarInner.setPosition(this->hpBarBack.getPosition());
 
     this->hpBarText.setFont(this->font);
-    this->hpBarText.setCharacterSize(gui::calcCharSize(this->vm, 85));
+    this->hpBarText.setCharacterSize(gui::calcCharSize(this->vm, 75));
     this->hpBarText.setPosition(
             this->hpBarInner.getPosition().x + gui::p2pX(0.78f, this->vm),
-            this->hpBarInner.getPosition().y + gui::p2pY(0.69f, this->vm)
+            this->hpBarInner.getPosition().y - gui::p2pY(0.69f, this->vm)
             );
 }
 

@@ -18,6 +18,7 @@ GameState::GameState(StateData* state_data)
     this->initFonts();
     this->initTextures();
     this->initPausedMenu();
+    this->initShaders();
 
     this->initHeroes();
     this->initHeroGUI();
@@ -78,6 +79,14 @@ void GameState::initPausedMenu() {
     this->pmenu->addButton("QUIT", gui::p2pY(62.5f, vm)/*450.f*/, gui::p2pX(15.6f, vm), gui::p2pY(10.4f, vm), gui::calcCharSize(vm), "Quit");
 }
 
+void GameState::initShaders() {
+
+    if(!this->core_shader.loadFromFile("../vertex_shader.vert", "../fragment_shader.frag")){
+
+        std::cout<<"ERROR::GAMESTATE::COULD NOT LOAD SHADER." << "\n";
+    }
+}
+
 void GameState::initHeroes() {
     this->hero = new Hero(20, 20, this->textures["HERO_SHEET"]);
 }
@@ -99,7 +108,10 @@ void GameState::initDeferredRender() {
 }
 
 void GameState::updateView(const float &dt) {
-    this->view.setCenter(std::floor(this->hero->getPosition().x), std::floor(this->hero->getPosition().y));
+    this->view.setCenter(
+            std::floor(this->hero->getPosition().x + (static_cast<float>(this->mousePosWindow.x) - static_cast<float>(this->stateData->gfxSettings->resolution.width / 2)) / 5.f),
+            std::floor(this->hero->getPosition().y + (static_cast<float>(this->mousePosWindow.y) - static_cast<float>(this->stateData->gfxSettings->resolution.height / 2)) / 5.f)
+            );
 }
 
 void GameState::updateInput(const float &dt) {
@@ -167,11 +179,11 @@ void GameState::render(sf::RenderTarget* target) {
     this->renderTexture.clear();
 
     this->renderTexture.setView(this->view);
-    this->tileMap->render(this->renderTexture, this->hero->getGridPosition(static_cast<int>(this->stateData->gridSize)));
+    this->tileMap->render(this->renderTexture, this->hero->getGridPosition(static_cast<int>(this->stateData->gridSize)), &this->core_shader, this->hero->getCenter(), false);
 
-    this->hero->render(this->renderTexture);
+    this->hero->render(this->renderTexture, &this->core_shader, false);
 
-    this->tileMap->renderDeferred(this->renderTexture);
+    this->tileMap->renderDeferred(this->renderTexture, &this->core_shader, this->hero->getCenter());
 
     this->renderTexture.setView(this->renderTexture.getDefaultView());
     this->heroGUI->render(this->renderTexture);
@@ -185,3 +197,5 @@ void GameState::render(sf::RenderTarget* target) {
     this->renderSprite.setTexture(this->renderTexture.getTexture());
     target->draw(this->renderSprite);
 }
+
+

@@ -21,10 +21,10 @@ public:
     const bool intersects(const sf::FloatRect bounds) const;
     const std::string getAsString() const;
     void update();
-    void render(sf::RenderTarget& target);
+    void render(sf::RenderTarget& target, sf::Shader* shader = nullptr, const sf::Vector2f heroPosition = sf::Vector2f());
 
 protected:
-    sf::RectangleShape shape;
+    sf::Sprite shape;
     short type;
     bool collision;
 
