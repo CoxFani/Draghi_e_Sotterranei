@@ -97,7 +97,7 @@ void GameState::initHeroGUI() {
 
 void GameState::initTileMap() {
 //TODO cambiare dimensioni mappa
-    this->tileMap = new TileMap(this->stateData->gridSize, 100, 100, "../Resources/Images/Tiles/tilesheet1.png");
+    this->tileMap = new TileMap(this->stateData->gridSize, 100, 100, "../Resources/Images/Tiles/TileSet.png");
     this->tileMap->loadFromFile("../saves_file.txt");
 }
 
@@ -179,7 +179,14 @@ void GameState::render(sf::RenderTarget* target) {
     this->renderTexture.clear();
 
     this->renderTexture.setView(this->view);
-    this->tileMap->render(this->renderTexture, this->hero->getGridPosition(static_cast<int>(this->stateData->gridSize)), &this->core_shader, this->hero->getCenter(), false);
+
+    this->tileMap->render(
+            this->renderTexture,
+     this->hero->getGridPosition(static_cast<int>(this->stateData->gridSize)),
+       &this->core_shader,
+    this->hero->getCenter(),
+   false
+   );
 
     this->hero->render(this->renderTexture, &this->core_shader, false);
 

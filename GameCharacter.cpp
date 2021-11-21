@@ -31,6 +31,7 @@ void GameCharacter::initVariables() {
     this->hitboxComponent = nullptr;
     this->movementComponent = nullptr;
     this->animationComponent = nullptr;
+    this->attributeComponent = nullptr;
 }
 
 void GameCharacter::setPosition(const float x, const float y) {

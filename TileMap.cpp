@@ -48,7 +48,13 @@ void TileMap::update() {
 
 }
 
-void TileMap::render(sf::RenderTarget &target, const sf::Vector2i& gridPosition, sf::Shader* shader, const sf::Vector2f heroPosition, const bool show_collision) {
+void TileMap::render(
+        sf::RenderTarget &target,
+        const sf::Vector2i& gridPosition,
+        sf::Shader* shader,
+        const sf::Vector2f heroPosition,
+        const bool show_collision
+        ) {
 
         this->layer = 0;
 

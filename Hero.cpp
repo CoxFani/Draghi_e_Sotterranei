@@ -11,7 +11,7 @@ Hero::Hero(float x, float y, sf::Texture& texture_sheet) {
     this->setPosition(x, y);
 
     this->createHitboxComponent(this->sprite, 0.f, 17.f, 32.f, 32.f);
-    this->createMovementComponent(350.f, 1500.f, 500.f);
+    this->createMovementComponent(200.f, 1500.f, 500.f);
     this->createAnimationComponent(texture_sheet);
     this->createAttributeComponent(1);
 
