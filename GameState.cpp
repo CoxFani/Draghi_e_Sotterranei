@@ -109,9 +109,23 @@ void GameState::initDeferredRender() {
 
 void GameState::updateView(const float &dt) {
     this->view.setCenter(
-            std::floor(this->hero->getPosition().x + (static_cast<float>(this->mousePosWindow.x) - static_cast<float>(this->stateData->gfxSettings->resolution.width / 2)) / 5.f),
-            std::floor(this->hero->getPosition().y + (static_cast<float>(this->mousePosWindow.y) - static_cast<float>(this->stateData->gfxSettings->resolution.height / 2)) / 5.f)
+            std::floor(this->hero->getPosition().x + (static_cast<float>(this->mousePosWindow.x) - static_cast<float>(this->stateData->gfxSettings->resolution.width / 2)) / 10.f),
+            std::floor(this->hero->getPosition().y + (static_cast<float>(this->mousePosWindow.y) - static_cast<float>(this->stateData->gfxSettings->resolution.height / 2)) / 10.f)
             );
+
+    if (this->view.getCenter().x - this->view.getSize().x / 2.f < 0.f){
+        this->view.setCenter(0.f + this->view.getSize().x / 2.f, this->view.getCenter().y);
+    }
+    else if (this->view.getCenter().x + this->view.getSize().x / 2.f > 3000.f){
+        this->view.setCenter(3000.f - this->view.getSize().x / 2.f, this->view.getCenter().y);
+    }
+    if (this->view.getCenter().y - this->view.getSize().y / 2.f < 0.f){
+        this->view.setCenter(0.f + this->view.getSize().x / 2.f, this->view.getCenter().y);
+    }
+    else if (this->view.getCenter().y + this->view.getSize().y / 2.f > 3000.f){
+        this->view.setCenter(this->view.getSize().x / 2.f, 3000.f - this->view.getCenter().y);
+    }
+
 }
 
 void GameState::updateInput(const float &dt) {

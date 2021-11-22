@@ -31,6 +31,8 @@ public:
 
 private:
     bool attacking;
+    sf::Texture weapon_texture;
+    sf::Sprite weapon_sprite;
 
     void initVariables();
     void initComponents();

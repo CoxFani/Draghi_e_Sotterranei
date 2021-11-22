@@ -24,6 +24,10 @@ Hero::Hero(float x, float y, sf::Texture& texture_sheet) {
     this->animationComponent->addAnimation("HURT", 7.f, 0, 6, 2, 6, 48, 48);
     this->animationComponent->addAnimation("JUMP", 7.f, 0, 7, 5, 7, 48, 48);
     this->animationComponent->addAnimation("RUN", 6.f, 0, 8, 5, 8, 48, 48);
+
+    if(!this->weapon_texture.loadFromFile("../Resources/Images/Images/Sprites/Weapons/weapon.png"))
+        std::cout <<"ERROR::HERO::COULD NOT LOAD WEAPON TEXTURE." << "\n";
+    this->weapon_sprite.setTexture(this->weapon_texture);
 }
 
 Hero::~Hero() {
@@ -122,6 +126,7 @@ void Hero::update(const float &dt) {
     this->updateAttack();
     this->updateAnimation(dt);
     this->hitboxComponent->update();
+    this->weapon_sprite.setPosition(this->getCenter());
 }
 
 void Hero::render(sf::RenderTarget &target, sf::Shader* shader, const bool show_hitbox) {
@@ -131,9 +136,14 @@ void Hero::render(sf::RenderTarget &target, sf::Shader* shader, const bool show_
         shader->setUniform("lightPos", this->getCenter());
 
         target.draw(this->sprite, shader);
+        target.draw(this->weapon_sprite, shader);
     }
-    else
+    else{
         target.draw(this->sprite);
+        target.draw(this->weapon_sprite);
+    }
+
+
 
     if(show_hitbox)
         this->hitboxComponent->render(target);
