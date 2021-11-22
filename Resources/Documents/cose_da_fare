@@ -1,23 +1,21 @@
-segnare gli override
+# weapon
 
-ridurre i this ai necessari
+# enemy -> spawner -> editor
 
-occhio ai rowpointer
+# strategy pattern -> AI
 
-ridurre a valori di attributi le classi eroe
-con factory method
+# ridurre a valori di attributi le classi eroe -> factory method per tipologie mostri ed eroi
 
-tiletypes in class enum
+# inventory e items
 
-rowpointer in smartpointer e oggetti
+# segnare gli override
 
-estirpiamo i this
+# ridurre i this ai necessari
 
-codice di unit testing
-iniziamo a farlo
+# rowpointer in smartpointer e oggetti
 
-observer per meccanismo di achivment
+# tiletypes in class enum
 
-strategy pattern
+# codice di unit testing -> iniziamo a farlo
 
-factory method per tipologie mostri ed eroi
+# observer per meccanismo di achivment
