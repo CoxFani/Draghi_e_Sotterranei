@@ -33,7 +33,11 @@ public:
     void updateStats(const bool reset);
     void updateLevel();
     void update();
-    void gainExp(const int exp);
+
+    void loseHP(const int hp);
+    void gainHP(const int hp);
+    void loseEXP(const int exp);
+    void gainEXP(const int exp);
 
     std::string debugPrint() const;
 

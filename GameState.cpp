@@ -126,6 +126,10 @@ void GameState::updateView(const float &dt) {
         this->view.setCenter(this->view.getSize().x / 2.f, 3000.f - this->view.getCenter().y);
     }
 
+    this->viewGridPosition.x = static_cast<int>(this->view.getCenter().x) / static_cast<int>(this->stateData->gridSize * 2);
+    this->viewGridPosition.y = static_cast<int>(this->view.getCenter().y) / static_cast<int>(this->stateData->gridSize);
+
+
 }
 
 void GameState::updateInput(const float &dt) {
@@ -177,7 +181,7 @@ void GameState::update(const float& dt) {
         this->updateView(dt);
         this->updateHeroInput(dt);
         this->updateTileMap(dt);
-        this->hero->update(dt);
+        this->hero->update(dt, this->mousePosView);
         this->heroGUI->update(dt);
     }
     else{
@@ -196,7 +200,7 @@ void GameState::render(sf::RenderTarget* target) {
 
     this->tileMap->render(
             this->renderTexture,
-     this->hero->getGridPosition(static_cast<int>(this->stateData->gridSize)),
+     this->viewGridPosition,
        &this->core_shader,
     this->hero->getCenter(),
    false

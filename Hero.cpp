@@ -25,9 +25,16 @@ Hero::Hero(float x, float y, sf::Texture& texture_sheet) {
     this->animationComponent->addAnimation("JUMP", 7.f, 0, 7, 5, 7, 48, 48);
     this->animationComponent->addAnimation("RUN", 6.f, 0, 8, 5, 8, 48, 48);
 
+
+    //Visual Weapon
     if(!this->weapon_texture.loadFromFile("../Resources/Images/Images/Sprites/Weapons/weapon.png"))
         std::cout <<"ERROR::HERO::COULD NOT LOAD WEAPON TEXTURE." << "\n";
     this->weapon_sprite.setTexture(this->weapon_texture);
+
+    this->weapon_sprite.setOrigin(
+            this->weapon_sprite.getGlobalBounds().width / 2.f,
+            this->weapon_sprite.getGlobalBounds().height
+            );
 }
 
 Hero::~Hero() {
@@ -48,33 +55,24 @@ AttributeComponent *Hero::getAttributeComponent() {
 
 void Hero::loseHP(const int hp) {
 
-    this->attributeComponent->hp -= hp;
-
-    if(this->attributeComponent->hp < 0)
-        this->attributeComponent->hp = 0;
+    this->attributeComponent->loseHP(hp);
 }
 
 void Hero::gainHP(const int hp) {
 
-    this->attributeComponent->hp += hp;
-
-    if(this->attributeComponent->hp > this->attributeComponent->hpMax)
-        this->attributeComponent->hp = this->attributeComponent->hpMax;
+    this->attributeComponent->gainHP(hp);
 }
 
 void Hero::loseEXP(const int exp) {
 
-    this->attributeComponent->exp -= exp;
-
-    if(this->attributeComponent->exp < 0)
-        this->attributeComponent->exp = 0;
+    this->attributeComponent->loseEXP(exp);
 }
 
 
 
 void Hero::gainEXP(const int exp) {
 
-    this->attributeComponent->gainExp(exp);
+    this->attributeComponent->gainEXP(exp);
 
 }
 
@@ -121,12 +119,22 @@ void Hero::updateAnimation(const float &dt) {
     }
 }
 
-void Hero::update(const float &dt) {
+void Hero::update(const float &dt, sf::Vector2f& mouse_pos_view) {
     this->movementComponent->update(dt);
     this->updateAttack();
     this->updateAnimation(dt);
     this->hitboxComponent->update();
+
+    //Update Visual Weapon
     this->weapon_sprite.setPosition(this->getCenter());
+    float dX = mouse_pos_view.x - this->weapon_sprite.getPosition().x;
+    float dY = mouse_pos_view.y - this->weapon_sprite.getPosition().y;
+
+    const float PI = 3.14159265;
+    float deg = atan2(dY, dX) * 180 / PI;
+
+    this->weapon_sprite.setRotation(deg + 90.f);
+
 }
 
 void Hero::render(sf::RenderTarget &target, sf::Shader* shader, const bool show_hitbox) {
