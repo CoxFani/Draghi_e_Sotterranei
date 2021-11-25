@@ -11,8 +11,6 @@ public:
     Item();
     virtual ~Item();
 
-private:
-
 };
 
 

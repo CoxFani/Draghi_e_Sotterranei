@@ -9,6 +9,8 @@
 #include "PauseMenu.h"
 #include "TileMap.h"
 #include "HeroGUI.h"
+#include "Sword.h"
+#include "Bow.h"
 
 class PauseMenu;
 class Hero;
@@ -16,11 +18,9 @@ class HeroGUI;
 class State;
 class TileMap;
 
-
 using namespace std;
 
 class GameState: public State {
-
 public:
     GameState(StateData* state_data);
     virtual ~GameState();

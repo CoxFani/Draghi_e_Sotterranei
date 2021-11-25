@@ -5,11 +5,6 @@
 #include "precompiler.h"
 #include "GameState.h"
 
-class PauseMenu;
-class Hero;
-class TileMap;
-
-
 GameState::GameState(StateData* state_data)
     : State(state_data) {
     this->initDeferredRender();
@@ -80,11 +75,8 @@ void GameState::initPausedMenu() {
 }
 
 void GameState::initShaders() {
-
-    if(!this->core_shader.loadFromFile("../vertex_shader.vert", "../fragment_shader.frag")){
-
+    if(!this->core_shader.loadFromFile("../vertex_shader.vert", "../fragment_shader.frag"))
         std::cout<<"ERROR::GAMESTATE::COULD NOT LOAD SHADER." << "\n";
-    }
 }
 
 void GameState::initHeroes() {
@@ -96,8 +88,6 @@ void GameState::initHeroGUI() {
 }
 
 void GameState::initTileMap() {
-//TODO cambiare dimensioni mappa
-
     this->tileMap = new TileMap("../saves_file.txt");
 }
 
