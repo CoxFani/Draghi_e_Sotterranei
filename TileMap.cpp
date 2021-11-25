@@ -79,11 +79,9 @@ void TileMap::clear() {
 const bool TileMap::tileEmpty(const int x, const int y, const int z) const{
     if(x >= 0 && x < this->maxSizeWorldGrid.x &&
        y >= 0 && y < this->maxSizeWorldGrid.y &&
-       z >= 0 && z < this->layers){
-
+       z >= 0 && z < this->layers)
         return this->map[x][y][z].empty();
-    }
-    throw ("ERROR::TILEMAP::TILEEMPTY::TRYING TO ACCESS OUT OF BOUNDS TILE");
+    return false;
 }
 
 const sf::Texture *TileMap::getTileSheet() const{
@@ -102,12 +100,10 @@ const int TileMap::getLayerSize(const int x, const int y, const int layer) const
 }
 
 const sf::Vector2i &TileMap::getMaxSizeGrid() const {
-
     return this->maxSizeWorldGrid;
 }
 
 const sf::Vector2f &TileMap::getMaxSizeF() const {
-
     return this->maxSizeWorldF;
 }
 
@@ -116,11 +112,8 @@ void TileMap::addTile(const int x, const int y, const int z, const sf::IntRect& 
        y < this->maxSizeWorldGrid.y && y >= 0 &&
        z < this->layers && z >= 0){
 
-
-
         this->map[x][y][z].push_back(new Tile(x, y, this->gridSizeF, this->tileSheet,  texture_rect, collision, type));
         std::cout <<"DEBUG: ADDED A TILE!" << "\n";
-
     }
 }
 
@@ -128,9 +121,7 @@ void TileMap::removeTile(const int x, const int y, const int z) {
     if(x < this->maxSizeWorldGrid.x && x >= 0 &&
        y < this->maxSizeWorldGrid.y && y >= 0 &&
        z < this->layers && z >= 0){
-
         if(!this->map[x][y][z].empty()){
-
             delete this->map[x][y][z][this->map[x][y][z].size()-1];
             this->map[x][y][z].pop_back();
             std::cout <<"DEBUG: REMOVED A TILE!" << "\n";
@@ -409,5 +400,4 @@ void TileMap::renderDeferred(sf::RenderTarget &target, sf::Shader* shader, const
 
         deferredRenderStack.pop();
     }
-
 }
