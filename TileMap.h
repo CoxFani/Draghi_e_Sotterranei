@@ -16,6 +16,7 @@ class TileMap {
 public:
 
     TileMap(float gridSize, int  width, int  height, std::string texture_file);
+    TileMap(const std::string file_name);
     virtual ~TileMap();
 
     const bool tileEmpty(const int x, const int y, const int z) const;
