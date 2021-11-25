@@ -97,8 +97,8 @@ void GameState::initHeroGUI() {
 
 void GameState::initTileMap() {
 //TODO cambiare dimensioni mappa
-    this->tileMap = new TileMap(this->stateData->gridSize, 100, 100, "../Resources/Images/Tiles/TileSet.png");
-    this->tileMap->loadFromFile("../saves_file.txt");
+
+    this->tileMap = new TileMap("../saves_file.txt");
 }
 
 void GameState::initDeferredRender() {

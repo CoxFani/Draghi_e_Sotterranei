@@ -4,6 +4,6 @@ project(Draghi_e_Sotterranei)
 set(CMAKE_CXX_STANDARD 20)
 
 find_package(SFML 2.5 COMPONENTS graphics audio REQUIRED)
-add_executable(Draghi_e_Sotterranei main.cpp Enemy.cpp Enemy.h GameCharacter.cpp GameCharacter.h Weapon.cpp Weapon.h Dice.cpp Dice.h Hero.cpp Hero.h TileMap.cpp TileMap.h State.cpp State.h GameState.cpp GameState.h Game.cpp Game.h MainMenuState.cpp MainMenuState.h Gui.cpp Gui.h MovementComponent.cpp MovementComponent.h AnimationComponent.cpp AnimationComponent.h EditorState.cpp EditorState.h HitboxComponent.cpp HitboxComponent.h Tile.cpp Tile.h PauseMenu.cpp PauseMenu.h SettingState.cpp SettingState.h GraphicsSettings.cpp GraphicsSettings.h precompiler.h AttributeComponent.cpp AttributeComponent.h HeroGUI.cpp HeroGUI.h)
+add_executable(Draghi_e_Sotterranei main.cpp Enemy.cpp Enemy.h GameCharacter.cpp GameCharacter.h Weapon.cpp Weapon.h Dice.cpp Dice.h Hero.cpp Hero.h TileMap.cpp TileMap.h State.cpp State.h GameState.cpp GameState.h Game.cpp Game.h MainMenuState.cpp MainMenuState.h Gui.cpp Gui.h MovementComponent.cpp MovementComponent.h AnimationComponent.cpp AnimationComponent.h EditorState.cpp EditorState.h HitboxComponent.cpp HitboxComponent.h Tile.cpp Tile.h PauseMenu.cpp PauseMenu.h SettingState.cpp SettingState.h GraphicsSettings.cpp GraphicsSettings.h precompiler.h AttributeComponent.cpp AttributeComponent.h HeroGUI.cpp HeroGUI.h Item.cpp Item.h)
 target_precompile_headers(Draghi_e_Sotterranei PUBLIC precompiler.h)
 target_link_libraries(Draghi_e_Sotterranei sfml-graphics sfml-audio)
