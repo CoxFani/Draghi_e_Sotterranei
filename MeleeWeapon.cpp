@@ -6,7 +6,8 @@
 #include "MeleeWeapon.h"
 
 MeleeWeapon::MeleeWeapon() {
-    std::cout << "Sono un'arma da mischia! SDANG!" << "\n";
+
+
 }
 
 MeleeWeapon::~MeleeWeapon() {

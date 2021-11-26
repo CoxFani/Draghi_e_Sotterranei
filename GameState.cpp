@@ -18,6 +18,8 @@ GameState::GameState(StateData* state_data)
     this->initHeroes();
     this->initHeroGUI();
     this->initTileMap();
+
+    this->testEnemy = new Enemy(200, 200, this->textures["HERO_SHEET"]);
 }
 
 GameState::~GameState() {
@@ -25,6 +27,8 @@ GameState::~GameState() {
     delete this->hero;
     delete this->heroGUI;
     delete this->tileMap;
+
+    delete testEnemy;
 }
 
 void GameState::initView() {
@@ -80,7 +84,7 @@ void GameState::initShaders() {
 }
 
 void GameState::initHeroes() {
-    this->hero = new Hero(20, 20, this->textures["HERO_SHEET"]);
+    this->hero = new Hero(50, 50, this->textures["HERO_SHEET"]);
 }
 
 void GameState::initHeroGUI() {
@@ -140,8 +144,6 @@ void GameState::updateHeroInput(const float &dt) {
         this->hero->move(1.f, 0.f, dt);
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_UP")))){
         this->hero->move(0.f, -1.f, dt);
-        if(this->getKeyTime())
-        this->hero->gainEXP(10);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_DOWN")))){
         this->hero->move(0.f, 1.f, dt);
@@ -162,6 +164,10 @@ void GameState::updatePauseMenuButtons() {
 void GameState::updateTileMap(const float &dt) {
     this->tileMap->update();
     this->tileMap->updateCollision(this->hero, dt);
+
+    //test
+    this->tileMap->updateCollision(this->testEnemy, dt);
+
 }
 
 void GameState::update(const float& dt) {
@@ -175,6 +181,12 @@ void GameState::update(const float& dt) {
         this->updateTileMap(dt);
         this->hero->update(dt, this->mousePosView);
         this->heroGUI->update(dt);
+
+        //test
+        this->testEnemy->update(dt, this->mousePosView);
+        this->testEnemy->move(1.f, 0.f, dt);
+
+
     }
     else{
         this->pmenu->update(this->mousePosWindow);
@@ -199,6 +211,8 @@ void GameState::render(sf::RenderTarget* target) {
    );
 
     this->hero->render(this->renderTexture, &this->core_shader, false);
+
+    this->testEnemy->render(this->renderTexture, &this->core_shader, false);
 
     this->tileMap->renderDeferred(this->renderTexture, &this->core_shader, this->hero->getCenter());
 

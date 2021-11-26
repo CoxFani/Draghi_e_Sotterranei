@@ -6,7 +6,6 @@
 #include "Item.h"
 
 Item::Item() {
-    std::cout << "Sono un oggetto! CLANG!" << "\n";
 }
 
 Item::~Item() {

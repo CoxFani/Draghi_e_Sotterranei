@@ -111,5 +111,29 @@ namespace gui {
 
     };
 
+    //**************************** PROGRESS BAR *********************************
+
+    class ProgressBar{
+    public:
+        ProgressBar(float x, float y, float width, float height, int max_value,
+                    sf::Color inner_color,
+                    sf::VideoMode& vm, unsigned character_size,
+                    sf::Font* font = nullptr
+                            );
+        ~ProgressBar();
+
+        void update(const int current_value);
+        void render(sf::RenderTarget& target);
+
+    private:
+
+        std::string barString;
+        sf::Text text;
+        float maxWidth;
+        int maxValue;
+        sf::RectangleShape back;
+        sf::RectangleShape inner;
+
+    };
 }
 #endif //DRAGHI_E_SOTTERRANEI_GUI_H

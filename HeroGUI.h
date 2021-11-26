@@ -37,11 +37,8 @@ private:
     sf::RectangleShape expBarBack;
     sf::RectangleShape expBarInner;
 
-    std::string hpBarString;
-    sf::Text hpBarText;
-    float hpBarMaxWidth;
-    sf::RectangleShape hpBarBack;
-    sf::RectangleShape hpBarInner;
+    gui::ProgressBar* expBar;
+    gui::ProgressBar* hpBar;
 
     std::string levelBarString;
     sf::Text levelBarText;

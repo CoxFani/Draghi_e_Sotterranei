@@ -15,11 +15,18 @@ GameCharacter::~GameCharacter() {
     delete this->movementComponent;
     delete this->animationComponent;
     delete this->attributeComponent;
+    delete this->skillComponent;
 }
 
 void GameCharacter::move(const float dir_x, const float dir_y,const float& dt) {
     if(this->movementComponent)
         this->movementComponent->move(dir_x, dir_y, dt);
+
+    if(this->skillComponent){
+        this->skillComponent->gainExp(SKILLS::ENDURANCE, 1);
+        //std::cout << this->skillComponent->getSkill(SKILLS::ENDURANCE) << "\n";
+
+    }
 }
 
 void GameCharacter::setTexture(sf::Texture& texture) {
@@ -32,6 +39,7 @@ void GameCharacter::initVariables() {
     this->movementComponent = nullptr;
     this->animationComponent = nullptr;
     this->attributeComponent = nullptr;
+    this->skillComponent = nullptr;
 }
 
 void GameCharacter::setPosition(const float x, const float y) {
@@ -116,5 +124,10 @@ const sf::FloatRect GameCharacter::getNextPositionBounds(const float& dt) const 
 
 void GameCharacter::createAttributeComponent(const unsigned level) {
     this->attributeComponent = new AttributeComponent(level);
+}
+
+void GameCharacter::createSkillComponent() {
+
+    this->skillComponent = new SkillComponent();
 }
 

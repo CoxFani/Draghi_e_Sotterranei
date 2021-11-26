@@ -11,9 +11,11 @@
 #include "HeroGUI.h"
 #include "Sword.h"
 #include "Bow.h"
+#include "Enemy.h"
 
 class PauseMenu;
 class Hero;
+class Enemy;
 class HeroGUI;
 class State;
 class TileMap;
@@ -48,6 +50,8 @@ private:
     Hero* hero;
     HeroGUI* heroGUI;
     sf::Texture texture;
+
+    Enemy* testEnemy;
 
     TileMap* tileMap;
 

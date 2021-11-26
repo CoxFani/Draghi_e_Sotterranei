@@ -6,6 +6,7 @@
 #define DRAGHI_E_SOTTERRANEI_HERO_H
 
 #include "GameCharacter.h"
+#include "Sword.h"
 //#include "GameState.h"
 
 class  GameCharacter;
@@ -31,11 +32,12 @@ public:
 
 private:
     bool attacking;
-    sf::Texture weapon_texture;
-    sf::Sprite weapon_sprite;
+    Sword sword;
+
 
     void initVariables();
     void initComponents();
+    void initAnimations();
 
 protected:
 

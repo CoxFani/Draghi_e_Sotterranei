@@ -8,33 +8,18 @@
 Hero::Hero(float x, float y, sf::Texture& texture_sheet) {
     this->initVariables();
 
-    this->setPosition(x, y);
 
     this->createHitboxComponent(this->sprite, 0.f, 17.f, 32.f, 32.f);
     this->createMovementComponent(200.f, 1500.f, 500.f);
     this->createAnimationComponent(texture_sheet);
     this->createAttributeComponent(1);
+    this->createSkillComponent();
 
-    this->animationComponent->addAnimation("IDLE", 11.f, 0, 0, 3, 0, 48, 48);
-    this->animationComponent->addAnimation("WALK", 8.f, 0, 1, 5, 1, 48, 48);
-    this->animationComponent->addAnimation("ATTACK1", 6.f, 0, 2, 5, 2, 48, 48);
-    this->animationComponent->addAnimation("ATTACK2", 7.f, 0, 3, 5, 3, 48, 48);
-    this->animationComponent->addAnimation("ATTACK3", 7.f, 0, 4, 5, 4, 48, 48);
-    this->animationComponent->addAnimation("DEATH", 12.f, 0, 5, 5, 5, 48, 48);
-    this->animationComponent->addAnimation("HURT", 7.f, 0, 6, 2, 6, 48, 48);
-    this->animationComponent->addAnimation("JUMP", 7.f, 0, 7, 5, 7, 48, 48);
-    this->animationComponent->addAnimation("RUN", 6.f, 0, 8, 5, 8, 48, 48);
+    this->setPosition(x, y);
+    this->initAnimations();
 
 
-    //Visual Weapon
-    if(!this->weapon_texture.loadFromFile("../Resources/Images/Images/Sprites/Weapons/weapon.png"))
-        std::cout <<"ERROR::HERO::COULD NOT LOAD WEAPON TEXTURE." << "\n";
-    this->weapon_sprite.setTexture(this->weapon_texture);
 
-    this->weapon_sprite.setOrigin(
-            this->weapon_sprite.getGlobalBounds().width / 2.f,
-            this->weapon_sprite.getGlobalBounds().height
-            );
 }
 
 Hero::~Hero() {
@@ -47,6 +32,19 @@ void Hero::initVariables() {
 
 void Hero::initComponents() {
 
+}
+
+void Hero::initAnimations() {
+
+    this->animationComponent->addAnimation("IDLE", 11.f, 0, 0, 3, 0, 48, 48);
+    this->animationComponent->addAnimation("WALK", 8.f, 0, 1, 5, 1, 48, 48);
+    this->animationComponent->addAnimation("ATTACK1", 6.f, 0, 2, 5, 2, 48, 48);
+    this->animationComponent->addAnimation("ATTACK2", 7.f, 0, 3, 5, 3, 48, 48);
+    this->animationComponent->addAnimation("ATTACK3", 7.f, 0, 4, 5, 4, 48, 48);
+    this->animationComponent->addAnimation("DEATH", 12.f, 0, 5, 5, 5, 48, 48);
+    this->animationComponent->addAnimation("HURT", 7.f, 0, 6, 2, 6, 48, 48);
+    this->animationComponent->addAnimation("JUMP", 7.f, 0, 7, 5, 7, 48, 48);
+    this->animationComponent->addAnimation("RUN", 6.f, 0, 8, 5, 8, 48, 48);
 }
 
 AttributeComponent *Hero::getAttributeComponent() {
@@ -124,17 +122,7 @@ void Hero::update(const float &dt, sf::Vector2f& mouse_pos_view) {
     this->updateAttack();
     this->updateAnimation(dt);
     this->hitboxComponent->update();
-
-    //Update Visual Weapon
-    this->weapon_sprite.setPosition(this->getCenter());
-    float dX = mouse_pos_view.x - this->weapon_sprite.getPosition().x;
-    float dY = mouse_pos_view.y - this->weapon_sprite.getPosition().y;
-
-    const float PI = 3.14159265;
-    float deg = atan2(dY, dX) * 180 / PI;
-
-    this->weapon_sprite.setRotation(deg + 90.f);
-
+    this->sword.update(mouse_pos_view, this->getCenter());
 }
 
 void Hero::render(sf::RenderTarget &target, sf::Shader* shader, const bool show_hitbox) {
@@ -144,11 +132,11 @@ void Hero::render(sf::RenderTarget &target, sf::Shader* shader, const bool show_
         shader->setUniform("lightPos", this->getCenter());
 
         target.draw(this->sprite, shader);
-        target.draw(this->weapon_sprite, shader);
+        this->sword.render(target, shader);
     }
     else{
         target.draw(this->sprite);
-        target.draw(this->weapon_sprite);
+        this->sword.render(target);
     }
 
 
@@ -156,6 +144,8 @@ void Hero::render(sf::RenderTarget &target, sf::Shader* shader, const bool show_
     if(show_hitbox)
         this->hitboxComponent->render(target);
 }
+
+
 
 
 

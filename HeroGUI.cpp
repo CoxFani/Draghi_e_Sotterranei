@@ -17,6 +17,8 @@ HeroGUI::HeroGUI(Hero* hero, sf::VideoMode& vm)
 
 HeroGUI::~HeroGUI() {
 
+    delete this->hpBar;
+    delete this->expBar;
 }
 
 void HeroGUI::initFont() {
@@ -42,55 +44,23 @@ void HeroGUI::initLevelBar() {
 }
 
 void HeroGUI::initEXPBar() {
-    float width = gui::p2pX(15.6f, this->vm);
-    float height = gui::p2pY(2.77f, this->vm);
-    float x = gui::p2pX(1.56f, this->vm);
-    float y = gui::p2pY(6.94, this->vm);
 
-    this->expBarMaxWidth = width;
+    this->expBar = new gui::ProgressBar(1.56f, 6.94, 15.6f, 2.77f,
+                                       this->hero->getAttributeComponent()->expNext,
+                                        sf::Color(20, 20, 250, 200),
+                                       this->vm, 100,
+                                       &this->font);
 
-    this->expBarBack.setSize(sf::Vector2f(width, height));
-    this->expBarBack.setFillColor(sf::Color(0, 0, 0, 200));
-    this->expBarBack.setOutlineThickness(2);
-    this->expBarBack.setOutlineColor(sf::Color::White);
-    this->expBarBack.setPosition(x, y);
 
-    this->expBarInner.setSize(sf::Vector2f(width, height));
-    this->expBarInner.setFillColor(sf::Color(20, 20, 250, 200));
-    this->expBarInner.setPosition(this->expBarBack.getPosition());
-
-    this->expBarText.setFont(this->font);
-    this->expBarText.setCharacterSize(gui::calcCharSize(this->vm, 100));
-    this->expBarText.setPosition(
-            this->expBarInner.getPosition().x + gui::p2pX(0.78f, this->vm),
-            this->expBarInner.getPosition().y - gui::p2pY(0.69f, this->vm)
-            );
 }
 
 void HeroGUI::initHPBar() {
-    float width = gui::p2pX(15.6f, this->vm);
-    float height = gui::p2pY(4.16f, this->vm);
-    float x = gui::p2pX(1.56f, this->vm);
-    float y = gui::p2pY(12.5f, this->vm);
 
-    this->hpBarMaxWidth = width;
-
-    this->hpBarBack.setSize(sf::Vector2f(width, height));
-    this->hpBarBack.setFillColor(sf::Color(0, 0, 0, 200));
-    this->hpBarBack.setOutlineThickness(2);
-    this->hpBarBack.setOutlineColor(sf::Color::White);
-    this->hpBarBack.setPosition(x, y);
-
-    this->hpBarInner.setSize(sf::Vector2f(width, height));
-    this->hpBarInner.setFillColor(sf::Color(250, 20, 20, 200));
-    this->hpBarInner.setPosition(this->hpBarBack.getPosition());
-
-    this->hpBarText.setFont(this->font);
-    this->hpBarText.setCharacterSize(gui::calcCharSize(this->vm, 75));
-    this->hpBarText.setPosition(
-            this->hpBarInner.getPosition().x + gui::p2pX(0.78f, this->vm),
-            this->hpBarInner.getPosition().y - gui::p2pY(0.69f, this->vm)
-            );
+    this->hpBar = new gui::ProgressBar(1.56f, 12.5f, 15.6f, 4.16f,
+                                       this->hero->getAttributeComponent()->hpMax,
+                                       sf::Color(250, 20, 20, 200),
+                                       this->vm, 75,
+                                       &this->font);
 }
 
 void HeroGUI::updateLevelBar() {
@@ -99,21 +69,14 @@ void HeroGUI::updateLevelBar() {
 }
 
 void HeroGUI::updateEXPBar() {
-    float percent = static_cast<float>(this->hero->getAttributeComponent()->exp) / static_cast<float>(this->hero->getAttributeComponent()->expNext);
 
-    this->expBarInner.setSize(sf::Vector2f(static_cast<float>(std::floor(this->expBarMaxWidth * percent)), this->expBarInner.getSize().y));
+    this->expBar->update(this->hero->getAttributeComponent()->exp);
 
-    this->expBarString = std::to_string(this->hero->getAttributeComponent()->exp) + "/" + std::to_string(this->hero->getAttributeComponent()->expNext);
-    this->expBarText.setString(this->expBarString);
 }
 
 void HeroGUI::updateHPBar() {
-    float percent = static_cast<float>(this->hero->getAttributeComponent()->hp) / static_cast<float>(this->hero->getAttributeComponent()->hpMax);
 
-    this->hpBarInner.setSize(sf::Vector2f(static_cast<float>(std::floor(this->hpBarMaxWidth * percent)), this->hpBarInner.getSize().y));
-
-    this->hpBarString = std::to_string(this->hero->getAttributeComponent()->hp) + "/" + std::to_string(this->hero->getAttributeComponent()->hpMax);
-    this->hpBarText.setString(this->hpBarString);
+    this->hpBar->update(this->hero->getAttributeComponent()->hp);
 }
 
 void HeroGUI::update(const float &dt) {
@@ -128,15 +91,14 @@ void HeroGUI::renderLevelBar(sf::RenderTarget &target) {
 }
 
 void HeroGUI::renderEXPBar(sf::RenderTarget &target) {
-    target.draw(this->expBarBack);
-    target.draw(this->expBarInner);
-    target.draw(this->expBarText);
+
+    this->expBar->render(target);
+
 }
 
 void HeroGUI::renderHPBar(sf::RenderTarget &target) {
-    target.draw(this->hpBarBack);
-    target.draw(this->hpBarInner);
-    target.draw(this->hpBarText);
+
+    this->hpBar->render(target);
 }
 
 void HeroGUI::render(sf::RenderTarget &target) {

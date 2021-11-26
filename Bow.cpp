@@ -6,7 +6,6 @@
 #include "Bow.h"
 
 Bow::Bow() {
-    std::cout << "Sono un arco! SWISH!" << "\n";
 }
 
 Bow::~Bow() {

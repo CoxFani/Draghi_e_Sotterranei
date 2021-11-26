@@ -6,7 +6,6 @@
 #include "RangedWeapon.h"
 
 RangedWeapon::RangedWeapon() {
-    std::cout << "Sono un'arma da tiro! SDANG!" << "\n";
 }
 
 RangedWeapon::~RangedWeapon() {
