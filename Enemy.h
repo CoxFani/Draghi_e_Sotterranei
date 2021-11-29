@@ -7,10 +7,11 @@
 
 
 #include "GameCharacter.h"
+#include "EnemySpawner.h"
 
 class Enemy : public GameCharacter {
 public:
-    Enemy(float x, float y, sf::Texture& texture_sheet);
+    Enemy(EnemySpawner& enemy_spawner, float x, float y, sf::Texture& texture_sheet);
     virtual ~Enemy();
 
     void updateAnimation(const float& dt);
@@ -18,6 +19,8 @@ public:
     void render(sf::RenderTarget &target, sf::Shader* shader, const bool show_hitbox);
 
 private:
+    EnemySpawner& enemySpawner;
+
     void initVariables();
     void initAnimations();
 

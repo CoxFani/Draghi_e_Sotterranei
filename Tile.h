@@ -5,12 +5,12 @@
 #ifndef DRAGHI_E_SOTTERRANEI_TILE_H
 #define DRAGHI_E_SOTTERRANEI_TILE_H
 
-enum TileTypes {DEFAULT = 0, DAMAGING, FLAVOUR}; //solo esempio, da completare in seguito
+enum TileTypes {DEFAULT = 0, DAMAGING, FLAVOUR, ENEMYSPAWNER}; //solo esempio, da completare in seguito
 
 class Tile {
 public:
     Tile();
-    Tile(int grid_x, int grid_y, float gridSizeF, sf::Texture& texture, const sf::IntRect& texture_rect, bool collision = false, short type = TileTypes::DEFAULT);
+    Tile(int grid_x, int grid_y, float gridSizeF, const sf::Texture& texture, const sf::IntRect& texture_rect, bool collision = false, short type = TileTypes::DEFAULT);
     virtual ~Tile();
 
     const short& getType() const;
@@ -20,8 +20,8 @@ public:
     const sf::FloatRect getGlobalBounds() const;
     const bool intersects(const sf::FloatRect bounds) const;
     const std::string getAsString() const;
-    void update();
-    void render(sf::RenderTarget& target, sf::Shader* shader = nullptr, const sf::Vector2f heroPosition = sf::Vector2f());
+    virtual void update();
+    virtual void render(sf::RenderTarget& target, sf::Shader* shader = nullptr, const sf::Vector2f hero_position = sf::Vector2f());
 
 protected:
     sf::Sprite shape;

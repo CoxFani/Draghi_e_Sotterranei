@@ -238,7 +238,10 @@ void TileMap::loadFromFile(const std::string file_name) {
     in_file.close();
 }
 
-void TileMap::updateCollision(GameCharacter *gameCharacter, const float& dt) {
+void TileMap::update(GameCharacter *gameCharacter, const float& dt) {
+
+    //Limiti mappa
+
     if(gameCharacter->getPosition().x < 0.f) {
         gameCharacter->setPosition(0.f, gameCharacter->getPosition().y);
         gameCharacter->stopVelocityX();
@@ -255,6 +258,8 @@ void TileMap::updateCollision(GameCharacter *gameCharacter, const float& dt) {
         gameCharacter->setPosition( gameCharacter->getPosition().x, this->maxSizeWorldF.y - gameCharacter->getGlobalBounds().height);
         gameCharacter->stopVelocityY();
     }
+
+    //Tiles
 
     this->layer = 0;
 
@@ -282,9 +287,14 @@ void TileMap::updateCollision(GameCharacter *gameCharacter, const float& dt) {
     else if(this->toY > this->maxSizeWorldGrid.y)
         this->toY = this->maxSizeWorldGrid.y;
 
+    //Collisioni
+
     for(int x = this->fromX; x < this->toX; x++){
         for(int y = this->fromY; y < this->toY; y++) {
             for (int k = 0; k < this->map[x][y][this->layer].size(); k++) {
+
+                this->map[x][y][this->layer][k]->update();
+
                 sf::FloatRect heroBounds = gameCharacter->getGlobalBounds();
                 sf::FloatRect wallBounds = this->map[x][y][this->layer][k]->getGlobalBounds();
                 sf::FloatRect nextPositionBounds = gameCharacter->getNextPositionBounds(dt);
@@ -292,6 +302,7 @@ void TileMap::updateCollision(GameCharacter *gameCharacter, const float& dt) {
                 if (this->map[x][y][this->layer][k]->getCollision() &&
                     this->map[x][y][this->layer][k]->intersects(nextPositionBounds)) {
 
+                    //Collisione inferiore
                     if (heroBounds.top < wallBounds.top
                         && heroBounds.top + heroBounds.height < wallBounds.top + wallBounds.height
                         && heroBounds.left < wallBounds.left + wallBounds.width
@@ -299,7 +310,9 @@ void TileMap::updateCollision(GameCharacter *gameCharacter, const float& dt) {
                             ) {
                         gameCharacter->stopVelocityY();
                         gameCharacter->setPosition(heroBounds.left, wallBounds.top - heroBounds.height);
-                    } else if (heroBounds.top > wallBounds.top
+                    }
+                    //Collisione superiore
+                    else if (heroBounds.top > wallBounds.top
                                && heroBounds.top + heroBounds.height > wallBounds.top + wallBounds.height
                                && heroBounds.left < wallBounds.left + wallBounds.width
                                && heroBounds.left + heroBounds.width > wallBounds.left
@@ -308,13 +321,16 @@ void TileMap::updateCollision(GameCharacter *gameCharacter, const float& dt) {
                         gameCharacter->setPosition(heroBounds.left, wallBounds.top + wallBounds.height);
                     }
 
+                    //Collisione destra
                     if (heroBounds.left < wallBounds.left
                         && heroBounds.left + heroBounds.width < wallBounds.left + wallBounds.width
                         && heroBounds.top < wallBounds.top + wallBounds.height
                         && heroBounds.top + heroBounds.height > wallBounds.top) {
                         gameCharacter->stopVelocityX();
                         gameCharacter->setPosition(wallBounds.left - heroBounds.width, heroBounds.top);
-                    } else if (heroBounds.left > wallBounds.left
+                    }
+                    //Collisione sinistra
+                    else if (heroBounds.left > wallBounds.left
                                && heroBounds.left + heroBounds.width > wallBounds.left + wallBounds.width
                                && heroBounds.top < wallBounds.top + wallBounds.height
                                && heroBounds.top + heroBounds.height > wallBounds.top
@@ -326,10 +342,6 @@ void TileMap::updateCollision(GameCharacter *gameCharacter, const float& dt) {
             }
         }
     }
-}
-
-void TileMap::update() {
-
 }
 
 void TileMap::render(

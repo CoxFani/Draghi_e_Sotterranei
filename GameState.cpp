@@ -19,7 +19,6 @@ GameState::GameState(StateData* state_data)
     this->initHeroGUI();
     this->initTileMap();
 
-    this->testEnemy = new Enemy(200, 200, this->textures["HERO_SHEET"]);
 }
 
 GameState::~GameState() {
@@ -28,7 +27,6 @@ GameState::~GameState() {
     delete this->heroGUI;
     delete this->tileMap;
 
-    delete testEnemy;
 }
 
 void GameState::initView() {
@@ -162,11 +160,9 @@ void GameState::updatePauseMenuButtons() {
 }
 
 void GameState::updateTileMap(const float &dt) {
-    this->tileMap->update();
-    this->tileMap->updateCollision(this->hero, dt);
 
-    //test
-    this->tileMap->updateCollision(this->testEnemy, dt);
+    this->tileMap->update(this->hero, dt);
+
 
 }
 
@@ -182,9 +178,6 @@ void GameState::update(const float& dt) {
         this->hero->update(dt, this->mousePosView);
         this->heroGUI->update(dt);
 
-        //test
-        this->testEnemy->update(dt, this->mousePosView);
-        this->testEnemy->move(1.f, 0.f, dt);
 
 
     }
@@ -211,8 +204,6 @@ void GameState::render(sf::RenderTarget* target) {
    );
 
     this->hero->render(this->renderTexture, &this->core_shader, false);
-
-    this->testEnemy->render(this->renderTexture, &this->core_shader, false);
 
     this->tileMap->renderDeferred(this->renderTexture, &this->core_shader, this->hero->getCenter());
 

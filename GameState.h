@@ -51,8 +51,6 @@ private:
     HeroGUI* heroGUI;
     sf::Texture texture;
 
-    Enemy* testEnemy;
-
     TileMap* tileMap;
 
     void initView();

@@ -9,11 +9,17 @@
 #include "Gui.h"
 #include "PauseMenu.h"
 #include "TileMap.h"
+#include "EditorMode.h"
 
 class State;
+class StateData;
 class Gui;
 class PauseMenu;
 class TileMap;
+class Tile;
+class EditorMode;
+
+enum EditorModes { DEFAULT_MODE = 0, ENEMY_MODE};
 
 class EditorState :
         public State{
@@ -28,47 +34,34 @@ public:
     void updateGui(const float& dt);
     void updatePauseMenuButtons();
     void update(const float& dt);
+
     void renderButtons(sf::RenderTarget& target);
     void renderGui(sf::RenderTarget& target);
     void render(sf::RenderTarget* target = nullptr);
 
 private:
     sf::View view;
-
+    float cameraSpeed;
     sf::Font font;
-    sf::Text cursorText;
     PauseMenu* pmenu;
 
     std::map<std::string, gui::Button*>buttons;
 
     TileMap* tileMap;
 
-    sf::RectangleShape sidebar;
-
-    sf::RectangleShape selectorRect;
-
-    gui::TextureSelector* textureSelector;
-
-    sf::IntRect textureRect;
-
-
-    bool collision;
-    short type;
-    float cameraSpeed;
-    int layer;
-    bool tileAddLock;
+    std::vector<EditorMode*> modes;
 
 
     void initVariables();
-    void initBackground();
     void initFonts();
-    void initText();
     void initButtons();
     void initKeybinds();
     void initPausedMenu();
     void initGui();
     void initTileMap();
     void initView();
+
+    void initModes();
 
 };
 
