@@ -9,7 +9,7 @@
 #include "Gui.h"
 #include "PauseMenu.h"
 #include "TileMap.h"
-#include "EditorMode.h"
+#include "DefaultEditorMode.h"
 
 class State;
 class StateData;
@@ -18,23 +18,10 @@ class PauseMenu;
 class TileMap;
 class Tile;
 class EditorMode;
+class DefaultEditorMode;
+class EditorStateData;
 
 enum EditorModes { DEFAULT_MODE = 0, ENEMY_MODE};
-
-class EditorStateData {
-public:
-    EditorStateData() {};
-
-    float *keyTime;
-    float *keyTimeMax;
-
-    std::map<std::string, int>* kaybinds;
-
-    sf::Vector2i *mousePosScreen;
-    sf::Vector2i *mousePosWindow;
-    sf::Vector2f *mousePosView;
-    sf::Vector2i *mousePosGrid;
-};
 
 class EditorState :
         public State{

@@ -9,6 +9,7 @@ EditorState::EditorState(StateData* state_data)
         : State(state_data)
 {
     this->initVariables();
+    this->initEditorStateData();
     this->initView();
     this->initFonts();
     this->initKeybinds();
@@ -40,7 +41,6 @@ void EditorState::initVariables() {
 }
 
 void EditorState::initFonts() {
-
     if(!this->font.loadFromFile("../Fonts/DeterminationMonoWebRegular-Z5oq.ttf")){
         throw("ERROR::EDITORSTATE::COULD NOT LOAD FONT");
     }
@@ -52,7 +52,6 @@ void EditorState::initButtons() {
 }
 
 void EditorState::initKeybinds() {
-
     std::ifstream ifs("../Config/editorstate_keybinds.ini");
 
     if (ifs.is_open()){
@@ -93,7 +92,6 @@ void EditorState::initModes() {
 }
 
 void EditorState::updateInput(const float &dt) {
-
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE"))) && this->getKeyTime()){
         if(!this->paused)
             this->pauseState();
@@ -115,8 +113,6 @@ void EditorState::updateEditorInput(const float &dt) {
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_CAMERA_RIGHT")))){
         this->view.move(std::floor(this->cameraSpeed * dt), 0.f); //valore regola velocità scorrimento schermo
     }
-
-
 }
 
 void EditorState::updateButtons() {
@@ -188,7 +184,15 @@ void EditorState::render(sf::RenderTarget* target) {
 }
 
 void EditorState::initEditorStateData() {
+    this->editorStateData.view = &this->view;
+    this->editorStateData.font = &this->font;
     this->editorStateData.keyTime = &this->keyTime;
+    this->editorStateData.keyTimeMax = &this->keyTimeMax;
+    this->editorStateData.keybinds = &this->keybinds;
+    this->editorStateData.mousePosGrid = &this->mousePosGrid;
+    this->editorStateData.mousePosScreen = &this->mousePosScreen;
+    this->editorStateData.mousePosView = &this->mousePosView;
+    this->editorStateData.mousePosWindow = &this->mousePosWindow;
 }
 
 
