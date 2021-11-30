@@ -27,7 +27,6 @@ public:
     void render(sf::RenderTarget* target = nullptr) override;
 
 private:
-
     sf::Text cursorText;
     sf::RectangleShape sidebar;
     sf::RectangleShape selectorRect;
@@ -40,6 +39,7 @@ private:
 
     void initVariables();
     void initGui();
+
 };
 
 
