@@ -187,4 +187,8 @@ void EditorState::render(sf::RenderTarget* target) {
     }
 }
 
+void EditorState::initEditorStateData() {
+    this->editorStateData.keyTime = &this->keyTime;
+}
+
 
