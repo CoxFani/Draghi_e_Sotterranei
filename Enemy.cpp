@@ -5,13 +5,12 @@
 #include "precompiler.h"
 #include "Enemy.h"
 
-Enemy::Enemy(EnemySpawner& enemy_spawner, float x, float y, sf::Texture& texture_sheet)
-: enemySpawner(enemy_spawner)  {
+Enemy::Enemy(float x, float y, sf::Texture& texture_sheet) {
     this->initVariables();
 
 
-    this->createHitboxComponent(this->sprite, 0.f, 17.f, 32.f, 32.f);
-    this->createMovementComponent(200.f, 1500.f, 500.f);
+    this->createHitboxComponent(this->sprite, 15.f, 15.f, 32.f, 32.f);
+    this->createMovementComponent(50.f, 1600.f, 1000.f);
     this->createAnimationComponent(texture_sheet);
 
     this->setPosition(x, y);
@@ -35,13 +34,9 @@ void Enemy::initAnimations() {
 
     this->animationComponent->addAnimation("IDLE", 11.f, 0, 0, 3, 0, 48, 48);
     this->animationComponent->addAnimation("WALK", 8.f, 0, 1, 5, 1, 48, 48);
-    this->animationComponent->addAnimation("ATTACK1", 6.f, 0, 2, 5, 2, 48, 48);
-    this->animationComponent->addAnimation("ATTACK2", 7.f, 0, 3, 5, 3, 48, 48);
-    this->animationComponent->addAnimation("ATTACK3", 7.f, 0, 4, 5, 4, 48, 48);
-    this->animationComponent->addAnimation("DEATH", 12.f, 0, 5, 5, 5, 48, 48);
-    this->animationComponent->addAnimation("HURT", 7.f, 0, 6, 2, 6, 48, 48);
-    this->animationComponent->addAnimation("JUMP", 7.f, 0, 7, 5, 7, 48, 48);
-    this->animationComponent->addAnimation("RUN", 6.f, 0, 8, 5, 8, 48, 48);
+    this->animationComponent->addAnimation("ATTACK", 6.f, 0, 2, 5, 2, 48, 48);
+    this->animationComponent->addAnimation("DEATH", 12.f, 0, 3, 5, 3, 48, 48);
+    this->animationComponent->addAnimation("HURT", 7.f, 0, 4, 1, 4, 48, 48);
 }
 
 void Enemy::updateAnimation(const float &dt) {
@@ -78,11 +73,11 @@ void Enemy::update(const float &dt, sf::Vector2f& mouse_pos_view) {
     this->hitboxComponent->update();
 }
 
-void Enemy::render(sf::RenderTarget &target, sf::Shader* shader, const bool show_hitbox) {
+void Enemy::render(sf::RenderTarget &target, sf::Shader* shader, const sf::Vector2f light_position, const bool show_hitbox) {
 
     if(shader){
         shader->setUniform("hasTexture", true);
-        shader->setUniform("lightPos", this->getCenter());
+        shader->setUniform("lightPos", light_position);
 
         target.draw(this->sprite, shader);
 
@@ -90,7 +85,7 @@ void Enemy::render(sf::RenderTarget &target, sf::Shader* shader, const bool show
     else{
         target.draw(this->sprite);
 
-    }
+}
 
 
 

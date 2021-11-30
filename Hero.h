@@ -28,7 +28,7 @@ public:
 
 
 
-    void render(sf::RenderTarget& target, sf::Shader* shader = nullptr, const bool show_hitbox = false);
+    void render(sf::RenderTarget& target, sf::Shader* shader = nullptr, const sf::Vector2f light_position = sf::Vector2f() ,  const bool show_hitbox = false);
 
 private:
     bool attacking;

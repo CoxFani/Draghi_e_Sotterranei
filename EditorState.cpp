@@ -40,6 +40,18 @@ void EditorState::initVariables() {
 
 }
 
+void EditorState::initEditorStateData() {
+    this->editorStateData.view = &this->view;
+    this->editorStateData.font = &this->font;
+    this->editorStateData.keyTime = &this->keyTime;
+    this->editorStateData.keyTimeMax = &this->keyTimeMax;
+    this->editorStateData.keybinds = &this->keybinds;
+    this->editorStateData.mousePosGrid = &this->mousePosGrid;
+    this->editorStateData.mousePosScreen = &this->mousePosScreen;
+    this->editorStateData.mousePosView = &this->mousePosView;
+    this->editorStateData.mousePosWindow = &this->mousePosWindow;
+}
+
 void EditorState::initFonts() {
     if(!this->font.loadFromFile("../Fonts/DeterminationMonoWebRegular-Z5oq.ttf")){
         throw("ERROR::EDITORSTATE::COULD NOT LOAD FONT");
@@ -136,16 +148,22 @@ void EditorState::updatePauseMenuButtons() {
         this->tileMap->loadFromFile("../saves_file.txt");
 }
 
+void EditorState::updateModes(const float& dt) {
+
+    this->modes[EditorModes::DEFAULT_MODE]->update(dt);
+
+}
+
 void EditorState::update(const float& dt) {
     this->updateMousePosition(&this->view);
     this->updateKeyTime(dt);
     this->updateInput(dt);
-    this->modes[EditorModes::DEFAULT_MODE]->update(dt);
 
     if(!this->paused){
         this->updateButtons();
         this->updateGui(dt);
         this->updateEditorInput(dt);
+        this->updateModes(dt);
     }
     else{
         this->pmenu->update(this->mousePosWindow);
@@ -160,9 +178,14 @@ void EditorState::renderButtons(sf::RenderTarget& target) {
 }
 
 void EditorState::renderGui(sf::RenderTarget &target) {
-    this->modes[EditorModes::DEFAULT_MODE]->render(&target);
+
 }
 
+void EditorState::renderModes(sf::RenderTarget& target) {
+
+    this->modes[EditorModes::DEFAULT_MODE]->render(target);
+
+}
 
 void EditorState::render(sf::RenderTarget* target) {
     if (!target)
@@ -178,22 +201,18 @@ void EditorState::render(sf::RenderTarget* target) {
 
     this->renderGui(*target);
 
+    this->renderModes(*target);
+
     if(this->paused){
         target->setView(this->window->getDefaultView());
         this->pmenu->render(*target);
     }
 }
 
-void EditorState::initEditorStateData() {
-    this->editorStateData.view = &this->view;
-    this->editorStateData.font = &this->font;
-    this->editorStateData.keyTime = &this->keyTime;
-    this->editorStateData.keyTimeMax = &this->keyTimeMax;
-    this->editorStateData.keybinds = &this->keybinds;
-    this->editorStateData.mousePosGrid = &this->mousePosGrid;
-    this->editorStateData.mousePosScreen = &this->mousePosScreen;
-    this->editorStateData.mousePosView = &this->mousePosView;
-    this->editorStateData.mousePosWindow = &this->mousePosWindow;
-}
+
+
+
+
+
 
 

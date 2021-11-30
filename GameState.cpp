@@ -19,6 +19,16 @@ GameState::GameState(StateData* state_data)
     this->initHeroGUI();
     this->initTileMap();
 
+    this->activeEnemies.push_back(new Enemy(200.f, 100.f, this->textures["MUMMY_SHEET"]));
+    this->activeEnemies.push_back(new Enemy(500.f, 200.f, this->textures["MUMMY_SHEET"]));
+    this->activeEnemies.push_back(new Enemy(600.f, 300.f, this->textures["MUMMY_SHEET"]));
+    this->activeEnemies.push_back(new Enemy(400.f, 500.f, this->textures["MUMMY_SHEET"]));
+    this->activeEnemies.push_back(new Enemy(200.f, 400.f, this->textures["MUMMY_SHEET"]));
+
+
+
+
+
 }
 
 GameState::~GameState() {
@@ -26,6 +36,10 @@ GameState::~GameState() {
     delete this->hero;
     delete this->heroGUI;
     delete this->tileMap;
+
+    for(size_t i = 0; i < this->activeEnemies.size(); i++){
+        delete this->activeEnemies[i];
+    }
 
 }
 
@@ -64,8 +78,13 @@ void GameState::initFonts() {
 }
 
 void GameState::initTextures() {
-    if (!this->textures["HERO_SHEET"].loadFromFile("../Resources/Images/Images/Sprites/Hero/Woodcutter_animations.png"))
+    if (!this->textures["HERO_SHEET"].loadFromFile("../Resources/Images/Sprites/Hero/Woodcutter_animations.png")){
         throw "ERROR::GAME_STATE::COULD_NOT_LOAD_HERO_TEXTURE";
+    }
+    if (!this->textures["MUMMY_SHEET"].loadFromFile("../Resources/Images/Sprites/Enemies/Mummy/Mummy_animations.png")){
+        throw "ERROR::GAME_STATE::COULD_NOT_LOAD_MUMMY_TEXTURE";
+    }
+
 }
 
 
@@ -163,6 +182,10 @@ void GameState::updateTileMap(const float &dt) {
 
     this->tileMap->update(this->hero, dt);
 
+    for(auto *i : this->activeEnemies){
+        this->tileMap->update(i, dt);
+    }
+
 
 }
 
@@ -177,6 +200,10 @@ void GameState::update(const float& dt) {
         this->updateTileMap(dt);
         this->hero->update(dt, this->mousePosView);
         this->heroGUI->update(dt);
+
+        for(auto *i : this->activeEnemies){
+            i->update(dt, this->mousePosView);
+        }
 
 
 
@@ -203,7 +230,11 @@ void GameState::render(sf::RenderTarget* target) {
    false
    );
 
-    this->hero->render(this->renderTexture, &this->core_shader, false);
+    for(auto *i : this->activeEnemies){
+        i->render(this->renderTexture, &this->core_shader, this->hero->getCenter(), false);
+    }
+
+    this->hero->render(this->renderTexture, &this->core_shader, this->hero->getCenter(), false);
 
     this->tileMap->renderDeferred(this->renderTexture, &this->core_shader, this->hero->getCenter());
 

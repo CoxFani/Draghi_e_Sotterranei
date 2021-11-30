@@ -53,6 +53,8 @@ private:
 
     TileMap* tileMap;
 
+    std::vector<Enemy*> activeEnemies;
+
     void initView();
     void initKeybinds();
     void initFonts();

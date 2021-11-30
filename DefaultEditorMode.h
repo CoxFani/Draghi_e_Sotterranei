@@ -24,7 +24,7 @@ public:
     void update(const float& dt) override;
 
     void renderGui(sf::RenderTarget& target) override;
-    void render(sf::RenderTarget* target = nullptr) override;
+    void render(sf::RenderTarget& target) override;
 
 private:
     sf::Text cursorText;

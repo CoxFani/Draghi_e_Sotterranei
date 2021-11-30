@@ -132,8 +132,8 @@ void DefaultEditorMode::renderGui(sf::RenderTarget &target) {
     target.draw(this->cursorText);
 }
 
-void DefaultEditorMode::render(sf::RenderTarget *target) {
-    this->renderGui(*target);
+void DefaultEditorMode::render(sf::RenderTarget &target) {
+    this->renderGui(target);
 }
 
 

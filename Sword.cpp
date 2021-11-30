@@ -7,7 +7,7 @@
 
 Sword::Sword() {
     //Visual Weapon
-    if(!this->weapon_texture.loadFromFile("../Resources/Images/Images/Sprites/Weapons/weapon.png"))
+    if(!this->weapon_texture.loadFromFile("../Resources/Images/Sprites/Weapons/weapon.png"))
         std::cout <<"ERROR::SWORD::COULD NOT LOAD WEAPON TEXTURE." << "\n";
     this->weapon_sprite.setTexture(this->weapon_texture);
 
