@@ -132,7 +132,7 @@ void DefaultEditorMode::renderGui(sf::RenderTarget &target) {
 }
 
 void DefaultEditorMode::render(sf::RenderTarget *target) {
-
+    this->renderGui(*target);
 }
 
 

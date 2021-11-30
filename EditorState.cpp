@@ -88,7 +88,7 @@ void EditorState::initView() {
 }
 
 void EditorState::initModes() {
-
+    this->modes.push_back(new DefaultEditorMode(this->stateData, this->tileMap, &this->editorStateData));
 }
 
 void EditorState::updateInput(const float &dt) {
@@ -140,6 +140,7 @@ void EditorState::update(const float& dt) {
     this->updateMousePosition(&this->view);
     this->updateKeyTime(dt);
     this->updateInput(dt);
+    this->modes[EditorModes::DEFAULT_MODE]->update(dt);
 
     if(!this->paused){
         this->updateButtons();
@@ -159,7 +160,7 @@ void EditorState::renderButtons(sf::RenderTarget& target) {
 }
 
 void EditorState::renderGui(sf::RenderTarget &target) {
-
+    this->modes[EditorModes::DEFAULT_MODE]->render(&target);
 }
 
 
