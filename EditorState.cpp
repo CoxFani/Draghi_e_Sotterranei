@@ -127,7 +127,7 @@ void EditorState::updateEditorInput(const float &dt) {
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_CAMERA_RIGHT")))){
         this->view.move(std::floor(this->cameraSpeed * dt), 0.f); //valore regola velocità scorrimento schermo
     }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_UP")))){
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MODE_UP")))){
         if(this->activeMode < this->modes.size() - 1){
             this->activeMode++;
         }
@@ -135,7 +135,7 @@ void EditorState::updateEditorInput(const float &dt) {
             std::cout << "ERROR::EDITORSTATE::CANNOT CHANGE MODE  UP!" << "\n";
         }
     }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_DOWN")))){
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MODE_DOWN")))){
         if(this->activeMode > 0){
             this->activeMode--;
         }
