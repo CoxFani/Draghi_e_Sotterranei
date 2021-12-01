@@ -13,8 +13,7 @@ class EditorMode;
 class TileMap;
 class Tile;
 
-class DefaultEditorMode :
-        public EditorMode{
+class DefaultEditorMode : public EditorMode{
 public:
     DefaultEditorMode(StateData* state_data, TileMap* tile_map, EditorStateData* editor_state_data);
     virtual ~DefaultEditorMode();

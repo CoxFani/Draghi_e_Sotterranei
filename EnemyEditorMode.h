@@ -15,8 +15,7 @@ class TileMap;
 class Tile;
 class EnemySpawner;
 
-class EnemyEditorMode:
-        public EditorMode{
+class EnemyEditorMode : public EditorMode{
 public:
     EnemyEditorMode(StateData* state_data, TileMap* tile_map, EditorStateData* editor_state_data);
     virtual ~EnemyEditorMode();
@@ -29,7 +28,12 @@ public:
     void render(sf::RenderTarget& target) override;
 
 private:
+    sf::Text cursorText;
+    sf::RectangleShape sidebar;
+    sf::RectangleShape selectorRect;
 
+    void initGui();
+    void initVariables();
 };
 
 

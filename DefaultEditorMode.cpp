@@ -30,7 +30,7 @@ void DefaultEditorMode::initGui() {
     this->cursorText.setCharacterSize(20);
     this->cursorText.setPosition(this->editorStateData->mousePosView->x, this->editorStateData->mousePosView->y - 50);
 
-    //Gui generale
+    //GUI generale
     this->sidebar.setSize(sf::Vector2f(80.f, static_cast<float>(this->stateData->gfxSettings->resolution.height)));
     this->sidebar.setFillColor(sf::Color(50, 50, 50, 100));
     this->sidebar.setOutlineThickness(1.f);
