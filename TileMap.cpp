@@ -397,6 +397,10 @@ void TileMap::render(
                             target.draw(this->collisionBox);
                         }
                     }
+                    if(this->map[x][y][this->layer][k]->getType() == TileTypes::ENEMYSPAWNER){
+                        this->collisionBox.setPosition(this->map[x][y][this->layer][k]->getPosition());
+                        target.draw(this->collisionBox);
+                    }
                 }
             }
         }

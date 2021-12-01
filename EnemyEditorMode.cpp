@@ -14,39 +14,6 @@ EnemyEditorMode::~EnemyEditorMode() {
 
 }
 
-void EnemyEditorMode::updateInput(const float &dt) {
-
-}
-
-void EnemyEditorMode::updateGui(const float &dt) {
-    this->selectorRect.setPosition(this->editorStateData->mousePosGrid->x * this->stateData->gridSize,
-                                   this->editorStateData->mousePosGrid->y * this->stateData->gridSize);
-    this->cursorText.setPosition(this->editorStateData->mousePosView->x + 100.f,
-                                 this->editorStateData->mousePosView->y - 25.f);
-    std::stringstream  ss;
-    ss <<
-       "\n" << "Collision: " <<
-       "\n" << "Type: " <<
-       "\n" << "Tiles: " <<
-       "\n" << "Tile lock: ";
-    this->cursorText.setString(ss.str());
-}
-
-void EnemyEditorMode::update(const float &dt) {
-    this->updateInput(dt);
-    this->updateGui(dt);
-}
-
-void EnemyEditorMode::renderGui(sf::RenderTarget &target) {
-    target.setView(*this->editorStateData->view);
-    target.draw(this->selectorRect);
-    target.draw(this->cursorText);
-}
-
-void EnemyEditorMode::render(sf::RenderTarget &target) {
-    this->renderGui(target);
-}
-
 void EnemyEditorMode::initGui() {
 
     //Testo
@@ -70,4 +37,63 @@ void EnemyEditorMode::initGui() {
 
 void EnemyEditorMode::initVariables() {
 
+    type = 0;
+    amount = 1;
+    timeToSpawn = 60;
+    maxDistance = 100.f;
+}
+
+void EnemyEditorMode::updateInput(const float &dt) {
+
+    //Aggiunge Tile
+    if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->getKeyTime()){
+        if(!this->sidebar.getGlobalBounds().contains(sf::Vector2f(*this->editorStateData->mousePosWindow))) {
+
+            this->tileMap->addTile(this->editorStateData->mousePosGrid->x, this->editorStateData->mousePosGrid->y, 0, this->textureRect, false, TileTypes::ENEMYSPAWNER);
+
+        }
+    }
+    //Rimuove Tile
+    else if (sf::Mouse::isButtonPressed(sf::Mouse::Right) && this->getKeyTime()){
+        if(!this->sidebar.getGlobalBounds().contains(sf::Vector2f(*this->editorStateData->mousePosWindow))) {
+
+            this->tileMap->removeTile(this->editorStateData->mousePosGrid->x, this->editorStateData->mousePosGrid->y, 0);
+
+        }
+    }
+
+
+}
+
+void EnemyEditorMode::updateGui(const float &dt) {
+    this->selectorRect.setPosition(this->editorStateData->mousePosGrid->x * this->stateData->gridSize,
+                                   this->editorStateData->mousePosGrid->y * this->stateData->gridSize);
+    this->cursorText.setPosition(this->editorStateData->mousePosView->x + 100.f,
+                                 this->editorStateData->mousePosView->y - 25.f);
+    std::stringstream  ss;
+    ss <<
+       "\n" << "Enemy type: " << this->type <<
+       "\n" << "Enemy amount: " << this->amount <<
+       "\n" << "Time to spawn: " << this->timeToSpawn <<
+       "\n" << "Max distance: " << this->maxDistance;
+
+    this->cursorText.setString(ss.str());
+}
+
+void EnemyEditorMode::update(const float &dt) {
+    this->updateInput(dt);
+    this->updateGui(dt);
+}
+
+void EnemyEditorMode::renderGui(sf::RenderTarget &target) {
+    target.setView(*this->editorStateData->view);
+    target.draw(this->selectorRect);
+    target.draw(this->cursorText);
+
+    target.setView(target.getDefaultView());
+    target.draw(this->sidebar);
+}
+
+void EnemyEditorMode::render(sf::RenderTarget &target) {
+    this->renderGui(target);
 }
