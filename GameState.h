@@ -11,7 +11,7 @@
 #include "HeroGUI.h"
 #include "Sword.h"
 #include "Bow.h"
-#include "Enemy.h"
+#include "Enemies_include.h"
 
 class PauseMenu;
 class Hero;

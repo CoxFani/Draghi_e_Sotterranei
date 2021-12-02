@@ -112,7 +112,7 @@ void TileMap::addTile(const int x, const int y, const int z, const sf::IntRect& 
        y < this->maxSizeWorldGrid.y && y >= 0 &&
        z < this->layers && z >= 0){
 
-        this->map[x][y][z].push_back(new Tile(x, y, this->gridSizeF, this->tileSheet,  texture_rect, collision, type));
+        this->map[x][y][z].push_back(new Tile(type, x, y, this->gridSizeF, this->tileSheet,  texture_rect, collision));
         std::cout <<"DEBUG: ADDED A TILE!" << "\n";
     }
 }
@@ -148,10 +148,11 @@ void TileMap::saveToFile(const std::string file_name) {
     * texture file
     *
     * All tiles:
+    * type
     * gridPos x y layer
     * Texture rect x y
     * collision
-    * type
+    * tile_specific..
     */
 
     std::ofstream out_file;
@@ -228,16 +229,40 @@ void TileMap::loadFromFile(const std::string file_name) {
         }
         if(!this->tileSheet.loadFromFile(textureFile))
             std::cout << "ERROR::TILEMAP::FAILED TO LOAD TILETEXTURESHEET::FILENAME: " << texture_file <<"\n";
-        while(in_file >> x >> y >> z >> trX >> trY >> collision >> type){
-            this->map[x][y][z].push_back(new Tile(
-                                                 x, y,
-                                                 this->gridSizeF,
-                                                 this->tileSheet,
-                                                 sf::IntRect(trX, trY, this->gridSizeI, this->gridSizeI),
-                                                 collision,
-                                                 type
-                                         )
-            );
+
+        while(in_file >> x >> y >> z >> type){
+          if(type == TileTypes::ENEMYSPAWNER){
+              int enemy_type, enemy_am, enemy_tts, enemy_md; //amount, time to spawn, max distance
+
+              in_file >> trX >> trY
+              >> enemy_type >> enemy_am >> enemy_tts >> enemy_md;
+
+              this->map[x][y][z].push_back(
+                      new EnemySpawner(
+                              x, y,
+                              this->gridSizeF,
+                              this->tileSheet,
+                              sf::IntRect(trX, trY, this->gridSizeI, this->gridSizeI),
+                              enemy_type,
+                              enemy_am,
+                              enemy_tts,
+                              enemy_md
+                      )
+              );
+
+          }else{
+              in_file >> trX >> trY >> collision;
+
+              this->map[x][y][z].push_back(new Tile(
+                                                   type,
+                                                   x, y,
+                                                   this->gridSizeF,
+                                                   this->tileSheet,
+                                                   sf::IntRect(trX, trY, this->gridSizeI, this->gridSizeI),
+                                                   collision
+                                           )
+              );
+          }
         }
     }
     else{

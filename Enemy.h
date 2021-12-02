@@ -11,18 +11,18 @@
 
 class Enemy : public GameCharacter {
 public:
-    Enemy(float x, float y, sf::Texture& texture_sheet);
+    Enemy();
     virtual ~Enemy();
 
-    void updateAnimation(const float& dt);
-    void update(const float &dt, sf::Vector2f& mouse_pos_view);
-    void render(sf::RenderTarget &target, sf::Shader* shader = nullptr, const sf::Vector2f light_position = sf::Vector2f(), const bool show_hitbox = false);
+    virtual void updateAnimation(const float& dt) = 0;
+    virtual void update(const float &dt, sf::Vector2f& mouse_pos_view) = 0;
+    virtual void render(sf::RenderTarget &target, sf::Shader* shader = nullptr, const sf::Vector2f light_position = sf::Vector2f(), const bool show_hitbox = false) = 0;
 
 private:
     //EnemySpawner& enemySpawner;
 
-    void initVariables();
-    void initAnimations();
+    virtual void initVariables() = 0;
+    virtual void initAnimations() = 0;
 
 
 };

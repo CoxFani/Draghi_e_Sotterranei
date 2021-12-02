@@ -1,0 +1,11 @@
+//
+// Created by alpacox on 02/12/21.
+//
+
+#ifndef DRAGHI_E_SOTTERRANEI_ENEMIES_INCLUDE_H
+#define DRAGHI_E_SOTTERRANEI_ENEMIES_INCLUDE_H
+
+#include "Mummy.h"
+
+
+#endif //DRAGHI_E_SOTTERRANEI_ENEMIES_INCLUDE_H

@@ -7,6 +7,7 @@
 
 #include "Tile.h"
 #include "GameCharacter.h"
+#include "EnemySpawner.h"
 
 
 class Tile;
