@@ -117,14 +117,23 @@ void TileMap::addTile(const int x, const int y, const int z, const sf::IntRect& 
     }
 }
 
-void TileMap::removeTile(const int x, const int y, const int z) {
+void TileMap::removeTile(const int x, const int y, const int z, const int type) {
     if(x < this->maxSizeWorldGrid.x && x >= 0 &&
        y < this->maxSizeWorldGrid.y && y >= 0 &&
        z < this->layers && z >= 0){
         if(!this->map[x][y][z].empty()){
-            delete this->map[x][y][z][this->map[x][y][z].size()-1];
-            this->map[x][y][z].pop_back();
-            std::cout <<"DEBUG: REMOVED A TILE!" << "\n";
+            if(type >= 0){
+                if(this->map[x][y][z].back()->getType() == type) {
+                    delete this->map[x][y][z][this->map[x][y][z].size() - 1];
+                    this->map[x][y][z].pop_back();
+                    //std::cout << "DEBUG: REMOVED A TILE!" << "\n";
+                }
+            }
+            else{
+                delete this->map[x][y][z][this->map[x][y][z].size()-1];
+                this->map[x][y][z].pop_back();
+                //std::cout <<"DEBUG: REMOVED A TILE!" << "\n";
+            }
         }
     }
 }
@@ -416,4 +425,8 @@ void TileMap::renderDeferred(sf::RenderTarget &target, sf::Shader* shader, const
 
         deferredRenderStack.pop();
     }
+}
+
+const bool TileMap::checkType(const int x, const int y, const int z, const int type) const {
+    return this->map[x][y][this->layer].back()->getType() == type;
 }
