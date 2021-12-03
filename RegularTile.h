@@ -7,8 +7,6 @@
 
 #include "Tile.h"
 
-class Tile;
-
 class RegularTile : public Tile {
 public:
     RegularTile(short type, int grid_x, int grid_y, float gridSizeF,
@@ -16,6 +14,7 @@ public:
          bool collision = false);
     virtual ~RegularTile();
 
+    virtual const std::string getAsString() const;
     virtual void update();
     virtual void render(sf::RenderTarget& target, sf::Shader* shader = nullptr, const sf::Vector2f hero_position = sf::Vector2f());
 

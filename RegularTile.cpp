@@ -16,6 +16,13 @@ RegularTile::~RegularTile() {
 
 }
 
+const std::string RegularTile::getAsString() const {
+    std::stringstream ss;
+    ss << this->type << " " << this->shape.getTextureRect().left << " " << this->shape.getTextureRect().top << " " << this->collision ;
+    std::cout << ss.str() << "\n";
+    return ss.str();
+}
+
 void RegularTile::update() {
 
 }

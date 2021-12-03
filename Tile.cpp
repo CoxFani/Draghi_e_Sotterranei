@@ -27,17 +27,6 @@ Tile::~Tile() {
 
 }
 
-const std::string Tile::getAsString() const {
-    std::stringstream ss;
-    ss << this->type << " " << this->shape.getTextureRect().left << " " << this->shape.getTextureRect().top << " " << this->collision ;
-    std::cout << ss.str() << "\n";
-    return ss.str();
-}
-
-const bool & Tile::getCollision() const {
-    return this->collision;
-}
-
 const sf::Vector2f &Tile::getPosition() const {
     return this->shape.getPosition();
 }
@@ -48,6 +37,10 @@ const bool Tile::intersects(const sf::FloatRect bounds) const{
 
 const sf::FloatRect Tile::getGlobalBounds() const {
     return this->shape.getGlobalBounds();
+}
+
+const bool & Tile::getCollision() const {
+    return this->collision;
 }
 
 const short &Tile::getType() const {
