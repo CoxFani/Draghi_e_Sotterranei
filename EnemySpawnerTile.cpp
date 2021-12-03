@@ -13,6 +13,7 @@ EnemySpawnerTile::EnemySpawnerTile(int grid_x, int grid_y, float gridSizeF,
     this->enemyAmount = enemy_amount;
     this->enemyTimeToSpawn = enemy_time_to_spawn;
     this->enemyMaxDistance = enemy_max_distance;
+    this->spawned = false;
 
 }
 
@@ -40,6 +41,15 @@ const std::string EnemySpawnerTile::getAsString() const {
     return ss.str();
 }
 
+const bool &EnemySpawnerTile::getSpawned() const {
+    return this->spawned;
+}
+
+void EnemySpawnerTile::setSpawn(const bool spawned) {
+
+    this->spawned = spawned;
+}
+
 void EnemySpawnerTile::update() {
 
 }
@@ -54,6 +64,10 @@ void EnemySpawnerTile::render(sf::RenderTarget &target, sf::Shader* shader, cons
     }
     else
         target.draw(this->shape);}
+
+
+
+
 
 
 

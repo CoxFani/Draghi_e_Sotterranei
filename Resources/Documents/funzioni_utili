@@ -152,3 +152,7 @@ unsigned int windowHeight = 400;
         // forward the vertex color
         gl_FrontColor = gl_Color;
     }
+
+#Controllo valore numerico della key della tastiera
+
+sf::Keyboard:: //inserire key desiderata e passarci sopra il cursore

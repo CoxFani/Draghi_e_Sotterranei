@@ -71,19 +71,23 @@ void DefaultEditorMode::updateInput(const float &dt) {
                 this->tileMap->removeTile(this->editorStateData->mousePosGrid->x, this->editorStateData->mousePosGrid->y, 0);
         }
     }
+    //TOGGLE COLLISION
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->editorStateData->keybinds->at("TOGGLE_COLLISION"))) && this->getKeyTime()){
         if (this->collision)
             this->collision = false;
         else
             this->collision = true;
     }
+    //INCREASE TYPE
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->editorStateData->keybinds->at("INCREASE_TYPE"))) && this->getKeyTime()){
         ++this->type;
     }
+    //DECREASE TYPE
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->editorStateData->keybinds->at("DECREASE_TYPE"))) && this->getKeyTime()){
         if(this->type > 0)
             --this->type;
     }
+    //TOGGLE TYPE LOCK
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->editorStateData->keybinds->at("TOGGLE_TILE_LOCK"))) && this->getKeyTime()){
         if(this->tileAddLock)
             this->tileAddLock = false;

@@ -16,6 +16,9 @@ public:
     virtual ~EnemySpawnerTile();
 
     virtual const std::string getAsString() const override;
+    const bool& getSpawned() const;
+
+    void setSpawn(const bool spawned);
 
     void update() override;
     void render(sf::RenderTarget &target, sf::Shader* shader = nullptr, const sf::Vector2f hero_position = sf::Vector2f()) override;
@@ -27,6 +30,7 @@ private:
     int enemyAmount;
     int enemyTimeToSpawn;
     float enemyMaxDistance;
+    bool spawned;
 
 
 };

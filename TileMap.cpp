@@ -112,13 +112,25 @@ void TileMap::addTile(const int x, const int y, const int z, const sf::IntRect& 
        y < this->maxSizeWorldGrid.y && y >= 0 &&
        z < this->layers && z >= 0){
 
-        if(type == TileTypes::DEFAULT)
-            this->map[x][y][z].push_back(new RegularTile(type, x, y, this->gridSizeF, this->tileSheet, texture_rect, collision));
-        else if(type == TileTypes::ENEMYSPAWNER)
-            this->map[x][y][z].push_back(new EnemySpawnerTile(x, y, this->gridSizeF, this->tileSheet, texture_rect, 0, 0, 0, 0));
+        this->map[x][y][z].push_back(new RegularTile(type, x, y, this->gridSizeF, this->tileSheet, texture_rect, collision));
 
-        std::cout <<"DEBUG: ADDED A TILE!" << "\n";
+
+        //std::cout <<"DEBUG: ADDED A TILE!" << "\n";
     }
+}
+
+void TileMap::addTile(const int x, const int y, const int z, const sf::IntRect &texture_rect,
+                      const int enemy_type, const int enemy_amount, const int enemy_tts, const int enemy_md) {
+
+    if(x < this->maxSizeWorldGrid.x && x >= 0 &&
+       y < this->maxSizeWorldGrid.y && y >= 0 &&
+       z < this->layers && z >= 0){
+
+        this->map[x][y][z].push_back(new EnemySpawnerTile(x, y, this->gridSizeF, this->tileSheet, texture_rect,
+                                                          enemy_type, enemy_amount, enemy_tts, enemy_md));
+    }
+
+
 }
 
 void TileMap::removeTile(const int x, const int y, const int z, const int type) {
@@ -280,7 +292,7 @@ void TileMap::loadFromFile(const std::string file_name) {
     in_file.close();
 }
 
-void TileMap::update(GameCharacter *gameCharacter, const float& dt) {
+void TileMap::updateWorldBoundsCollision(GameCharacter *gameCharacter, const float &dt) {
 
     //Limiti mappa
 
@@ -300,6 +312,9 @@ void TileMap::update(GameCharacter *gameCharacter, const float& dt) {
         gameCharacter->setPosition( gameCharacter->getPosition().x, this->maxSizeWorldF.y - gameCharacter->getGlobalBounds().height);
         gameCharacter->stopVelocityY();
     }
+}
+
+void TileMap::updateTileCollision(GameCharacter *gameCharacter, const float &dt) {
 
     //Tiles
 
@@ -328,14 +343,11 @@ void TileMap::update(GameCharacter *gameCharacter, const float& dt) {
         this->toY = 0;
     else if(this->toY > this->maxSizeWorldGrid.y)
         this->toY = this->maxSizeWorldGrid.y;
-
     //Collisioni
 
     for(int x = this->fromX; x < this->toX; x++){
         for(int y = this->fromY; y < this->toY; y++) {
             for (int k = 0; k < this->map[x][y][this->layer].size(); k++) {
-
-                this->map[x][y][this->layer][k]->update();
 
                 sf::FloatRect heroBounds = gameCharacter->getGlobalBounds();
                 sf::FloatRect wallBounds = this->map[x][y][this->layer][k]->getGlobalBounds();
@@ -353,11 +365,11 @@ void TileMap::update(GameCharacter *gameCharacter, const float& dt) {
                         gameCharacter->stopVelocityY();
                         gameCharacter->setPosition(heroBounds.left, wallBounds.top - heroBounds.height);
                     }
-                    //Collisione superiore
+                        //Collisione superiore
                     else if (heroBounds.top > wallBounds.top
-                               && heroBounds.top + heroBounds.height > wallBounds.top + wallBounds.height
-                               && heroBounds.left < wallBounds.left + wallBounds.width
-                               && heroBounds.left + heroBounds.width > wallBounds.left
+                             && heroBounds.top + heroBounds.height > wallBounds.top + wallBounds.height
+                             && heroBounds.left < wallBounds.left + wallBounds.width
+                             && heroBounds.left + heroBounds.width > wallBounds.left
                             ) {
                         gameCharacter->stopVelocityY();
                         gameCharacter->setPosition(heroBounds.left, wallBounds.top + wallBounds.height);
@@ -371,11 +383,11 @@ void TileMap::update(GameCharacter *gameCharacter, const float& dt) {
                         gameCharacter->stopVelocityX();
                         gameCharacter->setPosition(wallBounds.left - heroBounds.width, heroBounds.top);
                     }
-                    //Collisione sinistra
+                        //Collisione sinistra
                     else if (heroBounds.left > wallBounds.left
-                               && heroBounds.left + heroBounds.width > wallBounds.left + wallBounds.width
-                               && heroBounds.top < wallBounds.top + wallBounds.height
-                               && heroBounds.top + heroBounds.height > wallBounds.top
+                             && heroBounds.left + heroBounds.width > wallBounds.left + wallBounds.width
+                             && heroBounds.top < wallBounds.top + wallBounds.height
+                             && heroBounds.top + heroBounds.height > wallBounds.top
                             ) {
                         gameCharacter->stopVelocityX();
                         gameCharacter->setPosition(wallBounds.left + wallBounds.width, heroBounds.top);
@@ -384,6 +396,65 @@ void TileMap::update(GameCharacter *gameCharacter, const float& dt) {
             }
         }
     }
+}
+
+void TileMap::updateTiles(GameCharacter *gameCharacter, const float &dt,
+                          std::vector<Enemy*>& activeEnemies, std::map<std::string, sf::Texture>& textures) {
+
+    //Tiles
+
+    this->layer = 0;
+
+    this->fromX = gameCharacter->getGridPosition(this->gridSizeI).x - 20;
+    if(this->fromX < 0)
+        this->fromX = 0;
+    else if(this->fromX > this->maxSizeWorldGrid.x)
+        this->fromX = this->maxSizeWorldGrid.x;
+
+    this->toX = gameCharacter->getGridPosition(this->gridSizeI).x + 21;
+    if(this->toX < 0)
+        this->toX = 0;
+    else if(this->toX > this->maxSizeWorldGrid.x)
+        this->toX = this->maxSizeWorldGrid.x;
+
+    this->fromY = gameCharacter->getGridPosition(this->gridSizeI).y - 11;
+    if(this->fromY < 0)
+        this->fromY = 0;
+    else if(this->fromY > this->maxSizeWorldGrid.y)
+        this->fromY = this->maxSizeWorldGrid.y;
+
+    this->toY = gameCharacter->getGridPosition(this->gridSizeI).y + 12;
+    if(this->toY < 0)
+        this->toY = 0;
+    else if(this->toY > this->maxSizeWorldGrid.y)
+        this->toY = this->maxSizeWorldGrid.y;
+    //Collisioni
+
+    for(int x = this->fromX; x < this->toX; x++){
+        for(int y = this->fromY; y < this->toY; y++) {
+            for (int k = 0; k < this->map[x][y][this->layer].size(); k++) {
+
+                this->map[x][y][this->layer][k]->update();
+
+                if(this->map[x][y][this->layer][k]->getType() == TileTypes::ENEMYSPAWNER){
+
+                    EnemySpawnerTile* es = dynamic_cast<EnemySpawnerTile*>(this->map[x][y][this->layer][k]);
+                    if(!es->getSpawned()){
+                        activeEnemies.push_back(new Mummy(x*this->gridSizeF, y*gridSizeF, textures["MUMMY_SHEET"]));
+                        es->setSpawn(true);
+                    }
+
+                }
+
+            }
+        }
+    }
+
+}
+
+void TileMap::update(GameCharacter *gameCharacter, const float& dt) {
+
+
 }
 
 void TileMap::render(
@@ -463,3 +534,7 @@ void TileMap::renderDeferred(sf::RenderTarget &target, sf::Shader* shader, const
 const bool TileMap::checkType(const int x, const int y, const int z, const int type) const {
     return this->map[x][y][this->layer].back()->getType() == type;
 }
+
+
+
+

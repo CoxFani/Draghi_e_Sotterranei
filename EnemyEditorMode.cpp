@@ -47,7 +47,8 @@ void EnemyEditorMode::updateInput(const float &dt) {
     //Aggiunge Tile
     if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->getKeyTime()){
         if(!this->sidebar.getGlobalBounds().contains(sf::Vector2f(*this->editorStateData->mousePosWindow)))
-            this->tileMap->addTile(this->editorStateData->mousePosGrid->x, this->editorStateData->mousePosGrid->y, 0, this->textureRect, false, TileTypes::ENEMYSPAWNER);
+            this->tileMap->addTile(this->editorStateData->mousePosGrid->x, this->editorStateData->mousePosGrid->y, 0, this->textureRect,
+                                   this->type, this->amount, this->timeToSpawn, this->maxDistance);
     }
     //Rimuove Tile
     else if (sf::Mouse::isButtonPressed(sf::Mouse::Right) && this->getKeyTime()){
@@ -55,6 +56,51 @@ void EnemyEditorMode::updateInput(const float &dt) {
             //if(this->tileMap->checkType(this->editorStateData->mousePosGrid->x, this->editorStateData->mousePosGrid->y, 0, TileTypes::ENEMYSPAWNER)){
                 this->tileMap->removeTile(this->editorStateData->mousePosGrid->x, this->editorStateData->mousePosGrid->y, 0, TileTypes::ENEMYSPAWNER);
         }
+    }
+
+    //TYPE UP
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->editorStateData->keybinds->at("TYPE_UP"))) && this->getKeyTime()){
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)){
+            if(this->type > 0)
+                this->type--;
+        }
+        else if (this->type < 1000)
+            this->type++;
+        else
+            this->type = 0;
+    }
+        //AMOUNT UP
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->editorStateData->keybinds->at("AMOUNT_UP"))) && this->getKeyTime()){
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)){
+            if(this->amount > 0)
+                this->amount--;
+        }
+        else if (this->amount < 1000)
+            this->amount++;
+        else
+            this->amount = 0;
+    }
+        //TIME TO SPAWN UP
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->editorStateData->keybinds->at("TTS_UP"))) && this->getKeyTime()){
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)){
+            if(this->timeToSpawn > 0)
+                this->timeToSpawn--;
+        }
+        else if (this->timeToSpawn < 1000)
+            this->timeToSpawn++;
+        else
+            this->timeToSpawn = 0;
+    }
+    //MAX DISTANCE UP
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->editorStateData->keybinds->at("MD_UP"))) && this->getKeyTime()){
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)){
+            if(this->maxDistance > 0)
+                this->maxDistance--;
+        }
+        else if (this->maxDistance < 1000)
+            this->maxDistance++;
+        else
+            this->maxDistance = 0;
     }
 }
 

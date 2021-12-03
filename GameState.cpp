@@ -19,16 +19,6 @@ GameState::GameState(StateData* state_data)
     this->initHeroGUI();
     this->initTileMap();
 
-    this->activeEnemies.push_back(new Mummy(200.f, 100.f, this->textures["MUMMY_SHEET"]));
-    this->activeEnemies.push_back(new Mummy(500.f, 200.f, this->textures["MUMMY_SHEET"]));
-    this->activeEnemies.push_back(new Mummy(600.f, 300.f, this->textures["MUMMY_SHEET"]));
-    this->activeEnemies.push_back(new Mummy(400.f, 500.f, this->textures["MUMMY_SHEET"]));
-    this->activeEnemies.push_back(new Mummy(200.f, 400.f, this->textures["MUMMY_SHEET"]));
-
-
-
-
-
 }
 
 GameState::~GameState() {
@@ -180,13 +170,23 @@ void GameState::updatePauseMenuButtons() {
 
 void GameState::updateTileMap(const float &dt) {
 
-    this->tileMap->update(this->hero, dt);
+    this->tileMap->updateTileCollision(this->hero, dt);
+    this->tileMap->updateWorldBoundsCollision(this->hero, dt);
+    this->tileMap->updateTiles(this->hero, dt, this->activeEnemies, this->textures);
 
     for(auto *i : this->activeEnemies){
-        this->tileMap->update(i, dt);
+        this->tileMap->updateTileCollision(i, dt);
+        this->tileMap->updateWorldBoundsCollision(i, dt);
     }
+}
 
+void GameState::updateHero(const float &dt) {
 
+}
+
+void GameState::updateEnemies(const float &dt) {
+
+    //this->activeEnemies.push_back(new Mummy(200.f, 100.f, this->textures["MUMMY_SHEET"]));
 }
 
 void GameState::update(const float& dt) {
@@ -250,5 +250,7 @@ void GameState::render(sf::RenderTarget* target) {
     this->renderSprite.setTexture(this->renderTexture.getTexture());
     target->draw(this->renderSprite);
 }
+
+
 
 

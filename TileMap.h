@@ -8,10 +8,13 @@
 #include "GameCharacter.h"
 #include "EnemySpawnerTile.h"
 #include "RegularTile.h"
+#include "Enemies_include.h"
 
 
 class Tile;
 class GameCharacter;
+class EnemySpawnerTile;
+class Enemy;
 
 class TileMap {
 public:
@@ -27,11 +30,18 @@ public:
     const sf::Vector2f& getMaxSizeF() const;
 
     void addTile(const int x, const int y, const int z, const sf::IntRect& texture_rect, const bool& collision, const short& type);
+    void addTile(const int x, const int y, const int z, const sf::IntRect& texture_rect,
+                 const int enemy_type, const int enemy_amount, const int enemy_tts, const int enemy_md);
+
     void removeTile(const int x, const int y, const int z, const int type = -1);
     void saveToFile(const std::string file_name);
     void loadFromFile(const std::string file_name);
     const bool checkType(const int x, const int y, const int z, const int type) const;
 
+    void updateWorldBoundsCollision(GameCharacter* gameCharacter, const float& dt);
+    void updateTileCollision(GameCharacter* gameCharacter, const float& dt);
+    void updateTiles(GameCharacter* gameCharacter, const float& dt,
+                     std::vector<Enemy*>& activeEnemies, std::map<std::string, sf::Texture>& textures);
     void update(GameCharacter* gameCharacter, const float& dt);
     void render(
             sf::RenderTarget& target,
