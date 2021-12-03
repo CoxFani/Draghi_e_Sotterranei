@@ -12,7 +12,7 @@ Tile::Tile() {
 
 Tile::Tile(short type, int grid_x, int grid_y, float gridSizeF,
            const sf::Texture& texture, const sf::IntRect& texture_rect,
-           bool collision) {
+           const bool collision) {
 
     //this->shape.setOutlineThickness(1.f);
     //this->shape.setOutlineColor(sf::Color::Black);
@@ -27,35 +27,19 @@ Tile::~Tile() {
 
 }
 
-void Tile::update() {
-
-}
-
-void Tile::render(sf::RenderTarget &target, sf::Shader* shader, const sf::Vector2f hero_position) {
-
-    if(shader){
-        shader->setUniform("hasTexture", true);
-        shader->setUniform("lightPos", hero_position);
-
-        target.draw(this->shape, shader);
-    }
-    else
-        target.draw(this->shape);
-
-}
-
 const std::string Tile::getAsString() const {
     std::stringstream ss;
     ss << this->type << " " << this->shape.getTextureRect().left << " " << this->shape.getTextureRect().top << " " << this->collision ;
+    std::cout << ss.str() << "\n";
     return ss.str();
-}
-
-const sf::Vector2f &Tile::getPosition() const {
-    return this->shape.getPosition();
 }
 
 const bool & Tile::getCollision() const {
     return this->collision;
+}
+
+const sf::Vector2f &Tile::getPosition() const {
+    return this->shape.getPosition();
 }
 
 const bool Tile::intersects(const sf::FloatRect bounds) const{

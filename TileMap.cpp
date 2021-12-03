@@ -112,7 +112,11 @@ void TileMap::addTile(const int x, const int y, const int z, const sf::IntRect& 
        y < this->maxSizeWorldGrid.y && y >= 0 &&
        z < this->layers && z >= 0){
 
-        this->map[x][y][z].push_back(new Tile(type, x, y, this->gridSizeF, this->tileSheet,  texture_rect, collision));
+        if(type == TileTypes::DEFAULT)
+            this->map[x][y][z].push_back(new RegularTile(type, x, y, this->gridSizeF, this->tileSheet, texture_rect, collision));
+        else if(type == TileTypes::ENEMYSPAWNER)
+            this->map[x][y][z].push_back(new EnemySpawnerTile(x, y, this->gridSizeF, this->tileSheet, texture_rect, 0, 0, 0, 0));
+
         std::cout <<"DEBUG: ADDED A TILE!" << "\n";
     }
 }
@@ -232,13 +236,16 @@ void TileMap::loadFromFile(const std::string file_name) {
 
         while(in_file >> x >> y >> z >> type){
           if(type == TileTypes::ENEMYSPAWNER){
-              int enemy_type, enemy_am, enemy_tts, enemy_md; //amount, time to spawn, max distance
+              //amount, time to spawn, max distance
+              int enemy_type = 0;
+              int enemy_am = 0;
+              int enemy_tts = 0;
+              int enemy_md = 0;
 
-              in_file >> trX >> trY
-              >> enemy_type >> enemy_am >> enemy_tts >> enemy_md;
+              in_file >> trX >> trY >> enemy_type >> enemy_am >> enemy_tts >> enemy_md;
 
               this->map[x][y][z].push_back(
-                      new EnemySpawner(
+                      new EnemySpawnerTile(
                               x, y,
                               this->gridSizeF,
                               this->tileSheet,
@@ -250,10 +257,11 @@ void TileMap::loadFromFile(const std::string file_name) {
                       )
               );
 
-          }else{
+          }
+          else{
               in_file >> trX >> trY >> collision;
 
-              this->map[x][y][z].push_back(new Tile(
+              this->map[x][y][z].push_back(new RegularTile(
                                                    type,
                                                    x, y,
                                                    this->gridSizeF,

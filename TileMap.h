@@ -5,9 +5,9 @@
 #ifndef DRAGHI_E_SOTTERRANEI_TILEMAP_H
 #define DRAGHI_E_SOTTERRANEI_TILEMAP_H
 
-#include "Tile.h"
 #include "GameCharacter.h"
-#include "EnemySpawner.h"
+#include "EnemySpawnerTile.h"
+#include "RegularTile.h"
 
 
 class Tile;

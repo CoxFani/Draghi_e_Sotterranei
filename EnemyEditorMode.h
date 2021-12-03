@@ -6,14 +6,14 @@
 #define DRAGHI_E_SOTTERRANEI_ENEMYEDITORMODE_H
 
 #include "EditorMode.h"
-#include "EnemySpawner.h"
+#include "EnemySpawnerTile.h"
 
 class State;
 class StateData;
 class EditorMode;
 class TileMap;
 class Tile;
-class EnemySpawner;
+class EnemySpawnerTile;
 
 class EnemyEditorMode : public EditorMode{
 public:

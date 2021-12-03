@@ -7,7 +7,7 @@
 
 
 #include "GameCharacter.h"
-#include "EnemySpawner.h"
+#include "EnemySpawnerTile.h"
 
 class Enemy : public GameCharacter {
 public:
@@ -19,7 +19,7 @@ public:
     virtual void render(sf::RenderTarget &target, sf::Shader* shader = nullptr, const sf::Vector2f light_position = sf::Vector2f(), const bool show_hitbox = false) = 0;
 
 private:
-    //EnemySpawner& enemySpawner;
+    //EnemySpawnerTile& enemySpawner;
 
     virtual void initVariables() = 0;
     virtual void initAnimations() = 0;
