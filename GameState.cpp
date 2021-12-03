@@ -17,6 +17,7 @@ GameState::GameState(StateData* state_data)
 
     this->initHeroes();
     this->initHeroGUI();
+    this->initEnemyStrategy();
     this->initTileMap();
 
 }
@@ -25,6 +26,7 @@ GameState::~GameState() {
     delete this->pmenu;
     delete this->hero;
     delete this->heroGUI;
+    delete this->enemyStrategy;
     delete this->tileMap;
 
     for(size_t i = 0; i < this->activeEnemies.size(); i++){
@@ -172,7 +174,7 @@ void GameState::updateTileMap(const float &dt) {
 
     this->tileMap->updateTileCollision(this->hero, dt);
     this->tileMap->updateWorldBoundsCollision(this->hero, dt);
-    this->tileMap->updateTiles(this->hero, dt, this->activeEnemies, this->textures);
+    this->tileMap->updateTiles(this->hero, dt, *this->enemyStrategy);
 
     for(auto *i : this->activeEnemies){
         this->tileMap->updateTileCollision(i, dt);
@@ -249,6 +251,10 @@ void GameState::render(sf::RenderTarget* target) {
     this->renderTexture.display();
     this->renderSprite.setTexture(this->renderTexture.getTexture());
     target->draw(this->renderSprite);
+}
+
+void GameState::initEnemyStrategy() {
+    this->enemyStrategy = new EnemyStrategy(this->activeEnemies, this->textures);
 }
 
 

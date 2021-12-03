@@ -5,16 +5,13 @@
 #ifndef DRAGHI_E_SOTTERRANEI_TILEMAP_H
 #define DRAGHI_E_SOTTERRANEI_TILEMAP_H
 
-#include "GameCharacter.h"
 #include "EnemySpawnerTile.h"
 #include "RegularTile.h"
-#include "Enemies_include.h"
-
+#include "EnemyStrategy.h"
 
 class Tile;
 class GameCharacter;
 class EnemySpawnerTile;
-class Enemy;
 
 class TileMap {
 public:
@@ -40,8 +37,7 @@ public:
 
     void updateWorldBoundsCollision(GameCharacter* gameCharacter, const float& dt);
     void updateTileCollision(GameCharacter* gameCharacter, const float& dt);
-    void updateTiles(GameCharacter* gameCharacter, const float& dt,
-                     std::vector<Enemy*>& activeEnemies, std::map<std::string, sf::Texture>& textures);
+    void updateTiles(GameCharacter* gameCharacter, const float& dt, EnemyStrategy& enemyStrategy);
     void update(GameCharacter* gameCharacter, const float& dt);
     void render(
             sf::RenderTarget& target,

@@ -12,13 +12,6 @@
 #include "Sword.h"
 #include "Bow.h"
 
-class PauseMenu;
-class Hero;
-class Enemy;
-class HeroGUI;
-class State;
-class TileMap;
-
 using namespace std;
 
 class GameState: public State {
@@ -55,6 +48,7 @@ private:
     TileMap* tileMap;
 
     std::vector<Enemy*> activeEnemies;
+    EnemyStrategy *enemyStrategy;
 
     void initView();
     void initKeybinds();
@@ -66,6 +60,7 @@ private:
     void initHeroGUI();
     void initTileMap();
     void initDeferredRender();
+    void initEnemyStrategy();
 
 };
 

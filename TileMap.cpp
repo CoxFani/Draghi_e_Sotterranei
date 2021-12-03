@@ -399,7 +399,7 @@ void TileMap::updateTileCollision(GameCharacter *gameCharacter, const float &dt)
 }
 
 void TileMap::updateTiles(GameCharacter *gameCharacter, const float &dt,
-                          std::vector<Enemy*>& activeEnemies, std::map<std::string, sf::Texture>& textures) {
+                          EnemyStrategy &enemyStrategy) {
 
     //Tiles
 
@@ -437,19 +437,15 @@ void TileMap::updateTiles(GameCharacter *gameCharacter, const float &dt,
                 this->map[x][y][this->layer][k]->update();
 
                 if(this->map[x][y][this->layer][k]->getType() == TileTypes::ENEMYSPAWNER){
-
                     EnemySpawnerTile* es = dynamic_cast<EnemySpawnerTile*>(this->map[x][y][this->layer][k]);
-                    if(!es->getSpawned()){
-                        activeEnemies.push_back(new Mummy(x*this->gridSizeF, y*gridSizeF, textures["MUMMY_SHEET"]));
+                    if(!es->getSpawned()) {
+                        enemyStrategy.createEnemy(MUMMY, x*this->gridSizeF, y*gridSizeF);
                         es->setSpawn(true);
                     }
-
                 }
-
             }
         }
     }
-
 }
 
 void TileMap::update(GameCharacter *gameCharacter, const float& dt) {
