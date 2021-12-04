@@ -187,7 +187,6 @@ void GameState::updateHero(const float &dt) {
 }
 
 void GameState::updateEnemies(const float &dt) {
-
     //this->activeEnemies.push_back(new Mummy(200.f, 100.f, this->textures["MUMMY_SHEET"]));
 }
 
@@ -206,9 +205,7 @@ void GameState::update(const float& dt) {
         for(auto *i : this->activeEnemies){
             i->update(dt, this->mousePosView);
         }
-
-
-
+        this->updateCombat(dt);
     }
     else{
         this->pmenu->update(this->mousePosWindow);
@@ -255,6 +252,18 @@ void GameState::render(sf::RenderTarget* target) {
 
 void GameState::initEnemyStrategy() {
     this->enemyStrategy = new EnemyStrategy(this->activeEnemies, this->textures);
+}
+
+void GameState::updateCombat(const float &dt) {
+    for (auto i : this->activeEnemies){
+        if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+            if (i->getGlobalBounds().contains(this->mousePosView)
+                && std::abs(this->hero->getPosition().x - i->getPosition().x) < this->hero->getWeapon()->getRange()
+                    ) {
+                std::cout << "Colpito|" << rand()%29 << "\n";
+            }
+        }
+    }
 }
 
 

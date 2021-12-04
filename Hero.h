@@ -18,6 +18,7 @@ public:
     virtual ~Hero();
 
     AttributeComponent* getAttributeComponent();
+    const Weapon* getWeapon() const;
 
     void loseHP(const int hp);
     void gainHP(const int hp);

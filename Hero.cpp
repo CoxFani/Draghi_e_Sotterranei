@@ -32,7 +32,7 @@ Hero::~Hero() {
 void Hero::initVariables() {
 
     this->attacking = false;
-    this->sword = new Sword(20);
+    this->sword = new Sword(20, "../Resources/Images/Sprites/Weapons/weapon.png");
     this->inventory = new Inventory(100);
 }
 
@@ -157,6 +157,10 @@ void Hero::render(sf::RenderTarget &target, sf::Shader* shader, const sf::Vector
 
     if(show_hitbox)
         this->hitboxComponent->render(target);
+}
+
+const Weapon *Hero::getWeapon() const {
+    return this->sword;
 }
 
 
