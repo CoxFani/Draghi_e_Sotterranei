@@ -5,13 +5,9 @@
 #include "precompiler.h"
 #include "Sword.h"
 
-Sword::Sword(unsigned value)
-:MeleeWeapon(value){
-    //Visual Weapon
-    if(!this->weapon_texture.loadFromFile("../Resources/Images/Sprites/Weapons/weapon.png"))
-        std::cout <<"ERROR::SWORD::COULD NOT LOAD WEAPON TEXTURE." << "\n";
-    this->weapon_sprite.setTexture(this->weapon_texture);
-
+Sword::Sword(unsigned value, std::string texture_file)
+:MeleeWeapon(value, texture_file){
+    //visualizzazione mirino
     this->weapon_sprite.setOrigin(
             this->weapon_sprite.getGlobalBounds().width / 2.f,
             this->weapon_sprite.getGlobalBounds().height

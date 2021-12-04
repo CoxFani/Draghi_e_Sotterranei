@@ -5,8 +5,8 @@
 #include "precompiler.h"
 #include "Bow.h"
 
-Bow::Bow(unsigned value)
-: RangedWeapon(value){
+Bow::Bow(unsigned value, std::string texture_file)
+: RangedWeapon(value, texture_file){
 }
 
 Bow::~Bow() {

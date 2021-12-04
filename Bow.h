@@ -11,7 +11,7 @@ class RangedWeapon;
 
 class Bow : public RangedWeapon {
 public:
-    Bow(unsigned value);
+    Bow(unsigned value, std::string texture_file);
     virtual ~Bow();
 
     Bow* clone() override;
