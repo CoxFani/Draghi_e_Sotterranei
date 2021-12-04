@@ -11,8 +11,10 @@ class RangedWeapon;
 
 class Bow : public RangedWeapon {
 public:
-    Bow();
+    Bow(unsigned value);
     virtual ~Bow();
+
+    Bow* clone() override;
 
 private:
 

@@ -5,7 +5,8 @@
 #include "precompiler.h"
 #include "Sword.h"
 
-Sword::Sword() {
+Sword::Sword(unsigned value)
+:MeleeWeapon(value){
     //Visual Weapon
     if(!this->weapon_texture.loadFromFile("../Resources/Images/Sprites/Weapons/weapon.png"))
         std::cout <<"ERROR::SWORD::COULD NOT LOAD WEAPON TEXTURE." << "\n";
@@ -41,6 +42,10 @@ void Sword::render(sf::RenderTarget& target, sf::Shader* shader) {
     else
         target.draw(this->weapon_sprite);
 
+}
+
+Sword *Sword::clone() {
+    return new Sword(*this);
 }
 
 

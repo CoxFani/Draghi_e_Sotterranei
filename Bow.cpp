@@ -5,9 +5,15 @@
 #include "precompiler.h"
 #include "Bow.h"
 
-Bow::Bow() {
+Bow::Bow(unsigned value)
+: RangedWeapon(value){
 }
 
 Bow::~Bow() {
 
+}
+
+Bow *Bow::clone() {
+
+    return new Bow(*this);
 }

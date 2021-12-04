@@ -5,8 +5,10 @@
 #include "precompiler.h"
 #include "MeleeWeapon.h"
 
-MeleeWeapon::MeleeWeapon() {
+MeleeWeapon::MeleeWeapon(unsigned value)
+: Item(value){
 
+    this->type = ItemTypes::ITEM_MELEEWEAPON;
 
 }
 

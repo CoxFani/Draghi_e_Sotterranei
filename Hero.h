@@ -6,7 +6,8 @@
 #define DRAGHI_E_SOTTERRANEI_HERO_H
 
 #include "GameCharacter.h"
-#include "Sword.h"
+#include "Items.h"
+#include "Inventory.h"
 //#include "GameState.h"
 
 class  GameCharacter;
@@ -31,13 +32,16 @@ public:
     void render(sf::RenderTarget& target, sf::Shader* shader = nullptr, const sf::Vector2f light_position = sf::Vector2f() ,  const bool show_hitbox = false);
 
 private:
+    Inventory* inventory;
+
     bool attacking;
-    Sword sword;
+    Sword* sword;
 
 
     void initVariables();
     void initComponents();
     void initAnimations();
+    void initInventory();
 
 protected:
 

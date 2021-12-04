@@ -5,9 +5,18 @@
 #include "precompiler.h"
 #include "Item.h"
 
-Item::Item() {
+Item::Item(unsigned value) {
+
+    this->initVariables();
+
+    this->value = value;
+    this->type = ItemTypes::ITEM_DEFAULT;
 }
 
 Item::~Item() {
+
+}
+
+void Item::initVariables() {
 
 }

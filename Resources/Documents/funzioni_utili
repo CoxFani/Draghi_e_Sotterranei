@@ -156,3 +156,8 @@ unsigned int windowHeight = 400;
 #Controllo valore numerico della key della tastiera
 
 sf::Keyboard:: //inserire key desiderata e passarci sopra il cursore
+
+#Nascondere la console da Windows
+#include<Windows.h>
+    HWND hWnd = GetConsoleWindow();
+    ShowWindow(hWnd, SW_HIDE); // oppure SW_SHOW, nel caso si voglia vedere

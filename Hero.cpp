@@ -18,16 +18,22 @@ Hero::Hero(float x, float y, sf::Texture& texture_sheet) {
     this->setPosition(x, y);
     this->initAnimations();
 
-
+    this->initInventory();
 
 }
 
 Hero::~Hero() {
+    delete this->inventory;
+
+    delete this->sword;
 
 }
 
 void Hero::initVariables() {
+
     this->attacking = false;
+    this->sword = new Sword(20);
+    this->inventory = new Inventory(100);
 }
 
 void Hero::initComponents() {
@@ -45,6 +51,12 @@ void Hero::initAnimations() {
     this->animationComponent->addAnimation("HURT", 7.f, 0, 6, 2, 6, 48, 48);
     this->animationComponent->addAnimation("JUMP", 7.f, 0, 7, 5, 7, 48, 48);
     this->animationComponent->addAnimation("RUN", 6.f, 0, 8, 5, 8, 48, 48);
+}
+
+void Hero::initInventory() {
+
+
+
 }
 
 AttributeComponent *Hero::getAttributeComponent() {
@@ -122,7 +134,7 @@ void Hero::update(const float &dt, sf::Vector2f& mouse_pos_view) {
     this->updateAttack();
     this->updateAnimation(dt);
     this->hitboxComponent->update();
-    this->sword.update(mouse_pos_view, this->getCenter());
+    this->sword->update(mouse_pos_view, this->getCenter());
 }
 
 void Hero::render(sf::RenderTarget &target, sf::Shader* shader, const sf::Vector2f light_position, const bool show_hitbox) {
@@ -134,11 +146,11 @@ void Hero::render(sf::RenderTarget &target, sf::Shader* shader, const sf::Vector
 
         shader->setUniform("hasTexture", true);
         shader->setUniform("lightPos", light_position);
-        this->sword.render(target, shader);
+        this->sword->render(target, shader);
     }
     else{
         target.draw(this->sprite);
-        this->sword.render(target);
+        this->sword->render(target);
     }
 
 
@@ -146,6 +158,8 @@ void Hero::render(sf::RenderTarget &target, sf::Shader* shader, const sf::Vector
     if(show_hitbox)
         this->hitboxComponent->render(target);
 }
+
+
 
 
 
