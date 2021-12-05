@@ -18,7 +18,7 @@ Weapon::~Weapon() {
 }
 
 void Weapon::initVariables() {
-    this->range = 10;
+    this->range = 32;
 }
 
 const unsigned &Weapon::getRange() const {

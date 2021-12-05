@@ -32,12 +32,10 @@ void Sword::update(const sf::Vector2f &mouse_pos_view, const sf::Vector2f center
 }
 
 void Sword::render(sf::RenderTarget& target, sf::Shader* shader) {
-
     if(shader)
         target.draw(this->weapon_sprite, shader);
     else
         target.draw(this->weapon_sprite);
-
 }
 
 Sword *Sword::clone() {

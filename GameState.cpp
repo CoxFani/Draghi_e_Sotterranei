@@ -259,7 +259,7 @@ void GameState::updateCombat(const float &dt) {
         if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
             if (i->getGlobalBounds().contains(this->mousePosView)
                 && std::abs(this->hero->getPosition().x - i->getPosition().x) < this->hero->getWeapon()->getRange()
-                    ) {
+                ) {
                 std::cout << "Colpito|" << rand()%29 << "\n";
             }
         }
