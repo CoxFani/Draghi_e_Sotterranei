@@ -166,24 +166,26 @@ void GameState::updatePauseMenuButtons() {
 }
 
 void GameState::updateTileMap(const float &dt) {
-    this->tileMap->updateTileCollision(this->hero, dt);
     this->tileMap->updateWorldBoundsCollision(this->hero, dt);
+    this->tileMap->updateTileCollision(this->hero, dt);
     this->tileMap->updateTiles(this->hero, dt, *this->enemyStrategy);
-
-    for(auto *i : this->activeEnemies){
-        this->tileMap->updateTileCollision(i, dt);
-        this->tileMap->updateWorldBoundsCollision(i, dt);
-    }
 }
 
 void GameState::updateHero(const float &dt) {
 
 }
 
-void GameState::updateEnemies(const float &dt) {
-    for(auto *i : this->activeEnemies){
-        i->update(dt, this->mousePosView);
-        this->updateCombat(i, dt);
+void GameState::updateCombatAndEnemies(const float &dt) {
+    unsigned index = 0;
+    for(auto *enemy : this->activeEnemies){
+        enemy->update(dt, this->mousePosView);
+
+        this->tileMap->updateWorldBoundsCollision(enemy, dt);
+        this->tileMap->updateTileCollision(enemy, dt);
+
+        this->updateCombat(enemy, index, dt);
+
+        ++index;
     }
     //this->activeEnemies.push_back(new Mummy(200.f, 100.f, this->textures["MUMMY_SHEET"]));
 }
@@ -199,7 +201,7 @@ void GameState::update(const float& dt) {
         this->updateTileMap(dt);
         this->hero->update(dt, this->mousePosView);
         this->heroGUI->update(dt);
-        this->updateEnemies(dt);
+        this->updateCombatAndEnemies(dt);
     }
     else{
         this->pmenu->update(this->mousePosWindow);
@@ -223,8 +225,8 @@ void GameState::render(sf::RenderTarget* target) {
    false
    );
 
-    for(auto *i : this->activeEnemies){
-        i->render(this->renderTexture, &this->core_shader, this->hero->getCenter(), false);
+    for(auto *enemy : this->activeEnemies){
+        enemy->render(this->renderTexture, &this->core_shader, this->hero->getCenter(), false);
     }
 
     this->hero->render(this->renderTexture, &this->core_shader, this->hero->getCenter(), false);
@@ -248,10 +250,11 @@ void GameState::initEnemyStrategy() {
     this->enemyStrategy = new EnemyStrategy(this->activeEnemies, this->textures);
 }
 
-void GameState::updateCombat(Enemy* enemy, const float &dt) {
+void GameState::updateCombat(Enemy* enemy, const int index, const float &dt) {
     if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
         if (enemy->getGlobalBounds().contains(this->mousePosView) && enemy->getDistance(*this->hero) < 32.f) {
-            std::cout << "Colpito|" << rand()%29 << "\n";
+            enemy->loseHP(1);
+            std::cout << enemy->getAttributeComp()->hp << "\n";
         }
     }
 }

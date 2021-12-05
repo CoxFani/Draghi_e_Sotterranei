@@ -81,7 +81,3 @@ void Mummy::render(sf::RenderTarget &target, sf::Shader* shader, const sf::Vecto
     if(show_hitbox)
         this->hitboxComponent->render(target);
 }
-
-void Mummy::takeDamage(const int damage) {
-    this->attributeComponent->loseHP(damage);
-}
