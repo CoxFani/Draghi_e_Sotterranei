@@ -13,6 +13,8 @@ public:
     Mummy(float x, float y, sf::Texture& texture_sheet);
     virtual ~Mummy();
 
+    void takeDamage(const int damage);
+
     void updateAnimation(const float& dt) override;
     void update(const float &dt, sf::Vector2f& mouse_pos_view) override;
     void render(sf::RenderTarget &target, sf::Shader* shader, const sf::Vector2f light_position, const bool show_hitbox) override;

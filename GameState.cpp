@@ -19,7 +19,6 @@ GameState::GameState(StateData* state_data)
     this->initHeroGUI();
     this->initEnemyStrategy();
     this->initTileMap();
-
 }
 
 GameState::~GameState() {
@@ -32,7 +31,6 @@ GameState::~GameState() {
     for(size_t i = 0; i < this->activeEnemies.size(); i++){
         delete this->activeEnemies[i];
     }
-
 }
 
 void GameState::initView() {
@@ -76,7 +74,6 @@ void GameState::initTextures() {
     if (!this->textures["MUMMY_SHEET"].loadFromFile("../Resources/Images/Sprites/Enemies/Mummy/Mummy_animations.png")){
         throw "ERROR::GAME_STATE::COULD_NOT_LOAD_MUMMY_TEXTURE";
     }
-
 }
 
 
@@ -115,7 +112,6 @@ void GameState::updateView(const float &dt) {
             std::floor(this->hero->getPosition().x + (static_cast<float>(this->mousePosWindow.x) - static_cast<float>(this->stateData->gfxSettings->resolution.width / 2)) / 10.f),
             std::floor(this->hero->getPosition().y + (static_cast<float>(this->mousePosWindow.y) - static_cast<float>(this->stateData->gfxSettings->resolution.height / 2)) / 10.f)
             );
-
     if(this->tileMap->getMaxSizeF().x >= this->view.getSize().x) {
         if (this->view.getCenter().x - this->view.getSize().x / 2.f < 0.f) {
             this->view.setCenter(0.f + this->view.getSize().x / 2.f, this->view.getCenter().y);
@@ -132,7 +128,6 @@ void GameState::updateView(const float &dt) {
                                  this->tileMap->getMaxSizeF().y - this->view.getCenter().y);
         }
     }
-
     this->viewGridPosition.x = static_cast<int>(this->view.getCenter().x) / static_cast<int>(this->stateData->gridSize * 2);
     this->viewGridPosition.y = static_cast<int>(this->view.getCenter().y) / static_cast<int>(this->stateData->gridSize);
 }
@@ -171,7 +166,6 @@ void GameState::updatePauseMenuButtons() {
 }
 
 void GameState::updateTileMap(const float &dt) {
-
     this->tileMap->updateTileCollision(this->hero, dt);
     this->tileMap->updateWorldBoundsCollision(this->hero, dt);
     this->tileMap->updateTiles(this->hero, dt, *this->enemyStrategy);
@@ -187,6 +181,10 @@ void GameState::updateHero(const float &dt) {
 }
 
 void GameState::updateEnemies(const float &dt) {
+    for(auto *i : this->activeEnemies){
+        i->update(dt, this->mousePosView);
+        this->updateCombat(i, dt);
+    }
     //this->activeEnemies.push_back(new Mummy(200.f, 100.f, this->textures["MUMMY_SHEET"]));
 }
 
@@ -201,11 +199,7 @@ void GameState::update(const float& dt) {
         this->updateTileMap(dt);
         this->hero->update(dt, this->mousePosView);
         this->heroGUI->update(dt);
-
-        for(auto *i : this->activeEnemies){
-            i->update(dt, this->mousePosView);
-        }
-        this->updateCombat(dt);
+        this->updateEnemies(dt);
     }
     else{
         this->pmenu->update(this->mousePosWindow);
@@ -254,14 +248,10 @@ void GameState::initEnemyStrategy() {
     this->enemyStrategy = new EnemyStrategy(this->activeEnemies, this->textures);
 }
 
-void GameState::updateCombat(const float &dt) {
-    for (auto i : this->activeEnemies){
-        if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-            if (i->getGlobalBounds().contains(this->mousePosView)
-                && std::abs(this->hero->getPosition().x - i->getPosition().x) < this->hero->getWeapon()->getRange()
-                ) {
-                std::cout << "Colpito|" << rand()%29 << "\n";
-            }
+void GameState::updateCombat(Enemy* enemy, const float &dt) {
+    if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+        if (enemy->getGlobalBounds().contains(this->mousePosView) && enemy->getDistance(*this->hero) < 32.f) {
+            std::cout << "Colpito|" << rand()%29 << "\n";
         }
     }
 }
