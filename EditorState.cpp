@@ -91,7 +91,7 @@ void EditorState::initGui() {
 }
 
 void EditorState::initTileMap() {
-    this->tileMap = new TileMap(this->stateData->gridSize, 100, 100,"../Resources/Images/Tiles/TileSet.png"); //TODO cambiare file per texture selector
+    this->tileMap = new TileMap(this->stateData->gridSize, 100, 100,"../Resources/Images/Tiles/TileSet1.png"); //TODO cambiare file per texture selector
 }
 
 void EditorState::initView() {
