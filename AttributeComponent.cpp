@@ -87,3 +87,7 @@ void AttributeComponent::gainEXP(const int exp) {
     this->exp += exp;
     this->updateLevel();
 }
+
+const bool AttributeComponent::isDead() const {
+    return this->hp <= 0;
+}

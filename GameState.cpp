@@ -185,6 +185,13 @@ void GameState::updateCombatAndEnemies(const float &dt) {
 
         this->updateCombat(enemy, index, dt);
 
+        if(enemy->isDead()){
+            this->hero->gainEXP(enemy->getGainExp());
+
+            this->activeEnemies.erase(this->activeEnemies.begin() + index);
+            --index;
+        }
+
         ++index;
     }
     //this->activeEnemies.push_back(new Mummy(200.f, 100.f, this->textures["MUMMY_SHEET"]));
@@ -253,7 +260,7 @@ void GameState::initEnemyStrategy() {
 void GameState::updateCombat(Enemy* enemy, const int index, const float &dt) {
     if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
         if (enemy->getGlobalBounds().contains(this->mousePosView) && enemy->getDistance(*this->hero) < 32.f) {
-            enemy->loseHP(1);
+            enemy->loseHP(this->hero->getWeapon()->getDamageMin());
             std::cout << enemy->getAttributeComp()->hp << "\n";
         }
     }

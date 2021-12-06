@@ -19,8 +19,24 @@ Weapon::~Weapon() {
 
 void Weapon::initVariables() {
     this->range = 32;
+    this->damageMin = 1;
+    this->damageMax = 2;
 }
 
 const unsigned &Weapon::getRange() const {
     return this->range;
+}
+
+const unsigned &Weapon::getDamageMin() const {
+    return this->damageMin;
+}
+
+const unsigned &Weapon::getDamageMax() const {
+    return this->damageMax;
+}
+
+void Weapon::initCooldown() {
+    this->cooldown = 0.f;
+    this->cooldownMax = 10.f;
+    this->cooldownIteration = 1.f;
 }

@@ -19,18 +19,25 @@ public:
     virtual void update(const sf::Vector2f& mouse_pos_view, const sf::Vector2f center) = 0;
     virtual void render(sf::RenderTarget& target, sf::Shader* shader = nullptr) = 0;
 
+    const unsigned& getDamageMin() const;
+    const unsigned& getDamageMax() const;
     const unsigned& getRange() const;
 
 protected:
     sf::Texture weapon_texture;
     sf::Sprite weapon_sprite;
 
-    int damageMin;
-    int damageMax;
+    unsigned damageMin;
+    unsigned damageMax;
     unsigned range;
+
+    float cooldown;
+    float cooldownMax;
+    float cooldownIteration;
 
 private:
     void initVariables();
+    void initCooldown();
 
 };
 

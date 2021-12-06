@@ -6,7 +6,8 @@
 #include "Enemy.h"
 
 Enemy::Enemy() {
-
+    this->initVariables();
+    this->initAnimations();
 }
 
 Enemy::~Enemy() {
@@ -28,5 +29,21 @@ const AttributeComponent *Enemy::getAttributeComp() const {
     }
 }
 
+const bool Enemy::isDead() const {
+    if(this->attributeComponent){
+        return this->attributeComponent->isDead();
+    }
+    return false;
+}
 
+void Enemy::initVariables() {
+    this->gainExp = 10;
+}
 
+void Enemy::initAnimations() {
+
+}
+
+const unsigned &Enemy::getGainExp() const {
+    return this->gainExp;
+}

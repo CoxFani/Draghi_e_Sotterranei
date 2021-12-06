@@ -41,6 +41,7 @@ public:
 
     std::string debugPrint() const;
 
+    const bool isDead() const;
 };
 
 
