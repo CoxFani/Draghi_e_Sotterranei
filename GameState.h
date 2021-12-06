@@ -11,6 +11,7 @@
 #include "HeroGUI.h"
 #include "Sword.h"
 #include "Bow.h"
+#include "TextTagSystem.h"
 
 using namespace std;
 
@@ -48,6 +49,8 @@ private:
 
     TileMap* tileMap;
 
+    TextTagSystem *tts;
+
     std::vector<Enemy*> activeEnemies;
     EnemyStrategy *enemyStrategy;
 
@@ -60,6 +63,7 @@ private:
     void initHeroes();
     void initHeroGUI();
     void initTileMap();
+    void initSystems();
     void initDeferredRender();
     void initEnemyStrategy();
 

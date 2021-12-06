@@ -19,6 +19,7 @@ GameState::GameState(StateData* state_data)
     this->initHeroGUI();
     this->initEnemyStrategy();
     this->initTileMap();
+    this->initSystems();
 }
 
 GameState::~GameState() {
@@ -27,6 +28,7 @@ GameState::~GameState() {
     delete this->heroGUI;
     delete this->enemyStrategy;
     delete this->tileMap;
+    delete this->tts;
 
     for(size_t i = 0; i < this->activeEnemies.size(); i++){
         delete this->activeEnemies[i];
@@ -101,6 +103,11 @@ void GameState::initTileMap() {
     this->tileMap = new TileMap("../saves_file.txt");
 }
 
+void GameState::initSystems() {
+
+    this->tts = new TextTagSystem("../Fonts/DeterminationMonoWebRegular-Z5oq.ttf");
+}
+
 void GameState::initDeferredRender() {
     this->renderTexture.create(this->stateData->gfxSettings->resolution.width, this->stateData->gfxSettings->resolution.height);
     this->renderSprite.setTexture(this->renderTexture.getTexture());
@@ -151,8 +158,8 @@ void GameState::updateHeroInput(const float &dt) {
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_DOWN")))){
         this->hero->move(0.f, 1.f, dt);
-        if(this->getKeyTime())
-            this->hero->loseEXP(10);
+        this->tts->addTextTagString(DEFAULT_TAG, this->hero->getCenter().x, this->hero->getCenter().y, "test");
+
     }
 }
 
@@ -209,6 +216,8 @@ void GameState::update(const float& dt) {
         this->hero->update(dt, this->mousePosView);
         this->heroGUI->update(dt);
         this->updateCombatAndEnemies(dt);
+
+        this->tts->update(dt);
     }
     else{
         this->pmenu->update(this->mousePosWindow);
@@ -240,6 +249,8 @@ void GameState::render(sf::RenderTarget* target) {
 
     this->tileMap->renderDeferred(this->renderTexture, &this->core_shader, this->hero->getCenter());
 
+    this->tts->render(this->renderTexture);
+
     this->renderTexture.setView(this->renderTexture.getDefaultView());
     this->heroGUI->render(this->renderTexture);
 
@@ -268,5 +279,7 @@ void GameState::updateCombat(Enemy* enemy, const int index, const float &dt) {
         }
     }
 }
+
+
 
 
