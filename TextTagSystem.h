@@ -11,7 +11,7 @@ public:
     TextTagSystem();
     virtual ~TextTagSystem();
 
-    void addTextTag(TextTag* text_tag);
+    //void addTextTag(TextTag* text_tag);
     void removeTextTag();
 
     void update(const float &dt);

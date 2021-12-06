@@ -259,6 +259,7 @@ void GameState::initEnemyStrategy() {
 
 void GameState::updateCombat(Enemy* enemy, const int index, const float &dt) {
     if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+        this->hero->updateAttack();
         if(this->hero->getWeapon()->getAttackTimer()
         && enemy->getGlobalBounds().contains(this->mousePosView)
         && enemy->getDistance(*this->hero) < 32.f) {
@@ -267,7 +268,5 @@ void GameState::updateCombat(Enemy* enemy, const int index, const float &dt) {
         }
     }
 }
-
-
 
 

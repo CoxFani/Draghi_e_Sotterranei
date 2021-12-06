@@ -148,6 +148,11 @@ Weapon *Hero::getWeapon() const {
     return this->sword;
 }
 
+void Hero::updateAttack() {
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+        this->attacking = true;
+    }
+}
 
 
 
