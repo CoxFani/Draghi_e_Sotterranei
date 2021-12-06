@@ -21,6 +21,9 @@ void Weapon::initVariables() {
     this->range = 32;
     this->damageMin = 1;
     this->damageMax = 2;
+
+    this->attackTimer.restart();
+    this->attackTimerMax = 500;
 }
 
 const unsigned &Weapon::getRange() const {
@@ -35,8 +38,10 @@ const unsigned &Weapon::getDamageMax() const {
     return this->damageMax;
 }
 
-void Weapon::initCooldown() {
-    this->cooldown = 0.f;
-    this->cooldownMax = 10.f;
-    this->cooldownIteration = 1.f;
+const bool Weapon::getAttackTimer() {
+    if(this->attackTimer.getElapsedTime().asMilliseconds() >= this->attackTimerMax){
+        this->attackTimer.restart();
+        return true;
+    }
+    return false;
 }

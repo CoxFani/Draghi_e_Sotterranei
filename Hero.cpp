@@ -74,22 +74,11 @@ void Hero::gainHP(const int hp) {
 }
 
 void Hero::loseEXP(const int exp) {
-
     this->attributeComponent->loseEXP(exp);
 }
 
-
-
 void Hero::gainEXP(const int exp) {
-
     this->attributeComponent->gainEXP(exp);
-
-}
-
-void Hero::updateAttack() {
-    if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
-           this->attacking = true;
-    }
 }
 
 void Hero::updateAnimation(const float &dt) {
@@ -131,14 +120,12 @@ void Hero::updateAnimation(const float &dt) {
 
 void Hero::update(const float &dt, sf::Vector2f& mouse_pos_view) {
     this->movementComponent->update(dt);
-    this->updateAttack();
     this->updateAnimation(dt);
     this->hitboxComponent->update();
     this->sword->update(mouse_pos_view, this->getCenter());
 }
 
 void Hero::render(sf::RenderTarget &target, sf::Shader* shader, const sf::Vector2f light_position, const bool show_hitbox) {
-
     if(shader){
         shader->setUniform("hasTexture", true);
         shader->setUniform("lightPos", light_position);
@@ -153,13 +140,11 @@ void Hero::render(sf::RenderTarget &target, sf::Shader* shader, const sf::Vector
         this->sword->render(target);
     }
 
-
-
     if(show_hitbox)
         this->hitboxComponent->render(target);
 }
 
-const Weapon *Hero::getWeapon() const {
+Weapon *Hero::getWeapon() const {
     return this->sword;
 }
 

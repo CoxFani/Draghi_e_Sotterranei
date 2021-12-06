@@ -22,6 +22,7 @@ public:
     const unsigned& getDamageMin() const;
     const unsigned& getDamageMax() const;
     const unsigned& getRange() const;
+    const bool getAttackTimer();
 
 protected:
     sf::Texture weapon_texture;
@@ -31,13 +32,11 @@ protected:
     unsigned damageMax;
     unsigned range;
 
-    float cooldown;
-    float cooldownMax;
-    float cooldownIteration;
+    sf::Clock attackTimer;
+    sf::Int32 attackTimerMax;
 
 private:
     void initVariables();
-    void initCooldown();
 
 };
 
