@@ -12,8 +12,9 @@ public:
     TextTagSystem(std::string font_file);
     virtual ~TextTagSystem();
 
-    void addTextTagString(const unsigned tag_type, const float pos_x, const float pos_y, std::string str);
-    void removeTextTag();
+    void addTextTag(const unsigned tag_type, const float pos_x, const float pos_y, const std::string str);
+    void addTextTag(const unsigned tag_type, const float pos_x, const float pos_y, const int i);
+    void addTextTag(const unsigned tag_type, const float pos_x, const float pos_y, const float f);
 
     void update(const float &dt);
     void render(sf::RenderTarget &target);
@@ -32,7 +33,7 @@ private:
 
         ~TextTag();
 
-        const bool canBeRemoved() const;
+        const bool isExpired() const;
 
         void update(const float& dt);
         void render(sf::RenderTarget& target);

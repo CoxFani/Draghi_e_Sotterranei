@@ -158,8 +158,6 @@ void GameState::updateHeroInput(const float &dt) {
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_DOWN")))){
         this->hero->move(0.f, 1.f, dt);
-        this->tts->addTextTagString(DEFAULT_TAG, this->hero->getCenter().x, this->hero->getCenter().y, "test");
-
     }
 }
 
@@ -194,6 +192,7 @@ void GameState::updateCombatAndEnemies(const float &dt) {
 
         if(enemy->isDead()){
             this->hero->gainEXP(enemy->getGainExp());
+            this->tts->addTextTag(DEFAULT_TAG, this->hero->getCenter().x, this->hero->getCenter().y, static_cast<int>(enemy->getGainExp()));
 
             this->activeEnemies.erase(this->activeEnemies.begin() + index);
             --index;
@@ -274,8 +273,9 @@ void GameState::updateCombat(Enemy* enemy, const int index, const float &dt) {
         if(this->hero->getWeapon()->getAttackTimer()
         && enemy->getGlobalBounds().contains(this->mousePosView)
         && enemy->getDistance(*this->hero) < 32.f) {
-            enemy->loseHP(this->hero->getWeapon()->getDamageMin());
-            std::cout << enemy->getAttributeComp()->hp << "\n";
+            int dmg = static_cast<int>(this->hero->getWeapon()->getDamageMin());
+            enemy->loseHP(dmg);
+            this->tts->addTextTag(DEFAULT_TAG, this->hero->getCenter().x, this->hero->getCenter().y, dmg);
         }
     }
 }
