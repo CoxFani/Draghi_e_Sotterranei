@@ -34,23 +34,27 @@ void TextTagSystem::initFonts(std::string font_file) {
 }
 
 void TextTagSystem::initTagTemplates() {
-    this->tagTemplates[DEFAULT_TAG] = new TextTag(this->font, "lol", 0.f, 0.f, 0.f, -1.f, sf::Color::White, 20, 100.f, 150.f);
+    this->tagTemplates[DEFAULT_TAG] = new TextTag(this->font, "", 0.f, 0.f, 0.f, -1.f, sf::Color::White, 20, 50.f, 150.f);
+    this->tagTemplates[NEGATIVE_TAG] = new TextTag(this->font, "", 0.f, 0.f, 0.f, -1.f, sf::Color::Red, 20, 50.f, 200.f);
+    this->tagTemplates[EXPERIENCE_TAG] = new TextTag(this->font, "", 0.f, 0.f, 0.f, -1.f, sf::Color::Cyan, 25, 70.f, 150.f);
+
+
 }
 
 void TextTagSystem::addTextTag(const unsigned tag_type, const float pos_x, const float pos_y, const std::string str) {
-    this->tags.push_back(new TextTag(this->tagTemplates[DEFAULT_TAG], pos_x, pos_y, str));
+    this->tags.push_back(new TextTag(this->tagTemplates[tag_type], pos_x, pos_y, str));
 }
 
 void TextTagSystem::addTextTag(const unsigned tag_type, const float pos_x, const float pos_y, const int i) {
     std::stringstream  ss;
     ss << i;
-    this->tags.push_back(new TextTag(this->tagTemplates[DEFAULT_TAG], pos_x, pos_y, ss.str()));
+    this->tags.push_back(new TextTag(this->tagTemplates[tag_type], pos_x, pos_y, ss.str()));
 }
 
 void TextTagSystem::addTextTag(const unsigned tag_type, const float pos_x, const float pos_y, const float f) {
     std::stringstream  ss;
     ss << f;
-    this->tags.push_back(new TextTag(this->tagTemplates[DEFAULT_TAG], pos_x, pos_y, ss.str()));
+    this->tags.push_back(new TextTag(this->tagTemplates[tag_type], pos_x, pos_y, ss.str()));
 }
 
 void TextTagSystem::update(const float &dt) {
@@ -78,6 +82,15 @@ TextTagSystem::TextTag::TextTag(sf::Font &font, std::string text,
                                 unsigned int char_size,
                                 float lifetime, float speed) {
     this->text.setFont(font);
+    this->text.setPosition(pos_x, pos_y);
+    this->text.setFillColor(color);
+    this->text.setCharacterSize(char_size);
+    this->text.setString(text);
+
+    this->dirX = dir_x;
+    this->dirY = dir_y;
+    this->lifetime = lifetime;
+    this->speed = speed;
 }
 
 TextTagSystem::TextTag::TextTag(TextTagSystem::TextTag* tag, float pos_x, float pos_y, std::string str) {

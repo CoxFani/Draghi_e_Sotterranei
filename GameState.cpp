@@ -114,6 +114,11 @@ void GameState::initDeferredRender() {
     this->renderSprite.setTextureRect(sf::IntRect(0, 0, this->stateData->gfxSettings->resolution.width, this->stateData->gfxSettings->resolution.height));
 }
 
+void GameState::initEnemyStrategy() {
+    this->enemyStrategy = new EnemyStrategy(this->activeEnemies, this->textures);
+}
+
+
 void GameState::updateView(const float &dt) {
     this->view.setCenter(
             std::floor(this->hero->getPosition().x + (static_cast<float>(this->mousePosWindow.x) - static_cast<float>(this->stateData->gfxSettings->resolution.width / 2)) / 10.f),
@@ -192,7 +197,7 @@ void GameState::updateCombatAndEnemies(const float &dt) {
 
         if(enemy->isDead()){
             this->hero->gainEXP(enemy->getGainExp());
-            this->tts->addTextTag(DEFAULT_TAG, this->hero->getCenter().x, this->hero->getCenter().y, static_cast<int>(enemy->getGainExp()));
+            this->tts->addTextTag(EXPERIENCE_TAG, this->hero->getCenter().x, this->hero->getCenter().y, static_cast<int>(enemy->getGainExp()));
 
             this->activeEnemies.erase(this->activeEnemies.begin() + index);
             --index;
@@ -201,6 +206,19 @@ void GameState::updateCombatAndEnemies(const float &dt) {
         ++index;
     }
     //this->activeEnemies.push_back(new Mummy(200.f, 100.f, this->textures["MUMMY_SHEET"]));
+}
+
+void GameState::updateCombat(Enemy* enemy, const int index, const float &dt) {
+    if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+        this->hero->updateAttack();
+        if(this->hero->getWeapon()->getAttackTimer()
+           && enemy->getGlobalBounds().contains(this->mousePosView)
+           && enemy->getDistance(*this->hero) < this->hero->getWeapon()->getRange()) {
+            int dmg = static_cast<int>(this->hero->getWeapon()->getDamage());
+            enemy->loseHP(dmg);
+            this->tts->addTextTag(NEGATIVE_TAG, enemy->getPosition().x, enemy->getPosition().y, dmg);
+        }
+    }
 }
 
 void GameState::update(const float& dt) {
@@ -263,22 +281,11 @@ void GameState::render(sf::RenderTarget* target) {
     target->draw(this->renderSprite);
 }
 
-void GameState::initEnemyStrategy() {
-    this->enemyStrategy = new EnemyStrategy(this->activeEnemies, this->textures);
-}
 
-void GameState::updateCombat(Enemy* enemy, const int index, const float &dt) {
-    if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-        this->hero->updateAttack();
-        if(this->hero->getWeapon()->getAttackTimer()
-        && enemy->getGlobalBounds().contains(this->mousePosView)
-        && enemy->getDistance(*this->hero) < 32.f) {
-            int dmg = static_cast<int>(this->hero->getWeapon()->getDamageMin());
-            enemy->loseHP(dmg);
-            this->tts->addTextTag(DEFAULT_TAG, this->hero->getCenter().x, this->hero->getCenter().y, dmg);
-        }
-    }
-}
+
+
+
+
 
 
 

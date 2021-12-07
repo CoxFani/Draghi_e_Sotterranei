@@ -10,13 +10,14 @@ enum ItemRarities {COMMON = 0, UNCOMMON, RARE, EPIC, LEGENDARY, ARTIFACT};
 
 class Item {
 public:
-    Item(unsigned value);
+    Item(unsigned level, unsigned value);
     virtual ~Item();
 
     virtual Item* clone() = 0;
 
 protected:
     short unsigned type;
+    unsigned level;
     unsigned value;
 
 private:

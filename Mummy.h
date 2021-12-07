@@ -20,6 +20,9 @@ public:
 private:
     void initVariables() override;
     void initAnimations() override;
+    void initGUI();
+
+    sf::RectangleShape hpBar;
 
 };
 

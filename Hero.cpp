@@ -32,7 +32,8 @@ Hero::~Hero() {
 void Hero::initVariables() {
 
     this->attacking = false;
-    this->sword = new Sword(20, "../Resources/Images/Sprites/Weapons/weapon.png");
+    this->sword = new Sword(1, 2, 5, 65, 20, "../Resources/Images/Sprites/Weapons/weapon.png");
+    this->sword->generate(1, 3);
     this->inventory = new Inventory(100);
 }
 

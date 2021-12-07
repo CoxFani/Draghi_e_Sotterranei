@@ -5,8 +5,10 @@
 #include "precompiler.h"
 #include "Sword.h"
 
-Sword::Sword(unsigned value, std::string texture_file)
-:MeleeWeapon(value, texture_file){
+Sword::Sword(unsigned level, unsigned damageMin, unsigned damageMax, unsigned range,
+             unsigned value,
+             std::string texture_file)
+:MeleeWeapon(level, damageMin, damageMax, range, value, texture_file){
     //visualizzazione mirino
     this->weapon_sprite.setOrigin(
             this->weapon_sprite.getGlobalBounds().width / 2.f,

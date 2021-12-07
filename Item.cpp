@@ -5,10 +5,11 @@
 #include "precompiler.h"
 #include "Item.h"
 
-Item::Item(unsigned value) {
+Item::Item(unsigned level, unsigned value) {
 
     this->initVariables();
 
+    this->level = level;
     this->value = value;
     this->type = ItemTypes::ITEM_DEFAULT;
 }
