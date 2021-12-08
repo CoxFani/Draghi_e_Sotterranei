@@ -226,11 +226,3 @@ void EditorState::render(sf::RenderTarget* target) {
         this->pmenu->render(*target);
     }
 }
-
-
-
-
-
-
-
-

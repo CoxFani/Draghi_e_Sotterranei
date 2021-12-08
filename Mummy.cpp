@@ -15,6 +15,8 @@ Mummy::Mummy(float x, float y, sf::Texture &texture_sheet)
     this->createAnimationComponent(texture_sheet);
     this->createAttributeComponent(1);
 
+    this->generateAttributes(this->attributeComponent->level);
+
     this->setPosition(x, y);
     this->initAnimations();
 }
@@ -66,6 +68,13 @@ void Mummy::updateAnimation(const float &dt) {
     else if(this->movementComponent->getState(MOVING_DOWN)){
         this->animationComponent->play("WALK", dt, this->movementComponent->getVelocity().y, this->movementComponent->getMaxVelocity());
     }
+//TODO animazioni di morte e danno
+    if(isDead()){
+        this->animationComponent->play("DEATH", dt, true);
+
+    }
+
+
 }
 
 void Mummy::update(const float &dt, sf::Vector2f& mouse_pos_view) {
@@ -85,12 +94,12 @@ void Mummy::render(sf::RenderTarget &target, sf::Shader* shader, const sf::Vecto
         shader->setUniform("lightPos", light_position);
 
         target.draw(this->sprite, shader);
+        target.draw(this->hpBar, shader);
     }
     else{
         target.draw(this->sprite);
+        target.draw(this->hpBar);
     }
-
-    target.draw(this->hpBar);
 
 
     if(show_hitbox)

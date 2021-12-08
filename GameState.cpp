@@ -197,8 +197,9 @@ void GameState::updateCombatAndEnemies(const float &dt) {
 
         if(enemy->isDead()){
             this->hero->gainEXP(enemy->getGainExp());
-            this->tts->addTextTag(EXPERIENCE_TAG, this->hero->getCenter().x, this->hero->getCenter().y, static_cast<int>(enemy->getGainExp()));
+            this->tts->addTextTag(EXPERIENCE_TAG, this->hero->getCenter().x, this->hero->getCenter().y, static_cast<int>(enemy->getGainExp()), "+", "EXP");
 
+            //TODO ritardare la cancellazione del nemico poter inserire animzaione di morte
             this->activeEnemies.erase(this->activeEnemies.begin() + index);
             --index;
         }
@@ -216,7 +217,7 @@ void GameState::updateCombat(Enemy* enemy, const int index, const float &dt) {
            && enemy->getDistance(*this->hero) < this->hero->getWeapon()->getRange()) {
             int dmg = static_cast<int>(this->hero->getWeapon()->getDamage());
             enemy->loseHP(dmg);
-            this->tts->addTextTag(NEGATIVE_TAG, enemy->getPosition().x, enemy->getPosition().y, dmg);
+            this->tts->addTextTag(NEGATIVE_TAG, enemy->getPosition().x, enemy->getPosition().y, dmg, "-", "HP");
         }
     }
 }
