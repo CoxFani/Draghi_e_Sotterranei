@@ -14,10 +14,11 @@ EnemyStrategy::~EnemyStrategy() {
 
 }
 
-void EnemyStrategy::createEnemy(const short type, const float xPos, const float yPos) {
+void EnemyStrategy::createEnemy(const short type, const float xPos, const float yPos, EnemySpawnerTile& enemy_spawner_tile) {
     switch(type){
         case EnemyTypes::MUMMY:
-            this->activeEnemies.push_back(new Mummy(xPos, yPos, this->textures["MUMMY_SHEET"]));
+            this->activeEnemies.push_back(new Mummy(xPos, yPos, this->textures["MUMMY_SHEET"], enemy_spawner_tile));
+            enemy_spawner_tile.increaseEnemyCounter();
             break;
         default:
             std::cout << "ERROR::ENEMYSYSTEM::CREATENEMY::TYPE DOES NOT EXIST" << "\n";
@@ -31,4 +32,8 @@ void EnemyStrategy::update(const float &dt) {
 
 void EnemyStrategy::render(sf::RenderTarget *target) {
 
+}
+
+void EnemyStrategy::removeEnemy(const int index) {
+    this->activeEnemies[index]->getEnemySpawnerTile().decreaseEnemyCounter();
 }

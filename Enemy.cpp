@@ -53,4 +53,8 @@ const unsigned &Enemy::getGainExp() const {
     return this->gainExp;
 }
 
+EnemySpawnerTile &Enemy::getEnemySpawnerTile() {
+    return this->enemySpawnerTile;
+}
+
 

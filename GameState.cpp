@@ -200,6 +200,7 @@ void GameState::updateCombatAndEnemies(const float &dt) {
             this->tts->addTextTag(EXPERIENCE_TAG, this->hero->getCenter().x, this->hero->getCenter().y, static_cast<int>(enemy->getGainExp()), "+", "EXP");
 
             //TODO ritardare la cancellazione del nemico poter inserire animzaione di morte
+            delete this->activeEnemies[index]; //sono le 11:23
             this->activeEnemies.erase(this->activeEnemies.begin() + index);
             --index;
         }

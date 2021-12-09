@@ -438,7 +438,7 @@ void TileMap::updateTiles(GameCharacter *gameCharacter, const float &dt,
                 if(this->map[x][y][this->layer][k]->getType() == TileTypes::ENEMYSPAWNER){
                     EnemySpawnerTile* es = dynamic_cast<EnemySpawnerTile*>(this->map[x][y][this->layer][k]);
                     if(!es->getSpawned()) {
-                        enemyStrategy.createEnemy(MUMMY, x*this->gridSizeF, y*gridSizeF);
+                        enemyStrategy.createEnemy(MUMMY, x*this->gridSizeF, y*gridSizeF, es);
                         es->setSpawn(true);
                     }
                 }

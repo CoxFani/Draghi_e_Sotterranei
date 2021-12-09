@@ -14,6 +14,7 @@ public:
     virtual ~Enemy();
 
     const unsigned& getGainExp() const;
+    EnemySpawnerTile& getEnemySpawnerTile();
 
     virtual void generateAttributes(const unsigned& level);
 
