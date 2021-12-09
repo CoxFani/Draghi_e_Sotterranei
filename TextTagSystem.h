@@ -31,7 +31,7 @@ private:
 
         TextTag(TextTag* tag, float pos_x, float pos_y, std::string str);
 
-        ~TextTag();
+        virtual ~TextTag();
 
         const bool isExpired() const;
 

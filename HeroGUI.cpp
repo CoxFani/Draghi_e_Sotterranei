@@ -13,13 +13,18 @@ HeroGUI::HeroGUI(Hero* hero, sf::VideoMode& vm)
     this->initLevelBar();
     this->initEXPBar();
     this->initHPBar();
+    this->initHeroTabs(vm, font, *hero);
+
 }
 
 HeroGUI::~HeroGUI() {
 
     delete this->hpBar;
     delete this->expBar;
+    delete this->heroTabs;
 }
+
+
 
 void HeroGUI::initFont() {
     this->font.loadFromFile("../Fonts/DeterminationMonoWebRegular-Z5oq.ttf");
@@ -34,7 +39,6 @@ void HeroGUI::initLevelBar() {
     this->levelBarBack.setSize(sf::Vector2f(width, height));
     this->levelBarBack.setFillColor(sf::Color(50, 50, 50, 200));
     this->levelBarBack.setPosition(x, y);
-
     this->levelBarText.setFont(this->font);
     this->levelBarText.setCharacterSize(gui::calcCharSize(this->vm, 75));
     this->levelBarText.setPosition(
@@ -63,6 +67,11 @@ void HeroGUI::initHPBar() {
                                        &this->font);
 }
 
+void HeroGUI::initHeroTabs(sf::VideoMode& vm, sf::Font &font, Hero& hero) {
+
+    this->heroTabs = new HeroTabs(vm, font, hero);
+}
+
 void HeroGUI::updateLevelBar() {
     this->levelBarString = std::to_string(this->hero->getAttributeComponent()->level);
     this->levelBarText.setString(this->levelBarString);
@@ -79,11 +88,13 @@ void HeroGUI::updateHPBar() {
     this->hpBar->update(this->hero->getAttributeComponent()->hp);
 }
 
+
 void HeroGUI::update(const float &dt) {
     this->updateLevelBar();
     this->updateEXPBar();
     this->updateHPBar();
 }
+
 
 void HeroGUI::renderLevelBar(sf::RenderTarget &target) {
     target.draw(this->levelBarBack);
@@ -101,21 +112,13 @@ void HeroGUI::renderHPBar(sf::RenderTarget &target) {
     this->hpBar->render(target);
 }
 
+
+
 void HeroGUI::render(sf::RenderTarget &target) {
     this->renderLevelBar(target);
     this->renderEXPBar(target);
     this->renderHPBar(target);
+
 }
-
-
-
-
-
-
-
-
-
-
-
 
 

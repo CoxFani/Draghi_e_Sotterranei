@@ -5,8 +5,7 @@
 #ifndef DRAGHI_E_SOTTERRANEI_HEROGUI_H
 #define DRAGHI_E_SOTTERRANEI_HEROGUI_H
 
-#include "Hero.h"
-#include "Gui.h"
+#include "HeroTabs.h"
 
 class Hero;
 
@@ -19,6 +18,8 @@ public:
     void updateEXPBar();
     void updateHPBar();
     void update(const float& dt);
+
+
 
     void renderLevelBar(sf::RenderTarget &target);
     void renderEXPBar(sf::RenderTarget &target);
@@ -44,9 +45,14 @@ private:
     sf::Text levelBarText;
     sf::RectangleShape levelBarBack;
 
+    HeroTabs* heroTabs;
+
+
+
     void initFont();
     void initHPBar();
     void initEXPBar();
+    void initHeroTabs(sf::VideoMode& vm, sf::Font &font, Hero& hero);
     void initLevelBar();
 
 };
