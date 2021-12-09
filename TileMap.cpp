@@ -402,7 +402,6 @@ void TileMap::updateTiles(GameCharacter *gameCharacter, const float &dt,
                           EnemyStrategy &enemyStrategy) {
 
     //Tiles
-
     this->layer = 0;
 
     this->fromX = gameCharacter->getGridPosition(this->gridSizeI).x - 20;
@@ -428,8 +427,8 @@ void TileMap::updateTiles(GameCharacter *gameCharacter, const float &dt,
         this->toY = 0;
     else if(this->toY > this->maxSizeWorldGrid.y)
         this->toY = this->maxSizeWorldGrid.y;
-    //Collisioni
 
+    //Collisioni
     for(int x = this->fromX; x < this->toX; x++){
         for(int y = this->fromY; y < this->toY; y++) {
             for (int k = 0; k < this->map[x][y][this->layer].size(); k++) {

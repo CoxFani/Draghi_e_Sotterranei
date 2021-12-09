@@ -5,7 +5,7 @@
 #include "precompiler.h"
 #include "Enemy.h"
 
-Enemy::Enemy() {
+Enemy::Enemy(EnemySpawnerTile& enemy_spawner_tile) : enemySpawnerTile(enemy_spawner_tile) {
     this->initVariables();
     this->initAnimations();
 }

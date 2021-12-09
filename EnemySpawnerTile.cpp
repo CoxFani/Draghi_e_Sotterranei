@@ -11,6 +11,7 @@ EnemySpawnerTile::EnemySpawnerTile(int grid_x, int grid_y, float gridSizeF,
 
     this->enemyType = enemy_type;
     this->enemyAmount = enemy_amount;
+    this->enemyCounter= 0;
     this->enemyTimeToSpawn = enemy_time_to_spawn;
     this->enemyMaxDistance = enemy_max_distance;
     this->spawned = false;
@@ -64,6 +65,28 @@ void EnemySpawnerTile::render(sf::RenderTarget &target, sf::Shader* shader, cons
     }
     else
         target.draw(this->shape);}
+
+const int &EnemySpawnerTile::getEnemyCounter() const {
+    return this->enemyCounter;
+}
+
+const bool EnemySpawnerTile::canSpawn() {
+    return 0;
+}
+
+void EnemySpawnerTile::increaseEnemyCounter() {
+    if(this->enemyCounter > this->enemyAmount)
+        this->enemyCounter = this->enemyAmount;
+    else
+        ++this->enemyCounter;
+}
+
+void EnemySpawnerTile::decreaseEnemyCounter() {
+    if(this->enemyCounter < 0)
+        this->enemyCounter = 0;
+    else
+        --this->enemyCounter;
+}
 
 
 

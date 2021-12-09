@@ -5,13 +5,12 @@
 #ifndef DRAGHI_E_SOTTERRANEI_ENEMY_H
 #define DRAGHI_E_SOTTERRANEI_ENEMY_H
 
-
 #include "GameCharacter.h"
 #include "EnemySpawnerTile.h"
 
 class Enemy : public GameCharacter {
 public:
-    Enemy();
+    Enemy(EnemySpawnerTile& enemy_spawner_tile);
     virtual ~Enemy();
 
     const unsigned& getGainExp() const;
@@ -28,8 +27,7 @@ public:
     virtual void render(sf::RenderTarget &target, sf::Shader* shader = nullptr, const sf::Vector2f light_position = sf::Vector2f(), const bool show_hitbox = false) = 0;
 
 private:
-    //EnemySpawnerTile& enemySpawner;
-
+    EnemySpawnerTile& enemySpawnerTile;
     unsigned gainExp;
 
     virtual void initVariables() = 0; //da tenere puramente virtuale?

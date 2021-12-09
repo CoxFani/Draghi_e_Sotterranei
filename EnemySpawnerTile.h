@@ -17,17 +17,23 @@ public:
 
     virtual const std::string getAsString() const override;
     const bool& getSpawned() const;
+    const int& getEnemyCounter() const;
 
     void setSpawn(const bool spawned);
+
+    const bool canSpawn(); //da definire
+    void increaseEnemyCounter();
+    void decreaseEnemyCounter();
+
 
     void update() override;
     void render(sf::RenderTarget &target, sf::Shader* shader = nullptr, const sf::Vector2f hero_position = sf::Vector2f()) override;
 
 private:
-
     float gridSize;
     int enemyType;
     int enemyAmount;
+    int enemyCounter;
     int enemyTimeToSpawn;
     float enemyMaxDistance;
     bool spawned;

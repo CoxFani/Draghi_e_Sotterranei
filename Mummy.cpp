@@ -4,8 +4,8 @@
 #include "precompiler.h"
 #include "Mummy.h"
 
-Mummy::Mummy(float x, float y, sf::Texture &texture_sheet)
-      : Enemy() {
+Mummy::Mummy(float x, float y, sf::Texture &texture_sheet, EnemySpawnerTile& enemy_spawner_tile)
+      : Enemy(enemy_spawner_tile) {
 
     this->initVariables();
     initGUI();

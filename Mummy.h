@@ -10,7 +10,7 @@
 class Mummy:
         public Enemy{
 public:
-    Mummy(float x, float y, sf::Texture& texture_sheet);
+    Mummy(float x, float y, sf::Texture& texture_sheet, EnemySpawnerTile& enemy_spawner_tile);
     virtual ~Mummy();
 
     void updateAnimation(const float& dt) override;
