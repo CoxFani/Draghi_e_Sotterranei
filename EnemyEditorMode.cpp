@@ -38,12 +38,11 @@ void EnemyEditorMode::initGui() {
 void EnemyEditorMode::initVariables() {
     type = 0;
     amount = 1;
-    timeToSpawn = 60;
+    timeToSpawn = 60; //TODO cambiare tempo di spawn (o impostare tempo in secondi)
     maxDistance = 100.f;
 }
 
 void EnemyEditorMode::updateInput(const float &dt) {
-
     //Aggiunge Tile
     if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->getKeyTime()){
         if(!this->sidebar.getGlobalBounds().contains(sf::Vector2f(*this->editorStateData->mousePosWindow)))

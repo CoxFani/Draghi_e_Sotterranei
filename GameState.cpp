@@ -199,23 +199,19 @@ void GameState::updateCombatAndEnemies(const float &dt) {
             this->hero->gainEXP(enemy->getGainExp());
             this->tts->addTextTag(EXPERIENCE_TAG, this->hero->getCenter().x, this->hero->getCenter().y, static_cast<int>(enemy->getGainExp()), "+", "EXP");
 
-            //TODO ritardare la cancellazione del nemico poter inserire animzaione di morte
-            delete this->activeEnemies[index]; //sono le 11:23
-            this->activeEnemies.erase(this->activeEnemies.begin() + index);
+            this->enemyStrategy->removeEnemy(index);
             --index;
         }
-
         ++index;
     }
     //this->activeEnemies.push_back(new Mummy(200.f, 100.f, this->textures["MUMMY_SHEET"]));
 }
 
 void GameState::updateCombat(Enemy* enemy, const int index, const float &dt) {
-    if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+    if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && enemy->getGlobalBounds().contains(this->mousePosView)
+       && enemy->getDistance(*this->hero) < this->hero->getWeapon()->getRange()) {
         this->hero->updateAttack();
-        if(this->hero->getWeapon()->getAttackTimer()
-           && enemy->getGlobalBounds().contains(this->mousePosView)
-           && enemy->getDistance(*this->hero) < this->hero->getWeapon()->getRange()) {
+        if(this->hero->getWeapon()->getAttackTimer()) {
             int dmg = static_cast<int>(this->hero->getWeapon()->getDamage());
             enemy->loseHP(dmg);
             this->tts->addTextTag(NEGATIVE_TAG, enemy->getPosition().x, enemy->getPosition().y, dmg, "-", "HP");

@@ -437,9 +437,12 @@ void TileMap::updateTiles(GameCharacter *gameCharacter, const float &dt,
 
                 if(this->map[x][y][this->layer][k]->getType() == TileTypes::ENEMYSPAWNER){
                     EnemySpawnerTile* es = dynamic_cast<EnemySpawnerTile*>(this->map[x][y][this->layer][k]);
-                    if(!es->getSpawned()) {
-                        enemyStrategy.createEnemy(MUMMY, x*this->gridSizeF, y*gridSizeF, es);
-                        es->setSpawn(true);
+                    if(es) {
+                        if (!es->getSpawned() && es->getEnemyCounter() < es->getEnemyAmount()) {
+                            enemyStrategy.createEnemy(MUMMY, x * this->gridSizeF, y * gridSizeF, *es);
+                            es->setSpawn(true);
+                            std::cout << "Spawned!" << "\n";
+                        }
                     }
                 }
             }
@@ -507,7 +510,7 @@ void TileMap::render(
                     }
                     if(this->map[x][y][this->layer][k]->getType() == TileTypes::ENEMYSPAWNER){
                         this->collisionBox.setPosition(this->map[x][y][this->layer][k]->getPosition());
-                        //target.draw(this->collisionBox); //TODO commentare per visualizzare enemySpawner
+                        target.draw(this->collisionBox); //TODO commentare per visualizzare o no enemySpawner
                     }
                 }
             }

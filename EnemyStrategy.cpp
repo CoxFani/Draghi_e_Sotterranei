@@ -36,4 +36,7 @@ void EnemyStrategy::render(sf::RenderTarget *target) {
 
 void EnemyStrategy::removeEnemy(const int index) {
     this->activeEnemies[index]->getEnemySpawnerTile().decreaseEnemyCounter();
+    //TODO ritardare la cancellazione del nemico poter inserire animzaione di morte
+    delete this->activeEnemies[index]; //sono le 11:23
+    this->activeEnemies.erase(this->activeEnemies.begin() + index);
 }

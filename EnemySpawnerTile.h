@@ -12,16 +12,17 @@ class EnemySpawnerTile:
 public:
     EnemySpawnerTile(int grid_x, int grid_y, float gridSizeF,
                      const sf::Texture& texture, const sf::IntRect& texture_rect,
-                     int enemy_type, int enemy_amount, int enemy_time_to_spawn, float enemy_max_distance);
+                     int enemy_type, int enemy_amount, sf::Int32 enemy_time_to_spawn, float enemy_max_distance);
     virtual ~EnemySpawnerTile();
 
     virtual const std::string getAsString() const override;
     const bool& getSpawned() const;
     const int& getEnemyCounter() const;
+    const int& getEnemyAmount() const;
 
     void setSpawn(const bool spawned);
 
-    const bool canSpawn(); //da definire
+    const bool canSpawn() const;
     void increaseEnemyCounter();
     void decreaseEnemyCounter();
 
@@ -34,7 +35,8 @@ private:
     int enemyType;
     int enemyAmount;
     int enemyCounter;
-    int enemyTimeToSpawn;
+    sf::Clock enemySpawnTimer;
+    sf::Int32 enemyTimeToSpawn;
     float enemyMaxDistance;
     bool spawned;
 
