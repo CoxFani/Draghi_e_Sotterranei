@@ -14,7 +14,7 @@ public:
     virtual ~CharacterTab();
 
     void update() override;
-    void render(sf::RenderTarget* target);
+    void render(sf::RenderTarget& target);
 
 private:
 

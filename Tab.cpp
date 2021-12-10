@@ -5,11 +5,35 @@
 #include "precompiler.h"
 #include "Tab.h"
 
-Tab::Tab(sf::VideoMode& vm, sf::Font& font, Hero& hero)
-: vm(vm), font(font), hero(hero) {
+Tab::Tab(sf::VideoMode& vm, sf::Font& font, Hero& hero, bool hidden)
+: vm(vm), font(font), hero(hero), hidden(hidden) {
 
 }
 
 Tab::~Tab() {
 
 }
+
+const bool &Tab::getHidden() const {
+
+    return this->hidden;
+}
+
+const bool &Tab::getOpen() const {
+
+    return this->hidden;
+}
+
+void Tab::hide() {
+
+    this->hidden = true;
+}
+
+void Tab::show() {
+
+    this->hidden = false;
+}
+
+
+
+

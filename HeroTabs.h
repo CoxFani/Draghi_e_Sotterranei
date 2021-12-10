@@ -13,8 +13,11 @@ public:
     HeroTabs(sf::VideoMode& vm,sf::Font& font, Hero& hero);
     virtual ~HeroTabs();
 
+    const bool getKeyTime();
+    const bool tabsOpen();
+
     void update();
-    void render(sf::RenderTarget* target);
+    void render(sf::RenderTarget& target);
 
 
 private:
@@ -24,6 +27,10 @@ private:
     sf::VideoMode& vm;
     sf::Font& font;
     Hero& hero;
+    sf::Clock keyTimer;
+    float keyTimeMax;
+
+    void initKeyTime();
 
 };
 

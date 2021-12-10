@@ -14,9 +14,12 @@ public:
     HeroGUI(Hero* hero, sf::VideoMode& vm);
     virtual ~HeroGUI();
 
+    const bool getsTabsOpen() const;
+
     void updateLevelBar();
     void updateEXPBar();
     void updateHPBar();
+    void updateHeroTabs();
     void update(const float& dt);
 
 
@@ -24,6 +27,7 @@ public:
     void renderLevelBar(sf::RenderTarget &target);
     void renderEXPBar(sf::RenderTarget &target);
     void renderHPBar(sf::RenderTarget &target);
+    void renderHeroTabs(sf::RenderTarget &target);
     void render(sf::RenderTarget& target);
 
 private:

@@ -72,6 +72,10 @@ void HeroGUI::initHeroTabs(sf::VideoMode& vm, sf::Font &font, Hero& hero) {
     this->heroTabs = new HeroTabs(vm, font, hero);
 }
 
+const bool HeroGUI::getsTabsOpen() const {
+    return this->heroTabs->tabsOpen();
+}
+
 void HeroGUI::updateLevelBar() {
     this->levelBarString = std::to_string(this->hero->getAttributeComponent()->level);
     this->levelBarText.setString(this->levelBarString);
@@ -88,11 +92,16 @@ void HeroGUI::updateHPBar() {
     this->hpBar->update(this->hero->getAttributeComponent()->hp);
 }
 
+void HeroGUI::updateHeroTabs() {
+
+    this->heroTabs->update();
+}
 
 void HeroGUI::update(const float &dt) {
     this->updateLevelBar();
     this->updateEXPBar();
     this->updateHPBar();
+    this->updateHeroTabs();
 }
 
 
@@ -112,13 +121,15 @@ void HeroGUI::renderHPBar(sf::RenderTarget &target) {
     this->hpBar->render(target);
 }
 
+void HeroGUI::renderHeroTabs(sf::RenderTarget &target) {
 
+    this->heroTabs->render(target);
+}
 
 void HeroGUI::render(sf::RenderTarget &target) {
     this->renderLevelBar(target);
     this->renderEXPBar(target);
     this->renderHPBar(target);
+    this->renderHeroTabs(target);
 
 }
-
-
