@@ -15,6 +15,7 @@ public:
     virtual ~HeroGUI();
 
     const bool getsTabsOpen() const;
+    void toggleCharacterTab();
 
     void updateLevelBar();
     void updateEXPBar();
@@ -50,8 +51,6 @@ private:
     sf::RectangleShape levelBarBack;
 
     HeroTabs* heroTabs;
-
-
 
     void initFont();
     void initHPBar();

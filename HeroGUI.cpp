@@ -14,11 +14,9 @@ HeroGUI::HeroGUI(Hero* hero, sf::VideoMode& vm)
     this->initEXPBar();
     this->initHPBar();
     this->initHeroTabs(vm, font, *hero);
-
 }
 
 HeroGUI::~HeroGUI() {
-
     delete this->hpBar;
     delete this->expBar;
     delete this->heroTabs;
@@ -48,18 +46,14 @@ void HeroGUI::initLevelBar() {
 }
 
 void HeroGUI::initEXPBar() {
-
     this->expBar = new gui::ProgressBar(1.56f, 6.94, 15.6f, 2.77f,
                                        this->hero->getAttributeComponent()->expNext,
                                         sf::Color(20, 20, 250, 200),
                                        this->vm, 100,
                                        &this->font);
-
-
 }
 
 void HeroGUI::initHPBar() {
-
     this->hpBar = new gui::ProgressBar(1.56f, 12.5f, 15.6f, 4.16f,
                                        this->hero->getAttributeComponent()->hpMax,
                                        sf::Color(250, 20, 20, 200),
@@ -68,7 +62,6 @@ void HeroGUI::initHPBar() {
 }
 
 void HeroGUI::initHeroTabs(sf::VideoMode& vm, sf::Font &font, Hero& hero) {
-
     this->heroTabs = new HeroTabs(vm, font, hero);
 }
 
@@ -82,18 +75,14 @@ void HeroGUI::updateLevelBar() {
 }
 
 void HeroGUI::updateEXPBar() {
-
     this->expBar->update(this->hero->getAttributeComponent()->exp);
-
 }
 
 void HeroGUI::updateHPBar() {
-
     this->hpBar->update(this->hero->getAttributeComponent()->hp);
 }
 
 void HeroGUI::updateHeroTabs() {
-
     this->heroTabs->update();
 }
 
@@ -111,18 +100,14 @@ void HeroGUI::renderLevelBar(sf::RenderTarget &target) {
 }
 
 void HeroGUI::renderEXPBar(sf::RenderTarget &target) {
-
     this->expBar->render(target);
-
 }
 
 void HeroGUI::renderHPBar(sf::RenderTarget &target) {
-
     this->hpBar->render(target);
 }
 
 void HeroGUI::renderHeroTabs(sf::RenderTarget &target) {
-
     this->heroTabs->render(target);
 }
 
@@ -131,5 +116,8 @@ void HeroGUI::render(sf::RenderTarget &target) {
     this->renderEXPBar(target);
     this->renderHPBar(target);
     this->renderHeroTabs(target);
+}
 
+void HeroGUI::toggleCharacterTab() {
+    this->heroTabs->toggleCharacterTab();
 }

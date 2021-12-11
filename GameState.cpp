@@ -14,7 +14,7 @@ GameState::GameState(StateData* state_data)
     this->initTextures();
     this->initPausedMenu();
     this->initShaders();
-
+    this->initKeyTime();
     this->initHeroes();
     this->initHeroGUI();
     this->initEnemyStrategy();
@@ -158,20 +158,25 @@ void GameState::updateInput(const float &dt) {
 }
 
 void GameState::updateHeroInput(const float &dt) {
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_LEFT"))))
-        this->hero->move(-1.f, 0.f, dt);
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_RIGHT"))))
-        this->hero->move(1.f, 0.f, dt);
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_UP")))){
-        this->hero->move(0.f, -1.f, dt);
-    }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_DOWN")))){
-        this->hero->move(0.f, 1.f, dt);
+    if(this->heroGUI->getsTabsOpen()) { //dovrebbe essere !this->heroGUI->getsTabsOpen()
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_LEFT"))))
+            this->hero->move(-1.f, 0.f, dt);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_RIGHT"))))
+            this->hero->move(1.f, 0.f, dt);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_UP")))) {
+            this->hero->move(0.f, -1.f, dt);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_DOWN")))) {
+            this->hero->move(0.f, 1.f, dt);
+        }
     }
 }
 
 void GameState::updateHeroGUI(const float &dt) {
     this->heroGUI->update(dt);
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("TOGGLE_HERO_TAB_CHARACTER"))) && this->getKeyTime()){
+        this->heroGUI->toggleCharacterTab();
+    }
 }
 
 void GameState::updatePauseMenuButtons() {
@@ -186,7 +191,7 @@ void GameState::updateTileMap(const float &dt) {
 }
 
 void GameState::updateHero(const float &dt) {
-
+    this->hero->update(dt, this->mousePosView);
 }
 
 void GameState::updateCombatAndEnemies(const float &dt) {
@@ -232,8 +237,8 @@ void GameState::update(const float& dt) {
         this->updateView(dt);
         this->updateHeroInput(dt);
         this->updateTileMap(dt);
-        this->hero->update(dt, this->mousePosView);
-        this->heroGUI->update(dt);
+        this->updateHero(dt);
+        this->updateHeroGUI(dt);
         this->updateCombatAndEnemies(dt);
 
         this->tts->update(dt);
@@ -281,6 +286,19 @@ void GameState::render(sf::RenderTarget* target) {
     this->renderTexture.display();
     this->renderSprite.setTexture(this->renderTexture.getTexture());
     target->draw(this->renderSprite);
+}
+
+void GameState::initKeyTime() {
+    this->keyTimeMax = 0.3f;
+    this->keyTimer.restart();
+}
+
+const bool GameState::getKeyTime() {
+    if(this->keyTimer.getElapsedTime().asSeconds() >= this->keyTimeMax){
+        this->keyTimer.restart();
+        return true;
+    }
+    return false;
 }
 
 

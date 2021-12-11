@@ -20,6 +20,8 @@ public:
     GameState(StateData* state_data);
     virtual ~GameState();
 
+    const bool getKeyTime();
+
     void updateView(const float& dt);
     void updateInput(const float& dt);
     void updateHeroInput(const float& dt);
@@ -42,6 +44,9 @@ private:
     PauseMenu* pmenu;
 
     sf::Shader core_shader;
+
+    sf::Clock keyTimer;
+    float keyTimeMax;
 
     Hero* hero;
     HeroGUI* heroGUI;
@@ -66,6 +71,7 @@ private:
     void initSystems();
     void initDeferredRender();
     void initEnemyStrategy();
+    void initKeyTime();
 
 };
 

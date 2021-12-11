@@ -6,12 +6,8 @@
 #include "HeroTabs.h"
 
 HeroTabs::HeroTabs(sf::VideoMode& vm, sf::Font& font, Hero& hero)
-: vm(vm), font(font), hero(hero),
-characterTab(vm, font, hero){
-
+: vm(vm), font(font), hero(hero), characterTab(vm, font, hero){
     this->initKeyTime();
-
-
 }
 
 HeroTabs::~HeroTabs() {
@@ -19,13 +15,11 @@ HeroTabs::~HeroTabs() {
 }
 
 void HeroTabs::initKeyTime() {
-
     this->keyTimeMax = 0.3f;
     this->keyTimer.restart();
 }
 
 const bool HeroTabs::getKeyTime() {
-
     if(this->keyTimer.getElapsedTime().asSeconds() >= this->keyTimeMax){
         this->keyTimer.restart();
         return true;
@@ -40,19 +34,17 @@ const bool HeroTabs::tabsOpen() {
 
 void HeroTabs::update() {
 
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::C) && this->getKeyTime()){
-
-        if(this->characterTab.getHidden())
-            this->characterTab.show();
-        else
-            this->characterTab.hide();
-    }
 }
 
 void HeroTabs::render(sf::RenderTarget &target) {
-
     this->characterTab.render(target);
+}
 
+void HeroTabs::toggleCharacterTab() {
+    if(this->characterTab.getHidden())
+        this->characterTab.show();
+    else
+        this->characterTab.hide();
 }
 
 
