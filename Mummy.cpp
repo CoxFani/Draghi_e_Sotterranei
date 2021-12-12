@@ -106,4 +106,8 @@ void Mummy::render(sf::RenderTarget &target, sf::Shader* shader, const sf::Vecto
         this->hitboxComponent->render(target);
 }
 
+void Mummy::iniAI() {
+
+}
+
 

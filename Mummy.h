@@ -21,6 +21,7 @@ private:
     void initVariables() override;
     void initAnimations() override;
     void initGUI();
+    void iniAI();
 
     sf::RectangleShape hpBar;
 
