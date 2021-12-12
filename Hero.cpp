@@ -155,6 +155,15 @@ void Hero::updateAttack() {
     }
 }
 
+const std::string Hero::toStringCharacterTab() const {
+    std::stringstream ss;
+    AttributeComponent* ac = this->attributeComponent;
+    ss << "Level: " << ac->level << "\n"
+        << "Experience: " << ac->exp <<"\n"
+        << "Exp next: " << ac->expNext <<"\n";
+    return ss.str();
+}
+
 
 
 

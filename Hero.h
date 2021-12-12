@@ -29,6 +29,8 @@ public:
     void update(const float& dt, sf::Vector2f& mouse_pos_view);
     void render(sf::RenderTarget& target, sf::Shader* shader = nullptr, const sf::Vector2f light_position = sf::Vector2f() ,  const bool show_hitbox = false);
 
+    const std::string toStringCharacterTab() const;
+
 private:
     Inventory* inventory;
 

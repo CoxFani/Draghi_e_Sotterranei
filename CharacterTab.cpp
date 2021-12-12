@@ -7,14 +7,11 @@
 
 CharacterTab::CharacterTab(sf::VideoMode& vm, sf::Font& font, Hero& hero)
 : Tab(vm, font, hero, true) {
-    this->back.setFillColor(sf::Color(50, 50, 50, 180));
+    this->back.setFillColor(sf::Color(30, 30, 30, 200));
     this->back.setSize(sf::Vector2f(gui::p2pX(15.f, this->vm), gui::p2pX(20.f, this->vm)));
     this->back.setPosition(20, 150);
 
-    this->infoText.setFont(this->font);
-    this->infoText.setCharacterSize(gui::calcCharSize(this->vm, 50));
-    this->infoText.setFillColor(sf::Color::White);
-    this->infoText.setPosition(this->back.getPosition().x + 20.f, this->back.getPosition().y + 20.f);
+    this->initText();
 }
 
 CharacterTab::~CharacterTab() {
@@ -23,7 +20,7 @@ CharacterTab::~CharacterTab() {
 
 void CharacterTab::update() {
     if(!this->hidden){
-
+        this->infoText.setString(this->hero.toStringCharacterTab());
     }
 }
 
@@ -32,6 +29,14 @@ void CharacterTab::render(sf::RenderTarget &target) {
         target.draw(back);
         target.draw(infoText);
     }
+}
+
+void CharacterTab::initText() {
+    this->infoText.setFont(this->font);
+    this->infoText.setCharacterSize(gui::calcCharSize(this->vm, 100));
+    this->infoText.setFillColor(sf::Color(200, 200, 200, 240));
+    this->infoText.setPosition(this->back.getPosition().x + 20.f, this->back.getPosition().y + 20.f);
+    this->infoText.setString(this->hero.toStringCharacterTab());
 }
 
 

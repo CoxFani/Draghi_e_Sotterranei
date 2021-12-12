@@ -120,13 +120,10 @@ void GameState::initEnemyStrategy() {
 
 
 void GameState::updateView(const float &dt) {
-
-    if(this->heroGUI->getsTabsOpen()){
         this->view.setCenter(
                 std::floor(this->hero->getPosition().x + (static_cast<float>(this->mousePosWindow.x) - static_cast<float>(this->stateData->gfxSettings->resolution.width / 2)) / 10.f),
                 std::floor(this->hero->getPosition().y + (static_cast<float>(this->mousePosWindow.y) - static_cast<float>(this->stateData->gfxSettings->resolution.height / 2)) / 10.f)
         );
-    }
 
     if(this->tileMap->getMaxSizeF().x >= this->view.getSize().x) {
         if (this->view.getCenter().x - this->view.getSize().x / 2.f < 0.f) {
@@ -158,17 +155,15 @@ void GameState::updateInput(const float &dt) {
 }
 
 void GameState::updateHeroInput(const float &dt) {
-    if(this->heroGUI->getsTabsOpen()) { //dovrebbe essere !this->heroGUI->getsTabsOpen()
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_LEFT"))))
-            this->hero->move(-1.f, 0.f, dt);
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_RIGHT"))))
-            this->hero->move(1.f, 0.f, dt);
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_UP")))) {
-            this->hero->move(0.f, -1.f, dt);
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_DOWN")))) {
-            this->hero->move(0.f, 1.f, dt);
-        }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_LEFT"))))
+        this->hero->move(-1.f, 0.f, dt);
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_RIGHT"))))
+        this->hero->move(1.f, 0.f, dt);
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_UP")))) {
+        this->hero->move(0.f, -1.f, dt);
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_DOWN")))) {
+        this->hero->move(0.f, 1.f, dt);
     }
 }
 

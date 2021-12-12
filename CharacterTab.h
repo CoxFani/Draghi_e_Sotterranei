@@ -7,8 +7,7 @@
 
 #include "Tab.h"
 
-class CharacterTab
-        : public Tab{
+class CharacterTab : public Tab{
 public:
     CharacterTab(sf::VideoMode& vm, sf::Font& font, Hero& hero);
     virtual ~CharacterTab();
@@ -17,9 +16,10 @@ public:
     void render(sf::RenderTarget& target);
 
 private:
-
     sf::RectangleShape back;
     sf::Text infoText;
+
+    void initText();
 };
 
 

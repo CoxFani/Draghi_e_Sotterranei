@@ -23,7 +23,6 @@ public:
 
 
 private:
-
     CharacterTab characterTab;
 
     sf::VideoMode& vm;

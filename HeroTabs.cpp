@@ -33,7 +33,7 @@ const bool HeroTabs::tabsOpen() {
 }
 
 void HeroTabs::update() {
-
+    this->characterTab.update();
 }
 
 void HeroTabs::render(sf::RenderTarget &target) {
