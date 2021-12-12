@@ -119,5 +119,6 @@ void HeroGUI::render(sf::RenderTarget &target) {
 }
 
 void HeroGUI::toggleCharacterTab() {
-    this->heroTabs->toggleCharacterTab();
+
+    this->heroTabs->toggleTab(HERO_TABS::CHARACTER_TAB);
 }

@@ -7,6 +7,7 @@
 
 #include "CharacterTab.h"
 
+enum HERO_TABS { CHARACTER_TAB = 0, INVENTORY_TAB };
 
 class HeroTabs {
 public:
@@ -16,14 +17,15 @@ public:
     const bool getKeyTime();
     const bool tabsOpen();
 
-    void toggleCharacterTab();
+    void toggleTab(const int tab_index);
 
     void update();
     void render(sf::RenderTarget& target);
 
 
 private:
-    CharacterTab characterTab;
+
+    std::vector<Tab*> tabs;
 
     sf::VideoMode& vm;
     sf::Font& font;
@@ -31,6 +33,7 @@ private:
     sf::Clock keyTimer;
     float keyTimeMax;
 
+    void initTabs();
     void initKeyTime();
 
 };

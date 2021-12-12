@@ -6,11 +6,19 @@
 #include "HeroTabs.h"
 
 HeroTabs::HeroTabs(sf::VideoMode& vm, sf::Font& font, Hero& hero)
-: vm(vm), font(font), hero(hero), characterTab(vm, font, hero){
+: vm(vm), font(font), hero(hero){
+
+    this->initTabs();
     this->initKeyTime();
 }
 
 HeroTabs::~HeroTabs() {
+
+}
+
+void HeroTabs::initTabs() {
+
+    this->tabs.push_back(new CharacterTab(vm, font, hero));
 
 }
 
@@ -28,23 +36,38 @@ const bool HeroTabs::getKeyTime() {
 }
 
 const bool HeroTabs::tabsOpen() {
-    return this->characterTab.getOpen(
-            );
+    // controlla se le Le Tabs sono aperte o chiuse
+
+    bool open = false;
+    for(size_t i = 0; i < this->tabs.size() && !open; i++){
+
+        if(this->tabs[i]->getOpen())
+            open = true;
+    }
+    return open;
+}
+
+void HeroTabs::toggleTab(const int tab_index) {
+
+    if(tab_index >= 0 || tab_index < this->tabs.size())
+        this->tabs[tab_index]->toggle();
+
 }
 
 void HeroTabs::update() {
-    this->characterTab.update();
+
+    for(size_t i = 0; i < this->tabs.size(); i++){
+
+        if(this->tabs[i]->getOpen())
+            this->tabs[i]->update();
+    }
 }
 
 void HeroTabs::render(sf::RenderTarget &target) {
-    this->characterTab.render(target);
+
+    for(size_t i = 0; i < this->tabs.size(); i++){
+
+        if(this->tabs[i]->getOpen())
+            this->tabs[i]->render(target);
+    }
 }
-
-void HeroTabs::toggleCharacterTab() {
-    if(this->characterTab.getHidden())
-        this->characterTab.show();
-    else
-        this->characterTab.hide();
-}
-
-
