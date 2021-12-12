@@ -58,7 +58,7 @@ void HeroTabs::update() {
 
     for(size_t i = 0; i < this->tabs.size(); i++){
 
-        if(this->tabs[i]->getOpen())
+        if(!this->tabs[i]->getOpen())
             this->tabs[i]->update();
     }
 }
@@ -67,7 +67,7 @@ void HeroTabs::render(sf::RenderTarget &target) {
 
     for(size_t i = 0; i < this->tabs.size(); i++){
 
-        if(this->tabs[i]->getOpen())
+        if(!this->tabs[i]->getOpen())
             this->tabs[i]->render(target);
     }
 }
