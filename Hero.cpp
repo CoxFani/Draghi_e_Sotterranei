@@ -10,7 +10,7 @@ Hero::Hero(float x, float y, sf::Texture& texture_sheet) {
 
 
     this->createHitboxComponent(this->sprite, 0.f, 17.f, 32.f, 32.f);
-    this->createMovementComponent(200.f, 1500.f, 500.f);
+    this->createMovementComponent(140.f, 1500.f, 500.f);
     this->createAnimationComponent(texture_sheet);
     this->createAttributeComponent(1);
     this->createSkillComponent();
@@ -36,6 +36,8 @@ void Hero::initVariables() {
     this->sword = new Sword(1, 2, 5, 65, 20, "../Resources/Images/Sprites/Weapons/weapon.png");
     this->sword->generate(1, 3);
     this->inventory = new Inventory(100);
+
+    this->damageTimerMax = 1000;
 }
 
 void Hero::initComponents() {
@@ -86,6 +88,16 @@ const bool &Hero::getInitAttack() const {
 void Hero::setInitAttack(const bool initAttack) {
 
     this->initAttack = initAttack;
+}
+
+const bool Hero::getDamageTimer() {
+
+    if(this->damageTimer.getElapsedTime().asMilliseconds() >= this->damageTimerMax){
+        this->damageTimer.restart();
+        return true;
+    }
+    else
+        return false;
 }
 
 void Hero::loseHP(const int hp) {
@@ -141,6 +153,13 @@ void Hero::updateAnimation(const float &dt) {
     else if(this->movementComponent->getState(MOVING_DOWN)){
         this->animationComponent->play("WALK", dt, this->movementComponent->getVelocity().y, this->movementComponent->getMaxVelocity());
     }
+
+    if(this->damageTimer.getElapsedTime().asMilliseconds() <= this->damageTimerMax){
+        //this->animationComponent->play("HURT", dt, true);
+        this->sprite.setColor(sf::Color::Red);
+    }
+    else
+        this->sprite.setColor(sf::Color::White);
 }
 
 void Hero::update(const float &dt, sf::Vector2f& mouse_pos_view) {
@@ -174,16 +193,3 @@ void Hero::updateAttack() {
         this->attacking = true;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

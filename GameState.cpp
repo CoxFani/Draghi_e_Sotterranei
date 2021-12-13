@@ -38,8 +38,8 @@ GameState::~GameState() {
 void GameState::initView() {
     this->view.setSize(
             sf::Vector2f(
-                    static_cast<float>(this->stateData->gfxSettings->resolution.width),
-                    static_cast<float>(this->stateData->gfxSettings->resolution.height)
+                    static_cast<float>(this->stateData->gfxSettings->resolution.width / 2),
+                    static_cast<float>(this->stateData->gfxSettings->resolution.height / 2)
             )
     );
 
@@ -191,7 +191,7 @@ void GameState::updateHero(const float &dt) {
 
 void GameState::updateCombatAndEnemies(const float &dt) {
 
-    if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+    if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->hero->getWeapon()->getAttackTimer())
         this->hero->setInitAttack(true);
 
 
@@ -202,8 +202,7 @@ void GameState::updateCombatAndEnemies(const float &dt) {
         this->tileMap->updateWorldBoundsCollision(enemy, dt);
         this->tileMap->updateTileCollision(enemy, dt);
 
-        if(this->hero->getInitAttack())
-            this->updateCombat(enemy, index, dt);
+        this->updateCombat(enemy, index, dt);
 
         if(enemy->isDead()){
             this->hero->gainEXP(enemy->getGainExp());
@@ -219,16 +218,25 @@ void GameState::updateCombatAndEnemies(const float &dt) {
 }
 
 void GameState::updateCombat(Enemy* enemy, const int index, const float &dt) {
-    if(enemy->getGlobalBounds().contains(this->mousePosView)
-       && enemy->getDistance(*this->hero) < this->hero->getWeapon()->getRange()) {
+
+    if(this->hero->getInitAttack()
+       && enemy->getGlobalBounds().contains(this->mousePosView)
+       && enemy->getDistance(*this->hero) < this->hero->getWeapon()->getRange()
+       && enemy->getDamageTimerDone()) {
+
         this->hero->updateAttack();
 
-        if(this->hero->getWeapon()->getAttackTimer() && enemy->getDamageTimerDone()) {
-            int dmg = static_cast<int>(this->hero->getWeapon()->getDamage());
-            enemy->loseHP(dmg);
-            enemy->resetDamageTimer();
-            this->tts->addTextTag(NEGATIVE_TAG, enemy->getPosition().x, enemy->getPosition().y, dmg, "-", "HP");
-        }
+        int dmg = static_cast<int>(this->hero->getWeapon()->getDamage());
+        enemy->loseHP(dmg);
+        enemy->resetDamageTimer();
+        this->tts->addTextTag(DEFAULT_TAG, enemy->getPosition().x, enemy->getPosition().y, dmg, "", "");
+
+    }
+    if(enemy->getGlobalBounds().intersects(this->hero->getGlobalBounds()) && this->hero->getDamageTimer()){
+
+        int dmg = enemy->getAttributeComp()->damageMax;
+        this->hero->loseHP(dmg);
+        this->tts->addTextTag(NEGATIVE_TAG, hero->getPosition().x - 30, hero->getPosition().y, dmg, "-", "HP");
     }
 }
 

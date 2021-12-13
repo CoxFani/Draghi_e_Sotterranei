@@ -34,9 +34,9 @@ void TextTagSystem::initFonts(std::string font_file) {
 }
 
 void TextTagSystem::initTagTemplates() {
-    this->tagTemplates[DEFAULT_TAG] = new TextTag(this->font, "", 0.f, 0.f, 0.f, -1.f, sf::Color::White, 20, 50.f, 150.f);
-    this->tagTemplates[NEGATIVE_TAG] = new TextTag(this->font, "", 0.f, 0.f, 0.f, -1.f, sf::Color::Red, 20, 50.f, 200.f);
-    this->tagTemplates[EXPERIENCE_TAG] = new TextTag(this->font, "", 0.f, 0.f, 0.f, -1.f, sf::Color::Cyan, 25, 70.f, 150.f);
+    this->tagTemplates[DEFAULT_TAG] = new TextTag(this->font, "", 0.f, 0.f, 0.f, -1.f, sf::Color::White, 10, 50.f, 150.f, 0.f, 3.f);
+    this->tagTemplates[NEGATIVE_TAG] = new TextTag(this->font, "", 0.f, 0.f, 0.f, 1.f, sf::Color::Red, 10, 50.f, 200.f, 0.f, 3.f);
+    this->tagTemplates[EXPERIENCE_TAG] = new TextTag(this->font, "", 0.f, 0.f, 0.f, -1.f, sf::Color::Cyan, 15, 70.f, 150.f, 0.f, 3.f);
 
 
 }
@@ -82,7 +82,7 @@ TextTagSystem::TextTag::TextTag(sf::Font &font, std::string text,
                                 float dir_x, float dir_y,
                                 sf::Color color,
                                 unsigned int char_size,
-                                float lifetime, float speed) {
+                                float lifetime, float speed, float acceleration, int fade_value) {
     this->text.setFont(font);
     this->text.setPosition(pos_x, pos_y);
     this->text.setFillColor(color);
@@ -93,6 +93,8 @@ TextTagSystem::TextTag::TextTag(sf::Font &font, std::string text,
     this->dirY = dir_y;
     this->lifetime = lifetime;
     this->speed = speed;
+    this->acceleration = acceleration;
+    this->fadeValue = fade_value;
 }
 
 TextTagSystem::TextTag::TextTag(TextTagSystem::TextTag* tag, float pos_x, float pos_y, std::string str) {
@@ -104,6 +106,8 @@ TextTagSystem::TextTag::TextTag(TextTagSystem::TextTag* tag, float pos_x, float 
     this->dirY = tag->dirY;
     this->lifetime = tag->lifetime;
     this->speed = tag->speed;
+    this->acceleration = tag->acceleration;
+    this->fadeValue = tag->fadeValue;
 }
 
 TextTagSystem::TextTag::~TextTag() {
@@ -115,9 +119,40 @@ const bool TextTagSystem::TextTag::isExpired() const {
 }
 
 void TextTagSystem::TextTag::update(const float &dt) {
+
     if(this->lifetime > 0.f){
+
         this->lifetime -= 100.f * dt;
-        this->text.move(this->dirX * this->speed * dt, this->dirY * this->speed * dt);
+
+        if(this->acceleration > 0.f){
+
+            this->velocity.x += this-> dirX * this->acceleration * dt;
+            this->velocity.y += this-> dirY * this->acceleration * dt;
+
+            if(abs(this->velocity.x) > this->speed)
+                this->velocity.x = this->dirX * this->speed;
+
+            if(abs(this->velocity.y) > this->speed)
+                this->velocity.y = this->dirY * this->speed;
+
+            this->text.move(this->velocity * dt);
+        }
+        else{
+
+            this->text.move(this->dirX * this->speed * dt, this->dirY * this->speed * dt);
+        }
+
+
+        if(this->fadeValue > 0 && this->text.getFillColor().a >= this->fadeValue){
+            this->text.setFillColor(
+                    sf::Color(
+                    this->text.getFillColor().r,
+                    this->text.getFillColor().g,
+                    this->text.getFillColor().b,
+                    this->text.getFillColor().a - this->fadeValue
+                    )
+            );
+        }
     }
 }
 
