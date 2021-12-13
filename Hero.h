@@ -27,6 +27,8 @@ public:
 
     const bool getDamageTimer();
 
+    const unsigned getDamage() const;
+
     void loseHP(const int hp);
     void gainHP(const int hp);
     void loseEXP(const int exp);
@@ -42,7 +44,7 @@ private:
 
     bool initAttack;
     bool attacking;
-    Sword* sword;
+    Weapon* weapon;
 
     sf::Clock damageTimer;
     sf::Int32 damageTimerMax;

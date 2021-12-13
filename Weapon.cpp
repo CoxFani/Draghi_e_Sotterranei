@@ -55,10 +55,12 @@ const unsigned &Weapon::getDamageMax() const {
 }
 
 const unsigned Weapon::getDamage() const{
+
     return rand() % (this->damageMax - this->damageMin + 1) + (this->damageMin);
 }
 
 const unsigned &Weapon::getRange() const {
+
     return this->range;
 }
 
