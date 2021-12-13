@@ -6,11 +6,12 @@
 #define DRAGHI_E_SOTTERRANEI_MUMMY_H
 
 #include "Enemy.h"
+#include "AIFollow.h"
 
 class Mummy:
         public Enemy{
 public:
-    Mummy(float x, float y, sf::Texture& texture_sheet, EnemySpawnerTile& enemy_spawner_tile);
+    Mummy(float x, float y, sf::Texture& texture_sheet, EnemySpawnerTile& enemy_spawner_tile, GameCharacter& hero);
     virtual ~Mummy();
 
     void updateAnimation(const float& dt) override;
@@ -24,6 +25,8 @@ private:
     void iniAI();
 
     sf::RectangleShape hpBar;
+
+    AIFollow* follow;
 
 };
 

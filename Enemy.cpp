@@ -14,6 +14,25 @@ Enemy::~Enemy() {
 
 }
 
+const unsigned &Enemy::getGainExp() const {
+
+    return this->gainExp;
+}
+
+EnemySpawnerTile &Enemy::getEnemySpawnerTile() {
+    return this->enemySpawnerTile;
+}
+
+const bool Enemy::getDamageTimerDone() const{
+
+    return this->damageTimer.getElapsedTime().asMilliseconds() >= this->damageTimerMax;
+}
+
+void Enemy::resetDamageTimer() {
+
+    this->damageTimer.restart();
+}
+
 void Enemy::generateAttributes(const unsigned int &level) {
 
     this->gainExp = level * (rand() % 5 +1);
@@ -43,18 +62,11 @@ const bool Enemy::isDead() const {
 
 void Enemy::initVariables() {
     this->gainExp = 10;
+    this->damageTimerMax = 1000;
 }
 
 void Enemy::initAnimations() {
 
-}
-
-const unsigned &Enemy::getGainExp() const {
-    return this->gainExp;
-}
-
-EnemySpawnerTile &Enemy::getEnemySpawnerTile() {
-    return this->enemySpawnerTile;
 }
 
 

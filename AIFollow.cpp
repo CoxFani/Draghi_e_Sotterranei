@@ -16,11 +16,11 @@ AIFollow::~AIFollow() {
 
 void AIFollow::update(const float& dt) {
     sf::Vector2f moveVec;
-    moveVec.x = self.getPosition().x - gameCharacter.getPosition().x;
-    moveVec.y = self.getPosition().y - gameCharacter.getPosition().y;
+    moveVec.x = gameCharacter.getPosition().x - self.getPosition().x;
+    moveVec.y = gameCharacter.getPosition().y - self.getPosition().y;
     float vecLength = sqrt(pow(moveVec.x, 2) + pow(moveVec.y, 2));
     moveVec /= vecLength;
 
-    if(self.getPosition().x != gameCharacter.getPosition().x)
+    if((self.getPosition().x != gameCharacter.getPosition().x) && std::abs(vecLength) < 200.f) // Aggro -> 200
         self.move(moveVec.x, moveVec.y, dt);
 }

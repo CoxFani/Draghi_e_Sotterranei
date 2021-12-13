@@ -4,7 +4,7 @@
 #include "precompiler.h"
 #include "Mummy.h"
 
-Mummy::Mummy(float x, float y, sf::Texture &texture_sheet, EnemySpawnerTile& enemy_spawner_tile)
+Mummy::Mummy(float x, float y, sf::Texture &texture_sheet, EnemySpawnerTile& enemy_spawner_tile, GameCharacter& hero)
       : Enemy(enemy_spawner_tile) {
 
     this->initVariables();
@@ -19,10 +19,13 @@ Mummy::Mummy(float x, float y, sf::Texture &texture_sheet, EnemySpawnerTile& ene
 
     this->setPosition(x, y);
     this->initAnimations();
+
+    this->follow = new AIFollow(*this, hero);
 }
 
 Mummy::~Mummy() {
 
+    delete this->follow;
 }
 
 void Mummy::initVariables() {
@@ -49,16 +52,16 @@ void Mummy::updateAnimation(const float &dt) {
     if(this->movementComponent->getState(IDLE))
         this->animationComponent->play("IDLE", dt);
     else if (this->movementComponent->getState(MOVING_RIGHT)){
-        if(this->sprite.getScale().x < 0.f){
-            this->sprite.setOrigin(0.f, 0.f);
-            this->sprite.setScale(1.f, 1.f);
+        if(this->sprite.getScale().x > 0.f){ // <
+            this->sprite.setOrigin(64.f, 0.f);  // 0, 0
+            this->sprite.setScale(-1.f, 1.f); // 1, 1
         }
         this->animationComponent->play("WALK", dt, this->movementComponent->getVelocity().x, this->movementComponent->getMaxVelocity());
     }
     else if(this->movementComponent->getState(MOVING_LEFT)){
-        if(this->sprite.getScale().x > 0.f) {
-            this->sprite.setOrigin(30.f, 0.f);
-            this->sprite.setScale(-1.f, 1.f);
+        if(this->sprite.getScale().x < 0.f) { // >
+            this->sprite.setOrigin(0.f, 0.f); // 30, 0
+            this->sprite.setScale(1.f, 1.f); // -1, 1
         }
         this->animationComponent->play("WALK", dt, this->movementComponent->getVelocity().x, this->movementComponent->getMaxVelocity());
     }
@@ -68,6 +71,13 @@ void Mummy::updateAnimation(const float &dt) {
     else if(this->movementComponent->getState(MOVING_DOWN)){
         this->animationComponent->play("WALK", dt, this->movementComponent->getVelocity().y, this->movementComponent->getMaxVelocity());
     }
+    if(this->damageTimer.getElapsedTime().asMilliseconds() <= this->damageTimerMax){
+        //this->animationComponent->play("HURT", dt, true);
+        this->sprite.setColor(sf::Color::Red);
+    }
+    else
+        this->sprite.setColor(sf::Color::White);
+
 //TODO animazioni di morte e danno
     if(isDead()){
         this->animationComponent->play("DEATH", dt, true);
@@ -86,6 +96,7 @@ void Mummy::update(const float &dt, sf::Vector2f& mouse_pos_view) {
     //this->updateAttack();
     this->updateAnimation(dt);
     this->hitboxComponent->update();
+    this->follow->update(dt);
 }
 
 void Mummy::render(sf::RenderTarget &target, sf::Shader* shader, const sf::Vector2f light_position, const bool show_hitbox) {

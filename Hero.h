@@ -20,6 +20,11 @@ public:
     AttributeComponent* getAttributeComponent();
     Weapon* getWeapon() const;
 
+    const std::string toStringCharacterTab() const;
+    const bool& getInitAttack() const;
+
+    void setInitAttack(const bool initAttack);
+
     void loseHP(const int hp);
     void gainHP(const int hp);
     void loseEXP(const int exp);
@@ -29,11 +34,11 @@ public:
     void update(const float& dt, sf::Vector2f& mouse_pos_view);
     void render(sf::RenderTarget& target, sf::Shader* shader = nullptr, const sf::Vector2f light_position = sf::Vector2f() ,  const bool show_hitbox = false);
 
-    const std::string toStringCharacterTab() const;
 
 private:
     Inventory* inventory;
 
+    bool initAttack;
     bool attacking;
     Sword* sword;
 

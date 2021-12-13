@@ -31,6 +31,7 @@ Hero::~Hero() {
 
 void Hero::initVariables() {
 
+    this->initAttack = false;
     this->attacking = false;
     this->sword = new Sword(1, 2, 5, 65, 20, "../Resources/Images/Sprites/Weapons/weapon.png");
     this->sword->generate(1, 3);
@@ -62,6 +63,29 @@ void Hero::initInventory() {
 
 AttributeComponent *Hero::getAttributeComponent() {
     return this->attributeComponent;
+}
+
+Weapon *Hero::getWeapon() const {
+    return this->sword;
+}
+
+const std::string Hero::toStringCharacterTab() const {
+    std::stringstream ss;
+    AttributeComponent* ac = this->attributeComponent;
+    ss << "Level: " << ac->level << "\n"
+       << "Experience: " << ac->exp <<"\n"
+       << "Exp next: " << ac->expNext <<"\n";
+    return ss.str();
+}
+
+const bool &Hero::getInitAttack() const {
+
+    return this->initAttack;
+}
+
+void Hero::setInitAttack(const bool initAttack) {
+
+    this->initAttack = initAttack;
 }
 
 void Hero::loseHP(const int hp) {
@@ -145,24 +169,15 @@ void Hero::render(sf::RenderTarget &target, sf::Shader* shader, const sf::Vector
         this->hitboxComponent->render(target);
 }
 
-Weapon *Hero::getWeapon() const {
-    return this->sword;
-}
-
 void Hero::updateAttack() {
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
         this->attacking = true;
     }
 }
 
-const std::string Hero::toStringCharacterTab() const {
-    std::stringstream ss;
-    AttributeComponent* ac = this->attributeComponent;
-    ss << "Level: " << ac->level << "\n"
-        << "Experience: " << ac->exp <<"\n"
-        << "Exp next: " << ac->expNext <<"\n";
-    return ss.str();
-}
+
+
+
 
 
 

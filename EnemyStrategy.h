@@ -12,7 +12,8 @@ enum EnemyTypes {MUMMY = 0};
 
 class EnemyStrategy {
 public:
-    EnemyStrategy(std::vector<Enemy*>& activeEnemies, std::map<std::string, sf::Texture>& textures);
+    EnemyStrategy(std::vector<Enemy*>& activeEnemies,
+                  std::map<std::string, sf::Texture>& textures, GameCharacter& hero);
     virtual ~EnemyStrategy();
 
     void createEnemy(const short type, const float xPos, const float yPos, EnemySpawnerTile& enemy_spawner_tile);
@@ -24,6 +25,7 @@ public:
 private:
     std::map<std::string, sf::Texture>& textures;
     std::vector<Enemy*>& activeEnemies;
+    GameCharacter& hero;
 
 };
 

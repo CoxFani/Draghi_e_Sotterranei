@@ -115,7 +115,7 @@ void GameState::initDeferredRender() {
 }
 
 void GameState::initEnemyStrategy() {
-    this->enemyStrategy = new EnemyStrategy(this->activeEnemies, this->textures);
+    this->enemyStrategy = new EnemyStrategy(this->activeEnemies, this->textures, *this->hero);
 }
 
 
@@ -190,14 +190,20 @@ void GameState::updateHero(const float &dt) {
 }
 
 void GameState::updateCombatAndEnemies(const float &dt) {
-    unsigned index = 0;
+
+    if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+        this->hero->setInitAttack(true);
+
+
+        unsigned index = 0;
     for(auto *enemy : this->activeEnemies){
         enemy->update(dt, this->mousePosView);
 
         this->tileMap->updateWorldBoundsCollision(enemy, dt);
         this->tileMap->updateTileCollision(enemy, dt);
 
-        this->updateCombat(enemy, index, dt);
+        if(this->hero->getInitAttack())
+            this->updateCombat(enemy, index, dt);
 
         if(enemy->isDead()){
             this->hero->gainEXP(enemy->getGainExp());
@@ -209,15 +215,18 @@ void GameState::updateCombatAndEnemies(const float &dt) {
         ++index;
     }
     //this->activeEnemies.push_back(new Mummy(200.f, 100.f, this->textures["MUMMY_SHEET"]));
+    this->hero->setInitAttack(false);
 }
 
 void GameState::updateCombat(Enemy* enemy, const int index, const float &dt) {
-    if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && enemy->getGlobalBounds().contains(this->mousePosView)
+    if(enemy->getGlobalBounds().contains(this->mousePosView)
        && enemy->getDistance(*this->hero) < this->hero->getWeapon()->getRange()) {
         this->hero->updateAttack();
-        if(this->hero->getWeapon()->getAttackTimer()) {
+
+        if(this->hero->getWeapon()->getAttackTimer() && enemy->getDamageTimerDone()) {
             int dmg = static_cast<int>(this->hero->getWeapon()->getDamage());
             enemy->loseHP(dmg);
+            enemy->resetDamageTimer();
             this->tts->addTextTag(NEGATIVE_TAG, enemy->getPosition().x, enemy->getPosition().y, dmg, "-", "HP");
         }
     }

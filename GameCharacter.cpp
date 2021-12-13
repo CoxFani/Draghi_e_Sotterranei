@@ -131,7 +131,14 @@ void GameCharacter::createSkillComponent() {
     this->skillComponent = new SkillComponent();
 }
 
+void GameCharacter::createAIComponent() {
+
+
+}
+
 const float GameCharacter::getDistance(const GameCharacter& gameCharacter) const {
     return sqrt(pow(this->getCenter().x - gameCharacter.getCenter().x, 2) + pow(this->getCenter().y - gameCharacter.getCenter().y, 2));
 }
+
+
 
