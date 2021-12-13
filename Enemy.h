@@ -16,6 +16,7 @@ public:
     const unsigned& getGainExp() const;
     EnemySpawnerTile& getEnemySpawnerTile();
     const bool getDamageTimerDone() const;
+    const bool getDespawnTimerDone() const;
 
     void resetDamageTimer();
 
@@ -27,7 +28,7 @@ public:
     virtual const AttributeComponent* getAttributeComp() const;
 
     virtual void updateAnimation(const float& dt) = 0;
-    virtual void update(const float &dt, sf::Vector2f& mouse_pos_view) = 0;
+    virtual void update(const float &dt, sf::Vector2f& mouse_pos_view, const sf::View& view);
     virtual void render(sf::RenderTarget &target, sf::Shader* shader = nullptr, const sf::Vector2f light_position = sf::Vector2f(), const bool show_hitbox = false) = 0;
 
 protected:
@@ -35,6 +36,8 @@ protected:
     unsigned gainExp;
     sf::Clock damageTimer;
     sf::Int32 damageTimerMax;
+    sf::Clock despawnTimer;
+    sf::Int32 despawnTimerMax;
 
     virtual void initVariables() = 0; //da tenere puramente virtuale?
     virtual void initAnimations() = 0; //da tenere puramente virtuale?

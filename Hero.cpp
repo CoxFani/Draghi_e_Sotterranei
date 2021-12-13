@@ -9,7 +9,7 @@ Hero::Hero(float x, float y, sf::Texture& texture_sheet) {
     this->initVariables();
 
 
-    this->createHitboxComponent(this->sprite, 0.f, 17.f, 32.f, 32.f);
+    this->createHitboxComponent(this->sprite, 7.f, 20.f, 20.f, 20.f);
     this->createMovementComponent(140.f, 1500.f, 500.f);
     this->createAnimationComponent(texture_sheet);
     this->createAttributeComponent(1);
@@ -176,11 +176,11 @@ void Hero::updateAnimation(const float &dt) {
         this->sprite.setColor(sf::Color::White);
 }
 
-void Hero::update(const float &dt, sf::Vector2f& mouse_pos_view) {
+void Hero::update(const float &dt, sf::Vector2f& mouse_pos_view, const sf::View& view) {
     this->movementComponent->update(dt);
     this->updateAnimation(dt);
     this->hitboxComponent->update();
-    this->weapon->update(mouse_pos_view, this->getCenter());
+    this->weapon->update(mouse_pos_view, sf::Vector2f(this->getSpriteCenter().x, this->getSpriteCenter().y + 5.f));
 }
 
 void Hero::render(sf::RenderTarget &target, sf::Shader* shader, const sf::Vector2f light_position, const bool show_hitbox) {

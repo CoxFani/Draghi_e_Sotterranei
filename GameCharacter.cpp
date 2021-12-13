@@ -67,6 +67,11 @@ const sf::Vector2f &GameCharacter::getPosition() const {
     return this->sprite.getPosition();
 }
 
+const sf::Vector2f GameCharacter::getSpritePosition() const {
+
+    return this->sprite.getPosition();
+}
+
 const sf::Vector2f GameCharacter::getCenter() const {
     if(this->hitboxComponent)
         return this->hitboxComponent->getPosition() +
@@ -80,6 +85,14 @@ const sf::Vector2f GameCharacter::getCenter() const {
                     this->sprite.getGlobalBounds().width / 2.f,
                     this->sprite.getGlobalBounds().height / 2
             );
+}
+
+const sf::Vector2f GameCharacter::getSpriteCenter() const {
+    return this->sprite.getPosition() +
+           sf::Vector2f(
+                   this->sprite.getGlobalBounds().width / 2.f,
+                   this->sprite.getGlobalBounds().height / 2
+           );;
 }
 
 
@@ -136,9 +149,34 @@ void GameCharacter::createAIComponent() {
 
 }
 
+MovementComponent *GameCharacter::getMovementComponent() {
+
+    return this->movementComponent;
+}
+
+AnimationComponent *GameCharacter::getAnimationComponent() {
+
+    return this->animationComponent;
+}
+
+AttributeComponent *GameCharacter::getAttributeComponent() {
+
+    return this->attributeComponent;
+}
+
+SkillComponent *GameCharacter::getSkillComponent() {
+
+    return this->skillComponent;
+}
+
 const float GameCharacter::getDistance(const GameCharacter& gameCharacter) const {
     return sqrt(pow(this->getCenter().x - gameCharacter.getCenter().x, 2) + pow(this->getCenter().y - gameCharacter.getCenter().y, 2));
 }
+
+const float GameCharacter::getSpriteDistance(const GameCharacter& gameCharacter) const {
+    return sqrt(pow(this->getSpriteCenter().x - gameCharacter.getSpriteCenter().x, 2) + pow(this->getSpriteCenter().y - gameCharacter.getSpriteCenter().y, 2));
+}
+
 
 
 

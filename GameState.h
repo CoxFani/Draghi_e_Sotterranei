@@ -31,6 +31,7 @@ public:
     void updateHero(const float& dt);
     void updateCombatAndEnemies(const float& dt);
     void updateCombat(Enemy* enemy, const int index, const float& dt);
+    void updateDebugText(const float& dt);
     void update(const float& dt);
     void render(sf::RenderTarget* target = nullptr);
 
@@ -47,6 +48,8 @@ private:
 
     sf::Clock keyTimer;
     float keyTimeMax;
+
+    sf::Text debugText;
 
     Hero* hero;
     HeroGUI* heroGUI;
@@ -72,6 +75,7 @@ private:
     void initDeferredRender();
     void initEnemyStrategy();
     void initKeyTime();
+    void initDebugText();
 
 };
 

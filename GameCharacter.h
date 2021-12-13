@@ -31,8 +31,15 @@ public:
     void createSkillComponent();
     void createAIComponent();
 
+    virtual MovementComponent* getMovementComponent();
+    virtual AnimationComponent* getAnimationComponent();
+    virtual AttributeComponent* getAttributeComponent();
+    virtual SkillComponent* getSkillComponent();
+
     virtual const sf::Vector2f& getPosition() const;
+    virtual const sf::Vector2f getSpritePosition() const;
     virtual const sf::Vector2f getCenter() const;
+    virtual const sf::Vector2f getSpriteCenter() const;
 
     virtual const sf::FloatRect getGlobalBounds() const;
     virtual const sf::Vector2i getGridPosition(const int gridSizeI) const;
@@ -46,8 +53,9 @@ public:
     virtual void stopVelocityY();
 
     virtual const float getDistance(const GameCharacter& gameCharacter) const;
+    const float getSpriteDistance(const GameCharacter& gameCharacter) const;
 
-    virtual void update(const float& dt, sf::Vector2f& mouse_pos_view) = 0;
+    virtual void update(const float& dt, sf::Vector2f& mouse_pos_view, const sf::View& view) = 0;
     virtual void render(sf::RenderTarget& target, sf::Shader* shader, const sf::Vector2f light_position, const bool show_hitbox) = 0;
 
 protected:

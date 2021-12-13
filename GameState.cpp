@@ -15,6 +15,8 @@ GameState::GameState(StateData* state_data)
     this->initPausedMenu();
     this->initShaders();
     this->initKeyTime();
+    this->initDebugText();
+
     this->initHeroes();
     this->initHeroGUI();
     this->initEnemyStrategy();
@@ -49,6 +51,19 @@ void GameState::initView() {
                     static_cast<float>(this->stateData->gfxSettings->resolution.height) / 2.f
             )
     );
+}
+
+void GameState::initKeyTime() {
+    this->keyTimeMax = 0.3f;
+    this->keyTimer.restart();
+}
+
+void GameState::initDebugText() {
+
+    this->debugText.setFont(this->font);
+    this->debugText.setFillColor(sf::Color::White);
+    this->debugText.setCharacterSize(16);
+    this->debugText.setPosition(15.f,this->window->getSize().y / 2.f);
 }
 
 void GameState::initKeybinds() {
@@ -118,6 +133,13 @@ void GameState::initEnemyStrategy() {
     this->enemyStrategy = new EnemyStrategy(this->activeEnemies, this->textures, *this->hero);
 }
 
+const bool GameState::getKeyTime() {
+    if(this->keyTimer.getElapsedTime().asSeconds() >= this->keyTimeMax){
+        this->keyTimer.restart();
+        return true;
+    }
+    return false;
+}
 
 void GameState::updateView(const float &dt) {
         this->view.setCenter(
@@ -186,7 +208,7 @@ void GameState::updateTileMap(const float &dt) {
 }
 
 void GameState::updateHero(const float &dt) {
-    this->hero->update(dt, this->mousePosView);
+    this->hero->update(dt, this->mousePosView, this->view);
 }
 
 void GameState::updateCombatAndEnemies(const float &dt) {
@@ -197,7 +219,7 @@ void GameState::updateCombatAndEnemies(const float &dt) {
 
         unsigned index = 0;
     for(auto *enemy : this->activeEnemies){
-        enemy->update(dt, this->mousePosView);
+        enemy->update(dt, this->mousePosView, this->view);
 
         this->tileMap->updateWorldBoundsCollision(enemy, dt);
         this->tileMap->updateTileCollision(enemy, dt);
@@ -209,7 +231,11 @@ void GameState::updateCombatAndEnemies(const float &dt) {
             this->tts->addTextTag(EXPERIENCE_TAG, this->hero->getCenter().x, this->hero->getCenter().y, static_cast<int>(enemy->getGainExp()), "+", "EXP");
 
             this->enemyStrategy->removeEnemy(index);
-            --index;
+            continue;
+        }
+        else if(enemy->getDespawnTimerDone()){
+            this->enemyStrategy->removeEnemy(index);
+            continue;
         }
         ++index;
     }
@@ -221,7 +247,7 @@ void GameState::updateCombat(Enemy* enemy, const int index, const float &dt) {
 
     if(this->hero->getInitAttack()
        && enemy->getGlobalBounds().contains(this->mousePosView)
-       && enemy->getDistance(*this->hero) < this->hero->getWeapon()->getRange()
+       && enemy->getSpriteDistance(*this->hero) < this->hero->getWeapon()->getRange()
        && enemy->getDamageTimerDone()) {
 
         this->hero->updateAttack();
@@ -240,10 +266,22 @@ void GameState::updateCombat(Enemy* enemy, const int index, const float &dt) {
     }
 }
 
+void GameState::updateDebugText(const float& dt) {
+
+    std::stringstream  ss;
+
+    ss << "Mouse Pos View: " << this->mousePosView.x << " " << this->mousePosView.y << "\n"
+       << "Active Enemies: " << this->activeEnemies.size() << "\n";
+
+    this->debugText.setString(ss.str());
+}
+
 void GameState::update(const float& dt) {
     this->updateMousePosition(&this->view);
     this->updateInput(dt);
     this->updateKeyTime(dt);
+
+    this->updateDebugText(dt);
 
     if(!this->paused) {
         this->updateView(dt);
@@ -278,47 +316,30 @@ void GameState::render(sf::RenderTarget* target) {
    );
 
     for(auto *enemy : this->activeEnemies){
-        enemy->render(this->renderTexture, &this->core_shader, this->hero->getCenter(), false);
+        enemy->render(this->renderTexture, &this->core_shader, this->hero->getCenter(), true);
     }
 
-    this->hero->render(this->renderTexture, &this->core_shader, this->hero->getCenter(), false);
+    this->hero->render(this->renderTexture, &this->core_shader, this->hero->getCenter(), true);
 
     this->tileMap->renderDeferred(this->renderTexture, &this->core_shader, this->hero->getCenter());
 
     this->tts->render(this->renderTexture);
 
+    /** Render GUI **/
     this->renderTexture.setView(this->renderTexture.getDefaultView());
     this->heroGUI->render(this->renderTexture);
 
+    /** Pause menu render **/
     if(this->paused){
         //this->renderTexture.setView(this->renderTexture.getDefaultView());
         this->pmenu->render(this->renderTexture);
     }
 
+    /** Render debug text **/
+    this->renderTexture.draw(this->debugText);
+
+    /** Final render **/
     this->renderTexture.display();
-    this->renderSprite.setTexture(this->renderTexture.getTexture());
+    //this->renderSprite.setTexture(this->renderTexture.getTexture());
     target->draw(this->renderSprite);
 }
-
-void GameState::initKeyTime() {
-    this->keyTimeMax = 0.3f;
-    this->keyTimer.restart();
-}
-
-const bool GameState::getKeyTime() {
-    if(this->keyTimer.getElapsedTime().asSeconds() >= this->keyTimeMax){
-        this->keyTimer.restart();
-        return true;
-    }
-    return false;
-}
-
-
-
-
-
-
-
-
-
-

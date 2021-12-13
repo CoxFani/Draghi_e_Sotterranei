@@ -14,7 +14,7 @@ EnemySpawnerTile::EnemySpawnerTile(int grid_x, int grid_y, float gridSizeF,
     this->enemySpawnTimer.restart();
     this->enemyTimeToSpawn = enemy_time_to_spawn;
     this->enemyMaxDistance = enemy_max_distance;
-    this->spawned = false;
+    this->firstSpawn = true;
 }
 
 EnemySpawnerTile::~EnemySpawnerTile() {
@@ -36,22 +36,12 @@ const std::string EnemySpawnerTile::getAsString() const {
 
     ss << this->type << " " << this->shape.getTextureRect().left << " " << this->shape.getTextureRect().top << " "
        << this->enemyType << " " << this->enemyAmount << " " << this->enemyTimeToSpawn << " " << this->enemyMaxDistance;
-    std::cout << ss.str() << "\n";
+   // std::cout << ss.str() << "\n";
     return ss.str();
 }
 
-const bool &EnemySpawnerTile::getSpawned() const {
-    return this->spawned;
-}
-
-void EnemySpawnerTile::setSpawn(const bool spawned) {
-    this->spawned = spawned;
-    this->enemySpawnTimer.restart();
-}
-
 void EnemySpawnerTile::update() {
-    if(this->canSpawn())
-        this->spawned =  false;
+
 }
 
 void EnemySpawnerTile::render(sf::RenderTarget &target, sf::Shader* shader, const sf::Vector2f hero_position) {
@@ -68,11 +58,6 @@ const int &EnemySpawnerTile::getEnemyCounter() const {
     return this->enemyCounter;
 }
 
-const bool EnemySpawnerTile::canSpawn() const {
-    if(this->enemySpawnTimer.getElapsedTime().asMilliseconds() >= this->enemyTimeToSpawn)
-        return true;
-    return false;
-}
 
 void EnemySpawnerTile::increaseEnemyCounter() {
     if(this->enemyCounter > this->enemyAmount)
@@ -92,10 +77,13 @@ const int &EnemySpawnerTile::getEnemyAmount() const {
     return this->enemyAmount;
 }
 
+const bool EnemySpawnerTile::getSpawnTimer(){
 
+    if(this->enemySpawnTimer.getElapsedTime().asSeconds() >= this->enemyTimeToSpawn || this->firstSpawn){
 
-
-
-
-
-
+        this->enemySpawnTimer.restart();
+        this->firstSpawn = false;
+       return true;
+    }
+    return 0;
+}

@@ -10,7 +10,7 @@ Mummy::Mummy(float x, float y, sf::Texture &texture_sheet, EnemySpawnerTile& ene
     this->initVariables();
     initGUI();
 
-    this->createHitboxComponent(this->sprite, 15.f, 15.f, 32.f, 32.f);
+    this->createHitboxComponent(this->sprite, 20.f, 15.f, 25.f, 25.f);
     this->createMovementComponent(50.f, 1600.f, 1000.f);
     this->createAnimationComponent(texture_sheet);
     this->createAttributeComponent(1);
@@ -78,7 +78,7 @@ void Mummy::updateAnimation(const float &dt) {
     else
         this->sprite.setColor(sf::Color::White);
 
-//TODO animazioni di morte e danno
+//TODO animazioni di morte
     if(isDead()){
         this->animationComponent->play("DEATH", dt, true);
 
@@ -87,7 +87,9 @@ void Mummy::updateAnimation(const float &dt) {
 
 }
 
-void Mummy::update(const float &dt, sf::Vector2f& mouse_pos_view) {
+void Mummy::update(const float &dt, sf::Vector2f& mouse_pos_view, const sf::View& view) {
+
+    Enemy::update(dt, mouse_pos_view, view);
     this->movementComponent->update(dt);
 
     this->hpBar.setSize(sf::Vector2f(40.f * (static_cast<float>(this->attributeComponent->hp) / this->attributeComponent->hpMax), 5.f));

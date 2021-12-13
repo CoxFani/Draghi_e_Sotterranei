@@ -16,15 +16,13 @@ public:
     virtual ~EnemySpawnerTile();
 
     virtual const std::string getAsString() const override;
-    const bool& getSpawned() const;
     const int& getEnemyCounter() const;
     const int& getEnemyAmount() const;
+    const bool getSpawnTimer();
 
-    void setSpawn(const bool spawned);
-
-    const bool canSpawn() const;
     void increaseEnemyCounter();
     void decreaseEnemyCounter();
+
 
 
     void update() override;
@@ -38,7 +36,7 @@ private:
     sf::Clock enemySpawnTimer;
     sf::Int32 enemyTimeToSpawn;
     float enemyMaxDistance;
-    bool spawned;
+    bool firstSpawn;
 
 
 };
