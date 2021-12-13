@@ -27,7 +27,7 @@ private:
                 float dir_x, float dir_y,
                 sf::Color color,
                 unsigned char_size,
-                float lifetime, float speed, float acceleration, int fade_value);
+                float lifetime, bool reverse, float speed, float acceleration, int fade_value);
 
         TextTag(TextTag* tag, float pos_x, float pos_y, std::string str);
 
@@ -43,6 +43,7 @@ private:
         float dirX;
         float dirY;
         float lifetime;
+        bool reverse;
         float speed;
         float acceleration;
         sf::Vector2f velocity;

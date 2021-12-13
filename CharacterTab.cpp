@@ -8,7 +8,7 @@
 CharacterTab::CharacterTab(sf::VideoMode& vm, sf::Font& font, Hero& hero)
 : Tab(vm, font, hero, true) {
     this->back.setFillColor(sf::Color(30, 30, 30, 200));
-    this->back.setSize(sf::Vector2f(gui::p2pX(15.f, this->vm), gui::p2pX(20.f, this->vm)));
+    this->back.setSize(sf::Vector2f(gui::p2pX(22.f, this->vm), gui::p2pX(20.f, this->vm)));
     this->back.setPosition(20, 150);
 
     this->initText();

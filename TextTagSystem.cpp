@@ -34,11 +34,9 @@ void TextTagSystem::initFonts(std::string font_file) {
 }
 
 void TextTagSystem::initTagTemplates() {
-    this->tagTemplates[DEFAULT_TAG] = new TextTag(this->font, "", 0.f, 0.f, 0.f, -1.f, sf::Color::White, 10, 50.f, 150.f, 0.f, 3.f);
-    this->tagTemplates[NEGATIVE_TAG] = new TextTag(this->font, "", 0.f, 0.f, 0.f, 1.f, sf::Color::Red, 10, 50.f, 200.f, 0.f, 3.f);
-    this->tagTemplates[EXPERIENCE_TAG] = new TextTag(this->font, "", 0.f, 0.f, 0.f, -1.f, sf::Color::Cyan, 15, 70.f, 150.f, 0.f, 3.f);
-
-
+    this->tagTemplates[DEFAULT_TAG] = new TextTag(this->font, "", 0.f, 0.f, 0.f, -1.f, sf::Color::Yellow, 10, 50.f, true, 100.f, 50.f, 3);
+    this->tagTemplates[NEGATIVE_TAG] = new TextTag(this->font, "", 0.f, 0.f, 0.f, 1.f, sf::Color::Red, 12, 70.f, true, 100.f, 50.f, 3);
+    this->tagTemplates[EXPERIENCE_TAG] = new TextTag(this->font, "", 0.f, 0.f, 0.f, -1.f, sf::Color::Cyan, 15, 70.f, true, 100.f, 50.f, 3);
 }
 
 void TextTagSystem::addTextTag(const unsigned tag_type, const float pos_x, const float pos_y, const std::string str, const std::string prefix, const std::string postfix) {
@@ -82,7 +80,7 @@ TextTagSystem::TextTag::TextTag(sf::Font &font, std::string text,
                                 float dir_x, float dir_y,
                                 sf::Color color,
                                 unsigned int char_size,
-                                float lifetime, float speed, float acceleration, int fade_value) {
+                                float lifetime, bool reverse, float speed, float acceleration, int fade_value) {
     this->text.setFont(font);
     this->text.setPosition(pos_x, pos_y);
     this->text.setFillColor(color);
@@ -95,6 +93,12 @@ TextTagSystem::TextTag::TextTag(sf::Font &font, std::string text,
     this->speed = speed;
     this->acceleration = acceleration;
     this->fadeValue = fade_value;
+    this->reverse = reverse;
+
+    if(this->reverse){
+        this->velocity.x = this->dirX * this->speed;
+        this->velocity.y = this->dirY * this->speed;
+    }
 }
 
 TextTagSystem::TextTag::TextTag(TextTagSystem::TextTag* tag, float pos_x, float pos_y, std::string str) {
@@ -108,6 +112,8 @@ TextTagSystem::TextTag::TextTag(TextTagSystem::TextTag* tag, float pos_x, float 
     this->speed = tag->speed;
     this->acceleration = tag->acceleration;
     this->fadeValue = tag->fadeValue;
+    this->reverse = tag->reverse;
+    this->velocity = tag->velocity;
 }
 
 TextTagSystem::TextTag::~TextTag() {
@@ -125,17 +131,30 @@ void TextTagSystem::TextTag::update(const float &dt) {
         this->lifetime -= 100.f * dt;
 
         if(this->acceleration > 0.f){
+            if(this->reverse){
+                this->velocity.x -= this-> dirX * this->acceleration * dt;
+                this->velocity.y -= this-> dirY * this->acceleration * dt;
 
-            this->velocity.x += this-> dirX * this->acceleration * dt;
-            this->velocity.y += this-> dirY * this->acceleration * dt;
+                if(abs(this->velocity.x) < 0.f)
+                    this->velocity.x = 0.f;
 
-            if(abs(this->velocity.x) > this->speed)
-                this->velocity.x = this->dirX * this->speed;
+                if(abs(this->velocity.y) < 0.f)
+                    this->velocity.y = 0.f;
 
-            if(abs(this->velocity.y) > this->speed)
-                this->velocity.y = this->dirY * this->speed;
+                this->text.move(this->velocity * dt);
+            }
+            else{
+                this->velocity.x += this-> dirX * this->acceleration * dt;
+                this->velocity.y += this-> dirY * this->acceleration * dt;
 
-            this->text.move(this->velocity * dt);
+                if(abs(this->velocity.x) > this->speed)
+                    this->velocity.x = this->dirX * this->speed;
+
+                if(abs(this->velocity.y) > this->speed)
+                    this->velocity.y = this->dirY * this->speed;
+
+                this->text.move(this->velocity * dt);
+            }
         }
         else{
 

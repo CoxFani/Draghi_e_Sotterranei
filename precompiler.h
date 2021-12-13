@@ -26,6 +26,8 @@
 #include <string>
 #include <sstream>
 
+#include "VectorMath.h"
+
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>

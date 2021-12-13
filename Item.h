@@ -13,6 +13,11 @@ public:
     Item(unsigned level, unsigned value);
     virtual ~Item();
 
+    const short unsigned& getType() const;
+    const unsigned& getLevel() const;
+    const unsigned& getValue() const;
+
+
     virtual Item* clone() = 0;
 
 protected:
