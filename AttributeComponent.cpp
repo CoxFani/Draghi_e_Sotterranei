@@ -7,17 +7,17 @@
 
 AttributeComponent::AttributeComponent(int level) {
     this->level = level;
-    this->exp = 0;
-    this->expNext = static_cast<int>((50 * pow(this->level, 3) - 150 * pow(this->level, 2) + 400 * this->level) / 3);
-    this->attributePoints = 2;
-    this->strength = 1;
-    this->vitality = 1;
-    this->dexterity = 1;
-    this->agility = 1;
-    this->intelligence = 1;
+    exp = 0;
+    expNext = static_cast<int>((50 * pow(this->level, 3) - 150 * pow(this->level, 2) + 400 * this->level) / 3);
+    attributePoints = 2;
+    strength = 1;
+    vitality = 1;
+    dexterity = 1;
+    agility = 1;
+    intelligence = 1;
 
-    this->updateLevel();
-    this->updateStats(true);
+    updateLevel();
+    updateStats(true);
 }
 
 AttributeComponent::~AttributeComponent() {
@@ -26,36 +26,36 @@ AttributeComponent::~AttributeComponent() {
 
 void AttributeComponent::updateStats(const bool reset) {
     //TODO modificare equazioni di aumento caratteristiche
-    this->hpMax = this->vitality * 5 + this->vitality + this->strength / 2 + this->intelligence / 5;
-    this->damageMin = this->strength * 2 + this->strength / 4 + this->intelligence / 5;
-    this->damageMax = this->strength * 2 + this->strength / 2 + this->intelligence / 5;
-    this->accuracy = this->dexterity * 5 + this->dexterity / 2 + this->intelligence / 5;
-    this->defence = this->agility * 2 + this->agility / 4 + this->intelligence / 5;
-    this->luck = this->intelligence * 2 + this->intelligence / 5;
+    hpMax = vitality * 5 + vitality + strength / 2 + intelligence / 5;
+    damageMin = strength * 2 + strength / 4 + intelligence / 5;
+    damageMax = strength * 2 + strength / 2 + intelligence / 5;
+    accuracy = dexterity * 5 + dexterity / 2 + intelligence / 5;
+    defence = agility * 2 + agility / 4 + intelligence / 5;
+    luck = intelligence * 2 + intelligence / 5;
 
     if(reset)
-        this->hp = this->hpMax;
+        hp = hpMax;
 }
 
 void AttributeComponent::updateLevel() {
-    while(this->exp >= this->expNext){
-        ++this->level;
-        this->exp -= this->expNext;
-        this->expNext = static_cast<int>((50 * pow(this->level, 3) - 150 * pow(this->level, 2) + 400 * this->level) / 3);
-        ++this->attributePoints;
+    while(exp >= expNext){
+        ++level;
+        exp -= expNext;
+        expNext = static_cast<int>((50 * pow(level, 3) - 150 * pow(level, 2) + 400 * level) / 3);
+        ++attributePoints;
     }
 }
 
 void AttributeComponent::update() {
-    this->updateLevel();
+    updateLevel();
 }
 
 std::string AttributeComponent::debugPrint() const {
     std::stringstream ss;
-    ss << "Level: " << this->level << "\n"
-       << "Exp: " << this->exp << "\n"
-       << "Exp Next: " << this->expNext << "\n"
-       << "Attp: " << this->attributePoints << "\n";
+    ss << "Level: " << level << "\n"
+       << "Exp: " << exp << "\n"
+       << "Exp Next: " << expNext << "\n"
+       << "Attp: " << attributePoints << "\n";
     return ss.str();
 }
 
@@ -82,9 +82,9 @@ void AttributeComponent::loseEXP(const int exp) {
 
 void AttributeComponent::gainEXP(const int exp) {
     this->exp += exp;
-    this->updateLevel();
+    updateLevel();
 }
 
 const bool AttributeComponent::isDead() const {
-    return this->hp <= 0;
+    return hp <= 0;
 }

@@ -9,7 +9,7 @@
 class AttributeComponent {
 
 public:
-    AttributeComponent(int level);
+    explicit AttributeComponent(int level);
     virtual ~AttributeComponent();
 
     int level;

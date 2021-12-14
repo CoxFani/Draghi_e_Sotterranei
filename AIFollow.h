@@ -14,8 +14,6 @@ public:
 
     void update(const float& dt);
 
-private:
-
 };
 
 

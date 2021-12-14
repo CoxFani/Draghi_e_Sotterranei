@@ -23,37 +23,35 @@ EditorState::EditorState(StateData* state_data)
 }
 
 EditorState::~EditorState() {
-    auto i = this->buttons.begin();
-    for (i = this->buttons.begin(); i != this->buttons.end(); ++i)
+    auto i = buttons.begin();
+    for (i = buttons.begin(); i != buttons.end(); ++i)
         delete i->second;
-    delete this->pmenu;
-    delete this->tileMap;
+    delete pmenu;
+    delete tileMap;
 
-    for(size_t i = 0; i < this->modes.size(); i++){
-        delete this->modes[i];
+    for(size_t i = 0; i < modes.size(); i++){
+        delete modes[i];
     }
 }
 
 void EditorState::initVariables() {
-
-    this->cameraSpeed = 1000.f;
-
+    cameraSpeed = 1000.f;
 }
 
 void EditorState::initEditorStateData() {
-    this->editorStateData.view = &this->view;
-    this->editorStateData.font = &this->font;
-    this->editorStateData.keyTime = &this->keyTime;
-    this->editorStateData.keyTimeMax = &this->keyTimeMax;
-    this->editorStateData.keybinds = &this->keybinds;
-    this->editorStateData.mousePosGrid = &this->mousePosGrid;
-    this->editorStateData.mousePosScreen = &this->mousePosScreen;
-    this->editorStateData.mousePosView = &this->mousePosView;
-    this->editorStateData.mousePosWindow = &this->mousePosWindow;
+    editorStateData.view = &view;
+    editorStateData.font = &font;
+    editorStateData.keyTime = &keyTime;
+    editorStateData.keyTimeMax = &keyTimeMax;
+    editorStateData.keybinds = &keybinds;
+    editorStateData.mousePosGrid = &mousePosGrid;
+    editorStateData.mousePosScreen = &mousePosScreen;
+    editorStateData.mousePosView = &mousePosView;
+    editorStateData.mousePosWindow = &mousePosWindow;
 }
 
 void EditorState::initFonts() {
-    if(!this->font.loadFromFile("../Fonts/DeterminationMonoWebRegular-Z5oq.ttf")){
+    if(!font.loadFromFile("../Fonts/DeterminationMonoWebRegular-Z5oq.ttf")){
         throw("ERROR::EDITORSTATE::COULD NOT LOAD FONT");
     }
 
@@ -70,19 +68,19 @@ void EditorState::initKeybinds() {
         std::string key = "";
         std::string key2 = "";
         while (ifs >> key >> key2){
-            this->keybinds[key] = this->supportedKeys->at(key2);
+            keybinds[key] = supportedKeys->at(key2);
         }
     }
     ifs.close();
 }
 
 void EditorState::initPausedMenu() {
-    const sf::VideoMode& vm = this->stateData->gfxSettings->resolution;
-    this->pmenu = new PauseMenu(this->stateData->gfxSettings->resolution, this->font);
+    const sf::VideoMode& vm = stateData->gfxSettings->resolution;
+    pmenu = new PauseMenu(stateData->gfxSettings->resolution, this->font);
 
-    this->pmenu->addButton("QUIT", gui::p2pY(62.5f, vm)/*450.f*/, gui::p2pX(15.6f, vm), gui::p2pY(10.4f, vm), gui::calcCharSize(vm), "Quit");
-    this->pmenu->addButton("SAVE", gui::p2pY(48.6f, vm)/*350.f*/, gui::p2pX(15.6f, vm), gui::p2pY(10.4f, vm), gui::calcCharSize(vm), "Save");
-    this->pmenu->addButton("LOAD", gui::p2pY(34.7f, vm)/*250.f*/, gui::p2pX(15.6f, vm), gui::p2pY(10.4f, vm), gui::calcCharSize(vm), "Load");
+    pmenu->addButton("QUIT", gui::p2pY(62.5f, vm)/*450.f*/, gui::p2pX(15.6f, vm), gui::p2pY(10.4f, vm), gui::calcCharSize(vm), "Quit");
+    pmenu->addButton("SAVE", gui::p2pY(48.6f, vm)/*350.f*/, gui::p2pX(15.6f, vm), gui::p2pY(10.4f, vm), gui::calcCharSize(vm), "Save");
+    pmenu->addButton("LOAD", gui::p2pY(34.7f, vm)/*250.f*/, gui::p2pX(15.6f, vm), gui::p2pY(10.4f, vm), gui::calcCharSize(vm), "Load");
 }
 
 void EditorState::initGui() {
@@ -91,53 +89,53 @@ void EditorState::initGui() {
 }
 
 void EditorState::initTileMap() {
-    this->tileMap = new TileMap(this->stateData->gridSize, 100, 100,"../Resources/Images/Tiles/TileSet1.png"); //TODO cambiare file per texture selector
+    tileMap = new TileMap(stateData->gridSize, 100, 100,"../Resources/Images/Tiles/TileSet1.png"); //TODO cambiare file per texture selector anche in save_file.txt
 }
 
 void EditorState::initView() {
-    this->view.setSize(sf::Vector2f(static_cast<float>(this->stateData->gfxSettings->resolution.width), static_cast<float>(this->stateData->gfxSettings->resolution.height)));
-    this->view.setCenter(static_cast<float>(this->stateData->gfxSettings->resolution.width) / 2.f, static_cast<float>(this->stateData->gfxSettings->resolution.height) / 2.f);
+    view.setSize(sf::Vector2f(static_cast<float>(stateData->gfxSettings->resolution.width), static_cast<float>(stateData->gfxSettings->resolution.height)));
+    view.setCenter(static_cast<float>(stateData->gfxSettings->resolution.width) / 2.f, static_cast<float>(stateData->gfxSettings->resolution.height) / 2.f);
 }
 
 void EditorState::initModes() {
-    this->modes.push_back(new DefaultEditorMode(this->stateData, this->tileMap, &this->editorStateData));
-    this->modes.push_back(new EnemyEditorMode(this->stateData, this->tileMap, &this->editorStateData));
-    this->activeMode = EditorModes::DEFAULT_EDITOR_MODE;
+    modes.push_back(new DefaultEditorMode(stateData, tileMap, &editorStateData));
+    modes.push_back(new EnemyEditorMode(stateData, tileMap, &editorStateData));
+    activeMode = EditorModes::DEFAULT_EDITOR_MODE;
 }
 
 void EditorState::updateInput(const float &dt) {
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE"))) && this->getKeyTime()){
-        if(!this->paused)
-            this->pauseState();
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(keybinds.at("CLOSE"))) && getKeyTime()){
+        if(!paused)
+            pauseState();
         else
-            this->unpauseState();
+            unpauseState();
     }
 }
 
 void EditorState::updateEditorInput(const float &dt) {
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_CAMERA_UP")))){
-        this->view.move(0.f, -std::floor(this->cameraSpeed * dt)); //valore regola velocità scorrimento schermo
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(keybinds.at("MOVE_CAMERA_UP")))){
+        view.move(0.f, -std::floor(cameraSpeed * dt)); //valore regola velocità scorrimento schermo
     }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_CAMERA_DOWN")))){
-        this->view.move(0.f, std::floor(this->cameraSpeed * dt)); //valore regola velocità scorrimento schermo
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(keybinds.at("MOVE_CAMERA_DOWN")))){
+        view.move(0.f, std::floor(cameraSpeed * dt)); //valore regola velocità scorrimento schermo
     }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_CAMERA_LEFT")))){
-        this->view.move(-std::floor(this->cameraSpeed * dt), 0.f); //valore regola velocità scorrimento schermo
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(keybinds.at("MOVE_CAMERA_LEFT")))){
+        view.move(-std::floor(cameraSpeed * dt), 0.f); //valore regola velocità scorrimento schermo
     }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_CAMERA_RIGHT")))){
-        this->view.move(std::floor(this->cameraSpeed * dt), 0.f); //valore regola velocità scorrimento schermo
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(keybinds.at("MOVE_CAMERA_RIGHT")))){
+        view.move(std::floor(cameraSpeed * dt), 0.f); //valore regola velocità scorrimento schermo
     }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MODE_UP")))){
-        if(this->activeMode < this->modes.size() - 1){
-            this->activeMode++;
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(keybinds.at("MODE_UP")))){
+        if(activeMode < modes.size() - 1){
+            activeMode++;
         }
         else {
             std::cout << "ERROR::EDITORSTATE::CANNOT CHANGE MODE  UP!" << "\n";
         }
     }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MODE_DOWN")))){
-        if(this->activeMode > 0){
-            this->activeMode--;
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(keybinds.at("MODE_DOWN")))){
+        if(activeMode > 0){
+            activeMode--;
         }
         else {
             std::cout << "ERROR::EDITORSTATE::CANNOT CHANGE MODE DOWN!" << "\n";
@@ -146,7 +144,7 @@ void EditorState::updateEditorInput(const float &dt) {
 }
 
 void EditorState::updateButtons() {
-    for (auto &i : this->buttons){
+    for (auto &i : buttons){
         i.second->update(this->mousePosWindow);
     }
 }
@@ -156,41 +154,39 @@ void EditorState::updateGui(const float& dt) {
 }
 
 void EditorState::updatePauseMenuButtons() {
-    if( this->pmenu->isButtonPressed("QUIT"))
-        this->endState();
+    if(pmenu->isButtonPressed("QUIT"))
+        endState();
 
-    if( this->pmenu->isButtonPressed("SAVE"))
-        this->tileMap->saveToFile("../saves_file.txt");
+    if(pmenu->isButtonPressed("SAVE"))
+        tileMap->saveToFile("../saves_file.txt");
 
-    if( this->pmenu->isButtonPressed("LOAD"))
-        this->tileMap->loadFromFile("../saves_file.txt");
+    if(pmenu->isButtonPressed("LOAD"))
+        tileMap->loadFromFile("../saves_file.txt");
 }
 
 void EditorState::updateModes(const float& dt) {
-
-    this->modes[this->activeMode]->update(dt);
-
+    modes[activeMode]->update(dt);
 }
 
 void EditorState::update(const float& dt) {
-    this->updateMousePosition(&this->view);
-    this->updateKeyTime(dt);
-    this->updateInput(dt);
+    updateMousePosition(&view);
+    updateKeyTime(dt);
+    updateInput(dt);
 
-    if(!this->paused){
-        this->updateButtons();
-        this->updateGui(dt);
-        this->updateEditorInput(dt);
-        this->updateModes(dt);
+    if(!paused){
+        updateButtons();
+        updateGui(dt);
+        updateEditorInput(dt);
+        updateModes(dt);
     }
     else{
-        this->pmenu->update(this->mousePosWindow);
-        this->updatePauseMenuButtons();
+        pmenu->update(this->mousePosWindow);
+        updatePauseMenuButtons();
     }
 }
 
 void EditorState::renderButtons(sf::RenderTarget& target) {
-    for (auto &i : this->buttons){
+    for (auto &i : buttons){
         i.second->render(target);
     }
 }
@@ -201,28 +197,28 @@ void EditorState::renderGui(sf::RenderTarget &target) {
 
 void EditorState::renderModes(sf::RenderTarget& target) {
 
-    this->modes[this->activeMode]->render(target);
+    modes[activeMode]->render(target);
 
 }
 
 void EditorState::render(sf::RenderTarget* target) {
     if (!target)
-        target = this->window;
+        target = window;
 
 
-    target->setView(this->view);
-    this->tileMap->render(*target, this->mousePosGrid, nullptr, sf::Vector2f(), true);
-    this->tileMap->renderDeferred(*target);
+    target->setView(view);
+    tileMap->render(*target, mousePosGrid, nullptr, sf::Vector2f(), true);
+    tileMap->renderDeferred(*target);
 
-    target->setView(this->window->getDefaultView());
-    this->renderButtons(*target);
+    target->setView(window->getDefaultView());
+    renderButtons(*target);
 
-    this->renderGui(*target);
+    renderGui(*target);
 
-    this->renderModes(*target);
+    renderModes(*target);
 
-    if(this->paused){
-        target->setView(this->window->getDefaultView());
-        this->pmenu->render(*target);
+    if(paused){
+        target->setView(window->getDefaultView());
+        pmenu->render(*target);
     }
 }

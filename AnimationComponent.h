@@ -36,64 +36,62 @@ private:
                 : sprite(sprite), textureSheet(texture_sheet),
                 animationTimer(animation_timer), timer(0.f), done(false),
                 width(width), height(height){
-            this->timer = 0.f;
-            this->startRect = sf::IntRect(start_frame_x * width, start_frame_y * height, width, height);
-            this->currentRect = this->startRect;
-            this->endRect = sf::IntRect(frames_x * width, frames_y * height, width, height);
+            timer = 0.f;
+            startRect = sf::IntRect(start_frame_x * width, start_frame_y * height, width, height);
+            currentRect = startRect;
+            endRect = sf::IntRect(frames_x * width, frames_y * height, width, height);
 
-            this->sprite.setTexture(this->textureSheet, true);
-            this->sprite.setTextureRect(this->startRect);
+            sprite.setTexture(textureSheet, true);
+            sprite.setTextureRect(startRect);
         }
 
-        const bool& isDone() const{
-            return this->done;
+        [[nodiscard]] const bool& isDone() const{
+            return done;
         }
 
         const bool& play(const float& dt){
-            this->done = false;
-            this->timer += 100.f * dt;
-            if (this->timer >= this->animationTimer){
-                this->timer = 0.f;
+            done = false;
+            timer += 100.f * dt;
+            if (timer >= animationTimer){
+                timer = 0.f;
 
-                if (this->currentRect != this->endRect) {
-                    this->currentRect.left += this->width;
+                if (currentRect != endRect) {
+                    currentRect.left += width;
                 }
                 else {
-                    this->currentRect.left = this->startRect.left;
-                    this->done = true;
+                    currentRect.left = startRect.left;
+                    done = true;
                 }
 
-                this->sprite.setTextureRect(this->currentRect);
+                sprite.setTextureRect(currentRect);
             }
-            return this->done;
+            return done;
         }
 
         const bool& play(const float& dt,  float mod_percent){
             if(mod_percent < 0.5f)
                 mod_percent = 0.5f;
 
-            this->done = false;
-            this->timer += mod_percent * 100.f * dt;
-            if (this->timer >= this->animationTimer){
-                this->timer = 0.f;
+            done = false;
+            timer += mod_percent * 100.f * dt;
+            if (timer >= animationTimer){
+                timer = 0.f;
 
-                if (this->currentRect != this->endRect) {
-                    this->currentRect.left += this->width;
+                if (currentRect != endRect) {
+                    currentRect.left += width;
                 }
                 else {
-                    this->currentRect.left = this->startRect.left;
-                    this->done = true;
-
+                    currentRect.left = startRect.left;
+                    done = true;
                 }
-
-                this->sprite.setTextureRect(this->currentRect);
+                sprite.setTextureRect(currentRect);
             }
-            return this->done;
+            return done;
         }
 
         void reset(){
-            this->timer = animationTimer;
-            this->currentRect = this->startRect;
+            timer = animationTimer;
+            currentRect = startRect;
         }
     };
 
