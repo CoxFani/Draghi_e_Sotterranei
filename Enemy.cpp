@@ -15,9 +15,9 @@ Enemy::~Enemy() {
 }
 
 void Enemy::initVariables() {
-    this->gainExp = 10;
-    this->damageTimerMax = 1000;
-    this->despawnTimerMax = 1000;
+    gainExp = 10;
+    damageTimerMax = 1000;
+    despawnTimerMax = 1000;
 }
 
 void Enemy::initAnimations() {
@@ -26,42 +26,42 @@ void Enemy::initAnimations() {
 
 const unsigned &Enemy::getGainExp() const {
 
-    return this->gainExp;
+    return gainExp;
 }
 
 EnemySpawnerTile &Enemy::getEnemySpawnerTile() {
-    return this->enemySpawnerTile;
+    return enemySpawnerTile;
 }
 
 const bool Enemy::getDamageTimerDone() const{
 
-    return this->damageTimer.getElapsedTime().asMilliseconds() >= this->damageTimerMax;
+    return damageTimer.getElapsedTime().asMilliseconds() >= damageTimerMax;
 }
 
 const bool Enemy::getDespawnTimerDone() const{
 
-    return this->despawnTimer.getElapsedTime().asMilliseconds() >= this->despawnTimerMax;
+    return despawnTimer.getElapsedTime().asMilliseconds() >= despawnTimerMax;
 }
 
 void Enemy::resetDamageTimer() {
 
-    this->damageTimer.restart();
+    damageTimer.restart();
 }
 
 void Enemy::generateAttributes(const unsigned int &level) {
 
-    this->gainExp = level * (rand() % 5 +1);
+    gainExp = level * (rand() % 5 +1);
 }
 
 void Enemy::loseHP(const int hp) {
-    if(this->attributeComponent) {
-        this->attributeComponent->loseHP(hp);
+    if(attributeComponent) {
+        attributeComponent->loseHP(hp);
     }
 }
 
 const AttributeComponent *Enemy::getAttributeComp() const {
-    if(this->attributeComponent)
-        return this->attributeComponent;
+    if(attributeComponent)
+        return attributeComponent;
     else {
         std::cout << "ERROR::ENEMY::ATTRIBUTECOMPONENT IS NOT INIZIALIZES" << "\n";
         return nullptr;
@@ -69,15 +69,15 @@ const AttributeComponent *Enemy::getAttributeComp() const {
 }
 
 const bool Enemy::isDead() const {
-    if(this->attributeComponent){
-        return this->attributeComponent->isDead();
+    if(attributeComponent){
+        return attributeComponent->isDead();
     }
     return false;
 }
 
 void Enemy::update(const float &dt, sf::Vector2f &mouse_pos_view, const sf::View& view) {
 
-    if(vectorDistance(this->getPosition(), view. getCenter()) < 1500.f)
-        this->despawnTimer.restart();
+    if(vectorDistance(getPosition(), view. getCenter()) < 1500.f)
+        despawnTimer.restart();
 }
 

@@ -6,8 +6,8 @@
 
 EnemyEditorMode::EnemyEditorMode(StateData *state_data, TileMap *tile_map, EditorStateData *editor_state_data)
         : EditorMode(state_data, tile_map, editor_state_data) {
-    this->initVariables();
-    this->initGui();
+    initVariables();
+    initGui();
 }
 
 EnemyEditorMode::~EnemyEditorMode() {
@@ -17,22 +17,22 @@ EnemyEditorMode::~EnemyEditorMode() {
 void EnemyEditorMode::initGui() {
 
     //Testo
-    this->cursorText.setFont(*this->editorStateData->font);
-    this->cursorText.setFillColor(sf::Color::White);
-    this->cursorText.setCharacterSize(20);
-    this->cursorText.setPosition(this->editorStateData->mousePosView->x, this->editorStateData->mousePosView->y - 50);
+    cursorText.setFont(*editorStateData->font);
+    cursorText.setFillColor(sf::Color::White);
+    cursorText.setCharacterSize(20);
+    cursorText.setPosition(editorStateData->mousePosView->x, editorStateData->mousePosView->y - 50);
 
     //GUI generale
-    this->sidebar.setSize(sf::Vector2f(80.f, static_cast<float>(this->stateData->gfxSettings->resolution.height)));
-    this->sidebar.setFillColor(sf::Color(50, 50, 50, 100));
-    this->sidebar.setOutlineThickness(1.f);
-    this->sidebar.setOutlineColor(sf::Color(200, 200, 200, 150));
+    sidebar.setSize(sf::Vector2f(80.f, static_cast<float>(stateData->gfxSettings->resolution.height)));
+    sidebar.setFillColor(sf::Color(50, 50, 50, 100));
+    sidebar.setOutlineThickness(1.f);
+    sidebar.setOutlineColor(sf::Color(200, 200, 200, 150));
 
-    this->selectorRect.setSize(sf::Vector2f(this->stateData->gridSize, this->stateData->gridSize));
+    selectorRect.setSize(sf::Vector2f(stateData->gridSize, stateData->gridSize));
 
-    this->selectorRect.setFillColor(sf::Color(255, 255, 255, 150));
-    this->selectorRect.setOutlineThickness(1.f);
-    this->selectorRect.setOutlineColor(sf::Color::Green);
+    selectorRect.setFillColor(sf::Color(255, 255, 255, 150));
+    selectorRect.setOutlineThickness(1.f);
+    selectorRect.setOutlineColor(sf::Color::Green);
 }
 
 void EnemyEditorMode::initVariables() {
@@ -44,94 +44,94 @@ void EnemyEditorMode::initVariables() {
 
 void EnemyEditorMode::updateInput(const float &dt) {
     //Aggiunge Tile
-    if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->getKeyTime()){
-        if(!this->sidebar.getGlobalBounds().contains(sf::Vector2f(*this->editorStateData->mousePosWindow)))
-            this->tileMap->addTile(this->editorStateData->mousePosGrid->x, this->editorStateData->mousePosGrid->y, 0, this->textureRect,
-                                   this->type, this->amount, this->timeToSpawn, this->maxDistance);
+    if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && getKeyTime()){
+        if(!sidebar.getGlobalBounds().contains(sf::Vector2f(*editorStateData->mousePosWindow)))
+            tileMap->addTile(editorStateData->mousePosGrid->x, editorStateData->mousePosGrid->y, 0, textureRect,
+                                   type, amount, timeToSpawn, maxDistance);
     }
     //Rimuove Tile
-    else if (sf::Mouse::isButtonPressed(sf::Mouse::Right) && this->getKeyTime()){
-        if(!this->sidebar.getGlobalBounds().contains(sf::Vector2f(*this->editorStateData->mousePosWindow))) {
-            //if(this->tileMap->checkType(this->editorStateData->mousePosGrid->x, this->editorStateData->mousePosGrid->y, 0, TileTypes::ENEMYSPAWNER)){
-                this->tileMap->removeTile(this->editorStateData->mousePosGrid->x, this->editorStateData->mousePosGrid->y, 0, TileTypes::ENEMYSPAWNER);
+    else if (sf::Mouse::isButtonPressed(sf::Mouse::Right) && getKeyTime()){
+        if(!sidebar.getGlobalBounds().contains(sf::Vector2f(*editorStateData->mousePosWindow))) {
+            //if(tileMap->checkType(editorStateData->mousePosGrid->x, editorStateData->mousePosGrid->y, 0, TileTypes::ENEMYSPAWNER)){
+                tileMap->removeTile(editorStateData->mousePosGrid->x, editorStateData->mousePosGrid->y, 0, TileTypes::ENEMYSPAWNER);
         }
     }
 
     //TYPE UP
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->editorStateData->keybinds->at("TYPE_UP"))) && this->getKeyTime()){
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(editorStateData->keybinds->at("TYPE_UP"))) && getKeyTime()){
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)){
-            if(this->type > 0)
-                this->type--;
+            if(type > 0)
+                type--;
         }
-        else if (this->type < 1000)
-            this->type++;
+        else if (type < 1000)
+            type++;
         else
-            this->type = 0;
+            type = 0;
     }
         //AMOUNT UP
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->editorStateData->keybinds->at("AMOUNT_UP"))) && this->getKeyTime()){
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(editorStateData->keybinds->at("AMOUNT_UP"))) && getKeyTime()){
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)){
-            if(this->amount > 0)
-                this->amount--;
+            if(amount > 0)
+                amount--;
         }
-        else if (this->amount < 1000)
-            this->amount++;
+        else if (amount < 1000)
+            amount++;
         else
-            this->amount = 0;
+            amount = 0;
     }
         //TIME TO SPAWN UP
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->editorStateData->keybinds->at("TTS_UP"))) && this->getKeyTime()){
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(editorStateData->keybinds->at("TTS_UP"))) && getKeyTime()){
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)){
-            if(this->timeToSpawn > 0)
-                this->timeToSpawn--;
+            if(timeToSpawn > 0)
+                timeToSpawn--;
         }
-        else if (this->timeToSpawn < 1000)
-            this->timeToSpawn++;
+        else if (timeToSpawn < 1000)
+            timeToSpawn++;
         else
-            this->timeToSpawn = 0;
+            timeToSpawn = 0;
     }
     //MAX DISTANCE UP
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->editorStateData->keybinds->at("MD_UP"))) && this->getKeyTime()){
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(editorStateData->keybinds->at("MD_UP"))) && getKeyTime()){
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)){
-            if(this->maxDistance > 0)
-                this->maxDistance--;
+            if(maxDistance > 0)
+                maxDistance--;
         }
-        else if (this->maxDistance < 1000)
-            this->maxDistance++;
+        else if (maxDistance < 1000)
+            maxDistance++;
         else
-            this->maxDistance = 0;
+            maxDistance = 0;
     }
 }
 
 void EnemyEditorMode::updateGui(const float &dt) {
-    this->selectorRect.setPosition(this->editorStateData->mousePosGrid->x * this->stateData->gridSize,
-                                   this->editorStateData->mousePosGrid->y * this->stateData->gridSize);
-    this->cursorText.setPosition(this->editorStateData->mousePosView->x + 100.f,
-                                 this->editorStateData->mousePosView->y - 25.f);
+    selectorRect.setPosition(editorStateData->mousePosGrid->x * stateData->gridSize,
+                                   editorStateData->mousePosGrid->y * stateData->gridSize);
+    cursorText.setPosition(editorStateData->mousePosView->x + 100.f,
+                                 editorStateData->mousePosView->y - 25.f);
     std::stringstream  ss;
     ss <<
-       "\n" << "Enemy type: " << this->type <<
-       "\n" << "Enemy amount: " << this->amount <<
-       "\n" << "Time to spawn: " << this->timeToSpawn <<
-       "\n" << "Max distance: " << this->maxDistance;
+       "\n" << "Enemy type: " << type <<
+       "\n" << "Enemy amount: " << amount <<
+       "\n" << "Time to spawn: " << timeToSpawn <<
+       "\n" << "Max distance: " << maxDistance;
 
-    this->cursorText.setString(ss.str());
+    cursorText.setString(ss.str());
 }
 
 void EnemyEditorMode::update(const float &dt) {
-    this->updateInput(dt);
-    this->updateGui(dt);
+    updateInput(dt);
+    updateGui(dt);
 }
 
 void EnemyEditorMode::renderGui(sf::RenderTarget &target) {
-    target.setView(*this->editorStateData->view);
-    target.draw(this->selectorRect);
-    target.draw(this->cursorText);
+    target.setView(*editorStateData->view);
+    target.draw(selectorRect);
+    target.draw(cursorText);
 
     target.setView(target.getDefaultView());
-    target.draw(this->sidebar);
+    target.draw(sidebar);
 }
 
 void EnemyEditorMode::render(sf::RenderTarget &target) {
-    this->renderGui(target);
+    renderGui(target);
 }

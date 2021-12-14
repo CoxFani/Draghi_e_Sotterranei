@@ -51,14 +51,14 @@ gui::Button::Button(float x, float y, float width, float height,
               sf::Color outline_idle_color, sf::Color outline_hover_color, sf::Color outline_active_color,
               short unsigned id){
 
-    this->buttonState = BTN_IDLE;
+    buttonState = BTN_IDLE;
     this->id = id;
 
-    this->shape.setPosition(sf::Vector2f(x, y));
-    this->shape.setSize(sf::Vector2f(width, height));
-    this->shape.setFillColor(idle_color);
-    this->shape.setOutlineThickness(1.f);
-    this->shape.setOutlineColor(outline_idle_color);
+    shape.setPosition(sf::Vector2f(x, y));
+    shape.setSize(sf::Vector2f(width, height));
+    shape.setFillColor(idle_color);
+    shape.setOutlineThickness(1.f);
+    shape.setOutlineColor(outline_idle_color);
 
     this->font = font;
     this->text.setFont(*this->font);
@@ -66,8 +66,8 @@ gui::Button::Button(float x, float y, float width, float height,
     this->text.setFillColor(text_idle_color);
     this->text.setCharacterSize(character_size);
     this->text.setPosition(
-            this->shape.getPosition().x + (this->shape.getGlobalBounds().width/ 2) - this->text.getGlobalBounds().width / 2,
-            this->shape.getPosition().y
+            shape.getPosition().x + (shape.getGlobalBounds().width/ 2) - this->text.getGlobalBounds().width / 2,
+            shape.getPosition().y
             );
 
     this->textIdleColor = text_idle_color;
@@ -88,7 +88,7 @@ gui::Button::~Button() {
 }
 
 const bool gui::Button::isPressed() const {
-    if(this->buttonState == BTN_ACTIVE)
+    if(buttonState == BTN_ACTIVE)
         return true;
 
     return false;
@@ -103,49 +103,52 @@ void gui::Button::setText(const std::string text) {
 }
 
 const short unsigned &gui::Button::getId() const {
-    return this->id;
+
+    return id;
 }
 
 void gui::Button::setId(const unsigned short id) {
+
     this->id = id;
 }
 
 void gui::Button::render(sf::RenderTarget& target) {
-    target.draw(this->shape);
-    target.draw(this->text);
+
+    target.draw(shape);
+    target.draw(text);
 }
 
 void gui::Button::update(const sf::Vector2i& mousePosWindow) {
 
     //Idle
-    this-> buttonState = BTN_IDLE;
+    buttonState = BTN_IDLE;
 
-    if (this->shape.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePosWindow))){
+    if (shape.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePosWindow))){
         //Hover
-        this->buttonState = BTN_HOVER;
+        buttonState = BTN_HOVER;
         if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
             //Active
-            this->buttonState = BTN_ACTIVE;
+            buttonState = BTN_ACTIVE;
         }
     }
 
-    switch (this->buttonState){
+    switch (buttonState){
         case BTN_IDLE:
-            this->shape.setFillColor(this->idleColor);
-            this->text.setFillColor(this->textIdleColor);
-            this->shape.setOutlineColor(this->outlineIdleColor);
+            shape.setFillColor(idleColor);
+            text.setFillColor(textIdleColor);
+            shape.setOutlineColor(outlineIdleColor);
             break;
 
         case BTN_HOVER:
-            this->shape.setFillColor(this->hoverColor);
-            this->text.setFillColor(this->textHoverColor);
-            this->shape.setOutlineColor(this->outlineHoverColor);
+            shape.setFillColor(hoverColor);
+            text.setFillColor(textHoverColor);
+            shape.setOutlineColor(outlineHoverColor);
             break;
 
         case BTN_ACTIVE:
-            this->shape.setFillColor(this->activeColor);
-            this->text.setFillColor(this->textActiveColor);
-            this->shape.setOutlineColor(this->outlineActiveColor);
+            shape.setFillColor(activeColor);
+            text.setFillColor(textActiveColor);
+            shape.setOutlineColor(outlineActiveColor);
             break;
 
         default:
@@ -167,7 +170,7 @@ gui::DropDownList::DropDownList(float x, float y, float width, float height, sf:
 
     //unsigned elements = sizeof(list) / sizeof(std::string);
 
-    this->activeElement = new gui::Button(
+    activeElement = new gui::Button(
             x, y, width, height,
             &this->font, list[default_index], 25,
             sf::Color(255, 255, 255, 150), sf::Color(255, 255, 255, 200), sf::Color(20, 20, 20, 50),
@@ -191,57 +194,61 @@ gui::DropDownList::DropDownList(float x, float y, float width, float height, sf:
 }
 
 gui::DropDownList::~DropDownList() {
-    delete this->activeElement;
-    for(size_t i = 0; i < this->list.size(); i++){
-        delete this->list[i];
+    delete activeElement;
+    for(size_t i = 0; i < list.size(); i++){
+        delete list[i];
     }
 }
 
 const unsigned short &gui::DropDownList::getActiveElementId() const {
-    return this->activeElement->getId();
+
+    return activeElement->getId();
 }
 
 const bool gui::DropDownList::getKeytime() {
-    if(this->keytime >= this->keytimeMax){
-        this->keytime = 0.f;
+
+    if(keytime >= keytimeMax){
+        keytime = 0.f;
         return true;
     }
     return false;
 }
 
 void gui::DropDownList::updateKeytime(const float& dt) {
-    if(this->keytime < this->keytimeMax)
-        this->keytime += 10.f * dt;
+
+    if(keytime < keytimeMax)
+        keytime += 10.f * dt;
 }
 
 void gui::DropDownList::update(const sf::Vector2i &mousePosWindow, const float& dt) {
-    this->updateKeytime(dt);
-    this->activeElement->update(mousePosWindow);
+    updateKeytime(dt);
+    activeElement->update(mousePosWindow);
 
-    if(this->activeElement->isPressed() && this->getKeytime()){
-        if(this->showList)
-            this->showList = false;
+    if(activeElement->isPressed() && getKeytime()){
+        if(showList)
+            showList = false;
         else
-            this->showList = true;
+            showList = true;
     }
-    if(this->showList) {
-        for (auto &i: this->list) {
+    if(showList) {
+        for (auto &i: list) {
             i->update(mousePosWindow);
 
-            if (i->isPressed() && this->getKeytime()){
-                this->showList = false;
-                this->activeElement->setText(i->getText());
-                this->activeElement->setId(i->getId());
+            if (i->isPressed() && getKeytime()){
+                showList = false;
+                activeElement->setText(i->getText());
+                activeElement->setId(i->getId());
             }
         }
     }
 }
 
 void gui::DropDownList::render(sf::RenderTarget &target) {
-    this->activeElement->render(target);
 
-    if(this->showList) {
-        for (auto &i: this->list) {
+    activeElement->render(target);
+
+    if(showList) {
+        for (auto &i: list) {
             i->render(target);
         }
     }
@@ -256,41 +263,41 @@ gui::TextureSelector::TextureSelector(float x, float y, float width, float heigh
                                       sf::Font& font, std::string text):
                                       keytimeMax(3.f), keytime(0.f){
     this->gridSize = gridSize;
-    this->active = false;
-    this->hidden = false;
+    active = false;
+    hidden = false;
     float offset = gridSize;
 
-    this->bounds.setSize(sf::Vector2f(width, height));
-    this->bounds.setPosition(x + offset, y);
-    this->bounds.setFillColor(sf::Color(50, 50, 50, 100));
-    this->bounds.setOutlineThickness(1.f);
-    this->bounds.setOutlineColor(sf::Color(255, 255, 255, 200));
+    bounds.setSize(sf::Vector2f(width, height));
+    bounds.setPosition(x + offset, y);
+    bounds.setFillColor(sf::Color(50, 50, 50, 100));
+    bounds.setOutlineThickness(1.f);
+    bounds.setOutlineColor(sf::Color(255, 255, 255, 200));
 
-    this->sheet.setTexture(*texture_sheet);
-    this->sheet.setPosition(x + offset, y);
+    sheet.setTexture(*texture_sheet);
+    sheet.setPosition(x + offset, y);
 
-    if (this->sheet.getGlobalBounds().width > this->bounds.getGlobalBounds().width) {
+    if (sheet.getGlobalBounds().width > bounds.getGlobalBounds().width) {
 
-        this->sheet.setTextureRect(
-                sf::IntRect(0, 0, static_cast<int>(this->bounds.getGlobalBounds().width), static_cast<int>(this->sheet.getGlobalBounds().height)));
+        sheet.setTextureRect(
+                sf::IntRect(0, 0, static_cast<int>(bounds.getGlobalBounds().width), static_cast<int>(sheet.getGlobalBounds().height)));
     }
-    if (this->sheet.getGlobalBounds().height > this->bounds.getGlobalBounds().height) {
+    if (sheet.getGlobalBounds().height > bounds.getGlobalBounds().height) {
 
-        this->sheet.setTextureRect(
-                sf::IntRect(0, 0, static_cast<int>(this->bounds.getGlobalBounds().width), static_cast<int>(this->sheet.getGlobalBounds().height)));
+        sheet.setTextureRect(
+                sf::IntRect(0, 0, static_cast<int>(bounds.getGlobalBounds().width), static_cast<int>(sheet.getGlobalBounds().height)));
 
     }
 
-    this->selector.setPosition(x+ offset, y);
-    this->selector.setSize(sf::Vector2f(gridSize, gridSize));
-    this->selector.setFillColor(sf::Color::Transparent);
-    this->selector.setOutlineThickness(1.f);
-    this->selector.setOutlineColor(sf::Color::Red);
+    selector.setPosition(x+ offset, y);
+    selector.setSize(sf::Vector2f(gridSize, gridSize));
+    selector.setFillColor(sf::Color::Transparent);
+    selector.setOutlineThickness(1.f);
+    selector.setOutlineColor(sf::Color::Red);
 
-    this->textureRect.width = static_cast<int>(gridSize);
-    this->textureRect.height = static_cast<int>(gridSize);
+    textureRect.width = static_cast<int>(gridSize);
+    textureRect.height = static_cast<int>(gridSize);
 
-    this->hideButton =  new gui::Button(
+    hideButton =  new gui::Button(
             x - 40, y, 50.f, 50.f,
             &font, text, 30,
             sf::Color(255, 255, 255, 200), sf::Color(255, 255, 255, 250), sf::Color(255, 255, 255, 50),
@@ -298,71 +305,77 @@ gui::TextureSelector::TextureSelector(float x, float y, float width, float heigh
 }
 
 gui::TextureSelector::~TextureSelector() {
-    delete this->hideButton;
+
+    delete hideButton;
 }
 
 const bool &gui::TextureSelector::getActive() const {
-    return this->active;
+
+    return active;
 }
 
 const sf::IntRect &gui::TextureSelector::getTextureRect() const {
-    return this->textureRect;
+
+    return textureRect;
 }
 
 const bool gui::TextureSelector::getKeytime() {
-    if(this->keytime >= this->keytimeMax){
-        this->keytime = 0.f;
+
+    if(keytime >= keytimeMax){
+        keytime = 0.f;
         return true;
     }
     return false;
 }
 
 void gui::TextureSelector::updateKeytime(const float& dt) {
-    if(this->keytime < this->keytimeMax)
-        this->keytime += 10.f * dt;
+    if(keytime < keytimeMax)
+        keytime += 10.f * dt;
 }
 
 void gui::TextureSelector::update(const sf::Vector2i& mousePosWindow, const float& dt) {
-    this->updateKeytime(dt);
-    this->hideButton->update(mousePosWindow);
 
-    if(this->hideButton->isPressed() && this->getKeytime()){
-        if(this->hidden)
-            this->hidden = false;
+    updateKeytime(dt);
+    hideButton->update(mousePosWindow);
+
+    if(hideButton->isPressed() && getKeytime()){
+        if(hidden)
+            hidden = false;
         else
-            this->hidden = true;
+            hidden = true;
     }
 
-    if(!this->hidden){
-        this->active = false;
-        if(this->bounds.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePosWindow)))
-            this->active = true;
+    if(!hidden){
+        active = false;
+        if(bounds.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePosWindow)))
+            active = true;
 
-            this->mousePosGrid.x = (mousePosWindow.x - static_cast<int>(this->bounds.getPosition().x)) / static_cast<unsigned>(this->gridSize);
-            this->mousePosGrid.y = (mousePosWindow.y - static_cast<int>(this->bounds.getPosition().y)) / static_cast<unsigned>(this->gridSize);
+            mousePosGrid.x = (mousePosWindow.x - static_cast<int>(bounds.getPosition().x)) / static_cast<unsigned>(gridSize);
+            mousePosGrid.y = (mousePosWindow.y - static_cast<int>(bounds.getPosition().y)) / static_cast<unsigned>(gridSize);
 
-            this->selector.setPosition(
-                    this->bounds.getPosition().x + this->mousePosGrid.x * this->gridSize,
-                    this->bounds.getPosition().y + this->mousePosGrid.y * this->gridSize);
+            selector.setPosition(
+                    bounds.getPosition().x + mousePosGrid.x * gridSize,
+                    bounds.getPosition().y + mousePosGrid.y * gridSize);
 
-            this->textureRect.left = static_cast<int>(this->selector.getPosition().x - this->bounds.getPosition().x);
-            this->textureRect.top = static_cast<int>(this->selector.getPosition().y - this->bounds.getPosition().y);
+            textureRect.left = static_cast<int>(selector.getPosition().x - bounds.getPosition().x);
+            textureRect.top = static_cast<int>(selector.getPosition().y - bounds.getPosition().y);
 
     }
 }
 
 void gui::TextureSelector::render(sf::RenderTarget &target) {
-    this->hideButton->render(target);
 
-    if(!this->hidden){
-        target.draw(this->bounds);
-        target.draw(this->sheet);
+    hideButton->render(target);
 
-        if(this->active)
-            target.draw(this->selector);
+    if(!hidden){
+        target.draw(bounds);
+        target.draw(sheet);
+
+        if(active)
+            target.draw(selector);
     }
 
-    this->hideButton->render(target);
+    hideButton->render(target);
 }
 
 
@@ -381,25 +394,25 @@ gui::ProgressBar::ProgressBar(float _x, float _y, float _width, float _height, i
     float x = gui::p2pX(_x, vm);
     float y = gui::p2pY(_y, vm);
 
-    this->maxWidth = width;
-    this->maxValue = max_value;
+    maxWidth = width;
+    maxValue = max_value;
 
-    this->back.setSize(sf::Vector2f(width, height));
-    this->back.setFillColor(sf::Color(0, 0, 0, 200));
-    this->back.setOutlineThickness(2);
-    this->back.setOutlineColor(sf::Color::White);
-    this->back.setPosition(x, y);
+    back.setSize(sf::Vector2f(width, height));
+    back.setFillColor(sf::Color(0, 0, 0, 200));
+    back.setOutlineThickness(2);
+    back.setOutlineColor(sf::Color::White);
+    back.setPosition(x, y);
 
-    this->inner.setSize(sf::Vector2f(width, height));
-    this->inner.setFillColor(color);
-    this->inner.setPosition(this->back.getPosition());
+    inner.setSize(sf::Vector2f(width, height));
+    inner.setFillColor(color);
+    inner.setPosition(this->back.getPosition());
 
     if(font){
-        this->text.setFont(*font);
-        this->text.setCharacterSize(gui::calcCharSize(vm, character_size));
-        this->text.setPosition(
-                this->inner.getPosition().x + gui::p2pX(0.78f, vm),
-                this->inner.getPosition().y - gui::p2pY(0.69f, vm)
+        text.setFont(*font);
+        text.setCharacterSize(gui::calcCharSize(vm, character_size));
+        text.setPosition(
+                inner.getPosition().x + gui::p2pX(0.78f, vm),
+                inner.getPosition().y - gui::p2pY(0.69f, vm)
         );
     }
 
@@ -411,18 +424,18 @@ gui::ProgressBar::~ProgressBar() {
 
 void gui::ProgressBar::update(const int current_value) {
 
-    float percent = static_cast<float>(current_value) / static_cast<float>(this->maxValue);
+    float percent = static_cast<float>(current_value) / static_cast<float>(maxValue);
 
-    this->inner.setSize(sf::Vector2f(static_cast<float>(std::floor(this->maxWidth * percent)), this->inner.getSize().y));
+    inner.setSize(sf::Vector2f(static_cast<float>(std::floor(maxWidth * percent)), inner.getSize().y));
 
-    this->barString = std::to_string(current_value) + "/" + std::to_string(this->maxValue);
-    this->text.setString(this->barString);
+    barString = std::to_string(current_value) + "/" + std::to_string(maxValue);
+    text.setString(barString);
 }
 
 void gui::ProgressBar::render(sf::RenderTarget& target) {
 
-    target.draw(this->back);
-    target.draw(this->inner);
-    target.draw(this->text);
+    target.draw(back);
+    target.draw(inner);
+    target.draw(text);
 
 }

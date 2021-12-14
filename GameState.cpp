@@ -7,63 +7,63 @@
 
 GameState::GameState(StateData* state_data)
     : State(state_data) {
-    this->initDeferredRender();
-    this->initView();
-    this->initKeybinds();
-    this->initFonts();
-    this->initTextures();
-    this->initPausedMenu();
-    this->initShaders();
-    this->initKeyTime();
-    this->initDebugText();
+    initDeferredRender();
+    initView();
+    initKeybinds();
+    initFonts();
+    initTextures();
+    initPausedMenu();
+    initShaders();
+    initKeyTime();
+    initDebugText();
 
-    this->initHeroes();
-    this->initHeroGUI();
-    this->initEnemyStrategy();
-    this->initTileMap();
-    this->initSystems();
+    initHeroes();
+    initHeroGUI();
+    initEnemyStrategy();
+    initTileMap();
+    initSystems();
 }
 
 GameState::~GameState() {
-    delete this->pmenu;
-    delete this->hero;
-    delete this->heroGUI;
-    delete this->enemyStrategy;
-    delete this->tileMap;
-    delete this->tts;
+    delete pmenu;
+    delete hero;
+    delete heroGUI;
+    delete enemyStrategy;
+    delete tileMap;
+    delete tts;
 
-    for(size_t i = 0; i < this->activeEnemies.size(); i++){
-        delete this->activeEnemies[i];
+    for(size_t i = 0; i < activeEnemies.size(); i++){
+        delete activeEnemies[i];
     }
 }
 
 void GameState::initView() {
-    this->view.setSize(
+    view.setSize(
             sf::Vector2f(
-                    static_cast<float>(this->stateData->gfxSettings->resolution.width / 2),
-                    static_cast<float>(this->stateData->gfxSettings->resolution.height / 2)
+                    static_cast<float>(stateData->gfxSettings->resolution.width / 2),
+                    static_cast<float>(stateData->gfxSettings->resolution.height / 2)
             )
     );
 
-    this->view.setCenter(
+    view.setCenter(
             sf::Vector2f(
-                    static_cast<float>(this->stateData->gfxSettings->resolution.width) / 2.f,
-                    static_cast<float>(this->stateData->gfxSettings->resolution.height) / 2.f
+                    static_cast<float>(stateData->gfxSettings->resolution.width) / 2.f,
+                    static_cast<float>(stateData->gfxSettings->resolution.height) / 2.f
             )
     );
 }
 
 void GameState::initKeyTime() {
-    this->keyTimeMax = 0.3f;
-    this->keyTimer.restart();
+    keyTimeMax = 0.3f;
+    keyTimer.restart();
 }
 
 void GameState::initDebugText() {
 
-    this->debugText.setFont(this->font);
-    this->debugText.setFillColor(sf::Color::White);
-    this->debugText.setCharacterSize(16);
-    this->debugText.setPosition(15.f,this->window->getSize().y / 2.f);
+    debugText.setFont(font);
+    debugText.setFillColor(sf::Color::White);
+    debugText.setCharacterSize(16);
+    debugText.setPosition(15.f,window->getSize().y / 2.f);
 }
 
 void GameState::initKeybinds() {
@@ -74,195 +74,196 @@ void GameState::initKeybinds() {
         std::string key2 = "";
 
         while (ifs >> key >> key2)
-            this->keybinds[key] = this->supportedKeys->at(key2);
+            keybinds[key] = supportedKeys->at(key2);
     }
     ifs.close();
 }
 
 void GameState::initFonts() {
-    if(!this->font.loadFromFile("../Fonts/DeterminationMonoWebRegular-Z5oq.ttf"))
+    if(!font.loadFromFile("../Fonts/DeterminationMonoWebRegular-Z5oq.ttf"))
         throw("ERROR::MAINMENUSTATE::COULD NOT LOAD FONT");
 }
 
 void GameState::initTextures() {
-    if (!this->textures["HERO_SHEET"].loadFromFile("../Resources/Images/Sprites/Hero/Woodcutter_animations.png")){
+    if (!textures["HERO_SHEET"].loadFromFile("../Resources/Images/Sprites/Hero/Woodcutter_animations.png")){
         throw "ERROR::GAME_STATE::COULD_NOT_LOAD_HERO_TEXTURE";
     }
-    if (!this->textures["MUMMY_SHEET"].loadFromFile("../Resources/Images/Sprites/Enemies/Mummy/Mummy_animations.png")){
+    if (!textures["MUMMY_SHEET"].loadFromFile("../Resources/Images/Sprites/Enemies/Mummy/Mummy_animations.png")){
         throw "ERROR::GAME_STATE::COULD_NOT_LOAD_MUMMY_TEXTURE";
     }
 }
 
 
 void GameState::initPausedMenu() {
-    const sf::VideoMode& vm = this->stateData->gfxSettings->resolution;
-    this->pmenu = new PauseMenu(this->stateData->gfxSettings->resolution, this->font);
+    const sf::VideoMode& vm = stateData->gfxSettings->resolution;
+    pmenu = new PauseMenu(stateData->gfxSettings->resolution, font);
 
-    this->pmenu->addButton("QUIT", gui::p2pY(62.5f, vm)/*450.f*/, gui::p2pX(15.6f, vm), gui::p2pY(10.4f, vm), gui::calcCharSize(vm), "Quit");
+    pmenu->addButton("QUIT", gui::p2pY(62.5f, vm)/*450.f*/, gui::p2pX(15.6f, vm), gui::p2pY(10.4f, vm), gui::calcCharSize(vm), "Quit");
 }
 
 void GameState::initShaders() {
-    if(!this->core_shader.loadFromFile("../vertex_shader.vert", "../fragment_shader.frag"))
+    if(!core_shader.loadFromFile("../vertex_shader.vert", "../fragment_shader.frag"))
         std::cout<<"ERROR::GAMESTATE::COULD NOT LOAD SHADER." << "\n";
 }
 
 void GameState::initHeroes() {
-    this->hero = new Hero(50, 50, this->textures["HERO_SHEET"]);
+    hero = new Hero(50, 50, textures["HERO_SHEET"]);
 }
 
 void GameState::initHeroGUI() {
-    this->heroGUI = new HeroGUI(this->hero, this->stateData->gfxSettings->resolution);
+    heroGUI = new HeroGUI(this->hero, this->stateData->gfxSettings->resolution);
 }
 
 void GameState::initTileMap() {
-    this->tileMap = new TileMap("../saves_file.txt");
+    tileMap = new TileMap("../saves_file.txt");
 }
 
 void GameState::initSystems() {
 
-    this->tts = new TextTagSystem("../Fonts/DeterminationMonoWebRegular-Z5oq.ttf");
+    tts = new TextTagSystem("../Fonts/DeterminationMonoWebRegular-Z5oq.ttf");
 }
 
 void GameState::initDeferredRender() {
-    this->renderTexture.create(this->stateData->gfxSettings->resolution.width, this->stateData->gfxSettings->resolution.height);
-    this->renderSprite.setTexture(this->renderTexture.getTexture());
-    this->renderSprite.setTextureRect(sf::IntRect(0, 0, this->stateData->gfxSettings->resolution.width, this->stateData->gfxSettings->resolution.height));
+    renderTexture.create(stateData->gfxSettings->resolution.width, stateData->gfxSettings->resolution.height);
+    renderSprite.setTexture(renderTexture.getTexture());
+    renderSprite.setTextureRect(sf::IntRect(0, 0, stateData->gfxSettings->resolution.width, stateData->gfxSettings->resolution.height));
 }
 
 void GameState::initEnemyStrategy() {
-    this->enemyStrategy = new EnemyStrategy(this->activeEnemies, this->textures, *this->hero);
+
+    enemyStrategy = new EnemyStrategy(this->activeEnemies, this->textures, *this->hero);
 }
 
 const bool GameState::getKeyTime() {
-    if(this->keyTimer.getElapsedTime().asSeconds() >= this->keyTimeMax){
-        this->keyTimer.restart();
+    if(keyTimer.getElapsedTime().asSeconds() >= keyTimeMax){
+        keyTimer.restart();
         return true;
     }
     return false;
 }
 
 void GameState::updateView(const float &dt) {
-        this->view.setCenter(
-                std::floor(this->hero->getPosition().x + (static_cast<float>(this->mousePosWindow.x) - static_cast<float>(this->stateData->gfxSettings->resolution.width / 2)) / 10.f),
-                std::floor(this->hero->getPosition().y + (static_cast<float>(this->mousePosWindow.y) - static_cast<float>(this->stateData->gfxSettings->resolution.height / 2)) / 10.f)
+        view.setCenter(
+                std::floor(hero->getPosition().x + (static_cast<float>(mousePosWindow.x) - static_cast<float>(stateData->gfxSettings->resolution.width / 2)) / 10.f),
+                std::floor(hero->getPosition().y + (static_cast<float>(mousePosWindow.y) - static_cast<float>(stateData->gfxSettings->resolution.height / 2)) / 10.f)
         );
 
-    if(this->tileMap->getMaxSizeF().x >= this->view.getSize().x) {
-        if (this->view.getCenter().x - this->view.getSize().x / 2.f < 0.f) {
-            this->view.setCenter(0.f + this->view.getSize().x / 2.f, this->view.getCenter().y);
-        } else if (this->view.getCenter().x + this->view.getSize().x / 2.f > this->tileMap->getMaxSizeF().x) {
-            this->view.setCenter(this->tileMap->getMaxSizeF().x - this->view.getSize().x / 2.f,
-                                 this->view.getCenter().y);
+    if(tileMap->getMaxSizeF().x >= view.getSize().x) {
+        if (view.getCenter().x - view.getSize().x / 2.f < 0.f) {
+            view.setCenter(0.f + view.getSize().x / 2.f, view.getCenter().y);
+        } else if (view.getCenter().x + view.getSize().x / 2.f > tileMap->getMaxSizeF().x) {
+            view.setCenter(tileMap->getMaxSizeF().x - view.getSize().x / 2.f,
+                                 view.getCenter().y);
         }
     }
-    if(this->tileMap->getMaxSizeF().y >= this->view.getSize().y) {
-        if (this->view.getCenter().y - this->view.getSize().y / 2.f < 0.f) {
-            this->view.setCenter(0.f + this->view.getSize().x / 2.f, this->view.getCenter().y);
-        } else if (this->view.getCenter().y + this->view.getSize().y / 2.f > this->tileMap->getMaxSizeF().y) {
-            this->view.setCenter(this->view.getSize().x / 2.f,
-                                 this->tileMap->getMaxSizeF().y - this->view.getCenter().y);
+    if(tileMap->getMaxSizeF().y >= view.getSize().y) {
+        if (view.getCenter().y - view.getSize().y / 2.f < 0.f) {
+            view.setCenter(0.f + view.getSize().x / 2.f, view.getCenter().y);
+        } else if (view.getCenter().y + view.getSize().y / 2.f > tileMap->getMaxSizeF().y) {
+            this->view.setCenter(view.getSize().x / 2.f,
+                                 tileMap->getMaxSizeF().y - view.getCenter().y);
         }
     }
-    this->viewGridPosition.x = static_cast<int>(this->view.getCenter().x) / static_cast<int>(this->stateData->gridSize * 2);
-    this->viewGridPosition.y = static_cast<int>(this->view.getCenter().y) / static_cast<int>(this->stateData->gridSize);
+    viewGridPosition.x = static_cast<int>(view.getCenter().x) / static_cast<int>(stateData->gridSize * 2);
+    viewGridPosition.y = static_cast<int>(view.getCenter().y) / static_cast<int>(stateData->gridSize);
 }
 
 void GameState::updateInput(const float &dt) {
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE"))) && this->getKeyTime()){
-        if(!this->paused)
-            this->pauseState();
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(keybinds.at("CLOSE"))) && getKeyTime()){
+        if(!paused)
+            pauseState();
         else
-            this->unpauseState();
+            unpauseState();
     }
 }
 
 void GameState::updateHeroInput(const float &dt) {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_LEFT"))))
-        this->hero->move(-1.f, 0.f, dt);
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_RIGHT"))))
-        this->hero->move(1.f, 0.f, dt);
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_UP")))) {
-        this->hero->move(0.f, -1.f, dt);
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(keybinds.at("MOVE_LEFT"))))
+        hero->move(-1.f, 0.f, dt);
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(keybinds.at("MOVE_RIGHT"))))
+        hero->move(1.f, 0.f, dt);
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(keybinds.at("MOVE_UP")))) {
+        hero->move(0.f, -1.f, dt);
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_DOWN")))) {
-        this->hero->move(0.f, 1.f, dt);
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(keybinds.at("MOVE_DOWN")))) {
+        hero->move(0.f, 1.f, dt);
     }
 }
 
 void GameState::updateHeroGUI(const float &dt) {
-    this->heroGUI->update(dt);
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("TOGGLE_HERO_TAB_CHARACTER"))) && this->getKeyTime()){
-        this->heroGUI->toggleCharacterTab();
+    heroGUI->update(dt);
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(keybinds.at("TOGGLE_HERO_TAB_CHARACTER"))) && getKeyTime()){
+        heroGUI->toggleCharacterTab();
     }
 }
 
 void GameState::updatePauseMenuButtons() {
-    if(this->pmenu->isButtonPressed("QUIT"))
-        this->endState();
+    if(pmenu->isButtonPressed("QUIT"))
+        endState();
 }
 
 void GameState::updateTileMap(const float &dt) {
-    this->tileMap->updateWorldBoundsCollision(this->hero, dt);
-    this->tileMap->updateTileCollision(this->hero, dt);
-    this->tileMap->updateTiles(this->hero, dt, *this->enemyStrategy);
+    tileMap->updateWorldBoundsCollision(hero, dt);
+    tileMap->updateTileCollision(hero, dt);
+    tileMap->updateTiles(hero, dt, *enemyStrategy);
 }
 
 void GameState::updateHero(const float &dt) {
-    this->hero->update(dt, this->mousePosView, this->view);
+    hero->update(dt, mousePosView, this->view);
 }
 
 void GameState::updateCombatAndEnemies(const float &dt) {
 
-    if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->hero->getWeapon()->getAttackTimer())
-        this->hero->setInitAttack(true);
+    if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && hero->getWeapon()->getAttackTimer())
+        hero->setInitAttack(true);
 
 
         unsigned index = 0;
-    for(auto *enemy : this->activeEnemies){
-        enemy->update(dt, this->mousePosView, this->view);
+    for(auto *enemy : activeEnemies){
+        enemy->update(dt, mousePosView, this->view);
 
-        this->tileMap->updateWorldBoundsCollision(enemy, dt);
-        this->tileMap->updateTileCollision(enemy, dt);
+        tileMap->updateWorldBoundsCollision(enemy, dt);
+        tileMap->updateTileCollision(enemy, dt);
 
-        this->updateCombat(enemy, index, dt);
+        updateCombat(enemy, index, dt);
 
         if(enemy->isDead()){
-            this->hero->gainEXP(enemy->getGainExp());
-            this->tts->addTextTag(EXPERIENCE_TAG, this->hero->getCenter().x, this->hero->getCenter().y, static_cast<int>(enemy->getGainExp()), "+", "EXP");
+            hero->gainEXP(enemy->getGainExp());
+            tts->addTextTag(EXPERIENCE_TAG, hero->getCenter().x, hero->getCenter().y, static_cast<int>(enemy->getGainExp()), "+", "EXP");
 
-            this->enemyStrategy->removeEnemy(index);
+            enemyStrategy->removeEnemy(index);
             continue;
         }
         else if(enemy->getDespawnTimerDone()){
-            this->enemyStrategy->removeEnemy(index);
+            enemyStrategy->removeEnemy(index);
             continue;
         }
         ++index;
     }
     //this->activeEnemies.push_back(new Mummy(200.f, 100.f, this->textures["MUMMY_SHEET"]));
-    this->hero->setInitAttack(false);
+    hero->setInitAttack(false);
 }
 
 void GameState::updateCombat(Enemy* enemy, const int index, const float &dt) {
 
-    if(this->hero->getInitAttack()
-       && enemy->getGlobalBounds().contains(this->mousePosView)
-       && enemy->getSpriteDistance(*this->hero) < this->hero->getWeapon()->getRange()
+    if(hero->getInitAttack()
+       && enemy->getGlobalBounds().contains(mousePosView)
+       && enemy->getSpriteDistance(*hero) < hero->getWeapon()->getRange()
        && enemy->getDamageTimerDone()) {
 
-        this->hero->updateAttack();
+        hero->updateAttack();
 
-        int dmg = static_cast<int>(this->hero->getDamage());
+        int dmg = static_cast<int>(hero->getDamage());
         enemy->loseHP(dmg);
         enemy->resetDamageTimer();
-        this->tts->addTextTag(DEFAULT_TAG, enemy->getPosition().x, enemy->getPosition().y, dmg, "", "");
+        tts->addTextTag(DEFAULT_TAG, enemy->getPosition().x, enemy->getPosition().y, dmg, "", "");
 
     }
-    if(enemy->getGlobalBounds().intersects(this->hero->getGlobalBounds()) && this->hero->getDamageTimer()){
+    if(enemy->getGlobalBounds().intersects(hero->getGlobalBounds()) && hero->getDamageTimer()){
 
         int dmg = enemy->getAttributeComp()->damageMax;
-        this->hero->loseHP(dmg);
-        this->tts->addTextTag(NEGATIVE_TAG, hero->getPosition().x - 30, hero->getPosition().y, dmg, "-", "HP");
+        hero->loseHP(dmg);
+        tts->addTextTag(NEGATIVE_TAG, hero->getPosition().x - 30, hero->getPosition().y, dmg, "-", "HP");
     }
 }
 
@@ -270,76 +271,76 @@ void GameState::updateDebugText(const float& dt) {
 
     std::stringstream  ss;
 
-    ss << "Mouse Pos View: " << this->mousePosView.x << " " << this->mousePosView.y << "\n"
-       << "Active Enemies: " << this->activeEnemies.size() << "\n";
+    ss << "Mouse Pos View: " << mousePosView.x << " " << mousePosView.y << "\n"
+       << "Active Enemies: " << activeEnemies.size() << "\n";
 
-    this->debugText.setString(ss.str());
+    debugText.setString(ss.str());
 }
 
 void GameState::update(const float& dt) {
-    this->updateMousePosition(&this->view);
-    this->updateInput(dt);
-    this->updateKeyTime(dt);
+    updateMousePosition(&this->view);
+    updateInput(dt);
+    updateKeyTime(dt);
 
     this->updateDebugText(dt);
 
-    if(!this->paused) {
-        this->updateView(dt);
-        this->updateHeroInput(dt);
-        this->updateTileMap(dt);
-        this->updateHero(dt);
-        this->updateHeroGUI(dt);
-        this->updateCombatAndEnemies(dt);
+    if(!paused) {
+        updateView(dt);
+        updateHeroInput(dt);
+        updateTileMap(dt);
+        updateHero(dt);
+        updateHeroGUI(dt);
+        updateCombatAndEnemies(dt);
 
-        this->tts->update(dt);
+        tts->update(dt);
     }
     else{
-        this->pmenu->update(this->mousePosWindow);
-        this->updatePauseMenuButtons();
+        pmenu->update(this->mousePosWindow);
+        updatePauseMenuButtons();
     }
 }
 
 void GameState::render(sf::RenderTarget* target) {
     if (!target)
-        target = this->window;
+        target = window;
 
-    this->renderTexture.clear();
+    renderTexture.clear();
 
-    this->renderTexture.setView(this->view);
+    renderTexture.setView(this->view);
 
-    this->tileMap->render(
-            this->renderTexture,
-     this->viewGridPosition,
-       &this->core_shader,
-    this->hero->getCenter(),
+    tileMap->render(
+            renderTexture,
+     viewGridPosition,
+       &core_shader,
+    hero->getCenter(),
    false
    );
 
-    for(auto *enemy : this->activeEnemies){
-        enemy->render(this->renderTexture, &this->core_shader, this->hero->getCenter(), true);
+    for(auto *enemy : activeEnemies){
+        enemy->render(renderTexture, &core_shader, hero->getCenter(), true);
     }
 
-    this->hero->render(this->renderTexture, &this->core_shader, this->hero->getCenter(), true);
+    hero->render(renderTexture, &core_shader, hero->getCenter(), true);
 
-    this->tileMap->renderDeferred(this->renderTexture, &this->core_shader, this->hero->getCenter());
+    tileMap->renderDeferred(renderTexture, &core_shader, hero->getCenter());
 
-    this->tts->render(this->renderTexture);
+    tts->render(renderTexture);
 
     /** Render GUI **/
-    this->renderTexture.setView(this->renderTexture.getDefaultView());
-    this->heroGUI->render(this->renderTexture);
+    renderTexture.setView(renderTexture.getDefaultView());
+    heroGUI->render(renderTexture);
 
     /** Pause menu render **/
-    if(this->paused){
+    if(paused){
         //this->renderTexture.setView(this->renderTexture.getDefaultView());
-        this->pmenu->render(this->renderTexture);
+        pmenu->render(renderTexture);
     }
 
     /** Render debug text **/
-    this->renderTexture.draw(this->debugText);
+    renderTexture.draw(debugText);
 
     /** Final render **/
-    this->renderTexture.display();
+    renderTexture.display();
     //this->renderSprite.setTexture(this->renderTexture.getTexture());
-    target->draw(this->renderSprite);
+    target->draw(renderSprite);
 }

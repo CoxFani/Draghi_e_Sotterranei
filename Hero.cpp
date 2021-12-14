@@ -6,38 +6,38 @@
 #include "Hero.h"
 
 Hero::Hero(float x, float y, sf::Texture& texture_sheet) {
-    this->initVariables();
+    initVariables();
 
 
-    this->createHitboxComponent(this->sprite, 7.f, 20.f, 20.f, 20.f);
-    this->createMovementComponent(140.f, 1500.f, 500.f);
-    this->createAnimationComponent(texture_sheet);
-    this->createAttributeComponent(1);
-    this->createSkillComponent();
+    createHitboxComponent(this->sprite, 7.f, 20.f, 20.f, 20.f);
+    createMovementComponent(140.f, 1500.f, 500.f);
+    createAnimationComponent(texture_sheet);
+    createAttributeComponent(1);
+    createSkillComponent();
 
     this->setPosition(x, y);
-    this->initAnimations();
+    initAnimations();
 
-    this->initInventory();
+    initInventory();
 
 }
 
 Hero::~Hero() {
-    delete this->inventory;
+    delete inventory;
 
-    delete this->weapon;
+    delete weapon;
 
 }
 
 void Hero::initVariables() {
 
-    this->initAttack = false;
-    this->attacking = false;
-    this->weapon = new Sword(1, 2, 5, 65, 20, "../Resources/Images/Sprites/Weapons/weapon.png");
-    this->weapon->generate(1, 3);
-    this->inventory = new Inventory(100);
+    initAttack = false;
+    attacking = false;
+    weapon = new Sword(1, 2, 5, 65, 20, "../Resources/Images/Sprites/Weapons/weapon.png");
+    weapon->generate(1, 3);
+    inventory = new Inventory(100);
 
-    this->damageTimerMax = 1000;
+    damageTimerMax = 1000;
 }
 
 void Hero::initComponents() {
@@ -46,15 +46,15 @@ void Hero::initComponents() {
 
 void Hero::initAnimations() {
 
-    this->animationComponent->addAnimation("IDLE", 11.f, 0, 0, 3, 0, 48, 48);
-    this->animationComponent->addAnimation("WALK", 8.f, 0, 1, 5, 1, 48, 48);
-    this->animationComponent->addAnimation("ATTACK1", 6.f, 0, 2, 5, 2, 48, 48);
-    this->animationComponent->addAnimation("ATTACK2", 7.f, 0, 3, 5, 3, 48, 48);
-    this->animationComponent->addAnimation("ATTACK3", 7.f, 0, 4, 5, 4, 48, 48);
-    this->animationComponent->addAnimation("DEATH", 12.f, 0, 5, 5, 5, 48, 48);
-    this->animationComponent->addAnimation("HURT", 7.f, 0, 6, 2, 6, 48, 48);
-    this->animationComponent->addAnimation("JUMP", 7.f, 0, 7, 5, 7, 48, 48);
-    this->animationComponent->addAnimation("RUN", 6.f, 0, 8, 5, 8, 48, 48);
+    animationComponent->addAnimation("IDLE", 11.f, 0, 0, 3, 0, 48, 48);
+    animationComponent->addAnimation("WALK", 8.f, 0, 1, 5, 1, 48, 48);
+    animationComponent->addAnimation("ATTACK1", 6.f, 0, 2, 5, 2, 48, 48);
+    animationComponent->addAnimation("ATTACK2", 7.f, 0, 3, 5, 3, 48, 48);
+    animationComponent->addAnimation("ATTACK3", 7.f, 0, 4, 5, 4, 48, 48);
+    animationComponent->addAnimation("DEATH", 12.f, 0, 5, 5, 5, 48, 48);
+    animationComponent->addAnimation("HURT", 7.f, 0, 6, 2, 6, 48, 48);
+    animationComponent->addAnimation("JUMP", 7.f, 0, 7, 5, 7, 48, 48);
+    animationComponent->addAnimation("RUN", 6.f, 0, 8, 5, 8, 48, 48);
 }
 
 void Hero::initInventory() {
@@ -64,11 +64,13 @@ void Hero::initInventory() {
 }
 
 AttributeComponent *Hero::getAttributeComponent() {
-    return this->attributeComponent;
+
+    return attributeComponent;
 }
 
 Weapon *Hero::getWeapon() const {
-    return this->weapon;
+
+    return weapon;
 }
 
 const std::string Hero::toStringCharacterTab() const {
@@ -89,7 +91,7 @@ const std::string Hero::toStringCharacterTab() const {
 
 const bool &Hero::getInitAttack() const {
 
-    return this->initAttack;
+    return initAttack;
 }
 
 void Hero::setInitAttack(const bool initAttack) {
@@ -99,8 +101,8 @@ void Hero::setInitAttack(const bool initAttack) {
 
 const bool Hero::getDamageTimer() {
 
-    if(this->damageTimer.getElapsedTime().asMilliseconds() >= this->damageTimerMax){
-        this->damageTimer.restart();
+    if(damageTimer.getElapsedTime().asMilliseconds() >= damageTimerMax){
+        damageTimer.restart();
         return true;
     }
     else
@@ -109,101 +111,107 @@ const bool Hero::getDamageTimer() {
 
 const unsigned Hero::getDamage() const {
     return rand() % (
-            (this->attributeComponent->damageMax + this->weapon->getDamageMax())
-            - (this->attributeComponent->damageMin + this->weapon->getDamageMin()) + 1)
-            + (this->attributeComponent->damageMin + this->weapon->getDamageMin());
+            (attributeComponent->damageMax + weapon->getDamageMax())
+            - (attributeComponent->damageMin + weapon->getDamageMin()) + 1)
+            + (attributeComponent->damageMin + weapon->getDamageMin());
 }
 
 void Hero::loseHP(const int hp) {
 
-    this->attributeComponent->loseHP(hp);
+    attributeComponent->loseHP(hp);
 }
 
 void Hero::gainHP(const int hp) {
 
-    this->attributeComponent->gainHP(hp);
+    attributeComponent->gainHP(hp);
 }
 
 void Hero::loseEXP(const int exp) {
-    this->attributeComponent->loseEXP(exp);
+
+    attributeComponent->loseEXP(exp);
 }
 
 void Hero::gainEXP(const int exp) {
-    this->attributeComponent->gainEXP(exp);
+
+    attributeComponent->gainEXP(exp);
 }
 
 void Hero::updateAnimation(const float &dt) {
-    if(this->attacking){
+
+    if(attacking){
         /*if(this->sprite.getScale().x > 0.f){
             this->sprite.setOrigin(0.f, 0.f);
         }
         else{
             this->sprite.setOrigin(0.f, 0.f);
         }*/
-        if(this->animationComponent->play("ATTACK1", dt, true)){
-            this->attacking = false;
+        if(animationComponent->play("ATTACK1", dt, true)){
+            attacking = false;
         }
     }
 
-    if(this->movementComponent->getState(IDLE))
-        this->animationComponent->play("IDLE", dt);
-    else if (this->movementComponent->getState(MOVING_RIGHT)){
-        if(this->sprite.getScale().x < 0.f){
-            this->sprite.setOrigin(0.f, 0.f);
-            this->sprite.setScale(1.f, 1.f);
+    if(movementComponent->getState(IDLE))
+        animationComponent->play("IDLE", dt);
+    else if (movementComponent->getState(MOVING_RIGHT)){
+        if(sprite.getScale().x < 0.f){
+            sprite.setOrigin(0.f, 0.f);
+            sprite.setScale(1.f, 1.f);
         }
-        this->animationComponent->play("WALK", dt, this->movementComponent->getVelocity().x, this->movementComponent->getMaxVelocity());
+        animationComponent->play("WALK", dt, movementComponent->getVelocity().x, movementComponent->getMaxVelocity());
     }
-    else if(this->movementComponent->getState(MOVING_LEFT)){
-        if(this->sprite.getScale().x > 0.f) {
-            this->sprite.setOrigin(30.f, 0.f);
-            this->sprite.setScale(-1.f, 1.f);
+    else if(movementComponent->getState(MOVING_LEFT)){
+        if(sprite.getScale().x > 0.f) {
+            sprite.setOrigin(30.f, 0.f);
+            sprite.setScale(-1.f, 1.f);
         }
-        this->animationComponent->play("WALK", dt, this->movementComponent->getVelocity().x, this->movementComponent->getMaxVelocity());
+        animationComponent->play("WALK", dt, movementComponent->getVelocity().x, movementComponent->getMaxVelocity());
     }
-    else if(this->movementComponent->getState(MOVING_UP)){
-        this->animationComponent->play("WALK", dt, this->movementComponent->getVelocity().y, this->movementComponent->getMaxVelocity());
+    else if(movementComponent->getState(MOVING_UP)){
+        animationComponent->play("WALK", dt, movementComponent->getVelocity().y, movementComponent->getMaxVelocity());
     }
-    else if(this->movementComponent->getState(MOVING_DOWN)){
-        this->animationComponent->play("WALK", dt, this->movementComponent->getVelocity().y, this->movementComponent->getMaxVelocity());
+    else if(movementComponent->getState(MOVING_DOWN)){
+        this->animationComponent->play("WALK", dt, movementComponent->getVelocity().y, movementComponent->getMaxVelocity());
     }
 
-    if(this->damageTimer.getElapsedTime().asMilliseconds() <= this->damageTimerMax){
+    if(damageTimer.getElapsedTime().asMilliseconds() <= damageTimerMax){
         //this->animationComponent->play("HURT", dt, true);
-        this->sprite.setColor(sf::Color::Red);
+        sprite.setColor(sf::Color::Red);
     }
     else
-        this->sprite.setColor(sf::Color::White);
+        sprite.setColor(sf::Color::White);
 }
 
 void Hero::update(const float &dt, sf::Vector2f& mouse_pos_view, const sf::View& view) {
-    this->movementComponent->update(dt);
-    this->updateAnimation(dt);
-    this->hitboxComponent->update();
-    this->weapon->update(mouse_pos_view, sf::Vector2f(this->getSpriteCenter().x, this->getSpriteCenter().y + 5.f));
+
+    movementComponent->update(dt);
+    updateAnimation(dt);
+    hitboxComponent->update();
+    weapon->update(mouse_pos_view, sf::Vector2f(getSpriteCenter().x, getSpriteCenter().y + 5.f));
 }
 
 void Hero::render(sf::RenderTarget &target, sf::Shader* shader, const sf::Vector2f light_position, const bool show_hitbox) {
+
     if(shader){
         shader->setUniform("hasTexture", true);
         shader->setUniform("lightPos", light_position);
-        target.draw(this->sprite, shader);
+        target.draw(sprite, shader);
 
         shader->setUniform("hasTexture", true);
         shader->setUniform("lightPos", light_position);
-        this->weapon->render(target, shader);
+        weapon->render(target, shader);
     }
     else{
-        target.draw(this->sprite);
-        this->weapon->render(target);
+        target.draw(sprite);
+        weapon->render(target);
     }
 
     if(show_hitbox)
-        this->hitboxComponent->render(target);
+        hitboxComponent->render(target);
 }
 
 void Hero::updateAttack() {
+
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-        this->attacking = true;
+        attacking = true;
     }
 }

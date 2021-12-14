@@ -60,17 +60,17 @@ const int &EnemySpawnerTile::getEnemyCounter() const {
 
 
 void EnemySpawnerTile::increaseEnemyCounter() {
-    if(this->enemyCounter > this->enemyAmount)
-        this->enemyCounter = this->enemyAmount;
+    if(enemyCounter > enemyAmount)
+        enemyCounter = enemyAmount;
     else
-        ++this->enemyCounter;
+        ++enemyCounter;
 }
 
 void EnemySpawnerTile::decreaseEnemyCounter() {
-    if(this->enemyCounter < 0)
-        this->enemyCounter = 0;
+    if(enemyCounter < 0)
+        enemyCounter = 0;
     else
-        --this->enemyCounter;
+        --enemyCounter;
 }
 
 const int &EnemySpawnerTile::getEnemyAmount() const {
@@ -79,10 +79,10 @@ const int &EnemySpawnerTile::getEnemyAmount() const {
 
 const bool EnemySpawnerTile::getSpawnTimer(){
 
-    if(this->enemySpawnTimer.getElapsedTime().asSeconds() >= this->enemyTimeToSpawn || this->firstSpawn){
+    if(enemySpawnTimer.getElapsedTime().asSeconds() >= enemyTimeToSpawn || firstSpawn){
 
-        this->enemySpawnTimer.restart();
-        this->firstSpawn = false;
+        enemySpawnTimer.restart();
+        firstSpawn = false;
        return true;
     }
     return 0;

@@ -8,8 +8,8 @@
 HeroTabs::HeroTabs(sf::VideoMode& vm, sf::Font& font, Hero& hero)
 : vm(vm), font(font), hero(hero){
 
-    this->initTabs();
-    this->initKeyTime();
+    initTabs();
+    initKeyTime();
 }
 
 HeroTabs::~HeroTabs() {
@@ -18,18 +18,20 @@ HeroTabs::~HeroTabs() {
 
 void HeroTabs::initTabs() {
 
-    this->tabs.push_back(new CharacterTab(vm, font, hero));
+    tabs.push_back(new CharacterTab(vm, font, hero));
 
 }
 
 void HeroTabs::initKeyTime() {
-    this->keyTimeMax = 0.3f;
-    this->keyTimer.restart();
+
+    keyTimeMax = 0.3f;
+    keyTimer.restart();
 }
 
 const bool HeroTabs::getKeyTime() {
-    if(this->keyTimer.getElapsedTime().asSeconds() >= this->keyTimeMax){
-        this->keyTimer.restart();
+
+    if(keyTimer.getElapsedTime().asSeconds() >= keyTimeMax){
+        keyTimer.restart();
         return true;
     }
     return false;
@@ -39,9 +41,9 @@ const bool HeroTabs::tabsOpen() {
     // controlla se le Le Tabs sono aperte o chiuse
 
     bool open = false;
-    for(size_t i = 0; i < this->tabs.size() && !open; i++){
+    for(size_t i = 0; i < tabs.size() && !open; i++){
 
-        if(this->tabs[i]->getOpen())
+        if(tabs[i]->getOpen())
             open = true;
     }
     return open;
@@ -49,25 +51,25 @@ const bool HeroTabs::tabsOpen() {
 
 void HeroTabs::toggleTab(const int tab_index) {
 
-    if(tab_index >= 0 || tab_index < this->tabs.size())
-        this->tabs[tab_index]->toggle();
+    if(tab_index >= 0 || tab_index < tabs.size())
+        tabs[tab_index]->toggle();
 
 }
 
 void HeroTabs::update() {
 
-    for(size_t i = 0; i < this->tabs.size(); i++){
+    for(size_t i = 0; i < tabs.size(); i++){
 
-        if(!this->tabs[i]->getOpen())
-            this->tabs[i]->update();
+        if(!tabs[i]->getOpen())
+            tabs[i]->update();
     }
 }
 
 void HeroTabs::render(sf::RenderTarget &target) {
 
-    for(size_t i = 0; i < this->tabs.size(); i++){
+    for(size_t i = 0; i < tabs.size(); i++){
 
-        if(!this->tabs[i]->getOpen())
-            this->tabs[i]->render(target);
+        if(!tabs[i]->getOpen())
+            tabs[i]->render(target);
     }
 }

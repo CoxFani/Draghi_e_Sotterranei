@@ -9,28 +9,28 @@
 Inventory::Inventory(unsigned capacity) {
 
     this->capacity = capacity;
-    this->initialize();
-    this->nullify();
+    initialize();
+    nullify();
 }
 
 Inventory::~Inventory() {
 
-    this->freeMemory();
+    freeMemory();
 }
 
 void Inventory::initialize() {
 
-    this->itemQuantity = 0;
-    this->itemArray = new Item*[this->capacity];
+    itemQuantity = 0;
+    itemArray = new Item*[this->capacity];
 
 }
 
 
 void Inventory::nullify(const unsigned int from) {
 
-    for(size_t i = from; i < this->capacity; i++){
+    for(size_t i = from; i < capacity; i++){
 
-        this->itemArray[i] = nullptr;
+        itemArray[i] = nullptr;
     }
 }
 
@@ -38,44 +38,44 @@ void Inventory::freeMemory() {
 
     for(size_t i = 0; i < this->itemQuantity; i++){
 
-        delete this->itemArray[i];
+        delete itemArray[i];
     }
 
-    delete[] this->itemArray;
+    delete[] itemArray;
 }
 
 const unsigned &Inventory::size()  const{
 
-    return this->itemQuantity;
+    return itemQuantity;
 }
 
 const unsigned &Inventory::maxSize() const{
 
-    return this->capacity;
+    return capacity;
 }
 
 void Inventory::clear() {
 
-    for(size_t i = 0; i < this->itemQuantity; i++){
+    for(size_t i = 0; i < itemQuantity; i++){
 
-        delete this->itemArray[i];
+        delete itemArray[i];
     }
 
-    this->itemQuantity = 0;
+    itemQuantity = 0;
 
-    this->nullify();
+    nullify();
 }
 
 const bool Inventory::empty() const {
 
-    return this->itemQuantity == 0;
+    return itemQuantity == 0;
 }
 
 const bool Inventory::addItem(Item *item) {
 
-    if(this->itemQuantity <= this->capacity){
+    if(itemQuantity <= capacity){
 
-        this->itemArray[this->itemQuantity++] = item->clone();
+        itemArray[itemQuantity++] = item->clone();
 
         return true;
     }
@@ -85,14 +85,14 @@ const bool Inventory::addItem(Item *item) {
 
 const bool Inventory::removeItem(const unsigned int index) {
 
-    if( this->itemQuantity > 0){
+    if( itemQuantity > 0){
 
-        if(index <0 || index >= this->capacity)
+        if(index <0 || index >= capacity)
             return false;
 
-        delete this->itemArray[index];
-        this->itemArray[index] = nullptr;
-        --this->itemQuantity;
+        delete itemArray[index];
+        itemArray[index] = nullptr;
+        --itemQuantity;
 
         return true;
     }
@@ -101,10 +101,12 @@ const bool Inventory::removeItem(const unsigned int index) {
 }
 
 const bool Inventory::saveToFile(const std::string fileName) {
+
     return 0;
 }
 
 const bool Inventory::loadFromFile(const std::string fileName) {
+
     return 0;
 }
 

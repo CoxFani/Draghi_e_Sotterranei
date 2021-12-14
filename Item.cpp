@@ -7,11 +7,11 @@
 
 Item::Item(unsigned level, unsigned value) {
 
-    this->initVariables();
+    initVariables();
 
     this->level = level;
     this->value = value;
-    this->type = ItemTypes::ITEM_DEFAULT;
+    type = ItemTypes::ITEM_DEFAULT;
 }
 
 Item::~Item() {
@@ -23,13 +23,16 @@ void Item::initVariables() {
 }
 
 const short unsigned &Item::getType() const {
-    return this->type;
+
+    return type;
 }
 
 const unsigned &Item::getLevel() const {
-    return this->level;
+
+    return level;
 }
 
 const unsigned &Item::getValue() const {
-    return this->value;
+
+    return value;
 }

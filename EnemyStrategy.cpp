@@ -18,7 +18,7 @@ EnemyStrategy::~EnemyStrategy() {
 void EnemyStrategy::createEnemy(const short type, const float xPos, const float yPos, EnemySpawnerTile& enemy_spawner_tile) {
     switch(type){
         case EnemyTypes::MUMMY:
-            this->activeEnemies.push_back(new Mummy(xPos, yPos, this->textures["MUMMY_SHEET"], enemy_spawner_tile, this->hero));
+            activeEnemies.push_back(new Mummy(xPos, yPos, textures["MUMMY_SHEET"], enemy_spawner_tile, this->hero));
             enemy_spawner_tile.increaseEnemyCounter();
             break;
         default:
@@ -36,8 +36,8 @@ void EnemyStrategy::render(sf::RenderTarget *target) {
 }
 
 void EnemyStrategy::removeEnemy(const int index) {
-    this->activeEnemies[index]->getEnemySpawnerTile().decreaseEnemyCounter();
+    activeEnemies[index]->getEnemySpawnerTile().decreaseEnemyCounter();
     //TODO ritardare la cancellazione del nemico poter inserire animzaione di morte
-    delete this->activeEnemies[index];
-    this->activeEnemies.erase(this->activeEnemies.begin() + index);
+    delete activeEnemies[index];
+    activeEnemies.erase(activeEnemies.begin() + index);
 }

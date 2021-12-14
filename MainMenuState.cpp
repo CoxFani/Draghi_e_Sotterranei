@@ -8,17 +8,18 @@
 MainMenuState::MainMenuState(StateData* state_data)
         : State(state_data)
 {
-    this->initVariables();
-    this->iniFonts();
-    this->initKeybinds();
-    this->initGui();
-    this->resetGui();
+    initVariables();
+    iniFonts();
+    initKeybinds();
+    initGui();
+    resetGui();
 
 }
 
 MainMenuState::~MainMenuState() {
-    auto i = this->buttons.begin();
-    for (i = this->buttons.begin(); i != this->buttons.end(); ++i)
+
+    auto i = buttons.begin();
+    for (i = buttons.begin(); i != buttons.end(); ++i)
     {
         delete i->second;
     }
@@ -26,14 +27,15 @@ MainMenuState::~MainMenuState() {
 }
 
 void MainMenuState::render(sf::RenderTarget* target) {
+
     if (!target)
-        target = this->window;
+        target = window;
 
-    target->draw(this->background);
+    target->draw(background);
 
-    target->draw(this->btnBackground);
+    target->draw(btnBackground);
 
-    this->renderButtons(*target);
+    renderButtons(*target);
 
     //DA COMMENTARE SUCCESSIVAMENTE (fatto): Aiuta a trovare le coordinate sullo schermo per posizionare cose
     /*
@@ -56,20 +58,23 @@ void MainMenuState::updateInput(const float &dt) {
 }
 
 void MainMenuState::update(const float& dt) {
-    this->updateMousePosition();
-    this->updateInput(dt);
 
-    this->updateGui();
+    updateMousePosition();
+    updateInput(dt);
+
+    updateGui();
 }
 
 void MainMenuState::iniFonts() {
-    if(!this->font.loadFromFile("../Fonts/DeterminationMonoWebRegular-Z5oq.ttf")){
+
+    if(!font.loadFromFile("../Fonts/DeterminationMonoWebRegular-Z5oq.ttf")){
         throw("ERROR::MAINMENUSTATE::COULD NOT LOAD FONT");
     }
 
 }
 
 void MainMenuState::initKeybinds() {
+
     std::ifstream ifs("../Config/mainmenustate_keybinds.ini");
 
     if (ifs.is_open())
@@ -79,7 +84,7 @@ void MainMenuState::initKeybinds() {
 
         while (ifs >> key >> key2)
         {
-            this->keybinds[key] = this->supportedKeys->at(key2);
+            keybinds[key] = supportedKeys->at(key2);
         }
     }
 
@@ -88,58 +93,58 @@ void MainMenuState::initKeybinds() {
 
 void MainMenuState::initGui() {
 
-    const sf::VideoMode& vm = this->stateData->gfxSettings->resolution;
+    const sf::VideoMode& vm = stateData->gfxSettings->resolution;
 
 //Background
-    this->background.setSize(
+    background.setSize(
             sf::Vector2f(
                     static_cast<float>(vm.width),
                     static_cast<float>(vm.height)
             )
     );
 
-    if(this->backgroundTexture.loadFromFile("../Resources/Images/Backgrounds/Menu002.png")){
+    if(backgroundTexture.loadFromFile("../Resources/Images/Backgrounds/Menu002.png")){
         //throw"ERROR::MAIN_MENU_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE"; <--- DA ERRORE
     }
 
-    this->background.setTexture(&this->backgroundTexture);
+    background.setTexture(&backgroundTexture);
 
     //Button Background
-    this->btnBackground.setSize(
+    btnBackground.setSize(
             sf::Vector2f(
                     static_cast<float>(vm.width / 5),
                     static_cast<float>(vm.height)
                     )
             );
-    this->btnBackground.setPosition(gui::p2pX(5.5, vm), gui::p2pY(40.5, vm));
-    this->btnBackground.setFillColor(sf::Color(10, 10, 10, 100));
+    btnBackground.setPosition(gui::p2pX(5.5, vm), gui::p2pY(40.5, vm));
+    btnBackground.setFillColor(sf::Color(10, 10, 10, 100));
 
     //Buttons
-    this->buttons["GAME_STATE"] = new gui::Button(
+    buttons["GAME_STATE"] = new gui::Button(
             gui::p2pX(7.81f, vm), gui::p2pY(41.6f, vm),
             gui::p2pX(15.6f, vm), gui::p2pY(10.4f, vm),
-            &this->font, "New Game", gui::calcCharSize(vm),
+            &font, "New Game", gui::calcCharSize(vm),
             sf::Color(200, 200, 200, 200), sf::Color(255, 255, 255, 255), sf::Color(20, 20, 20, 50),
             sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 
-    this->buttons["SETTINGS_STATE"] = new gui::Button(
+    buttons["SETTINGS_STATE"] = new gui::Button(
             gui::p2pX(7.81f, vm), gui::p2pY(55.5f, vm),
             gui::p2pX(15.6f, vm), gui::p2pY(10.4f, vm),
-            &this->font, "Settings", gui::calcCharSize(vm),
+            &font, "Settings", gui::calcCharSize(vm),
             sf::Color(200, 200, 200, 200), sf::Color(255, 255, 255, 255), sf::Color(20, 20, 20, 50),
             sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 
-    this->buttons["EDITOR_STATE"] = new gui::Button(
+    buttons["EDITOR_STATE"] = new gui::Button(
             gui::p2pX(7.81f, vm), gui::p2pY(69.4f, vm),
             gui::p2pX(15.6f, vm), gui::p2pY(10.4f, vm),
-            &this->font, "Editor", gui::calcCharSize(vm),
+            &font, "Editor", gui::calcCharSize(vm),
             sf::Color(200, 200, 200, 200), sf::Color(255, 255, 255, 255), sf::Color(20, 20, 20, 50),
             sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 
-    this->buttons["EXIT_STATE"] = new gui::Button(
+    buttons["EXIT_STATE"] = new gui::Button(
             gui::p2pX(7.81f, vm), gui::p2pY(83.3f, vm),
             gui::p2pX(15.6f, vm), gui::p2pY(10.4f, vm),
-            &this->font, "Quit", gui::calcCharSize(vm),
+            &font, "Quit", gui::calcCharSize(vm),
             sf::Color(200, 200, 200, 200), sf::Color(255, 255, 255, 255), sf::Color(20, 20, 20, 50),
             sf::Color(100, 100, 100, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 }
@@ -151,41 +156,42 @@ void MainMenuState::resetGui() {
      * @return void
      */
 
-    auto i = this->buttons.begin();
-    for (i = this->buttons.begin(); i != this->buttons.end(); ++i)
+    auto i = buttons.begin();
+    for (i = buttons.begin(); i != buttons.end(); ++i)
     {
         delete i->second;
     }
-    this->buttons.clear();
+    buttons.clear();
 
-    this->initGui();
+    initGui();
 
 }
 
 void MainMenuState::updateGui() {
-    for (auto &i : this->buttons){
+
+    for (auto &i : buttons){
         i.second->update(this->mousePosWindow);
     }
 
-    if (this->buttons["GAME_STATE"]->isPressed()){
-        this->states->push(new GameState(this->stateData));
+    if (buttons["GAME_STATE"]->isPressed()){
+        states->push(new GameState(this->stateData));
     }
 
     if (this->buttons["SETTINGS_STATE"]->isPressed()){
-        this->states->push(new SettingState(this->stateData));
+        states->push(new SettingState(this->stateData));
     }
 
     if (this->buttons["EDITOR_STATE"]->isPressed()){
-        this->states->push(new EditorState(this->stateData));
+        states->push(new EditorState(this->stateData));
     }
 
     if (this->buttons["EXIT_STATE"]->isPressed()){
-        this->endState();
+        endState();
     }
 }
 
 void MainMenuState::renderButtons(sf::RenderTarget& target) {
-    for (auto &i : this->buttons){
+    for (auto &i : buttons){
         i.second->render(target);
     }
 }
