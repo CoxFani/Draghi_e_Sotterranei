@@ -9,7 +9,7 @@ Hero::Hero(float x, float y, sf::Texture& texture_sheet) {
     initVariables();
 
 
-    createHitboxComponent(this->sprite, 7.f, 20.f, 20.f, 20.f);
+    createHitboxComponent(this->sprite, 7.f, 23.f, 20.f, 25.f);
     createMovementComponent(140.f, 1500.f, 500.f);
     createAnimationComponent(texture_sheet);
     createAttributeComponent(1);
