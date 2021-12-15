@@ -18,7 +18,7 @@ RegularTile::~RegularTile() {
 
 const std::string RegularTile::getAsString() const {
     std::stringstream ss;
-    ss << this->type << " " << this->shape.getTextureRect().left << " " << this->shape.getTextureRect().top << " " << this->collision ;
+    ss << type << " " << shape.getTextureRect().left << " " << shape.getTextureRect().top << " " << collision ;
     std::cout << ss.str() << "\n";
     return ss.str();
 }
@@ -32,8 +32,8 @@ void RegularTile::render(sf::RenderTarget &target, sf::Shader *shader, const sf:
         shader->setUniform("hasTexture", true);
         shader->setUniform("lightPos", hero_position);
 
-        target.draw(this->shape, shader);
+        target.draw(shape, shader);
     }
     else
-        target.draw(this->shape);
+        target.draw(shape);
 }

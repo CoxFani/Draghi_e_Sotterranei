@@ -89,11 +89,11 @@ const sf::Vector2f GameCharacter::getCenter() const {
 }
 
 const sf::Vector2f GameCharacter::getSpriteCenter() const {
-     sprite.getPosition() +
-           sf::Vector2f(
+     return sprite.getPosition() +
+            sf::Vector2f(
                    sprite.getGlobalBounds().width / 2.f,
                    sprite.getGlobalBounds().height / 2
-           );;
+            );;
 }
 
 

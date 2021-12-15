@@ -9,11 +9,11 @@
 Weapon::Weapon(unsigned level, unsigned value, std::string texture_file)
 : Item(level, value) {
 
-    this->initVariables();
+    initVariables();
 
-    if(!this->weapon_texture.loadFromFile(texture_file))
+    if(!weapon_texture.loadFromFile(texture_file))
         std::cout <<"ERROR::SWORD::COULD NOT LOAD WEAPON TEXTURE::"<< texture_file << "\n";
-    this->weapon_sprite.setTexture(this->weapon_texture);
+    weapon_sprite.setTexture(weapon_texture);
 }
 
 Weapon::Weapon(unsigned level, unsigned int damageMin, unsigned int damageMax, unsigned int range,
@@ -21,16 +21,15 @@ Weapon::Weapon(unsigned level, unsigned int damageMin, unsigned int damageMax, u
                std::string texture_file)
                : Item(level, value){
 
-    this->initVariables();
+    initVariables();
 
     this->damageMin = damageMin;
     this->damageMax = damageMax;
     this->range = range;
 
-    if(!this->weapon_texture.loadFromFile(texture_file))
+    if(!weapon_texture.loadFromFile(texture_file))
         std::cout <<"ERROR::SWORD::COULD NOT LOAD WEAPON TEXTURE::"<< texture_file << "\n";
-    this->weapon_sprite.setTexture(this->weapon_texture);
-
+    weapon_sprite.setTexture(weapon_texture);
 }
 
 Weapon::~Weapon() {
@@ -38,40 +37,34 @@ Weapon::~Weapon() {
 }
 
 void Weapon::initVariables() {
-    this->range = 65;
-    this->damageMin = 1;
-    this->damageMax = 2;
+    range = 65;
+    damageMin = 1;
+    damageMax = 2;
 
-    this->attackTimer.restart();
-    this->attackTimerMax = 500;
+    attackTimer.restart();
+    attackTimerMax = 500;
 }
 
 const unsigned &Weapon::getDamageMin() const {
-    return this->damageMin;
+    return damageMin;
 }
 
 const unsigned &Weapon::getDamageMax() const {
-    return this->damageMax;
+    return damageMax;
 }
 
 const unsigned Weapon::getDamage() const{
-
-    return rand() % (this->damageMax - this->damageMin + 1) + (this->damageMin);
+    return rand() % (damageMax - damageMin + 1) + (this->damageMin);
 }
 
 const unsigned &Weapon::getRange() const {
-
-    return this->range;
+    return range;
 }
 
 const bool Weapon::getAttackTimer() {
-    if(this->attackTimer.getElapsedTime().asMilliseconds() >= this->attackTimerMax){
-        this->attackTimer.restart();
+    if(attackTimer.getElapsedTime().asMilliseconds() >= attackTimerMax){
+        attackTimer.restart();
         return true;
     }
     return false;
 }
-
-
-
-

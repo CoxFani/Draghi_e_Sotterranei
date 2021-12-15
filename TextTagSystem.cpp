@@ -6,20 +6,19 @@
 #include "TextTagSystem.h"
 
 TextTagSystem::TextTagSystem(std::string font_file) {
-    if(!this->font.loadFromFile(font_file))
+    if(!font.loadFromFile(font_file))
         std::cout << "ERROR::TEXTTAGSYSTEM::CONSTRUCTOR::Failed to load font" << font_file << "\n";
 
-    this->initTagTemplates();
-    this->initVariables();
-
+    initTagTemplates();
+    initVariables();
 }
 
 TextTagSystem::~TextTagSystem() {
-    for(auto *tag : this->tags){
+    for(auto *tag : tags){
         delete tag;
     }
 
-    for(auto &tag : this->tagTemplates){
+    for(auto &tag : tagTemplates){
         delete tag.second;
     }
 }
@@ -29,46 +28,46 @@ void TextTagSystem::initVariables() {
 }
 
 void TextTagSystem::initFonts(std::string font_file) {
-    if(!this->font.loadFromFile(font_file))
+    if(!font.loadFromFile(font_file))
         std::cout << "ERROR::TEXTTAGSYSTEM::CONSTRUCTOR::Failed to load font" << font_file << "\n";
 }
 
 void TextTagSystem::initTagTemplates() {
-    this->tagTemplates[DEFAULT_TAG] = new TextTag(this->font, "", 0.f, 0.f, 0.f, -1.f, sf::Color::Yellow, 10, 50.f, true, 100.f, 50.f, 3);
-    this->tagTemplates[NEGATIVE_TAG] = new TextTag(this->font, "", 0.f, 0.f, 0.f, 1.f, sf::Color::Red, 12, 100.f, true, 100.f, 50.f, 3);
-    this->tagTemplates[EXPERIENCE_TAG] = new TextTag(this->font, "", 0.f, 0.f, 0.f, -1.f, sf::Color::Cyan, 15, 70.f, true, 100.f, 50.f, 3);
+    tagTemplates[DEFAULT_TAG] = new TextTag(font, "", 0.f, 0.f, 0.f, -1.f, sf::Color::Yellow, 10, 50.f, true, 100.f, 50.f, 3);
+    tagTemplates[NEGATIVE_TAG] = new TextTag(font, "", 0.f, 0.f, 0.f, 1.f, sf::Color::Red, 12, 100.f, true, 100.f, 50.f, 3);
+    tagTemplates[EXPERIENCE_TAG] = new TextTag(font, "", 0.f, 0.f, 0.f, -1.f, sf::Color::Cyan, 15, 70.f, true, 100.f, 50.f, 3);
 }
 
 void TextTagSystem::addTextTag(const unsigned tag_type, const float pos_x, const float pos_y, const std::string str, const std::string prefix, const std::string postfix) {
     std::stringstream  ss;
     ss << prefix << " " << str << " " << postfix;
-    this->tags.push_back(new TextTag(this->tagTemplates[tag_type], pos_x, pos_y, ss.str()));
+    tags.push_back(new TextTag(tagTemplates[tag_type], pos_x, pos_y, ss.str()));
 }
 
 void TextTagSystem::addTextTag(const unsigned tag_type, const float pos_x, const float pos_y, const int i, const std::string prefix, const std::string postfix) {
     std::stringstream  ss;
     ss << prefix << " " << i << " " << postfix;
-    this->tags.push_back(new TextTag(this->tagTemplates[tag_type], pos_x, pos_y, ss.str()));
+    tags.push_back(new TextTag(tagTemplates[tag_type], pos_x, pos_y, ss.str()));
 }
 
 void TextTagSystem::addTextTag(const unsigned tag_type, const float pos_x, const float pos_y, const float f, const std::string prefix, const std::string postfix) {
     std::stringstream  ss;
     ss << prefix << " " << f << " " << postfix;
-    this->tags.push_back(new TextTag(this->tagTemplates[tag_type], pos_x, pos_y, ss.str()));
+    tags.push_back(new TextTag(tagTemplates[tag_type], pos_x, pos_y, ss.str()));
 }
 
 void TextTagSystem::update(const float &dt) {
-    for(size_t i = 0; i < this->tags.size(); ++i) {
-        this->tags[i]->update(dt);
-        if(this->tags[i]->isExpired()){
-            delete this->tags[i];
-            this->tags.erase(this->tags.begin() + i);
+    for(size_t i = 0; i < tags.size(); ++i) {
+        tags[i]->update(dt);
+        if(tags[i]->isExpired()){
+            delete tags[i];
+            tags.erase(tags.begin() + i);
         }
     }
 }
 
 void TextTagSystem::render(sf::RenderTarget &target) {
-    for(auto &tag : this->tags){
+    for(auto &tag : tags){
         tag->render(target);
     }
 }
@@ -121,54 +120,50 @@ TextTagSystem::TextTag::~TextTag() {
 }
 
 const bool TextTagSystem::TextTag::isExpired() const {
-    return this->lifetime <= 0.f;
+    return lifetime <= 0.f;
 }
 
 void TextTagSystem::TextTag::update(const float &dt) {
+    if(lifetime > 0.f){
+        lifetime -= 100.f * dt;
 
-    if(this->lifetime > 0.f){
+        if(acceleration > 0.f){
+            if(reverse){
+                velocity.x -= dirX * acceleration * dt;
+                velocity.y -= dirY * acceleration * dt;
 
-        this->lifetime -= 100.f * dt;
+                if(abs(velocity.x) < 0.f)
+                    velocity.x = 0.f;
 
-        if(this->acceleration > 0.f){
-            if(this->reverse){
-                this->velocity.x -= this-> dirX * this->acceleration * dt;
-                this->velocity.y -= this-> dirY * this->acceleration * dt;
+                if(abs(velocity.y) < 0.f)
+                    velocity.y = 0.f;
 
-                if(abs(this->velocity.x) < 0.f)
-                    this->velocity.x = 0.f;
-
-                if(abs(this->velocity.y) < 0.f)
-                    this->velocity.y = 0.f;
-
-                this->text.move(this->velocity * dt);
+                text.move(velocity * dt);
             }
             else{
-                this->velocity.x += this-> dirX * this->acceleration * dt;
-                this->velocity.y += this-> dirY * this->acceleration * dt;
+                velocity.x += dirX * acceleration * dt;
+                velocity.y += dirY * acceleration * dt;
 
-                if(abs(this->velocity.x) > this->speed)
-                    this->velocity.x = this->dirX * this->speed;
+                if(abs(velocity.x) > speed)
+                    velocity.x = dirX * speed;
 
-                if(abs(this->velocity.y) > this->speed)
-                    this->velocity.y = this->dirY * this->speed;
+                if(abs(velocity.y) > speed)
+                    velocity.y = dirY * speed;
 
-                this->text.move(this->velocity * dt);
+                text.move(velocity * dt);
             }
         }
         else{
-
-            this->text.move(this->dirX * this->speed * dt, this->dirY * this->speed * dt);
+            text.move(dirX * speed * dt, dirY * speed * dt);
         }
 
-
-        if(this->fadeValue > 0 && this->text.getFillColor().a >= this->fadeValue){
-            this->text.setFillColor(
+        if(fadeValue > 0 && text.getFillColor().a >= fadeValue){
+            text.setFillColor(
                     sf::Color(
-                    this->text.getFillColor().r,
-                    this->text.getFillColor().g,
-                    this->text.getFillColor().b,
-                    this->text.getFillColor().a - this->fadeValue
+                    text.getFillColor().r,
+                    text.getFillColor().g,
+                    text.getFillColor().b,
+                    text.getFillColor().a - fadeValue
                     )
             );
         }
@@ -176,7 +171,7 @@ void TextTagSystem::TextTag::update(const float &dt) {
 }
 
 void TextTagSystem::TextTag::render(sf::RenderTarget &target) {
-    target.draw(this->text);
+    target.draw(text);
 }
 
 

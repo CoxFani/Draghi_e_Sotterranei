@@ -15,29 +15,24 @@ Tab::~Tab() {
 }
 
 const bool &Tab::getHidden() const {
-
-    return this->hidden;
+    return hidden;
 }
 
 const bool &Tab::getOpen() const {
-
-    return this->hidden;
+    return hidden;
 }
 
 void Tab::hide() {
-
-    this->hidden = true;
+    hidden = true;
 }
 
 void Tab::show() {
-
-    this->hidden = false;
+    hidden = false;
 }
 
 void Tab::toggle() {
-
-    if(this->hidden)
-        this->hidden = false;
+    if(hidden)
+        hidden = false;
     else
-        this->hidden = true;
+        hidden = true;
 }
