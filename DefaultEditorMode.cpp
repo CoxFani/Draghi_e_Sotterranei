@@ -80,7 +80,8 @@ void DefaultEditorMode::updateInput(const float &dt) {
     }
     //INCREASE TYPE
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(editorStateData->keybinds->at("INCREASE_TYPE"))) && getKeyTime()){
-        ++type;
+        if(type < 2)
+            ++type;
     }
     //DECREASE TYPE
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(editorStateData->keybinds->at("DECREASE_TYPE"))) && getKeyTime()){

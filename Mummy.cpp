@@ -10,7 +10,7 @@ Mummy::Mummy(float x, float y, sf::Texture &texture_sheet, EnemySpawnerTile& ene
     initVariables();
     initGUI();
 
-    createHitboxComponent(this->sprite, 20.f, 15.f, 25.f, 25.f);
+    createHitboxComponent(this->sprite, 20.f, 23.f, 25.f, 25.f);
     createMovementComponent(50.f, 1600.f, 1000.f);
     createAnimationComponent(texture_sheet);
     createAttributeComponent(1);
