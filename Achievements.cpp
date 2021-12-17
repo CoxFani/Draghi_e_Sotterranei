@@ -4,9 +4,10 @@
 
 #include "Achievements.h"
 
+/*
 void Achievements::onNotify(const GameCharacter &gameCharacter, Events event) {
 
-    /*
+
     switch (event)
     {
         case KILLER:
@@ -116,9 +117,11 @@ void Achievements::onNotify(const GameCharacter &gameCharacter, Events event) {
 
     };
 
-     */
+
 }
 
 void Achievements::unlock(Achievements achievement) {
 
 }
+
+     */

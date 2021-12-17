@@ -28,9 +28,15 @@ enum Events {KILLER = 0, SERIAL_KILLER, BONK, STYLISH, GOTTA_KILL_EM_ALL, ANIMAL
 
 class Observer {
 public:
-    virtual ~Observer() {}
-    virtual void onNotify(const GameCharacter& gameCharacter, Events event) = 0;
-};
+    Observer() = default;
 
+    virtual ~Observer() = default;
+    virtual void onNotify(const GameCharacter& gameCharacter, Events event) = 0;
+
+    virtual void update() = 0;
+
+    virtual void attach() = 0;
+    virtual void detach() = 0;
+};
 
 #endif //DRAGHI_E_SOTTERRANEI_OBSERVER_H

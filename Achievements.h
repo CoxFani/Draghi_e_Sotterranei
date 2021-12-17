@@ -11,10 +11,27 @@
 class Achievements
         : public Observer {
 
+public:
+
+    Achievements() = default;
+    //explicit Achievements(RoundManager * subject);
+    virtual ~Achievements();
+
     void onNotify(const GameCharacter &gameCharacter, Events event) override;
 
 private:
-    void unlock(Achievements achievement);
+
+    int kills;
+
+    //RoundManager * subject;
+
+    sf::Font font;
+
+    sf::Text text;
+
+    virtual void update();
+    virtual void attach();
+    virtual void detach();
 
 };
 

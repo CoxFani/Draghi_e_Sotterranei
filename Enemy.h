@@ -8,6 +8,9 @@
 #include "GameCharacter.h"
 #include "EnemySpawnerTile.h"
 
+enum EnemyTypes{MUMMY = 0, SCORPION, VULTURE, HYENA, SNAKE, DECEASED, BIG_BLOATED, CENTIPEDE, BATTLE_TURTLE};
+
+
 class Enemy : public GameCharacter {
 public:
     Enemy(EnemySpawnerTile& enemy_spawner_tile);
