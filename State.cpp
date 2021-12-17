@@ -6,15 +6,15 @@
 #include "State.h"
 
 State::State(StateData* state_data) {
-    this->stateData = state_data;
-    this->window = state_data->window;
-    this->supportedKeys = state_data->supportedKeys;
-    this->states = state_data->states;
-    this->quit = false;
-    this->paused = false;
-    this->keyTime = 0.f;
-    this->keyTimeMax = 25.f;
-    this->gridSize = state_data->gridSize;
+    stateData = state_data;
+    window = state_data->window;
+    supportedKeys = state_data->supportedKeys;
+    states = state_data->states;
+    quit = false;
+    paused = false;
+    keyTime = 0.f;
+    keyTimeMax = 25.f;
+    gridSize = state_data->gridSize;
 }
 
 State::~State() {

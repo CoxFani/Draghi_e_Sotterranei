@@ -12,10 +12,9 @@ class GraphicsSettings;
 class Hero;
 class State;
 
-class StateData{
+struct StateData{
 public:
     StateData() {};
-
     float gridSize;
     sf::RenderWindow* window;
     GraphicsSettings* gfxSettings;
@@ -24,7 +23,6 @@ public:
 };
 
 class State {
-
 public:
     State(StateData* state_data);
     virtual ~State();
@@ -63,6 +61,6 @@ protected:
 
     virtual void initKeybinds() = 0;
 
-
     };
+
 #endif //DRAGHI_E_SOTTERRANEI_STATE_H
