@@ -435,7 +435,7 @@ void TileMap::updateTiles(GameCharacter *gameCharacter, const float &dt,
                     EnemySpawnerTile* es = dynamic_cast<EnemySpawnerTile*>(map[x][y][layer][k]);
                     if(es) {
                         if (es->getSpawnTimer() && es->getEnemyCounter() < es->getEnemyAmount()) {
-                            enemyStrategy.createEnemy(MUMMY, x * gridSizeF, y * gridSizeF, *es);
+                            enemyStrategy.createEnemy(es->getEnemyType(), x * gridSizeF, y * gridSizeF, *es);
                             std::cout << "Spawned!" << "\n"; //TODO commentare
                         }
                     }

@@ -151,7 +151,6 @@ void Enemy::update(const float &dt, sf::Vector2f &mouse_pos_view, const sf::View
     if(vectorDistance(getPosition(), view. getCenter()) < 1500.f)
         despawnTimer.restart();
 
-    Enemy::update(dt, mouse_pos_view, view);
     movementComponent->update(dt);
 
     hpBar.setSize(sf::Vector2f(40.f * (static_cast<float>(attributeComponent->hp) / attributeComponent->hpMax), 5.f));

@@ -67,6 +67,8 @@ private:
     int fromY;
     int toY;
     int layer;
+
+
 };
 
 #endif //DRAGHI_E_SOTTERRANEI_TILEMAP_H

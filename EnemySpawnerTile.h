@@ -20,6 +20,7 @@ public:
     const int& getEnemyCounter() const;
     const int& getEnemyAmount() const;
     const bool getSpawnTimer();
+    const int& getEnemyType() const;
 
     void increaseEnemyCounter();
     void decreaseEnemyCounter();

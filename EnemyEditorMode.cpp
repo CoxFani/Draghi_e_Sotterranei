@@ -135,3 +135,7 @@ void EnemyEditorMode::renderGui(sf::RenderTarget &target) {
 void EnemyEditorMode::render(sf::RenderTarget &target) {
     renderGui(target);
 }
+
+int EnemyEditorMode::getType() const{
+    return type;
+}

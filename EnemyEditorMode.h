@@ -20,12 +20,15 @@ public:
     EnemyEditorMode(StateData* state_data, TileMap* tile_map, EditorStateData* editor_state_data);
     virtual ~EnemyEditorMode();
 
+    int getType() const;
+
     void updateInput(const float& dt) override;
     void updateGui(const float& dt) override;
     void update(const float& dt) override;
 
     void renderGui(sf::RenderTarget& target) override;
     void render(sf::RenderTarget& target) override;
+
 
 private:
     sf::Text cursorText;

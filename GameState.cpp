@@ -91,6 +91,9 @@ void GameState::initTextures() {
     if (!textures["MUMMY_SHEET"].loadFromFile("../Resources/Images/Sprites/Enemies/Mummy/Mummy_animations.png")){
         throw "ERROR::GAME_STATE::COULD_NOT_LOAD_MUMMY_TEXTURE";
     }
+    if (!textures["SCORPION_SHEET"].loadFromFile("../Resources/Images/Sprites/Enemies/Scorpio/Scorpio_animations.png")){
+        throw "ERROR::GAME_STATE::COULD_NOT_LOAD_MUMMY_TEXTURE";
+    }
 }
 
 

@@ -87,3 +87,8 @@ const bool EnemySpawnerTile::getSpawnTimer(){
     }
     return 0;
 }
+
+const int& EnemySpawnerTile::getEnemyType() const
+{
+    return this->enemyType;
+}
