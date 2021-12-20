@@ -7,7 +7,7 @@
 
 #include "EnemySpawnerTile.h"
 #include "RegularTile.h"
-#include "EnemyStrategy.h"
+#include "EnemyFactory.h"
 
 class Tile;
 class GameCharacter;
@@ -37,7 +37,7 @@ public:
 
     void updateWorldBoundsCollision(GameCharacter* gameCharacter, const float& dt);
     void updateTileCollision(GameCharacter* gameCharacter, const float& dt);
-    void updateTiles(GameCharacter* gameCharacter, const float& dt, EnemyStrategy& enemyStrategy);
+    void updateTiles(GameCharacter* gameCharacter, const float& dt, EnemyFactory& enemyStrategy);
     void update(GameCharacter* gameCharacter, const float& dt);
     void render(
             sf::RenderTarget& target,

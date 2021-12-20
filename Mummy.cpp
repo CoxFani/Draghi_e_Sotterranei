@@ -3,7 +3,7 @@
 //
 #include "precompiler.h"
 #include "Mummy.h"
-
+/*
 Mummy::Mummy(float x, float y, sf::Texture &texture_sheet, EnemySpawnerTile& enemy_spawner_tile, GameCharacter& hero)
       : Enemy(enemy_spawner_tile) {
 
@@ -121,8 +121,6 @@ void Mummy::render(sf::RenderTarget &target, sf::Shader* shader, const sf::Vecto
         hitboxComponent->render(target);
 }
 
-void Mummy::iniAI() {
 
-}
-
+*/
 

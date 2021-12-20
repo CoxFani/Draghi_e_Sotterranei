@@ -395,7 +395,7 @@ void TileMap::updateTileCollision(GameCharacter *gameCharacter, const float &dt)
 }
 
 void TileMap::updateTiles(GameCharacter *gameCharacter, const float &dt,
-                          EnemyStrategy &enemyStrategy) {
+                          EnemyFactory &enemyStrategy) {
 
     //Tiles
     layer = 0;

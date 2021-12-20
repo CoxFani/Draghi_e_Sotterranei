@@ -7,13 +7,16 @@
 
 #include "GameCharacter.h"
 #include "EnemySpawnerTile.h"
-
-enum EnemyTypes{MUMMY = 0, SCORPION, VULTURE, HYENA, SNAKE, DECEASED, BIG_BLOATED, CENTIPEDE, BATTLE_TURTLE};
+#include "AIFollow.h"
 
 
 class Enemy : public GameCharacter {
 public:
-    Enemy(EnemySpawnerTile& enemy_spawner_tile);
+    Enemy(float x, float y,
+          sf::Texture& texture_sheet,
+          EnemySpawnerTile& enemy_spawner_tile,
+          GameCharacter& hero,
+          float animations_parameters[3][7]);
     virtual ~Enemy();
 
     const unsigned& getGainExp() const;
@@ -30,9 +33,9 @@ public:
 
     virtual const AttributeComponent* getAttributeComp() const;
 
-    virtual void updateAnimation(const float& dt) = 0;
-    virtual void update(const float &dt, sf::Vector2f& mouse_pos_view, const sf::View& view);
-    virtual void render(sf::RenderTarget &target, sf::Shader* shader = nullptr, const sf::Vector2f light_position = sf::Vector2f(), const bool show_hitbox = false) = 0;
+    void updateAnimation(const float& dt);
+    void update(const float &dt, sf::Vector2f& mouse_pos_view, const sf::View& view);
+    void render(sf::RenderTarget &target, sf::Shader* shader = nullptr, const sf::Vector2f light_position = sf::Vector2f(), const bool show_hitbox = false);
 
 protected:
     EnemySpawnerTile& enemySpawnerTile;
@@ -42,9 +45,14 @@ protected:
     sf::Clock despawnTimer;
     sf::Int32 despawnTimerMax;
 
-    virtual void initVariables() = 0; //da tenere puramente virtuale?
-    virtual void initAnimations() = 0; //da tenere puramente virtuale?
+    void initGUI();
 
+    sf::RectangleShape hpBar;
+
+    AIFollow* follow;
+
+     void initVariables();
+     void initAnimations(float animationsParameters[3][7]);
 };
 
 

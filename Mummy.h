@@ -8,6 +8,7 @@
 #include "Enemy.h"
 #include "AIFollow.h"
 
+/*
 class Mummy:
         public Enemy{
 public:
@@ -22,7 +23,6 @@ private:
     void initVariables() override;
     void initAnimations() override;
     void initGUI();
-    void iniAI();
 
     sf::RectangleShape hpBar;
 
@@ -30,5 +30,5 @@ private:
 
 };
 
-
+*/
 #endif //DRAGHI_E_SOTTERRANEI_MUMMY_H

@@ -60,7 +60,7 @@ private:
     TextTagSystem *tts;
 
     std::vector<Enemy*> activeEnemies;
-    EnemyStrategy *enemyStrategy;
+    EnemyFactory *enemyStrategy;
 
     void initView();
     void initKeybinds();

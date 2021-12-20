@@ -131,7 +131,7 @@ void GameState::initDeferredRender() {
 
 void GameState::initEnemyStrategy() {
 
-    enemyStrategy = new EnemyStrategy(this->activeEnemies, this->textures, *this->hero);
+    enemyStrategy = new EnemyFactory(this->activeEnemies, this->textures, *this->hero);
 }
 
 const bool GameState::getKeyTime() {
