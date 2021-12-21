@@ -28,6 +28,7 @@ public:
     const bool getDamageTimer();
 
     const unsigned getDamage() const;
+    virtual const bool isDead() const;
 
     void loseHP(const int hp);
     void gainHP(const int hp);

@@ -179,6 +179,9 @@ void Hero::updateAnimation(const float &dt) {
     }
     else
         sprite.setColor(sf::Color::White);
+
+    if(isDead())
+        this->animationComponent->play("DEATH", dt, true);
 }
 
 void Hero::update(const float &dt, sf::Vector2f& mouse_pos_view, const sf::View& view) {
@@ -214,4 +217,11 @@ void Hero::updateAttack() {
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
         attacking = true;
     }
+}
+
+const bool Hero::isDead() const {
+    if(attributeComponent){
+        return attributeComponent->isDead();
+    }
+    return false;
 }
