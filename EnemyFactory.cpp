@@ -30,9 +30,79 @@ void EnemyFactory::createEnemy(const short type, const float xPos, const float y
         case EnemyTypes::SCORPION:{
             std::cout << "SCORPION" << "\n";
             float animations[3][7] = { 11.f, 0, 0, 3, 0, 48, 48,
+                                       8.f, 0, 1, 3, 1, 48, 48,
+                                       12.f, 0, 3, 3, 3, 48, 48};
+            activeEnemies.push_back(new Enemy(xPos, yPos, textures["SCORPION_SHEET"], enemy_spawner_tile, this->hero, animations));
+
+            enemy_spawner_tile.increaseEnemyCounter();
+            break;
+        }
+        case EnemyTypes::VULTURE:{
+            std::cout << "VULTURE" << "\n";
+            float animations[3][7] = { 11.f, 0, 0, 3, 0, 48, 48,
+                                       8.f, 0, 1, 3, 1, 48, 48,
+                                       12.f, 0, 3, 3, 3, 48, 48};
+            activeEnemies.push_back(new Enemy(xPos, yPos, textures["VULTURE_SHEET"], enemy_spawner_tile, this->hero, animations));
+
+            enemy_spawner_tile.increaseEnemyCounter();
+            break;
+        }
+        case EnemyTypes::HYENA:{
+            std::cout << "HYENA" << "\n";
+            float animations[3][7] = { 11.f, 0, 0, 3, 0, 48, 48,
                                        8.f, 0, 1, 5, 1, 48, 48,
                                        12.f, 0, 3, 5, 3, 48, 48};
-            activeEnemies.push_back(new Enemy(xPos, yPos, textures["SCORPION_SHEET"], enemy_spawner_tile, this->hero, animations));
+            activeEnemies.push_back(new Enemy(xPos, yPos, textures["HYENA_SHEET"], enemy_spawner_tile, this->hero, animations));
+
+            enemy_spawner_tile.increaseEnemyCounter();
+            break;
+        }
+        case EnemyTypes::SNAKE:{
+            std::cout << "SNAKE" << "\n";
+            float animations[3][7] = { 11.f, 0, 0, 3, 0, 48, 48,
+                                       8.f, 0, 1, 3, 1, 48, 48,
+                                       12.f, 0, 3, 3, 3, 48, 48};
+            activeEnemies.push_back(new Enemy(xPos, yPos, textures["SNAKE_SHEET"], enemy_spawner_tile, this->hero, animations));
+
+            enemy_spawner_tile.increaseEnemyCounter();
+            break;
+        }
+        case EnemyTypes::DECEASED:{
+            std::cout << "DECEASED" << "\n";
+            float animations[3][7] = { 11.f, 0, 0, 3, 0, 48, 48,
+                                       8.f, 0, 1, 5, 1, 48, 48,
+                                       12.f, 0, 3, 5, 3, 48, 48};
+            activeEnemies.push_back(new Enemy(xPos, yPos, textures["DECEASED_SHEET"], enemy_spawner_tile, this->hero, animations));
+
+            enemy_spawner_tile.increaseEnemyCounter();
+            break;
+        }
+        case EnemyTypes::BIG_BLOATED:{
+            std::cout << "BIG_BLOATED" << "\n";
+            float animations[3][7] = { 11.f, 0, 0, 3, 0, 72, 72,
+                                       8.f, 0, 1, 5, 1, 72, 72,
+                                       12.f, 0, 6, 3, 6, 72, 72};
+            activeEnemies.push_back(new Enemy(xPos, yPos, textures["BIG_BLOATED_SHEET"], enemy_spawner_tile, this->hero, animations));
+
+            enemy_spawner_tile.increaseEnemyCounter();
+            break;
+        }
+        case EnemyTypes::CENTIPEDE:{
+            std::cout << "CENTIPEDE" << "\n";
+            float animations[3][7] = { 11.f, 0, 0, 3, 0, 72, 72,
+                                       8.f, 0, 1, 3, 1, 72, 72,
+                                       12.f, 0, 6, 3, 6, 72, 72};
+            activeEnemies.push_back(new Enemy(xPos, yPos, textures["CENTIPEDE_SHEET"], enemy_spawner_tile, this->hero, animations));
+
+            enemy_spawner_tile.increaseEnemyCounter();
+            break;
+        }
+        case EnemyTypes::BATTLE_TURTLE:{
+            std::cout << "BATTLE_TURTLE" << "\n";
+            float animations[3][7] = { 11.f, 0, 0, 3, 0, 72, 72,
+                                       8.f, 0, 1, 3, 1, 72, 72,
+                                       12.f, 0, 6, 3, 6, 72, 72};
+            activeEnemies.push_back(new Enemy(xPos, yPos, textures["BATTLE_TURTLE_SHEET"], enemy_spawner_tile, this->hero, animations));
 
             enemy_spawner_tile.increaseEnemyCounter();
             break;
