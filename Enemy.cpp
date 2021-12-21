@@ -9,13 +9,14 @@ Enemy::Enemy(float x, float y,
              sf::Texture& texture_sheet,
              EnemySpawnerTile& enemy_spawner_tile,
              GameCharacter& hero,
-             float animations_parameters[3][7])
+             float animations_parameters[3][7],
+             float hitbox_parameters[4])
              : enemySpawnerTile(enemy_spawner_tile) {
 
     initVariables();
     initGUI();
 
-    createHitboxComponent(this->sprite, 20.f, 23.f, 25.f, 25.f);
+    createHitboxComponent(this->sprite, hitbox_parameters[0], hitbox_parameters[1], hitbox_parameters[2], hitbox_parameters[3]);
     createMovementComponent(50.f, 1600.f, 1000.f);
     createAnimationComponent(texture_sheet);
     createAttributeComponent(1);

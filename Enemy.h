@@ -16,7 +16,8 @@ public:
           sf::Texture& texture_sheet,
           EnemySpawnerTile& enemy_spawner_tile,
           GameCharacter& hero,
-          float animations_parameters[3][7]);
+          float animations_parameters[3][7],
+          float hitbox_parameters[4]);
     virtual ~Enemy();
 
     const unsigned& getGainExp() const;
