@@ -7,7 +7,7 @@
 
 #include "GameCharacter.h"
 #include "EnemySpawnerTile.h"
-#include "AIFollow.h"
+#include "AttackStrategy.h"
 
 
 class Enemy : public GameCharacter {
@@ -49,7 +49,7 @@ protected:
 
     sf::RectangleShape hpBar;
 
-    AIFollow* follow;
+    AttackStrategy* follow;
 
      void initVariables();
      void initAnimations(float animationsParameters[3][7]);

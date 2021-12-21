@@ -26,7 +26,7 @@
 #include <string>
 #include <sstream>
 
-#include "VectorMath.h"
+#include "DistanceCalc.h"
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>

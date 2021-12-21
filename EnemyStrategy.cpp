@@ -3,9 +3,9 @@
 //
 
 #include "precompiler.h"
-#include "AIOption.h"
+#include "EnemyStrategy.h"
 
-AIOption::AIOption(GameCharacter &self, GameCharacter &gameCharacter)
+EnemyStrategy::EnemyStrategy(GameCharacter &self, GameCharacter &gameCharacter)
         : self(self), gameCharacter(gameCharacter){
 
 }

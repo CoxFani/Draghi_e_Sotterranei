@@ -3,18 +3,18 @@
 //
 
 #include "precompiler.h"
-#include "AIFollow.h"
+#include "AttackStrategy.h"
 
-AIFollow::AIFollow(GameCharacter &self, GameCharacter &gameCharacter)
-        : AIOption(self, gameCharacter) {
-
-}
-
-AIFollow::~AIFollow() {
+AttackStrategy::AttackStrategy(GameCharacter &self, GameCharacter &gameCharacter)
+        : EnemyStrategy(self, gameCharacter) {
 
 }
 
-void AIFollow::update(const float& dt) {
+AttackStrategy::~AttackStrategy() {
+
+}
+
+void AttackStrategy::update(const float& dt) {
     sf::Vector2f moveVec;
     moveVec.x = gameCharacter.getPosition().x - self.getPosition().x;
     moveVec.y = gameCharacter.getPosition().y - self.getPosition().y;

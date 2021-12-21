@@ -6,7 +6,7 @@
 #define DRAGHI_E_SOTTERRANEI_MUMMY_H
 
 #include "Enemy.h"
-#include "AIFollow.h"
+#include "AttackStrategy.h"
 
 /*
 class Mummy:
@@ -26,7 +26,7 @@ private:
 
     sf::RectangleShape hpBar;
 
-    AIFollow* follow;
+    AttackStrategy* follow;
 
 };
 

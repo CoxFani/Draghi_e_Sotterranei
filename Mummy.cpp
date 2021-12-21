@@ -20,7 +20,7 @@ Mummy::Mummy(float x, float y, sf::Texture &texture_sheet, EnemySpawnerTile& ene
     this->setPosition(x, y);
     initAnimations();
 
-    follow = new AIFollow(*this, hero);
+    follow = new AttackStrategy(*this, hero);
 }
 
 Mummy::~Mummy() {

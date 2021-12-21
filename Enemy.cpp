@@ -25,7 +25,7 @@ Enemy::Enemy(float x, float y,
     this->setPosition(x, y);
     initAnimations(animations_parameters);
 
-    follow = new AIFollow(*this, hero);
+    follow = new AttackStrategy(*this, hero);
 }
 
 Enemy::~Enemy() {
