@@ -6,24 +6,26 @@
 #define DRAGHI_E_SOTTERRANEI_ACHIEVEMENTS_H
 
 #include "Observer.h"
+#include "GameManager.h"
 
 
 class Achievements
         : public Observer {
 
 public:
-
     Achievements() = default;
-    //explicit Achievements(RoundManager * subject);
+    explicit Achievements(GameManager * subject);
     virtual ~Achievements();
 
-    void onNotify(const GameCharacter &gameCharacter, Events event) override;
+    //void onNotify(const GameCharacter &gameCharacter, Events event) override;
+
+    void unlock(Achievements event);
 
 private:
+    GameManager * subject;
+    int event;
 
     int kills;
-
-    //RoundManager * subject;
 
     sf::Font font;
 

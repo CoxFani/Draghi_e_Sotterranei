@@ -13,6 +13,7 @@ GameState::GameState(StateData* state_data)
     initFonts();
     initTextures();
     initPausedMenu();
+    initGameOverState();
     initShaders();
     initKeyTime();
     initDebugText();
@@ -120,9 +121,17 @@ void GameState::initTextures() {
 
 void GameState::initPausedMenu() {
     const sf::VideoMode& vm = stateData->gfxSettings->resolution;
-    pmenu = new PauseMenu(stateData->gfxSettings->resolution, font);
+    pmenu = new PauseMenu(stateData->gfxSettings->resolution, font, true);
 
     pmenu->addButton("QUIT", gui::p2pY(62.5f, vm)/*450.f*/, gui::p2pX(15.6f, vm), gui::p2pY(10.4f, vm), gui::calcCharSize(vm), "Quit");
+}
+
+void GameState::initGameOverState() {
+
+    const sf::VideoMode& vm = stateData->gfxSettings->resolution;
+    gameOverMenu = new PauseMenu(stateData->gfxSettings->resolution, font, false);
+
+    gameOverMenu->addButton("QUIT", gui::p2pY(62.5f, vm)/*450.f*/, gui::p2pX(15.6f, vm), gui::p2pY(10.4f, vm), gui::calcCharSize(vm), "Quit");
 }
 
 void GameState::initShaders() {
@@ -224,6 +233,9 @@ void GameState::updateHeroGUI(const float &dt) {
 void GameState::updatePauseMenuButtons() {
     if(pmenu->isButtonPressed("QUIT"))
         endState();
+
+    if(gameOverMenu->isButtonPressed("QUIT"))
+        endState();
 }
 
 void GameState::updateTileMap(const float &dt) {
@@ -234,6 +246,10 @@ void GameState::updateTileMap(const float &dt) {
 
 void GameState::updateHero(const float &dt) {
     hero->update(dt, mousePosView, this->view);
+
+    if(hero->isDead())
+        gameOver = true;
+        
 }
 
 void GameState::updateCombatAndEnemies(const float &dt) {
@@ -308,7 +324,7 @@ void GameState::update(const float& dt) {
 
     this->updateDebugText(dt);
 
-    if(!paused) {
+    if(!paused && !gameOver) {
         updateView(dt);
         updateHeroInput(dt);
         updateTileMap(dt);
@@ -318,8 +334,12 @@ void GameState::update(const float& dt) {
 
         tts->update(dt);
     }
-    else{
+    else if (paused){
         pmenu->update(this->mousePosWindow);
+        updatePauseMenuButtons();
+    }
+    else{
+        gameOverMenu->update(this->mousePosWindow);
         updatePauseMenuButtons();
     }
 }
@@ -360,6 +380,10 @@ void GameState::render(sf::RenderTarget* target) {
         pmenu->render(renderTexture);
     }
 
+    if(gameOver){
+        gameOverMenu->render(renderTexture);
+    }
+
     /** Render debug text **/
     //renderTexture.draw(debugText);
 
@@ -368,3 +392,9 @@ void GameState::render(sf::RenderTarget* target) {
     //this->renderSprite.setTexture(this->renderTexture.getTexture());
     target->draw(renderSprite);
 }
+
+void GameState::updateAchievement(int event) {
+
+}
+
+

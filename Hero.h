@@ -8,7 +8,6 @@
 #include "GameCharacter.h"
 #include "Items.h"
 #include "Inventory.h"
-//#include "GameState.h"
 
 class  GameCharacter;
 

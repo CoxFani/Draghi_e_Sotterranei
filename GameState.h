@@ -12,6 +12,9 @@
 #include "Sword.h"
 #include "Bow.h"
 #include "TextTagSystem.h"
+#include "Observer.h"
+#include "Achievements.h"
+#include "GameManager.h"
 
 using namespace std;
 
@@ -32,6 +35,7 @@ public:
     void updateCombatAndEnemies(const float& dt);
     void updateCombat(Enemy* enemy, const int index, const float& dt);
     void updateDebugText(const float& dt);
+    void updateAchievement(int event);
     void update(const float& dt);
     void render(sf::RenderTarget* target = nullptr);
 
@@ -43,6 +47,7 @@ private:
 
     sf::Font font;
     PauseMenu* pmenu;
+    PauseMenu* gameOverMenu;
 
     sf::Shader core_shader;
 
@@ -62,11 +67,15 @@ private:
     std::vector<Enemy*> activeEnemies;
     EnemyFactory *enemyStrategy;
 
+    Achievements* achievements;
+    GameManager manager;
+
     void initView();
     void initKeybinds();
     void initFonts();
     void initTextures();
     void initPausedMenu();
+    void initGameOverState();
     void initShaders();
     void initHeroes();
     void initHeroGUI();

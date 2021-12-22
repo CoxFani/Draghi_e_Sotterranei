@@ -7,6 +7,7 @@
 
 #include "GameCharacter.h"
 
+/*
 enum Events {KILLER = 0, SERIAL_KILLER, BONK, STYLISH, GOTTA_KILL_EM_ALL, ANIMAL_ACTIVIST, MUMMY_LORD, KING_SCORPION, WHATCHOO_WANNA_DO_TONIGHT, I_AM_SURROUNDED_BY_IDIOTS, SNAKE_SNAAAAKE, BRAAAINS, FAT_MAN, HUMAN_CENTIPEDE, ANTI_TANK};
 /**
  * Kill 1 Enemy
@@ -31,7 +32,7 @@ public:
     Observer() = default;
 
     virtual ~Observer() = default;
-    virtual void onNotify(const GameCharacter& gameCharacter, Events event) = 0;
+    //virtual void onNotify(const GameCharacter& gameCharacter, Events event) = 0;
 
     virtual void update() = 0;
 

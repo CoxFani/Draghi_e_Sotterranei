@@ -5,7 +5,7 @@
 #include "precompiler.h"
 #include "PauseMenu.h"
 
-PauseMenu::PauseMenu(sf::VideoMode& vm, sf::Font& font)
+PauseMenu::PauseMenu(sf::VideoMode& vm, sf::Font& font, bool type)
 : font(font){
     background.setSize(sf::Vector2f(
             static_cast<float >(vm.width),
@@ -25,9 +25,17 @@ PauseMenu::PauseMenu(sf::VideoMode& vm, sf::Font& font)
             150.f
             );
     menuText.setFont(font);
-    menuText.setFillColor(sf::Color(255, 255, 255, 200));
     menuText.setCharacterSize(gui::calcCharSize(vm)); //60
-    menuText.setString("PAUSED");
+
+    if(type){
+        menuText.setFillColor(sf::Color(255, 255, 255, 200));
+        menuText.setString("PAUSED");
+    }
+    else {
+        menuText.setFillColor(sf::Color(255, 0, 0, 200));
+        menuText.setString("GAME OVER");
+    }
+
     menuText.setPosition(container.getPosition().x + container.getSize().x / 2.f - menuText.getGlobalBounds().width / 2.f,
                                container.getPosition().y + gui::p2pY(3.f,vm)); //20.f
 }
@@ -71,3 +79,4 @@ void PauseMenu::addButton(const std::string key, const float y, const float widt
 const bool PauseMenu::isButtonPressed(const std::string key) {
     return buttons[key]->isPressed();
 }
+

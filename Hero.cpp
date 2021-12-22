@@ -180,8 +180,10 @@ void Hero::updateAnimation(const float &dt) {
     else
         sprite.setColor(sf::Color::White);
 
-    if(isDead())
+    if(isDead()){
         this->animationComponent->play("DEATH", dt, true);
+
+    }
 }
 
 void Hero::update(const float &dt, sf::Vector2f& mouse_pos_view, const sf::View& view) {

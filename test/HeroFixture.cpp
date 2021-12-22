@@ -1,28 +1,23 @@
-//
-// Created by gabriele on 01/12/21.
-//
-
 #include "gtest/gtest.h"
+#include "../precompiler.h"
 
 #include "../Hero.h"
+#include "../AttributeComponent.h"
 
 class HeroSuite : public ::testing::Test {
 
 protected:
     virtual void SetUp() {
-        h.setXPos(10);
-        h.setYPos(10);
-        h.setFighting(true);
+        attributeComponent->hp = 0;
+        hero->isDead();
     }
 
-    Hero h;
+    Hero* hero;
+    AttributeComponent* attributeComponent;
 };
 
 
-TEST_F(HeroSuite, TestMove) {
-    h.move(12, 14);
-
-    ASSERT_EQ(22, h.getXPos());
-    ASSERT_EQ(24, h.getYPos());
+TEST_F(HeroSuite, TestDead) {
+    ASSERT_TRUE(hero->isDead());
 }
 

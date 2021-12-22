@@ -76,7 +76,7 @@ void EditorState::initKeybinds() {
 
 void EditorState::initPausedMenu() {
     const sf::VideoMode& vm = stateData->gfxSettings->resolution;
-    pmenu = new PauseMenu(stateData->gfxSettings->resolution, this->font);
+    pmenu = new PauseMenu(stateData->gfxSettings->resolution, this->font, true);
 
     pmenu->addButton("QUIT", gui::p2pY(62.5f, vm)/*450.f*/, gui::p2pX(15.6f, vm), gui::p2pY(10.4f, vm), gui::calcCharSize(vm), "Quit");
     pmenu->addButton("SAVE", gui::p2pY(48.6f, vm)/*350.f*/, gui::p2pX(15.6f, vm), gui::p2pY(10.4f, vm), gui::calcCharSize(vm), "Save");

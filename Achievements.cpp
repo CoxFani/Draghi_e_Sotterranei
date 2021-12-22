@@ -2,6 +2,7 @@
 // Created by alpacox on 15/12/21.
 //
 
+#include "precompiler.h"
 #include "Achievements.h"
 
 /*
@@ -120,8 +121,31 @@ void Achievements::onNotify(const GameCharacter &gameCharacter, Events event) {
 
 }
 
-void Achievements::unlock(Achievements achievement) {
+      */
+
+
+Achievements::Achievements(GameManager *subject) {
+    this->subject = subject;
+
+    attach();
+}
+
+Achievements::~Achievements() {
+    detach();
+}
+
+void Achievements::update() {
 
 }
 
-     */
+void Achievements::attach() {
+    subject->subscribe(this);
+}
+
+void Achievements::detach() {
+    subject->unsubscribe(this);
+}
+
+void Achievements::unlock(Achievements event) {
+
+}
