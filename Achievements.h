@@ -5,6 +5,7 @@
 #ifndef DRAGHI_E_SOTTERRANEI_ACHIEVEMENTS_H
 #define DRAGHI_E_SOTTERRANEI_ACHIEVEMENTS_H
 
+#include "precompiler.h"
 #include "Observer.h"
 #include "GameManager.h"
 
@@ -13,27 +14,40 @@ class Achievements
         : public Observer {
 
 public:
-    Achievements() = default;
-    explicit Achievements(GameManager * subject);
-    virtual ~Achievements();
+    Achievements(GameManager &gameManager) : gameManager_(gameManager) {
+        this->gameManager_.Attach(this);
+        //std::cout << "Hi, I'm the Observer \"" << ++Achievements::static_number_ << "\".\n";
+        this->number_ = Achievements::static_number_;
 
-    //void onNotify(const GameCharacter &gameCharacter, Events event) override;
+    }
+    virtual ~Achievements() {
+        //std::cout << "Goodbye, I was the Observer \"" << this->number_ << "\".\n";
+    }
 
-    void unlock(Achievements event);
+    void Update(const std::string &message_from_subject) override {
+        message_from_gameManager_ = message_from_subject;
+        PrintInfo();
+    }
+    void RemoveMeFromTheList() {
+        gameManager_.Detach(this);
+        //std::cout << "Observer \"" << number_ << "\" removed from the list.\n";
+    }
+    void PrintInfo() {
+        std::cout << "\nAchievement unlocked: " << this->message_from_gameManager_ << "\n";
+
+    }
+
+
+
+
+
 
 private:
-    GameManager * subject;
-    int event;
+    std::string message_from_gameManager_;
+    GameManager &gameManager_;
+    int static_number_;
+    int number_;
 
-    int kills;
-
-    sf::Font font;
-
-    sf::Text text;
-
-    virtual void update();
-    virtual void attach();
-    virtual void detach();
 
 };
 

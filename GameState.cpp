@@ -23,6 +23,13 @@ GameState::GameState(StateData* state_data)
     initEnemyStrategy();
     initTileMap();
     initSystems();
+
+    initAchievements();
+
+    gameManager->CreateMessage("\nWELCOME!\n");
+    tts->addTextTag(ACHIEVEMENT_TAG, 100, 100, 1, "Achievement unlocked: +", "\nWELCOME!");
+
+
 }
 
 GameState::~GameState() {
@@ -36,6 +43,9 @@ GameState::~GameState() {
     for(size_t i = 0; i < activeEnemies.size(); i++){
         delete activeEnemies[i];
     }
+
+    delete achievements;
+    delete gameManager;
 }
 
 void GameState::initView() {
@@ -167,6 +177,13 @@ void GameState::initEnemyStrategy() {
     enemyStrategy = new EnemyFactory(this->activeEnemies, this->textures, *this->hero);
 }
 
+void GameState::initAchievements() {
+
+    gameManager = new GameManager;
+    achievements = new Achievements(*gameManager);
+}
+
+
 const bool GameState::getKeyTime() {
     if(keyTimer.getElapsedTime().asSeconds() >= keyTimeMax){
         keyTimer.restart();
@@ -268,6 +285,28 @@ void GameState::updateCombatAndEnemies(const float &dt) {
         updateCombat(enemy, index, dt);
 
         if(enemy->isDead()){
+
+
+            gameManager->updateKills();
+            if(gameManager->getKills() == 1){
+
+                gameManager->CreateMessage("\nKILLER!\n");
+                tts->addTextTag(ACHIEVEMENT_TAG, hero->getCenter().x, hero->getCenter().y, 1, "Achievement unlocked: +", "\nKILLER!");
+
+            }
+            if(gameManager->getKills() == 5){
+
+                gameManager->CreateMessage("\nPENTAKILL!\n");
+                tts->addTextTag(ACHIEVEMENT_TAG, hero->getCenter().x, hero->getCenter().y, 1, "Achievement unlocked: +", "\nPENTAKILL!");
+
+            }
+            if(gameManager->getKills() == 10){
+
+                gameManager->CreateMessage("\nSERIAL KILLER!\n");
+                tts->addTextTag(ACHIEVEMENT_TAG, hero->getCenter().x, hero->getCenter().y, 1, "Achievement unlocked: +", "\nSERIAL KILLER!");
+
+            }
+
             hero->gainEXP(enemy->getGainExp());
             tts->addTextTag(EXPERIENCE_TAG, hero->getCenter().x, hero->getCenter().y, static_cast<int>(enemy->getGainExp()), "+", "EXP");
 

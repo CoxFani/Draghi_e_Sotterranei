@@ -66,8 +66,6 @@ private:
     std::vector<Enemy*> activeEnemies;
     EnemyFactory *enemyStrategy;
 
-    Achievements* achievements;
-    GameManager manager;
 
     void initView();
     void initKeybinds();
@@ -84,6 +82,13 @@ private:
     void initEnemyStrategy();
     void initKeyTime();
     void initDebugText();
+
+    void initAchievements();
+
+
+
+    GameManager* gameManager;
+    Achievements* achievements;
 
 };
 
