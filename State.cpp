@@ -7,8 +7,8 @@
 
 State::State(StateData* state_data) {
     stateData = state_data;
-    window = state_data->window;
-    supportedKeys = state_data->supportedKeys;
+    window = state_data->windowData;
+    supportedKeys = state_data->supportedKeysData;
     states = state_data->states;
     quit = false;
     paused = false;

@@ -36,9 +36,9 @@ void Game::initGraphicsSettings() {
 }
 
 void Game::initStateData() {
-    stateData.window = window;
+    stateData.windowData = window;
     stateData.gfxSettings = &gfxSettings;
-    stateData.supportedKeys = &supportedKeys;
+    stateData.supportedKeysData = &supportedKeys;
     stateData.states = &states;
     stateData.gridSize = gridSize;
 }

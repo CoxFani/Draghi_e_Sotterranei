@@ -16,9 +16,9 @@ struct StateData{
 public:
     StateData() {};
     float gridSize;
-    sf::RenderWindow* window;
+    sf::RenderWindow* windowData;
     GraphicsSettings* gfxSettings;
-    std::map<std::string, int>* supportedKeys;
+    std::map<std::string, int>* supportedKeysData;
     std::stack<State*>* states;
 };
 

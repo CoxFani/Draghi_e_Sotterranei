@@ -1,8 +1,6 @@
 #include "gtest/gtest.h"
-#include "../precompiler.h"
 
 #include "../Hero.h"
-#include "../AttributeComponent.h"
 
 class HeroSuite : public ::testing::Test {
 

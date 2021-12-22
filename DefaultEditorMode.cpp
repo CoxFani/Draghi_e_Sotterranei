@@ -128,7 +128,7 @@ void DefaultEditorMode::renderGui(sf::RenderTarget &target) {
         target.draw(selectorRect);
     }
 
-    target.setView(stateData->window->getDefaultView());
+    target.setView(stateData->windowData->getDefaultView());
     textureSelector->render(target);
     target.draw(sidebar);
 
