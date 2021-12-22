@@ -36,6 +36,8 @@ void TextTagSystem::initTagTemplates() {
     tagTemplates[DEFAULT_TAG] = new TextTag(font, "", 0.f, 0.f, 0.f, -1.f, sf::Color::Yellow, 10, 50.f, true, 100.f, 50.f, 3);
     tagTemplates[NEGATIVE_TAG] = new TextTag(font, "", 0.f, 0.f, 0.f, 1.f, sf::Color::Red, 12, 100.f, true, 100.f, 50.f, 3);
     tagTemplates[EXPERIENCE_TAG] = new TextTag(font, "", 0.f, 0.f, 0.f, -1.f, sf::Color::Cyan, 15, 70.f, true, 100.f, 50.f, 3);
+    tagTemplates[ACHIEVEMENT_TAG] = new TextTag(font, "", 0.f, 0.f, 0.f, -1.f, sf::Color::White, 15, 300, true, 30.f, 20.f, 1);
+
 }
 
 void TextTagSystem::addTextTag(const unsigned tag_type, const float pos_x, const float pos_y, const std::string str, const std::string prefix, const std::string postfix) {

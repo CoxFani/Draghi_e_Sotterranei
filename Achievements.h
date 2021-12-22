@@ -6,33 +6,53 @@
 #define DRAGHI_E_SOTTERRANEI_ACHIEVEMENTS_H
 
 #include "Observer.h"
+#include "GameManager.h"
+#include "TextTagSystem.h"
 
 
 class Achievements
         : public Observer {
 
 public:
+    Achievements(GameManager &gameManager) : gameManager_(gameManager) {
+            this->gameManager_.Attach(this);
+            //std::cout << "Hi, I'm the Observer \"" << ++Achievements::static_number_ << "\".\n";
+            this->number_ = Achievements::static_number_;
 
-    Achievements() = default;
-    //explicit Achievements(RoundManager * subject);
-    virtual ~Achievements();
+    }
+    virtual ~Achievements() {
+        //std::cout << "Goodbye, I was the Observer \"" << this->number_ << "\".\n";
+    }
 
-    void onNotify(const GameCharacter &gameCharacter, Events event) override;
+    void Update(const std::string &message_from_subject) override {
+        message_from_gameManager_ = message_from_subject;
+        PrintInfo();
+    }
+    void RemoveMeFromTheList() {
+        gameManager_.Detach(this);
+        //std::cout << "Observer \"" << number_ << "\" removed from the list.\n";
+    }
+    void PrintInfo() {
+        std::cout << "\nAchievement unlocked: " << this->message_from_gameManager_ << "\n";
+
+    }
+
+
+
+
+
 
 private:
+    std::string message_from_gameManager_;
+    GameManager &gameManager_;
+    int static_number_;
+    int number_;
 
-    int kills;
-
-    //RoundManager * subject;
-
-    sf::Font font;
-
-    sf::Text text;
-
-    virtual void update();
-    virtual void attach();
-    virtual void detach();
 
 };
 
+
+
+
 #endif //DRAGHI_E_SOTTERRANEI_ACHIEVEMENTS_H
+

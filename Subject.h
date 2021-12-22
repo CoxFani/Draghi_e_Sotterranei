@@ -7,16 +7,14 @@
 
 #include "Observer.h"
 
+
 class Subject
 {
 public:
-    Subject() = default;
-    virtual ~Subject() = default;
-
-    virtual void subscribe(Observer* obs) = 0;
-    virtual void unsubscribe(Observer* obs) = 0;
-
-    virtual void notify() = 0;
+    virtual ~Subject(){};
+    virtual void Attach(Observer *observer) = 0;
+    virtual void Detach(Observer *observer) = 0;
+    virtual void Notify() = 0;
 };
 
 #endif //DRAGHI_E_SOTTERRANEI_SUBJECT_H

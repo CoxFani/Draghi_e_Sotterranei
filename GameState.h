@@ -12,6 +12,9 @@
 #include "Sword.h"
 #include "Bow.h"
 #include "TextTagSystem.h"
+#include "GameManager.h"
+#include "Achievements.h"
+
 
 using namespace std;
 
@@ -34,6 +37,8 @@ public:
     void updateDebugText(const float& dt);
     void update(const float& dt);
     void render(sf::RenderTarget* target = nullptr);
+
+
 
 private:
     sf::View view;
@@ -76,6 +81,13 @@ private:
     void initEnemyStrategy();
     void initKeyTime();
     void initDebugText();
+    void initAchievements();
+
+
+
+  GameManager* gameManager;
+  Achievements* achievements;
+
 
 };
 
