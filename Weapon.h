@@ -11,7 +11,6 @@ class Item;
 
 class Weapon : public Item {
 public:
-    Weapon(unsigned level, unsigned value, std::string texture_file);
     Weapon(unsigned level, unsigned damageMin, unsigned damageMax, unsigned range,
            unsigned value,
            std::string texture_file);
@@ -25,7 +24,6 @@ public:
 
     const unsigned& getDamageMin() const;
     const unsigned& getDamageMax() const;
-    const unsigned getDamage() const;
     const unsigned& getRange() const;
     const bool getAttackTimer();
 

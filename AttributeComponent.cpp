@@ -25,13 +25,9 @@ AttributeComponent::~AttributeComponent() {
 }
 
 void AttributeComponent::updateStats(const bool reset) {
-    //TODO modificare equazioni di aumento caratteristiche
     hpMax = vitality * 5 + vitality + strength / 2 + intelligence / 5;
     damageMin = strength * 2 + strength / 4 + intelligence / 5;
     damageMax = strength * 2 + strength / 2 + intelligence / 5;
-    accuracy = dexterity * 5 + dexterity / 2 + intelligence / 5;
-    defence = agility * 2 + agility / 4 + intelligence / 5;
-    luck = intelligence * 2 + intelligence / 5;
 
     if(reset)
         hp = hpMax;
@@ -50,14 +46,6 @@ void AttributeComponent::update() {
     updateLevel();
 }
 
-std::string AttributeComponent::debugPrint() const {
-    std::stringstream ss;
-    ss << "Level: " << level << "\n"
-       << "Exp: " << exp << "\n"
-       << "Exp Next: " << expNext << "\n"
-       << "Attp: " << attributePoints << "\n";
-    return ss.str();
-}
 
 void AttributeComponent::loseHP(const int hp) {
     this->hp -= hp;

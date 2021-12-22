@@ -24,10 +24,7 @@ HeroGUI::~HeroGUI() {
     delete heroTabs;
 }
 
-
-
 void HeroGUI::initFont() {
-
     font.loadFromFile("../Fonts/DeterminationMonoWebRegular-Z5oq.ttf");
 }
 
@@ -70,11 +67,6 @@ void HeroGUI::initHPBar() {
 void HeroGUI::initHeroTabs(sf::VideoMode& vm, sf::Font &font, Hero& hero) {
 
     heroTabs = new HeroTabs(vm, font, hero);
-}
-
-const bool HeroGUI::getsTabsOpen() const {
-
-    return heroTabs->tabsOpen();
 }
 
 void HeroGUI::updateLevelBar() {

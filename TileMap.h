@@ -17,12 +17,12 @@ class TileMap {
 public:
 
     TileMap(float gridSize, int  width, int  height, std::string texture_file);
-    TileMap(const std::string file_name);
+    explicit TileMap(const std::string file_name);
     virtual ~TileMap();
 
-    const bool tileEmpty(const int x, const int y, const int z) const;
+    bool tileEmpty(const int x, const int y, const int z) const;
     const sf::Texture* getTileSheet() const;
-    const int getLayerSize(const int x, const int y, const int layer) const;
+    int getLayerSize(const int x, const int y, const int layer) const;
     const sf::Vector2i& getMaxSizeGrid() const;
     const sf::Vector2f& getMaxSizeF() const;
 
@@ -33,7 +33,6 @@ public:
     void removeTile(const int x, const int y, const int z, const int type = -1);
     void saveToFile(const std::string file_name);
     void loadFromFile(const std::string file_name);
-    const bool checkType(const int x, const int y, const int z, const int type) const;
 
     void updateWorldBoundsCollision(GameCharacter* gameCharacter, const float& dt);
     void updateTileCollision(GameCharacter* gameCharacter, const float& dt);

@@ -10,7 +10,6 @@
 #include "TileMap.h"
 #include "HeroGUI.h"
 #include "Sword.h"
-#include "Bow.h"
 #include "TextTagSystem.h"
 #include "Observer.h"
 #include "Achievements.h"
@@ -23,10 +22,10 @@ public:
     GameState(StateData* state_data);
     virtual ~GameState();
 
-    const bool getKeyTime();
+    const bool getKeyTime() override;
 
     void updateView(const float& dt);
-    void updateInput(const float& dt);
+    void updateInput(const float& dt) override;
     void updateHeroInput(const float& dt);
     void updateHeroGUI(const float& dt);
     void updatePauseMenuButtons();
@@ -36,8 +35,8 @@ public:
     void updateCombat(Enemy* enemy, const int index, const float& dt);
     void updateDebugText(const float& dt);
     void updateAchievement(int event);
-    void update(const float& dt);
-    void render(sf::RenderTarget* target = nullptr);
+    void update(const float& dt) override;
+    void render(sf::RenderTarget* target = nullptr) override;
 
 private:
     sf::View view;

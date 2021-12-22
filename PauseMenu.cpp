@@ -63,10 +63,6 @@ void PauseMenu::render(sf::RenderTarget &target) {
     target.draw(menuText);
 }
 
-std::map<std::string, gui::Button *> &PauseMenu::getButtons() {
-    return buttons;
-}
-
 void PauseMenu::addButton(const std::string key, const float y, const float width/*float width = 200.f;*/, const float height/*float height = 75.f;*/, const unsigned char_size, const std::string text) {
     float x = container.getPosition().x + container.getSize().x / 2.f - width / 2.f;
     buttons[key] = new gui::Button(
@@ -76,7 +72,7 @@ void PauseMenu::addButton(const std::string key, const float y, const float widt
             sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 }
 
-const bool PauseMenu::isButtonPressed(const std::string key) {
+bool PauseMenu::isButtonPressed(const std::string key) {
     return buttons[key]->isPressed();
 }
 

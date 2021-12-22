@@ -13,8 +13,6 @@ Tile::Tile() {
 Tile::Tile(short type, int grid_x, int grid_y, float gridSizeF,
            const sf::Texture& texture, const sf::IntRect& texture_rect,
            const bool collision) {
-    //this->shape.setOutlineThickness(1.f);
-    //this->shape.setOutlineColor(sf::Color::Black);
     shape.setPosition(static_cast<float>(grid_x) * gridSizeF, static_cast<float>(grid_y) * gridSizeF);
     shape.setTexture(texture);
     shape.setTextureRect(texture_rect);
@@ -30,11 +28,11 @@ const sf::Vector2f &Tile::getPosition() const {
     return shape.getPosition();
 }
 
-const bool Tile::intersects(const sf::FloatRect bounds) const{
+bool Tile::intersects(const sf::FloatRect bounds) const{
     return  shape.getGlobalBounds().intersects(bounds);
 }
 
-const sf::FloatRect Tile::getGlobalBounds() const {
+sf::FloatRect Tile::getGlobalBounds() const {
     return shape.getGlobalBounds();
 }
 

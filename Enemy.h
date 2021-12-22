@@ -22,21 +22,21 @@ public:
 
     const unsigned& getGainExp() const;
     EnemySpawnerTile& getEnemySpawnerTile();
-    const bool getDamageTimerDone() const;
-    const bool getDespawnTimerDone() const;
+    bool getDamageTimerDone() const;
+    bool getDespawnTimerDone() const;
 
     void resetDamageTimer();
 
     virtual void generateAttributes(const unsigned& level);
 
     virtual void loseHP(const int hp);
-    virtual const bool isDead() const;
+    virtual bool isDead() const;
 
     virtual const AttributeComponent* getAttributeComp() const;
 
     void updateAnimation(const float& dt);
-    void update(const float &dt, sf::Vector2f& mouse_pos_view, const sf::View& view);
-    void render(sf::RenderTarget &target, sf::Shader* shader = nullptr, const sf::Vector2f light_position = sf::Vector2f(), const bool show_hitbox = false);
+    void update(const float &dt, sf::Vector2f& mouse_pos_view, const sf::View& view) override;
+    void render(sf::RenderTarget &target, sf::Shader* shader = nullptr, const sf::Vector2f light_position = sf::Vector2f(), const bool show_hitbox = false) override;
 
 protected:
     EnemySpawnerTile& enemySpawnerTile;

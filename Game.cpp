@@ -28,7 +28,7 @@ void Game::initVariables() {
 
     dt = 0.f;
 
-    gridSize = 32.f;  //TODO cambiare dimensione singola tile
+    gridSize = 32.f;
 }
 
 void Game::initGraphicsSettings() {
@@ -58,7 +58,6 @@ void Game::initWindow() {
                 gfxSettings.contextSettings);
 
     window->setFramerateLimit(gfxSettings.frameRateLimit);
-    window->setVerticalSyncEnabled(gfxSettings.verticalSync);
 }
 
 void Game::initKeys() {
@@ -75,7 +74,7 @@ void Game::initKeys() {
 
     ifs.close();
 
-    //for debug (da rimuovere)
+    // debug (da rimuovere)
     for (auto i : supportedKeys)
         {
             std::cout << i.first << " " << i.second << "\n";
@@ -135,8 +134,6 @@ void Game::updateSFMLEvents() {
             window->close();
     }
 }
-
-
 
 void Game::endApplication() {
     std::cout << "Termina il gioco!" << "\n";

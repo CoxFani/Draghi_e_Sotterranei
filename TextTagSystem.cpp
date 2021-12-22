@@ -27,11 +27,6 @@ void TextTagSystem::initVariables() {
 
 }
 
-void TextTagSystem::initFonts(std::string font_file) {
-    if(!font.loadFromFile(font_file))
-        std::cout << "ERROR::TEXTTAGSYSTEM::CONSTRUCTOR::Failed to load font" << font_file << "\n";
-}
-
 void TextTagSystem::initTagTemplates() {
     tagTemplates[DEFAULT_TAG] = new TextTag(font, "", 0.f, 0.f, 0.f, -1.f, sf::Color::Yellow, 10, 50.f, true, 100.f, 50.f, 3);
     tagTemplates[NEGATIVE_TAG] = new TextTag(font, "", 0.f, 0.f, 0.f, 1.f, sf::Color::Red, 12, 100.f, true, 100.f, 50.f, 3);
@@ -119,7 +114,7 @@ TextTagSystem::TextTag::~TextTag() {
 
 }
 
-const bool TextTagSystem::TextTag::isExpired() const {
+bool TextTagSystem::TextTag::isExpired() const {
     return lifetime <= 0.f;
 }
 
@@ -132,10 +127,10 @@ void TextTagSystem::TextTag::update(const float &dt) {
                 velocity.x -= dirX * acceleration * dt;
                 velocity.y -= dirY * acceleration * dt;
 
-                if(abs(velocity.x) < 0.f)
+                if(std::abs(velocity.x) < 0.f)
                     velocity.x = 0.f;
 
-                if(abs(velocity.y) < 0.f)
+                if(std::abs(velocity.y) < 0.f)
                     velocity.y = 0.f;
 
                 text.move(velocity * dt);
@@ -144,10 +139,10 @@ void TextTagSystem::TextTag::update(const float &dt) {
                 velocity.x += dirX * acceleration * dt;
                 velocity.y += dirY * acceleration * dt;
 
-                if(abs(velocity.x) > speed)
+                if(std::abs(velocity.x) > speed)
                     velocity.x = dirX * speed;
 
-                if(abs(velocity.y) > speed)
+                if(std::abs(velocity.y) > speed)
                     velocity.y = dirY * speed;
 
                 text.move(velocity * dt);

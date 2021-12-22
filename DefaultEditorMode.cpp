@@ -23,14 +23,13 @@ void DefaultEditorMode::initVariables() {
 }
 
 void DefaultEditorMode::initGui() {
-
     //Testo
     cursorText.setFont(*editorStateData->font);
     cursorText.setFillColor(sf::Color::White);
     cursorText.setCharacterSize(20);
     cursorText.setPosition(editorStateData->mousePosView->x, editorStateData->mousePosView->y - 50);
 
-    //GUI generale
+    //GUI
     sidebar.setSize(sf::Vector2f(80.f, static_cast<float>(stateData->gfxSettings->resolution.height)));
     sidebar.setFillColor(sf::Color(50, 50, 50, 100));
     sidebar.setOutlineThickness(1.f);
@@ -45,7 +44,7 @@ void DefaultEditorMode::initGui() {
     selectorRect.setTexture(tileMap->getTileSheet());
     selectorRect.setTextureRect(textureRect);
 
-    //TODO cambiare dimensioni texture selector
+    /** Modifica dimensioni texture selector **/
     textureSelector = new gui::TextureSelector(60.f, 20.f, 448.f, 416.f,
                                                      stateData->gridSize, tileMap->getTileSheet(),
                                                      *editorStateData->font, "TS");

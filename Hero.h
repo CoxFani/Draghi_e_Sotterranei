@@ -7,7 +7,6 @@
 
 #include "GameCharacter.h"
 #include "Items.h"
-#include "Inventory.h"
 
 class  GameCharacter;
 
@@ -40,8 +39,6 @@ public:
 
 
 private:
-    Inventory* inventory;
-
     bool initAttack;
     bool attacking;
     Weapon* weapon;

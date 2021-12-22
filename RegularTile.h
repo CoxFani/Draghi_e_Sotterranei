@@ -14,9 +14,9 @@ public:
          bool collision = false);
     virtual ~RegularTile();
 
-    virtual const std::string getAsString() const;
-    virtual void update();
-    virtual void render(sf::RenderTarget& target, sf::Shader* shader = nullptr, const sf::Vector2f hero_position = sf::Vector2f());
+    const std::string getAsString() const override;
+    void update() override;
+    void render(sf::RenderTarget& target, sf::Shader* shader = nullptr, const sf::Vector2f hero_position = sf::Vector2f()) override;
 
 };
 

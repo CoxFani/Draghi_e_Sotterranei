@@ -51,12 +51,12 @@ EnemySpawnerTile &Enemy::getEnemySpawnerTile() {
     return enemySpawnerTile;
 }
 
-const bool Enemy::getDamageTimerDone() const{
+bool Enemy::getDamageTimerDone() const{
 
     return damageTimer.getElapsedTime().asMilliseconds() >= damageTimerMax;
 }
 
-const bool Enemy::getDespawnTimerDone() const{
+bool Enemy::getDespawnTimerDone() const{
 
     return despawnTimer.getElapsedTime().asMilliseconds() >= despawnTimerMax;
 }
@@ -86,7 +86,7 @@ const AttributeComponent *Enemy::getAttributeComp() const {
     }
 }
 
-const bool Enemy::isDead() const {
+bool Enemy::isDead() const {
     if(attributeComponent){
         return attributeComponent->isDead();
     }
@@ -138,13 +138,8 @@ void Enemy::updateAnimation(const float &dt) {
     else
         sprite.setColor(sf::Color::White);
 
-//TODO animazioni di morte
-    if(isDead()){
+    if(isDead())
         this->animationComponent->play("DEATH", dt, true);
-
-    }
-
-
 }
 
 void Enemy::update(const float &dt, sf::Vector2f &mouse_pos_view, const sf::View& view) {
@@ -157,7 +152,6 @@ void Enemy::update(const float &dt, sf::Vector2f &mouse_pos_view, const sf::View
     hpBar.setSize(sf::Vector2f(40.f * (static_cast<float>(attributeComponent->hp) / attributeComponent->hpMax), 5.f));
     hpBar.setPosition(sprite.getPosition().x + 12.f , sprite.getPosition().y); //TEST. DA RIMUOVERE!!!
 
-    //this->updateAttack();
     updateAnimation(dt);
     hitboxComponent->update();
     follow->update(dt);
@@ -175,7 +169,6 @@ void Enemy::render(sf::RenderTarget &target, sf::Shader* shader, const sf::Vecto
         target.draw(sprite);
         target.draw(hpBar);
     }
-
 
     if(show_hitbox)
         hitboxComponent->render(target);

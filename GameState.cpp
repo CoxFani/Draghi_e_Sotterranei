@@ -389,7 +389,6 @@ void GameState::render(sf::RenderTarget* target) {
 
     /** Final render **/
     renderTexture.display();
-    //this->renderSprite.setTexture(this->renderTexture.getTexture());
     target->draw(renderSprite);
 }
 

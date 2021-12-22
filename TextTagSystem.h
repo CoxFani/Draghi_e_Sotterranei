@@ -5,11 +5,11 @@
 #ifndef DRAGHI_E_SOTTERRANEI_TEXTTAGSYSTEM_H
 #define DRAGHI_E_SOTTERRANEI_TEXTTAGSYSTEM_H
 
-enum TAGTYPES { DEFAULT_TAG, NEGATIVE_TAG, POSITIVE_TAG, EXPERIENCE_TAG, ENVIROMENTAL_TAG};
+enum TAGTYPES { DEFAULT_TAG, NEGATIVE_TAG, EXPERIENCE_TAG};
 
 class TextTagSystem {
 public:
-    TextTagSystem(std::string font_file);
+    explicit TextTagSystem(std::string font_file);
     virtual ~TextTagSystem();
 
     void addTextTag(const unsigned tag_type, const float pos_x, const float pos_y, const std::string str, const std::string prefix = "", const std::string postfix = "");
@@ -33,7 +33,7 @@ private:
 
         virtual ~TextTag();
 
-        const bool isExpired() const;
+        bool isExpired() const;
 
         void update(const float& dt);
         void render(sf::RenderTarget& target);
@@ -52,11 +52,10 @@ private:
     };
 
     void initVariables();
-    void initFonts(std::string font_file);
     void initTagTemplates();
 
     sf::Font font;
-    std::map<unsigned , TextTag*> tagTemplates;
+    std::map<unsigned, TextTag*> tagTemplates;
     std::vector<TextTag*> tags;
 };
 

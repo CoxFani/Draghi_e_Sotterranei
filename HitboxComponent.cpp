@@ -56,7 +56,7 @@ void HitboxComponent::setPosition(const float x, const float y) {
     sprite.setPosition(x - offsetX, y - offsetY);
 }
 
-const sf::FloatRect HitboxComponent::getGlobalBounds() const {
+sf::FloatRect HitboxComponent::getGlobalBounds() const {
 
     return hitbox.getGlobalBounds();
 }

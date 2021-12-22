@@ -14,7 +14,6 @@ public:
     HeroGUI(Hero* hero, sf::VideoMode& vm);
     virtual ~HeroGUI();
 
-    const bool getsTabsOpen() const;
     void toggleCharacterTab();
 
     void updateLevelBar();
@@ -36,12 +35,6 @@ private:
 
     sf::VideoMode& vm;
     sf::Font font;
-
-    std::string expBarString;
-    sf::Text expBarText;
-    float expBarMaxWidth;
-    sf::RectangleShape expBarBack;
-    sf::RectangleShape expBarInner;
 
     gui::ProgressBar* expBar;
     gui::ProgressBar* hpBar;

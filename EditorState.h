@@ -6,14 +6,12 @@
 #define DRAGHI_E_SOTTERRANEI_EDITORSTATE_H
 
 #include "State.h"
-#include "Gui.h"
 #include "PauseMenu.h"
 #include "TileMap.h"
 #include "EditorModes.h"
 
 class State;
 class StateData;
-class Gui;
 class PauseMenu;
 class TileMap;
 class Tile;
@@ -22,7 +20,7 @@ class DefaultEditorMode;
 class EnemyEditorMode;
 class EditorStateData;
 
-enum EditorModes { DEFAULT_EDITOR_MODE = 0, ENEMY_EDITOR_MODE};
+enum EditorModes {DEFAULT_EDITOR_MODE = 0, ENEMY_EDITOR_MODE};
 
 class EditorState : public State{
 public:

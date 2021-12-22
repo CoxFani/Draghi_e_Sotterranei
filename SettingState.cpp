@@ -58,8 +58,8 @@ void SettingState::initGui() {
             )
     );
 
-    if(backgroundTexture.loadFromFile("../Resources/Images/Backgrounds/Menu002.png")){
-        //throw"ERROR::MAIN_MENU_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE"; <--- DA ERRORE
+    if(!backgroundTexture.loadFromFile("../Resources/Images/Backgrounds/Menu001.png")){
+        throw("ERROR::MAIN_MENU_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE");
     }
 
     background.setTexture(&backgroundTexture);
@@ -85,16 +85,16 @@ void SettingState::initGui() {
         modes_str.push_back(std::to_string(i.width) + 'x' + std::to_string(i.height));
 
     //DropDownList
-    dropdownList["RESOLUTION"] = new gui::DropDownList(gui::p2pX(31.2f, vm), gui::p2pY(41.6f, vm),
+    dropdownList["RESOLUTION"] = new gui::DropDownList(gui::p2pX(31.2f, vm), gui::p2pY(9.6f, vm),
                                                              gui::p2pX(15.6f, vm), gui::p2pY(6.9f, vm),
                                                              font, modes_str.data(), modes_str.size());
 
     //Text
     optionsText.setFont(font);
-    optionsText.setPosition(sf::Vector2f(gui::p2pX(7.81f, vm), gui::p2pY(41.6f, vm)));
+    optionsText.setPosition(sf::Vector2f(gui::p2pX(7.81f, vm), gui::p2pY(9.6f, vm)));
     optionsText.setCharacterSize(gui::calcCharSize(vm, 60));
     optionsText.setFillColor(sf::Color(255, 255, 255, 200));
-    optionsText.setString("Resolution \n\n\nFullscreen \n\n\nVsync \n\n\nAntialising \n\n\n ");
+    optionsText.setString("Resolution");
 }
 
 
@@ -166,7 +166,8 @@ void SettingState::render(sf::RenderTarget* target) {
 
     target->draw(optionsText);
 
-    //TODO commentare le seguenti linee per togliere le coordinate del mouse
+    //DEBUG commentare le seguenti linee per togliere le coordinate del mouse
+    /*
     sf::Text mouseText;
     mouseText.setPosition(mousePosView.x, mousePosView.y - 50);
     mouseText.setFont(font);
@@ -175,6 +176,7 @@ void SettingState::render(sf::RenderTarget* target) {
     ss << mousePosView.x << " " << mousePosView.y;
     mouseText.setString(ss.str());
     target-> draw(mouseText);
+     */
     //***************************************************************************************
 }
 

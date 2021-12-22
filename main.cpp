@@ -1,7 +1,6 @@
 #include "precompiler.h"
 
 #include "Game.h"
-#include "Dice.h"
 #include "TileMap.h"
 
 int main() {

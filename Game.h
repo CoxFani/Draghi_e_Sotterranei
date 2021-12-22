@@ -40,7 +40,7 @@ private:
 
     stack<State*> states;
 
-    map<std::string, int> supportedKeys;
+    map<string, int> supportedKeys;
 
     float gridSize;
 

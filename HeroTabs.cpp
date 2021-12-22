@@ -28,25 +28,13 @@ void HeroTabs::initKeyTime() {
     keyTimer.restart();
 }
 
-const bool HeroTabs::getKeyTime() {
+bool HeroTabs::getKeyTime() {
 
     if(keyTimer.getElapsedTime().asSeconds() >= keyTimeMax){
         keyTimer.restart();
         return true;
     }
     return false;
-}
-
-const bool HeroTabs::tabsOpen() {
-    // controlla se le Le Tabs sono aperte o chiuse
-
-    bool open = false;
-    for(size_t i = 0; i < tabs.size() && !open; i++){
-
-        if(tabs[i]->getOpen())
-            open = true;
-    }
-    return open;
 }
 
 void HeroTabs::toggleTab(const int tab_index) {
@@ -58,18 +46,18 @@ void HeroTabs::toggleTab(const int tab_index) {
 
 void HeroTabs::update() {
 
-    for(size_t i = 0; i < tabs.size(); i++){
+    for(auto & tab : tabs){
 
-        if(!tabs[i]->getOpen())
-            tabs[i]->update();
+        if(!tab->getOpen())
+            tab->update();
     }
 }
 
 void HeroTabs::render(sf::RenderTarget &target) {
 
-    for(size_t i = 0; i < tabs.size(); i++){
+    for(auto & tab : tabs){
 
-        if(!tabs[i]->getOpen())
-            tabs[i]->render(target);
+        if(!tab->getOpen())
+            tab->render(target);
     }
 }

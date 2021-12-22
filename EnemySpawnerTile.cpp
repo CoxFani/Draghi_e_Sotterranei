@@ -36,7 +36,7 @@ const std::string EnemySpawnerTile::getAsString() const {
 
     ss << this->type << " " << this->shape.getTextureRect().left << " " << this->shape.getTextureRect().top << " "
        << this->enemyType << " " << this->enemyAmount << " " << this->enemyTimeToSpawn << " " << this->enemyMaxDistance;
-   // std::cout << ss.str() << "\n";
+   // std::cout << ss.str() << "\n";   <--- debug
     return ss.str();
 }
 
@@ -77,8 +77,7 @@ const int &EnemySpawnerTile::getEnemyAmount() const {
     return this->enemyAmount;
 }
 
-const bool EnemySpawnerTile::getSpawnTimer(){
-
+bool EnemySpawnerTile::getSpawnTimer() {
     if(enemySpawnTimer.getElapsedTime().asSeconds() >= enemyTimeToSpawn || firstSpawn){
 
         enemySpawnTimer.restart();
@@ -88,7 +87,6 @@ const bool EnemySpawnerTile::getSpawnTimer(){
     return 0;
 }
 
-const int& EnemySpawnerTile::getEnemyType() const
-{
+const int& EnemySpawnerTile::getEnemyType() const {
     return this->enemyType;
 }

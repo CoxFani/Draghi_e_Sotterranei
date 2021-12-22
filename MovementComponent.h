@@ -16,9 +16,8 @@ public:
 
     const float& getMaxVelocity() const;
     const sf::Vector2f& getVelocity() const;
+    bool getState(const short unsigned state) const;
 
-    const bool getState(const short unsigned state) const;
-    void stopVelocity();
     void stopVelocityX();
     void stopVelocityY();
 

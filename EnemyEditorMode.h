@@ -29,13 +29,11 @@ public:
     void renderGui(sf::RenderTarget& target) override;
     void render(sf::RenderTarget& target) override;
 
-
 private:
     sf::Text cursorText;
     sf::RectangleShape sidebar;
     sf::RectangleShape selectorRect;
     sf::IntRect textureRect;
-
 
     int type;
     int amount;

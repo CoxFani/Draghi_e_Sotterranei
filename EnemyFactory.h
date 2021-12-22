@@ -6,7 +6,7 @@
 #define DRAGHI_E_SOTTERRANEI_ENEMYFACTORY_H
 
 #include "EnemySpawnerTile.h"
-#include "Mummy.h"
+#include "Enemy.h"
 
 enum EnemyTypes{MUMMY = 0, SCORPION, VULTURE, HYENA, SNAKE, DECEASED, BIG_BLOATED, CENTIPEDE, BATTLE_TURTLE};
 

@@ -86,7 +86,3 @@ const bool AnimationComponent::play(const std::string key, const float &dt, cons
     }
     return animations[key]->isDone();
 }
-
-const bool &AnimationComponent::isDone(const std::string key)  {
-    return animations[key]->isDone();
-}

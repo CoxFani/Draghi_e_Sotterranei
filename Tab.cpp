@@ -14,16 +14,8 @@ Tab::~Tab() {
 
 }
 
-const bool &Tab::getHidden() const {
-    return hidden;
-}
-
 const bool &Tab::getOpen() const {
     return hidden;
-}
-
-void Tab::hide() {
-    hidden = true;
 }
 
 void Tab::show() {

@@ -28,7 +28,8 @@ public:
     virtual ~State();
 
     const bool& getQuit() const;
-    const bool getKeyTime();
+
+    virtual const bool getKeyTime();
 
     void endState();
     void pauseState();

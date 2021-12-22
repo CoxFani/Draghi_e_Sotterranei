@@ -13,7 +13,6 @@ public:
     SkillComponent();
     virtual ~SkillComponent();
 
-    const int getSkill(const int skill) const;
     const void gainExp(const int skill, const int exp);
 
 private:
@@ -24,16 +23,8 @@ private:
         ~Skill();
 
         const int getType() const;
-        const int& getLevel() const;
-        const int& getExp() const;
-        const int& getExpNext() const;
-
-        void setLevel(const int level);
-        void setLevelCap(const int level_Cap);
-
 
         void gainExp(const int exp);
-        void loseExp(const int exp);
 
         void updateLevel(const bool up = true);
         void update();

@@ -150,12 +150,6 @@ void gui::Button::update(const sf::Vector2i& mousePosWindow) {
             text.setFillColor(textActiveColor);
             shape.setOutlineColor(outlineActiveColor);
             break;
-
-        default:
-            this->shape.setFillColor(sf::Color::Red);
-            this->text.setFillColor(sf::Color::Blue);
-            this->shape.setOutlineColor(sf::Color::Green);
-            break;
     }
 }
 

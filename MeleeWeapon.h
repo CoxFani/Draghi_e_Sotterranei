@@ -14,12 +14,12 @@ public:
                 std::string texture_file);
     virtual ~MeleeWeapon();
 
-    virtual MeleeWeapon* clone() = 0;
-    virtual void generate(const unsigned levelMin, const unsigned levelMax) override;
+    MeleeWeapon* clone() override = 0;
+    void generate(const unsigned levelMin, const unsigned levelMax) override;
 
 
-    virtual void update(const sf::Vector2f& mouse_pos_view, const sf::Vector2f center) = 0;
-    virtual void render(sf::RenderTarget& target, sf::Shader* shader) = 0;
+    void update(const sf::Vector2f& mouse_pos_view, const sf::Vector2f center) override = 0;
+    void render(sf::RenderTarget& target, sf::Shader* shader) override = 0;
 };
 
 

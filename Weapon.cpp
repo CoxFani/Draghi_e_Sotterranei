@@ -4,17 +4,7 @@
 
 #include "precompiler.h"
 #include "Weapon.h"
-#include "Dice.h"
 
-Weapon::Weapon(unsigned level, unsigned value, std::string texture_file)
-: Item(level, value) {
-
-    initVariables();
-
-    if(!weapon_texture.loadFromFile(texture_file))
-        std::cout <<"ERROR::SWORD::COULD NOT LOAD WEAPON TEXTURE::"<< texture_file << "\n";
-    weapon_sprite.setTexture(weapon_texture);
-}
 
 Weapon::Weapon(unsigned level, unsigned int damageMin, unsigned int damageMax, unsigned int range,
                unsigned int value,
@@ -51,10 +41,6 @@ const unsigned &Weapon::getDamageMin() const {
 
 const unsigned &Weapon::getDamageMax() const {
     return damageMax;
-}
-
-const unsigned Weapon::getDamage() const{
-    return rand() % (damageMax - damageMin + 1) + (this->damageMin);
 }
 
 const unsigned &Weapon::getRange() const {

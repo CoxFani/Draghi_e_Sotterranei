@@ -8,7 +8,6 @@
 MovementComponent::MovementComponent(sf::Sprite& sprite, float maxVelocity, float acceleration, float deceleration)
 : sprite(sprite), maxVelocity(maxVelocity), accelleration(acceleration), deceleration(deceleration){
 
-
 }
 
 MovementComponent::~MovementComponent() {
@@ -64,10 +63,9 @@ const sf::Vector2f &MovementComponent::getVelocity() const {
 }
 
 
-const bool MovementComponent::getState(const unsigned short state) const {
+bool MovementComponent::getState(const unsigned short state) const {
 
     switch (state){
-
         case IDLE:
             if(velocity.x == 0.f && velocity.y == 0.f)
                 return true;
@@ -104,12 +102,6 @@ const bool MovementComponent::getState(const unsigned short state) const {
 const float &MovementComponent::getMaxVelocity() const {
 
     return maxVelocity;
-}
-
-void MovementComponent::stopVelocity() {
-
-    velocity.x = 0.f;
-    velocity.y = 0.f;
 }
 
 void MovementComponent::stopVelocityX() {

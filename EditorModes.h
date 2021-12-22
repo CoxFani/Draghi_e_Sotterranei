@@ -5,7 +5,8 @@
 #ifndef DRAGHI_E_SOTTERRANEI_EDITORMODES_H
 #define DRAGHI_E_SOTTERRANEI_EDITORMODES_H
 
-//elenco degli EditorModes
+/** elenco degli EditorModes **/
+
 #include "DefaultEditorMode.h"
 #include "EnemyEditorMode.h"
 

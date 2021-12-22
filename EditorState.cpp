@@ -17,9 +17,7 @@ EditorState::EditorState(StateData* state_data)
     this->initButtons();
     this->initTileMap();
     this->initGui();
-
     this->initModes();
-
 }
 
 EditorState::~EditorState() {
@@ -51,10 +49,8 @@ void EditorState::initEditorStateData() {
 }
 
 void EditorState::initFonts() {
-    if(!font.loadFromFile("../Fonts/DeterminationMonoWebRegular-Z5oq.ttf")){
+    if(!font.loadFromFile("../Fonts/DeterminationMonoWebRegular-Z5oq.ttf"))
         throw("ERROR::EDITORSTATE::COULD NOT LOAD FONT");
-    }
-
 }
 
 void EditorState::initButtons() {
@@ -144,9 +140,8 @@ void EditorState::updateEditorInput(const float &dt) {
 }
 
 void EditorState::updateButtons() {
-    for (auto &i : buttons){
+    for (auto &i : buttons)
         i.second->update(this->mousePosWindow);
-    }
 }
 
 void EditorState::updateGui(const float& dt) {
@@ -204,7 +199,6 @@ void EditorState::renderModes(sf::RenderTarget& target) {
 void EditorState::render(sf::RenderTarget* target) {
     if (!target)
         target = window;
-
 
     target->setView(view);
     tileMap->render(*target, mousePosGrid, nullptr, sf::Vector2f(), true);

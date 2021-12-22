@@ -23,10 +23,7 @@ Hero::Hero(float x, float y, sf::Texture& texture_sheet) {
 }
 
 Hero::~Hero() {
-    delete inventory;
-
     delete weapon;
-
 }
 
 void Hero::initVariables() {
@@ -35,7 +32,6 @@ void Hero::initVariables() {
     attacking = false;
     weapon = new Sword(1, 2, 5, 65, 20, "../Resources/Images/Sprites/Weapons/weapon.png");
     weapon->generate(1, 3);
-    inventory = new Inventory(100);
 
     damageTimerMax = 1000;
 }

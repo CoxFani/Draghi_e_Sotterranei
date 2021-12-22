@@ -16,10 +16,10 @@ public:
                      int enemy_type, int enemy_amount, sf::Int32 enemy_time_to_spawn, float enemy_max_distance);
     virtual ~EnemySpawnerTile();
 
-    virtual const std::string getAsString() const override;
+    const std::string getAsString() const override;
     const int& getEnemyCounter() const;
     const int& getEnemyAmount() const;
-    const bool getSpawnTimer();
+    bool getSpawnTimer();
     const int& getEnemyType() const;
 
     void increaseEnemyCounter();

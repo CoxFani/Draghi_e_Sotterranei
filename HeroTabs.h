@@ -7,15 +7,14 @@
 
 #include "CharacterTab.h"
 
-enum HERO_TABS { CHARACTER_TAB = 0, INVENTORY_TAB };
+enum HERO_TABS {CHARACTER_TAB = 0};
 
 class HeroTabs {
 public:
     HeroTabs(sf::VideoMode& vm,sf::Font& font, Hero& hero);
     virtual ~HeroTabs();
 
-    const bool getKeyTime();
-    const bool tabsOpen();
+    bool getKeyTime();
 
     void toggleTab(const int tab_index);
 

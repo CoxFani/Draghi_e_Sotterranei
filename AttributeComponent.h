@@ -26,9 +26,6 @@ public:
     int hpMax;
     int damageMin;
     int damageMax;
-    int accuracy;
-    int defence;
-    int luck;
 
     void updateStats(const bool reset);
     void updateLevel();
@@ -38,8 +35,6 @@ public:
     void gainHP(const int hp);
     void loseEXP(const int exp);
     void gainEXP(const int exp);
-
-    std::string debugPrint() const;
 
     const bool isDead() const;
 };

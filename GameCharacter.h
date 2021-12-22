@@ -29,31 +29,24 @@ public:
     void createAnimationComponent(sf::Texture& texture_sheet);
     void createAttributeComponent(const unsigned level);
     void createSkillComponent();
-    void createAIComponent();
 
-    virtual MovementComponent* getMovementComponent();
-    virtual AnimationComponent* getAnimationComponent();
     virtual AttributeComponent* getAttributeComponent();
-    virtual SkillComponent* getSkillComponent();
 
     virtual const sf::Vector2f& getPosition() const;
-    virtual const sf::Vector2f getSpritePosition() const;
-    virtual const sf::Vector2f getCenter() const;
-    virtual const sf::Vector2f getSpriteCenter() const;
+    virtual sf::Vector2f getCenter() const;
+    virtual sf::Vector2f getSpriteCenter() const;
 
-    virtual const sf::FloatRect getGlobalBounds() const;
-    virtual const sf::Vector2i getGridPosition(const int gridSizeI) const;
-    virtual const sf::FloatRect getNextPositionBounds(const float& dt) const;
+    virtual sf::FloatRect getGlobalBounds() const;
+    virtual sf::Vector2i getGridPosition(const int gridSizeI) const;
+    virtual sf::FloatRect getNextPositionBounds(const float& dt) const;
 
     virtual void setPosition(const float x, const float y);
 
     virtual void move(const float x, const float y, const float& dt);
-    virtual void stopVelocity();
     virtual void stopVelocityX();
     virtual void stopVelocityY();
 
-    virtual const float getDistance(const GameCharacter& gameCharacter) const;
-    const float getSpriteDistance(const GameCharacter& gameCharacter) const;
+    float getSpriteDistance(const GameCharacter& gameCharacter) const;
 
     virtual void update(const float& dt, sf::Vector2f& mouse_pos_view, const sf::View& view) = 0;
     virtual void render(sf::RenderTarget& target, sf::Shader* shader, const sf::Vector2f light_position, const bool show_hitbox) = 0;
@@ -66,7 +59,6 @@ protected:
     AnimationComponent* animationComponent;
     AttributeComponent* attributeComponent;
     SkillComponent* skillComponent;
-
 
 private:
     void initVariables();

@@ -76,7 +76,7 @@ void TileMap::clear() {
     //std::cout << this->map.size() << "\n";
 }
 
-const bool TileMap::tileEmpty(const int x, const int y, const int z) const{
+bool TileMap::tileEmpty(const int x, const int y, const int z) const{
     if(x >= 0 && x < maxSizeWorldGrid.x &&
        y >= 0 && y < maxSizeWorldGrid.y &&
        z >= 0 && z < layers)
@@ -88,7 +88,7 @@ const sf::Texture *TileMap::getTileSheet() const{
     return &tileSheet;
 }
 
-const int TileMap::getLayerSize(const int x, const int y, const int layer) const{
+int TileMap::getLayerSize(const int x, const int y, const int layer) const{
     if(x >= 0 && x <static_cast<int>(map.size())){
         if(y >= 0 && y <static_cast<int>(map[x].size())){
             if(layer >= 0 && layer <static_cast<int>(map[x][y].size())){
@@ -396,7 +396,6 @@ void TileMap::updateTileCollision(GameCharacter *gameCharacter, const float &dt)
 
 void TileMap::updateTiles(GameCharacter *gameCharacter, const float &dt,
                           EnemyFactory &enemyStrategy) {
-
     //Tiles
     layer = 0;
 
@@ -522,11 +521,3 @@ void TileMap::renderDeferred(sf::RenderTarget &target, sf::Shader* shader, const
         deferredRenderStack.pop();
     }
 }
-
-const bool TileMap::checkType(const int x, const int y, const int z, const int type) const {
-    return map[x][y][layer].back()->getType() == type;
-}
-
-
-
-

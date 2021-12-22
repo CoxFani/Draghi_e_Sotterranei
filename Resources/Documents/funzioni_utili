@@ -18,8 +18,17 @@
 
             target-> draw(mouseText);
 
-#equazione per calcolare aumento di livello
-(50/3)*(pow(this->level, 3)-6*pow(this->level, 2)+(this->level * 17)-12);
+#in Sword.cpp
+    /*
+    if(this->attackTimer.getElapsedTime().asMilliseconds() < this->attackTimerMax / 4){
+        float len = std::sqrt(pow(dX, 2) + pow(dY, 2));
+        sf::Vector2f normVec(dX / len, dY / len);
+
+        this->weapon_sprite.setPosition(center.x + normVec.x + 10.f, center.y + normVec.y * 10.f);
+    }
+    else
+        this->weapon_sprite.setRotation(deg + 90.f); //commentare riga 33 se togli commento da questo if
+    */
 
 #vecchio sistema di spostamento
     this->keybinds["CLOSE"] = this->supportedKeys->at("Escape");

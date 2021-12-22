@@ -31,18 +31,6 @@ void Sword::update(const sf::Vector2f &mouse_pos_view, const sf::Vector2f center
     float deg = atan2(dY, dX) * 180.f / PI;
 
     weapon_sprite.setRotation(deg + 90.f);
-
-    /*
-    if(this->attackTimer.getElapsedTime().asMilliseconds() < this->attackTimerMax / 4){
-        float len = std::sqrt(pow(dX, 2) + pow(dY, 2));
-        sf::Vector2f normVec(dX / len, dY / len);
-
-        this->weapon_sprite.setPosition(center.x + normVec.x + 10.f, center.y + normVec.y * 10.f);
-    }
-    else
-        this->weapon_sprite.setRotation(deg + 90.f); //commentare riga 33 se togli commento da questo if
-    */
-
 }
 
 void Sword::render(sf::RenderTarget& target, sf::Shader* shader) {

@@ -13,14 +13,14 @@
 class MainMenuState : public State {
 
 public:
-    MainMenuState(StateData* state_data);
+    explicit MainMenuState(StateData* state_data);
     virtual ~MainMenuState();
 
-    void updateInput(const float& dt);
+    void updateInput(const float& dt) override;
     void updateGui();
-    void update(const float& dt);
+    void update(const float& dt) override;
     void renderButtons(sf::RenderTarget& target);
-    void render(sf::RenderTarget* target = nullptr);
+    void render(sf::RenderTarget* target = nullptr) override;
 
 
 private:
@@ -34,7 +34,7 @@ private:
     void initVariables();
     void iniFonts();
     void initGui();
-    void initKeybinds();
+    void initKeybinds() override;
     void resetGui();
 
 };

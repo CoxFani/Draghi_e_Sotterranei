@@ -14,11 +14,11 @@ public:
     SettingState(StateData* state_data);
     virtual ~SettingState();
 
-    void updateInput(const float& dt);
+    void updateInput(const float& dt) override;
     void updateGui(const float& dt);
-    void update(const float& dt);
+    void update(const float& dt) override;
     void renderGui(sf::RenderTarget& target);
-    void render(sf::RenderTarget* target = nullptr);
+    void render(sf::RenderTarget* target = nullptr) override;
 
 private:
     sf::Texture backgroundTexture;
@@ -35,7 +35,7 @@ private:
     void initVariables();
     void iniFonts();
     void initGui();
-    void initKeybinds();
+    void initKeybinds() override;
     void resetGui();
 
 };
