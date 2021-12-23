@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "../HitboxComponent.h"
+#include "../../HitboxComponent.h"
 
 TEST(HitboxComponent, DefaultConstructor) {
     HitboxComponent* hitbox;

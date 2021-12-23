@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "../Hero.h"
+#include "../../Hero.h"
 
 class HeroSuite : public ::testing::Test {
 
