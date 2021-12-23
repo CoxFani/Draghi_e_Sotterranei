@@ -50,6 +50,7 @@ protected:
     bool quit;
     bool paused;
     bool gameOver;
+    bool win;
     float keyTime;
     float keyTimeMax;
     float gridSize;

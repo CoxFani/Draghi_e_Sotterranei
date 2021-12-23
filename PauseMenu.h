@@ -10,7 +10,7 @@
 
 class PauseMenu {
 public:
-    PauseMenu(sf::VideoMode& vm, sf::Font& font, bool type);
+    PauseMenu(sf::VideoMode& vm, sf::Font& font, int type);
     virtual ~PauseMenu();
 
     bool isButtonPressed(const std::string key);

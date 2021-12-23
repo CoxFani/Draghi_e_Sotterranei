@@ -14,6 +14,7 @@ GameState::GameState(StateData* state_data)
     initTextures();
     initPausedMenu();
     initGameOverState();
+    initWinState();
     initShaders();
     initKeyTime();
     initDebugText();
@@ -34,6 +35,8 @@ GameState::GameState(StateData* state_data)
 
 GameState::~GameState() {
     delete pmenu;
+    delete gameOverMenu;
+    delete winMenu;
     delete hero;
     delete heroGUI;
     delete enemyStrategy;
@@ -131,7 +134,7 @@ void GameState::initTextures() {
 
 void GameState::initPausedMenu() {
     const sf::VideoMode& vm = stateData->gfxSettings->resolution;
-    pmenu = new PauseMenu(stateData->gfxSettings->resolution, font, true);
+    pmenu = new PauseMenu(stateData->gfxSettings->resolution, font, 0);
 
     pmenu->addButton("QUIT", gui::p2pY(62.5f, vm)/*450.f*/, gui::p2pX(15.6f, vm), gui::p2pY(10.4f, vm), gui::calcCharSize(vm), "Quit");
 }
@@ -139,9 +142,18 @@ void GameState::initPausedMenu() {
 void GameState::initGameOverState() {
 
     const sf::VideoMode& vm = stateData->gfxSettings->resolution;
-    gameOverMenu = new PauseMenu(stateData->gfxSettings->resolution, font, false);
+    gameOverMenu = new PauseMenu(stateData->gfxSettings->resolution, font, 1);
 
     gameOverMenu->addButton("QUIT", gui::p2pY(62.5f, vm)/*450.f*/, gui::p2pX(15.6f, vm), gui::p2pY(10.4f, vm), gui::calcCharSize(vm), "Quit");
+}
+
+void GameState::initWinState() {
+
+    const sf::VideoMode& vm = stateData->gfxSettings->resolution;
+    winMenu = new PauseMenu(stateData->gfxSettings->resolution, font, 2);
+
+    winMenu->addButton("QUIT", gui::p2pY(62.5f, vm)/*450.f*/, gui::p2pX(15.6f, vm), gui::p2pY(10.4f, vm), gui::calcCharSize(vm), "Quit");
+
 }
 
 void GameState::initShaders() {
@@ -253,6 +265,9 @@ void GameState::updatePauseMenuButtons() {
 
     if(gameOverMenu->isButtonPressed("QUIT"))
         endState();
+
+    if(winMenu->isButtonPressed("QUIT"))
+        endState();
 }
 
 void GameState::updateTileMap(const float &dt) {
@@ -311,6 +326,9 @@ void GameState::updateCombatAndEnemies(const float &dt) {
             tts->addTextTag(EXPERIENCE_TAG, hero->getCenter().x, hero->getCenter().y, static_cast<int>(enemy->getGainExp()), "+", "EXP");
 
             enemyStrategy->removeEnemy(index);
+            if(activeEnemies.empty()){
+                win = true;
+            }
             continue;
         }
         else if(enemy->getDespawnTimerDone()){
@@ -363,7 +381,7 @@ void GameState::update(const float& dt) {
 
     this->updateDebugText(dt);
 
-    if(!paused && !gameOver) {
+    if(!paused && !gameOver && !win) {
         updateView(dt);
         updateHeroInput(dt);
         updateTileMap(dt);
@@ -377,8 +395,12 @@ void GameState::update(const float& dt) {
         pmenu->update(this->mousePosWindow);
         updatePauseMenuButtons();
     }
-    else{
+    else if (gameOver){
         gameOverMenu->update(this->mousePosWindow);
+        updatePauseMenuButtons();
+    }
+    else if (win){
+        winMenu->update(this->mousePosWindow);
         updatePauseMenuButtons();
     }
 }
@@ -423,6 +445,11 @@ void GameState::render(sf::RenderTarget* target) {
         gameOverMenu->render(renderTexture);
     }
 
+    if(win){
+        winMenu->render(renderTexture);
+    }
+
+
     /** Render debug text **/
     //renderTexture.draw(debugText);
 
@@ -431,8 +458,8 @@ void GameState::render(sf::RenderTarget* target) {
     target->draw(renderSprite);
 }
 
-void GameState::updateAchievement(int event) {
 
-}
+
+
 
 

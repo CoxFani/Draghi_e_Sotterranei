@@ -13,6 +13,7 @@ State::State(StateData* state_data) {
     quit = false;
     paused = false;
     gameOver = false;
+    win = false;
     keyTime = 0.f;
     keyTimeMax = 25.f;
     gridSize = state_data->gridSize;

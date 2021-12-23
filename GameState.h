@@ -34,7 +34,6 @@ public:
     void updateCombatAndEnemies(const float& dt);
     void updateCombat(Enemy* enemy, const int index, const float& dt);
     void updateDebugText(const float& dt);
-    void updateAchievement(int event);
     void update(const float& dt) override;
     void render(sf::RenderTarget* target = nullptr) override;
 
@@ -47,6 +46,7 @@ private:
     sf::Font font;
     PauseMenu* pmenu;
     PauseMenu* gameOverMenu;
+    PauseMenu* winMenu;
 
     sf::Shader core_shader;
 
@@ -73,6 +73,7 @@ private:
     void initTextures();
     void initPausedMenu();
     void initGameOverState();
+    void initWinState();
     void initShaders();
     void initHeroes();
     void initHeroGUI();
