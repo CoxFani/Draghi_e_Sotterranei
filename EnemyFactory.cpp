@@ -123,13 +123,6 @@ void EnemyFactory::createEnemy(const short type, const float xPos, const float y
     }
 }
 
-void EnemyFactory::update(const float &dt) {
-
-}
-
-void EnemyFactory::render(sf::RenderTarget *target) {
-
-}
 
 void EnemyFactory::removeEnemy(const int index) {
     activeEnemies[index]->getEnemySpawnerTile().decreaseEnemyCounter();

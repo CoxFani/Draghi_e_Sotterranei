@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "../PauseMenu.h"
+#include "../../PauseMenu.h"
 
 TEST(PauseMenu, DefaultConstructor) {
     PauseMenu* pauseMenu (new PauseMenu());

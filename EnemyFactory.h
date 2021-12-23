@@ -19,8 +19,7 @@ public:
     void createEnemy(const short type, const float xPos, const float yPos, EnemySpawnerTile& enemy_spawner_tile);
     void removeEnemy(const int index);
 
-    void update(const float& dt);
-    void render(sf::RenderTarget* target);
+
 
 private:
     std::map<std::string, sf::Texture>& textures;

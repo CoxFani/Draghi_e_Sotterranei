@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "../PauseMenu.h"
+#include "../../PauseMenu.h"
 
 class HeroSuite : public ::testing::Test {
 

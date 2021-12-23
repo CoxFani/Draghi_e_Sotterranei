@@ -422,10 +422,10 @@ void GameState::render(sf::RenderTarget* target) {
    );
 
     for(auto *enemy : activeEnemies){
-        enemy->render(renderTexture, &core_shader, hero->getCenter(), true);
+        enemy->render(renderTexture, &core_shader, hero->getCenter(), false);
     }
 
-    hero->render(renderTexture, &core_shader, hero->getCenter(), true);
+    hero->render(renderTexture, &core_shader, hero->getCenter(), false);
 
     tileMap->renderDeferred(renderTexture, &core_shader, hero->getCenter());
 
@@ -437,7 +437,6 @@ void GameState::render(sf::RenderTarget* target) {
 
     /** Pause menu render **/
     if(paused){
-        //this->renderTexture.setView(this->renderTexture.getDefaultView());
         pmenu->render(renderTexture);
     }
 
