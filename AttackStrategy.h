@@ -12,7 +12,7 @@ public:
     AttackStrategy(GameCharacter &self, GameCharacter &gameCharacter);
     ~AttackStrategy();
 
-    void update(const float& dt);
+    void update(const float& dt) override;
 
 };
 

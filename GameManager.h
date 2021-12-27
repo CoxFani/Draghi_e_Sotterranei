@@ -52,7 +52,7 @@ public:
         kills++;
     }
 
-    int getKills(){
+    int getKills() const{
         return kills;
     }
 

@@ -10,10 +10,10 @@
 class CharacterTab : public Tab{
 public:
     CharacterTab(sf::VideoMode& vm, sf::Font& font, Hero& hero);
-    virtual ~CharacterTab();
+    ~CharacterTab() override;
 
     void update() override;
-    void render(sf::RenderTarget& target);
+    void render(sf::RenderTarget& target) override;
 
 private:
     sf::RectangleShape back;

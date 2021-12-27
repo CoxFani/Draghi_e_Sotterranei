@@ -12,7 +12,7 @@ public:
     RegularTile(short type, int grid_x, int grid_y, float gridSizeF,
          const sf::Texture& texture, const sf::IntRect& texture_rect,
          bool collision = false);
-    virtual ~RegularTile();
+    ~RegularTile() override;
 
     const std::string getAsString() const override;
     void update() override;

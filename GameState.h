@@ -19,8 +19,8 @@ using namespace std;
 
 class GameState: public State {
 public:
-    GameState(StateData* state_data);
-    virtual ~GameState();
+    explicit GameState(StateData* state_data);
+    ~GameState() override;
 
     const bool getKeyTime() override;
 
@@ -32,7 +32,7 @@ public:
     void updateTileMap(const float& dt);
     void updateHero(const float& dt);
     void updateCombatAndEnemies(const float& dt);
-    void updateCombat(Enemy* enemy, const int index, const float& dt);
+    void updateCombat(Enemy* enemy,  int index, const float& dt);
     void updateDebugText(const float& dt);
     void update(const float& dt) override;
     void render(sf::RenderTarget* target = nullptr) override;
@@ -68,7 +68,7 @@ private:
 
 
     void initView();
-    void initKeybinds();
+    void initKeybinds() override;
     void initFonts();
     void initTextures();
     void initPausedMenu();

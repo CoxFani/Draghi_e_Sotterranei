@@ -28,18 +28,18 @@ public:
     EditorState(StateData* state_data);
     ~EditorState() override;
 
-    void updateInput(const float& dt);
+    void updateInput(const float& dt) override;
     void updateEditorInput(const float& dt);
     void updateButtons();
     void updateGui(const float& dt);
     void updatePauseMenuButtons();
     void updateModes(const float& dt);
-    void update(const float& dt);
+    void update(const float& dt) override;
 
     void renderButtons(sf::RenderTarget& target);
     void renderGui(sf::RenderTarget& target);
     void renderModes(sf::RenderTarget& target);
-    void render(sf::RenderTarget* target = nullptr);
+    void render(sf::RenderTarget* target = nullptr) override;
 
 private:
     EditorStateData editorStateData;
@@ -60,7 +60,7 @@ private:
     void initEditorStateData();
     void initFonts();
     void initButtons();
-    void initKeybinds();
+    void initKeybinds() override;
     void initPausedMenu();
     void initGui();
     void initTileMap();

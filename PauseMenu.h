@@ -13,8 +13,8 @@ public:
     PauseMenu(sf::VideoMode& vm, sf::Font& font, int type);
     virtual ~PauseMenu();
 
-    bool isButtonPressed(const std::string key);
-    void addButton(const std::string key, const float y, const float width, const float height, const unsigned char_size, const std::string text);
+    bool isButtonPressed( std::string key);
+    void addButton( std::string key,  float y,  float width,  float height,  unsigned char_size,  std::string text);
 
     void update(const sf::Vector2i& mousePosWindow);
     void render(sf::RenderTarget& target);

@@ -18,7 +18,7 @@ public:
     const sf::FloatRect& getNextPosition(const sf::Vector2f& velocity);
 
     void setPosition(const sf::Vector2f& position);
-    void setPosition(const float x, const float y);
+    void setPosition( float x,  float y);
 
 
     bool intersect(const sf::FloatRect& frect);

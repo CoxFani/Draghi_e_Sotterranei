@@ -9,9 +9,9 @@
 enum button_states{BTN_IDLE = 0, BTN_HOVER, BTN_ACTIVE};
 
 namespace gui {
-    const float p2pX(const float perc, const sf::VideoMode& vm);
-    const float p2pY(const float perc, const sf::VideoMode& vm);
-    const unsigned calcCharSize(const sf::VideoMode& vm, const unsigned modifier = 40);
+    const float p2pX( float perc, const sf::VideoMode& vm);
+    const float p2pY( float perc, const sf::VideoMode& vm);
+    const unsigned calcCharSize(const sf::VideoMode& vm,  unsigned modifier = 40);
 
     class Button {
     public:
@@ -26,9 +26,9 @@ namespace gui {
 
         const bool isPressed() const;
         const std::string getText() const;
-        void setText(const std::string text);
+        void setText( std::string text);
         const short unsigned& getId() const;
-        void setId(const short unsigned id);
+        void setId( short unsigned id);
         void update(const sf::Vector2i &mousePosWindow);
         void render(sf::RenderTarget &target);
 
@@ -122,7 +122,7 @@ namespace gui {
                             );
         ~ProgressBar();
 
-        void update(const int current_value);
+        void update( int current_value);
         void render(sf::RenderTarget& target);
 
     private:

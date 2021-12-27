@@ -17,22 +17,22 @@ class TileMap {
 public:
 
     TileMap(float gridSize, int  width, int  height, std::string texture_file);
-    explicit TileMap(const std::string file_name);
+    explicit TileMap( std::string file_name);
     virtual ~TileMap();
 
-    bool tileEmpty(const int x, const int y, const int z) const;
+    bool tileEmpty( int x,  int y,  int z) const;
     const sf::Texture* getTileSheet() const;
-    int getLayerSize(const int x, const int y, const int layer) const;
+    int getLayerSize( int x,  int y,  int layer) const;
     const sf::Vector2i& getMaxSizeGrid() const;
     const sf::Vector2f& getMaxSizeF() const;
 
-    void addTile(const int x, const int y, const int z, const sf::IntRect& texture_rect, const bool& collision, const short& type);
-    void addTile(const int x, const int y, const int z, const sf::IntRect& texture_rect,
-                 const int enemy_type, const int enemy_amount, const int enemy_tts, const int enemy_md);
+    void addTile( int x,  int y,  int z, const sf::IntRect& texture_rect, const bool& collision, const short& type);
+    void addTile( int x,  int y,  int z, const sf::IntRect& texture_rect,
+                  int enemy_type,  int enemy_amount,  int enemy_tts,  int enemy_md);
 
-    void removeTile(const int x, const int y, const int z, const int type = -1);
-    void saveToFile(const std::string file_name);
-    void loadFromFile(const std::string file_name);
+    void removeTile( int x,  int y,  int z,  int type = -1);
+    void saveToFile( std::string file_name);
+    void loadFromFile( std::string file_name);
 
     void updateWorldBoundsCollision(GameCharacter* gameCharacter, const float& dt);
     void updateTileCollision(GameCharacter* gameCharacter, const float& dt);
@@ -42,10 +42,10 @@ public:
             sf::RenderTarget& target,
             const sf::Vector2i& gridPosition,
             sf::Shader* shader = nullptr,
-            const sf::Vector2f heroPosition = sf::Vector2f(),
-            const bool show_collision = false
+             sf::Vector2f heroPosition = sf::Vector2f(),
+             bool show_collision = false
                     );
-    void renderDeferred(sf::RenderTarget& target, sf::Shader* shader = nullptr, const sf::Vector2f heroPosition = sf::Vector2f());
+    void renderDeferred(sf::RenderTarget& target, sf::Shader* shader = nullptr,  sf::Vector2f heroPosition = sf::Vector2f());
 
 private:
     float gridSizeF;

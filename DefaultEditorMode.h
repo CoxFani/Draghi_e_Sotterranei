@@ -16,7 +16,7 @@ class Tile;
 class DefaultEditorMode : public EditorMode{
 public:
     DefaultEditorMode(StateData* state_data, TileMap* tile_map, EditorStateData* editor_state_data);
-    virtual ~DefaultEditorMode();
+    ~DefaultEditorMode() override;
 
     void updateInput(const float& dt) override;
     void updateGui(const float& dt) override;

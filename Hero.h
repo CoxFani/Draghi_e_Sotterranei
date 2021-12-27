@@ -21,21 +21,21 @@ public:
     const std::string toStringCharacterTab() const;
     const bool& getInitAttack() const;
 
-    void setInitAttack(const bool initAttack);
+    void setInitAttack( bool initAttack);
 
     const bool getDamageTimer();
 
     const unsigned getDamage() const;
     virtual const bool isDead() const;
 
-    void loseHP(const int hp);
-    void gainHP(const int hp);
-    void loseEXP(const int exp);
-    void gainEXP(const int exp);
+    void loseHP( int hp);
+    void gainHP( int hp);
+    void loseEXP( int exp);
+    void gainEXP( int exp);
     void updateAttack();
     void updateAnimation(const float& dt);
     void update(const float& dt, sf::Vector2f& mouse_pos_view, const sf::View& view) override;
-    void render(sf::RenderTarget& target, sf::Shader* shader = nullptr, const sf::Vector2f light_position = sf::Vector2f() ,  const bool show_hitbox = false) override;
+    void render(sf::RenderTarget& target, sf::Shader* shader = nullptr,  sf::Vector2f light_position = sf::Vector2f() ,   bool show_hitbox = false) override;
 
 
 private:
@@ -47,7 +47,6 @@ private:
     sf::Int32 damageTimerMax;
 
     void initVariables();
-    void initComponents();
     void initAnimations();
     void initInventory();
 

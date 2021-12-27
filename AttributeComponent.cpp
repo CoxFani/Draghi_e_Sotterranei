@@ -47,32 +47,32 @@ void AttributeComponent::update() {
 }
 
 
-void AttributeComponent::loseHP(const int hp) {
+void AttributeComponent::loseHP( int hp) {
     this->hp -= hp;
 
     if(this->hp < 0)
         this->hp = 0;
 }
 
-void AttributeComponent::gainHP(const int hp) {
+void AttributeComponent::gainHP( int hp) {
     this->hp += hp;
 
     if(this->hp > this->hpMax)
         this->hp = this->hpMax;
 }
 
-void AttributeComponent::loseEXP(const int exp) {
+void AttributeComponent::loseEXP( int exp) {
     this->exp -= exp;
 
     if(this->exp < 0)
         this->exp = 0;
 }
 
-void AttributeComponent::gainEXP(const int exp) {
+void AttributeComponent::gainEXP( int exp) {
     this->exp += exp;
     updateLevel();
 }
 
-const bool AttributeComponent::isDead() const {
+ bool AttributeComponent::isDead() const {
     return hp <= 0;
 }

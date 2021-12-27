@@ -12,9 +12,9 @@ public:
     explicit TextTagSystem(std::string font_file);
     virtual ~TextTagSystem();
 
-    void addTextTag(const unsigned tag_type, const float pos_x, const float pos_y, const std::string str, const std::string prefix = "", const std::string postfix = "");
-    void addTextTag(const unsigned tag_type, const float pos_x, const float pos_y, const int i, const std::string prefix = "", const std::string postfix = "");
-    void addTextTag(const unsigned tag_type, const float pos_x, const float pos_y, const float f, const std::string prefix = "", const std::string postfix = "");
+    void addTextTag( unsigned tag_type,  float pos_x,  float pos_y,  std::string str,  std::string prefix = "",  std::string postfix = "");
+    void addTextTag( unsigned tag_type,  float pos_x,  float pos_y,  int i,  std::string prefix = "",  std::string postfix = "");
+    void addTextTag( unsigned tag_type,  float pos_x,  float pos_y,  float f,  std::string prefix = "",  std::string postfix = "");
 
     void update(const float &dt);
     void render(sf::RenderTarget &target);

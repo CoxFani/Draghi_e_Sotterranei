@@ -16,12 +16,12 @@ public:
 
     const float& getMaxVelocity() const;
     const sf::Vector2f& getVelocity() const;
-    bool getState(const short unsigned state) const;
+    bool getState( short unsigned state) const;
 
     void stopVelocityX();
     void stopVelocityY();
 
-    void move(const float x, const float y, const float& dt);
+    void move( float x,  float y, const float& dt);
     void update(const float& dt);
 
 private:

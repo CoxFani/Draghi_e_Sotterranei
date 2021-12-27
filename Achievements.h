@@ -45,7 +45,7 @@ public:
 private:
     std::string message_from_gameManager_;
     GameManager &gameManager_;
-    int static_number_;
+    int static_number_{};
     int number_;
 
 

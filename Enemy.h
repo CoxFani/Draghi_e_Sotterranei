@@ -29,14 +29,14 @@ public:
 
     virtual void generateAttributes(const unsigned& level);
 
-    virtual void loseHP(const int hp);
+    virtual void loseHP( int hp);
     virtual bool isDead() const;
 
     virtual const AttributeComponent* getAttributeComp() const;
 
     void updateAnimation(const float& dt);
     void update(const float &dt, sf::Vector2f& mouse_pos_view, const sf::View& view) override;
-    void render(sf::RenderTarget &target, sf::Shader* shader = nullptr, const sf::Vector2f light_position = sf::Vector2f(), const bool show_hitbox = false) override;
+    void render(sf::RenderTarget &target, sf::Shader* shader = nullptr,  sf::Vector2f light_position = sf::Vector2f(),  bool show_hitbox = false) override;
 
 protected:
     EnemySpawnerTile& enemySpawnerTile;

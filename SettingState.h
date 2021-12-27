@@ -11,8 +11,8 @@
 class SettingState :
         public State {
 public:
-    SettingState(StateData* state_data);
-    virtual ~SettingState();
+    explicit SettingState(StateData* state_data);
+    ~SettingState() override;
 
     void updateInput(const float& dt) override;
     void updateGui(const float& dt);

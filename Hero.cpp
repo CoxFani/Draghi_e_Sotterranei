@@ -36,9 +36,6 @@ void Hero::initVariables() {
     damageTimerMax = 1000;
 }
 
-void Hero::initComponents() {
-
-}
 
 void Hero::initAnimations() {
 

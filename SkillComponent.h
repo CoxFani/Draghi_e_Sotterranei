@@ -13,7 +13,7 @@ public:
     SkillComponent();
     virtual ~SkillComponent();
 
-    const void gainExp(const int skill, const int exp);
+    const void gainExp( int skill,  int exp);
 
 private:
     class Skill{
@@ -24,9 +24,9 @@ private:
 
         const int getType() const;
 
-        void gainExp(const int exp);
+        void gainExp( int exp);
 
-        void updateLevel(const bool up = true);
+        void updateLevel( bool up = true);
         void update();
 
     private:
