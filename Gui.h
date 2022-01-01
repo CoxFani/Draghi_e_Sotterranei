@@ -6,12 +6,12 @@
 #define DRAGHI_E_SOTTERRANEI_GUI_H
 
 
-enum button_states{BTN_IDLE = 0, BTN_HOVER, BTN_ACTIVE};
+enum class ButtonStates {BTN_IDLE = 0, BTN_HOVER, BTN_ACTIVE};
 
 namespace gui {
-    const float p2pX( float perc, const sf::VideoMode& vm);
-    const float p2pY( float perc, const sf::VideoMode& vm);
-    const unsigned calcCharSize(const sf::VideoMode& vm,  unsigned modifier = 40);
+    float p2pX( float perc, const sf::VideoMode& vm);
+    float p2pY( float perc, const sf::VideoMode& vm);
+    unsigned calcCharSize(const sf::VideoMode& vm,  unsigned modifier = 40);
 
     class Button {
     public:
@@ -24,8 +24,8 @@ namespace gui {
 
         ~Button();
 
-        const bool isPressed() const;
-        const std::string getText() const;
+        bool isPressed() const;
+        std::string getText() const;
         void setText( std::string text);
         const short unsigned& getId() const;
         void setId( short unsigned id);
@@ -33,7 +33,7 @@ namespace gui {
         void render(sf::RenderTarget &target);
 
     private:
-        short unsigned buttonState;
+        ButtonStates buttonState;
         short unsigned id;
 
         sf::RectangleShape shape;
@@ -62,7 +62,7 @@ namespace gui {
         ~DropDownList();
 
         const unsigned short& getActiveElementId() const;
-        const bool getKeytime();
+        bool getKeytime();
         void updateKeytime(const float& dt);
         void update(const sf::Vector2i &mousePosWindow, const float& dt);
         void render(sf::RenderTarget &target);
@@ -91,7 +91,7 @@ namespace gui {
         const bool& getActive() const;
         const sf::IntRect& getTextureRect() const;
 
-        const bool getKeytime();
+        bool getKeytime();
         void updateKeytime(const float& dt);
         void update(const sf::Vector2i& mousePosWindow, const float& dt);
         void render(sf::RenderTarget &target);

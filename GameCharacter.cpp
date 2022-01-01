@@ -21,9 +21,8 @@ void GameCharacter::move(const float dir_x, const float dir_y,const float& dt) {
     if(movementComponent)
         movementComponent->move(dir_x, dir_y, dt);
 
-    if(this->skillComponent){
+    if(this->skillComponent)
         skillComponent->gainExp(SKILLS::ENDURANCE, 1);
-    }
 }
 
 void GameCharacter::setTexture(sf::Texture& texture) {
@@ -125,12 +124,10 @@ void GameCharacter::createAttributeComponent(const unsigned level) {
 }
 
 void GameCharacter::createSkillComponent() {
-
     skillComponent = new SkillComponent();
 }
 
 AttributeComponent *GameCharacter::getAttributeComponent() {
-
     return attributeComponent;
 }
 

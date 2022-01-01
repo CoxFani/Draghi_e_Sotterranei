@@ -25,10 +25,8 @@ public:
     void increaseEnemyCounter();
     void decreaseEnemyCounter();
 
-
-
     void update() override;
-    void render(sf::RenderTarget &target, sf::Shader* shader = nullptr, const sf::Vector2f hero_position = sf::Vector2f()) override;
+    void render(sf::RenderTarget &target, sf::Shader* shader = nullptr, sf::Vector2f hero_position = sf::Vector2f()) override;
 
 private:
     float gridSize;
@@ -39,7 +37,6 @@ private:
     sf::Int32 enemyTimeToSpawn;
     float enemyMaxDistance;
     bool firstSpawn;
-
 
 };
 

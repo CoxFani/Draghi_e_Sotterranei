@@ -14,7 +14,7 @@ EditorMode::~EditorMode() {
 
 }
 
-const bool EditorMode::getKeyTime() {
+bool EditorMode::getKeyTime() {
     if(*editorStateData->keyTime >= *editorStateData->keyTimeMax){
         *editorStateData->keyTime = 0.f;
         return true;

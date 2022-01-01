@@ -19,9 +19,8 @@ CharacterTab::~CharacterTab() {
 }
 
 void CharacterTab::update() {
-    if(!hidden){
+    if(!hidden)
         infoText.setString(hero.toStringCharacterTab());
-    }
 }
 
 void CharacterTab::render(sf::RenderTarget &target) {

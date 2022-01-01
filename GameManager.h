@@ -5,6 +5,8 @@
 #ifndef DRAGHI_E_SOTTERRANEI_GAMEMANAGER_H
 #define DRAGHI_E_SOTTERRANEI_GAMEMANAGER_H
 
+#include <utility>
+
 #include "precompiler.h"
 #include "Subject.h"
 
@@ -13,12 +15,11 @@ class GameManager:
 
 public:
     virtual ~GameManager() {
-        //std::cout << "Goodbye, I was the Subject.\n";
+        //std::cout << "Goodbye, I was the Subject.\n"; //debug
     }
 
-    /**
-     * The subscription management methods.
-     */
+/// The subscription management methods.
+
     void Attach(Observer *observer) override {
         list_observer_.push_back(observer);
     }
@@ -35,17 +36,18 @@ public:
     }
 
     void CreateMessage(std::string message = "Empty") {
-        this->message_ = message;
+        this->message_ = std::move(message);
         Notify();
     }
+
     void HowManyObserver() {
-        //std::cout << "There are " << list_observer_.size() << " observers in the list.\n";
+        //std::cout << "There are " << list_observer_.size() << " observers in the list.\n"; //debug
     }
 
     void SomeBusinessLogic() {
-        //this->message_ = "change message message";
+        //this->message_ = "change message message"; //debug
         Notify();
-        //std::cout << "I'm about to do some thing important\n";
+        //std::cout << "I'm about to do some thing important\n"; //debug
     }
 
     void updateKills() {

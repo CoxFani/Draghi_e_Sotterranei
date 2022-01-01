@@ -20,7 +20,7 @@ class DefaultEditorMode;
 class EnemyEditorMode;
 class EditorStateData;
 
-enum EditorModes {DEFAULT_EDITOR_MODE = 0, ENEMY_EDITOR_MODE};
+enum class EditorModes {DEFAULT_EDITOR_MODE = 0, ENEMY_EDITOR_MODE};
 
 class EditorState : public State{
 public:

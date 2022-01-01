@@ -10,18 +10,17 @@
 #include "GameManager.h"
 
 
-class Achievements
-        : public Observer {
+class Achievements : public Observer {
 
 public:
     Achievements(GameManager &gameManager) : gameManager_(gameManager) {
         this->gameManager_.Attach(this);
-        //std::cout << "Hi, I'm the Observer \"" << ++Achievements::static_number_ << "\".\n";
+        //std::cout << "Hi, I'm the Observer \"" << ++Achievements::static_number_ << "\".\n"; //debug
         this->number_ = Achievements::static_number_;
 
     }
     virtual ~Achievements() {
-        //std::cout << "Goodbye, I was the Observer \"" << this->number_ << "\".\n";
+        //std::cout << "Goodbye, I was the Observer \"" << this->number_ << "\".\n"; //debug
     }
 
     void Update(const std::string &message_from_subject) override {
@@ -30,24 +29,18 @@ public:
     }
     void RemoveMeFromTheList() {
         gameManager_.Detach(this);
-        //std::cout << "Observer \"" << number_ << "\" removed from the list.\n";
+        //std::cout << "Observer \"" << number_ << "\" removed from the list.\n"; //debug
     }
     void PrintInfo() {
         std::cout << "\nAchievement unlocked: " << this->message_from_gameManager_ << "\n";
 
     }
 
-
-
-
-
-
 private:
     std::string message_from_gameManager_;
     GameManager &gameManager_;
     int static_number_{};
     int number_;
-
 
 };
 

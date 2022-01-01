@@ -37,7 +37,7 @@ public:
     EditorMode(StateData* state_data, TileMap* tile_map, EditorStateData* editor_state_data);
     virtual ~EditorMode();
 
-    const bool getKeyTime();
+    bool getKeyTime();
 
     virtual void updateInput(const float& dt) = 0;
     virtual void updateGui(const float& dt) = 0;

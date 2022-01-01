@@ -23,14 +23,12 @@ public:
 
     void setInitAttack( bool initAttack);
 
-    const bool getDamageTimer();
+    bool getDamageTimer();
 
-    const unsigned getDamage() const;
-    virtual const bool isDead() const;
+    unsigned getDamage() const;
+    virtual bool isDead() const;
 
     void loseHP( int hp);
-    void gainHP( int hp);
-    void loseEXP( int exp);
     void gainEXP( int exp);
     void updateAttack();
     void updateAnimation(const float& dt);
@@ -48,7 +46,6 @@ private:
 
     void initVariables();
     void initAnimations();
-    void initInventory();
 
 };
 

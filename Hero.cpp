@@ -8,7 +8,6 @@
 Hero::Hero(float x, float y, sf::Texture& texture_sheet) {
     initVariables();
 
-
     createHitboxComponent(this->sprite, 7.f, 23.f, 20.f, 25.f);
     createMovementComponent(140.f, 1500.f, 500.f);
     createAnimationComponent(texture_sheet);
@@ -18,8 +17,6 @@ Hero::Hero(float x, float y, sf::Texture& texture_sheet) {
     this->setPosition(x, y);
     initAnimations();
 
-    initInventory();
-
 }
 
 Hero::~Hero() {
@@ -27,7 +24,6 @@ Hero::~Hero() {
 }
 
 void Hero::initVariables() {
-
     initAttack = false;
     attacking = false;
     weapon = new Sword(1, 2, 5, 65, 20, "../Resources/Images/Sprites/Weapons/weapon.png");
@@ -38,7 +34,6 @@ void Hero::initVariables() {
 
 
 void Hero::initAnimations() {
-
     animationComponent->addAnimation("IDLE", 11.f, 0, 0, 3, 0, 48, 48);
     animationComponent->addAnimation("WALK", 8.f, 0, 1, 5, 1, 48, 48);
     animationComponent->addAnimation("ATTACK1", 6.f, 0, 2, 5, 2, 48, 48);
@@ -48,12 +43,6 @@ void Hero::initAnimations() {
     animationComponent->addAnimation("HURT", 7.f, 0, 6, 2, 6, 48, 48);
     animationComponent->addAnimation("JUMP", 7.f, 0, 7, 5, 7, 48, 48);
     animationComponent->addAnimation("RUN", 6.f, 0, 8, 5, 8, 48, 48);
-}
-
-void Hero::initInventory() {
-
-
-
 }
 
 AttributeComponent *Hero::getAttributeComponent() {
@@ -92,7 +81,7 @@ void Hero::setInitAttack(const bool initAttack) {
     this->initAttack = initAttack;
 }
 
-const bool Hero::getDamageTimer() {
+bool Hero::getDamageTimer() {
 
     if(damageTimer.getElapsedTime().asMilliseconds() >= damageTimerMax){
         damageTimer.restart();
@@ -102,7 +91,7 @@ const bool Hero::getDamageTimer() {
         return false;
 }
 
-const unsigned Hero::getDamage() const {
+unsigned Hero::getDamage() const {
     return rand() % (
             (attributeComponent->damageMax + weapon->getDamageMax())
             - (attributeComponent->damageMin + weapon->getDamageMin()) + 1)
@@ -110,38 +99,16 @@ const unsigned Hero::getDamage() const {
 }
 
 void Hero::loseHP(const int hp) {
-
     attributeComponent->loseHP(hp);
 }
 
-void Hero::gainHP(const int hp) {
-
-    attributeComponent->gainHP(hp);
-}
-
-void Hero::loseEXP(const int exp) {
-
-    attributeComponent->loseEXP(exp);
-}
-
 void Hero::gainEXP(const int exp) {
-
     attributeComponent->gainEXP(exp);
 }
 
 void Hero::updateAnimation(const float &dt) {
-
-    if(attacking){
-        /*if(this->sprite.getScale().x > 0.f){
-            this->sprite.setOrigin(0.f, 0.f);
-        }
-        else{
-            this->sprite.setOrigin(0.f, 0.f);
-        }*/
-        if(animationComponent->play("ATTACK1", dt, true)){
+    if(attacking && animationComponent->play("ATTACK1", dt, true))
             attacking = false;
-        }
-    }
 
     if(movementComponent->getState(IDLE))
         animationComponent->play("IDLE", dt);
@@ -166,21 +133,16 @@ void Hero::updateAnimation(const float &dt) {
         this->animationComponent->play("WALK", dt, movementComponent->getVelocity().y, movementComponent->getMaxVelocity());
     }
 
-    if(damageTimer.getElapsedTime().asMilliseconds() <= damageTimerMax){
-        //this->animationComponent->play("HURT", dt, true);
+    if(damageTimer.getElapsedTime().asMilliseconds() <= damageTimerMax)
         sprite.setColor(sf::Color::Red);
-    }
     else
         sprite.setColor(sf::Color::White);
 
-    if(isDead()){
+    if(isDead())
         this->animationComponent->play("DEATH", dt, true);
-
-    }
 }
 
 void Hero::update(const float &dt, sf::Vector2f& mouse_pos_view, const sf::View& view) {
-
     movementComponent->update(dt);
     updateAnimation(dt);
     hitboxComponent->update();
@@ -188,7 +150,6 @@ void Hero::update(const float &dt, sf::Vector2f& mouse_pos_view, const sf::View&
 }
 
 void Hero::render(sf::RenderTarget &target, sf::Shader* shader, const sf::Vector2f light_position, const bool show_hitbox) {
-
     if(shader){
         shader->setUniform("hasTexture", true);
         shader->setUniform("lightPos", light_position);
@@ -208,15 +169,12 @@ void Hero::render(sf::RenderTarget &target, sf::Shader* shader, const sf::Vector
 }
 
 void Hero::updateAttack() {
-
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
         attacking = true;
-    }
 }
 
-const bool Hero::isDead() const {
-    if(attributeComponent){
+bool Hero::isDead() const {
+    if(attributeComponent)
         return attributeComponent->isDead();
-    }
     return false;
 }

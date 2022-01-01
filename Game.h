@@ -28,7 +28,6 @@ public:
     void run();
     void updateSFMLEvents();
 
-
 private:
     GraphicsSettings gfxSettings;
     StateData stateData;

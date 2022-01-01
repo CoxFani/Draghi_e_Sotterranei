@@ -25,9 +25,7 @@ Game::~Game() {
 
 void Game::initVariables() {
     window = nullptr;
-
     dt = 0.f;
-
     gridSize = 32.f;
 }
 
@@ -83,7 +81,6 @@ void Game::initKeys() {
 
 void Game::initStates() {
     states.push(new MainMenuState(&stateData));
-
 }
 
 void Game::updateDt() {

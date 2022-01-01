@@ -29,8 +29,6 @@ GameState::GameState(StateData* state_data)
 
     gameManager->CreateMessage("\nWELCOME!\n");
     tts->addTextTag(ACHIEVEMENT_TAG, 100, 100, 1, "Achievement unlocked: +", "\nWELCOME!");
-
-
 }
 
 GameState::~GameState() {
@@ -73,7 +71,6 @@ void GameState::initKeyTime() {
 }
 
 void GameState::initDebugText() {
-
     debugText.setFont(font);
     debugText.setFillColor(sf::Color::White);
     debugText.setCharacterSize(16);
@@ -131,7 +128,6 @@ void GameState::initTextures() {
     }
 }
 
-
 void GameState::initPausedMenu() {
     const sf::VideoMode& vm = stateData->gfxSettings->resolution;
     pmenu = new PauseMenu(stateData->gfxSettings->resolution, font, PauseTypes::PAUSE_STATE);
@@ -140,7 +136,6 @@ void GameState::initPausedMenu() {
 }
 
 void GameState::initGameOverState() {
-
     const sf::VideoMode& vm = stateData->gfxSettings->resolution;
     gameOverMenu = new PauseMenu(stateData->gfxSettings->resolution, font, PauseTypes::GAME_OVER_STATE);
 
@@ -148,12 +143,10 @@ void GameState::initGameOverState() {
 }
 
 void GameState::initWinState() {
-
     const sf::VideoMode& vm = stateData->gfxSettings->resolution;
     winMenu = new PauseMenu(stateData->gfxSettings->resolution, font, PauseTypes::WINNING_STATE);
 
     winMenu->addButton("QUIT", gui::p2pY(62.5f, vm)/*450.f*/, gui::p2pX(15.6f, vm), gui::p2pY(10.4f, vm), gui::calcCharSize(vm), "Quit");
-
 }
 
 void GameState::initShaders() {
@@ -174,7 +167,6 @@ void GameState::initTileMap() {
 }
 
 void GameState::initSystems() {
-
     tts = new TextTagSystem("../Fonts/DeterminationMonoWebRegular-Z5oq.ttf");
 }
 
@@ -185,18 +177,16 @@ void GameState::initDeferredRender() {
 }
 
 void GameState::initEnemyStrategy() {
-
     enemyStrategy = new EnemyFactory(this->activeEnemies, this->textures, *this->hero);
 }
 
 void GameState::initAchievements() {
-
     gameManager = new GameManager;
     achievements = new Achievements(*gameManager);
 }
 
 
-const bool GameState::getKeyTime() {
+bool GameState::getKeyTime() {
     if(keyTimer.getElapsedTime().asSeconds() >= keyTimeMax){
         keyTimer.restart();
         return true;
@@ -281,16 +271,13 @@ void GameState::updateHero(const float &dt) {
 
     if(hero->isDead())
         gameOver = true;
-        
 }
 
 void GameState::updateCombatAndEnemies(const float &dt) {
-
     if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && hero->getWeapon()->getAttackTimer())
         hero->setInitAttack(true);
 
-
-        unsigned index = 0;
+    int index = 0;
     for(auto *enemy : activeEnemies){
         enemy->update(dt, mousePosView, this->view);
 
@@ -300,35 +287,30 @@ void GameState::updateCombatAndEnemies(const float &dt) {
         updateCombat(enemy, index, dt);
 
         if(enemy->isDead()){
-
-
             gameManager->updateKills();
-            if(gameManager->getKills() == 1){
 
+            if(gameManager->getKills() == 1){
                 gameManager->CreateMessage("\nKILLER!\n");
                 tts->addTextTag(ACHIEVEMENT_TAG, hero->getCenter().x, hero->getCenter().y, 1, "Achievement unlocked: +", "\nKILLER!");
-
             }
-            if(gameManager->getKills() == 5){
 
+            if(gameManager->getKills() == 5){
                 gameManager->CreateMessage("\nPENTAKILL!\n");
                 tts->addTextTag(ACHIEVEMENT_TAG, hero->getCenter().x, hero->getCenter().y, 1, "Achievement unlocked: +", "\nPENTAKILL!");
-
             }
-            if(gameManager->getKills() == 10){
 
+            if(gameManager->getKills() == 10){
                 gameManager->CreateMessage("\nSERIAL KILLER!\n");
                 tts->addTextTag(ACHIEVEMENT_TAG, hero->getCenter().x, hero->getCenter().y, 1, "Achievement unlocked: +", "\nSERIAL KILLER!");
-
             }
 
             hero->gainEXP(enemy->getGainExp());
             tts->addTextTag(EXPERIENCE_TAG, hero->getCenter().x, hero->getCenter().y, static_cast<int>(enemy->getGainExp()), "+", "EXP");
 
             enemyStrategy->removeEnemy(index);
-            if(activeEnemies.empty()){
+
+            if(activeEnemies.empty())
                 win = true;
-            }
             continue;
         }
         else if(enemy->getDespawnTimerDone()){
@@ -337,12 +319,10 @@ void GameState::updateCombatAndEnemies(const float &dt) {
         }
         ++index;
     }
-    //this->activeEnemies.push_back(new Mummy(200.f, 100.f, this->textures["MUMMY_SHEET"]));
     hero->setInitAttack(false);
 }
 
 void GameState::updateCombat(Enemy* enemy, const int index, const float &dt) {
-
     if(hero->getInitAttack()
        && enemy->getGlobalBounds().contains(mousePosView)
        && enemy->getSpriteDistance(*hero) < hero->getWeapon()->getRange()
@@ -354,10 +334,9 @@ void GameState::updateCombat(Enemy* enemy, const int index, const float &dt) {
         enemy->loseHP(dmg);
         enemy->resetDamageTimer();
         tts->addTextTag(DEFAULT_TAG, enemy->getPosition().x, enemy->getPosition().y, dmg, "", "");
-
     }
-    if(enemy->getGlobalBounds().intersects(hero->getGlobalBounds()) && hero->getDamageTimer()){
 
+    if(enemy->getGlobalBounds().intersects(hero->getGlobalBounds()) && hero->getDamageTimer()){
         int dmg = enemy->getAttributeComp()->damageMax;
         hero->loseHP(dmg);
         tts->addTextTag(NEGATIVE_TAG, hero->getPosition().x - 30, hero->getPosition().y, dmg, "-", "HP");
@@ -365,7 +344,6 @@ void GameState::updateCombat(Enemy* enemy, const int index, const float &dt) {
 }
 
 void GameState::updateDebugText(const float& dt) {
-
     std::stringstream  ss;
 
     ss << "Mouse Pos View: " << mousePosView.x << " " << mousePosView.y << "\n"
@@ -421,9 +399,8 @@ void GameState::render(sf::RenderTarget* target) {
    false
    );
 
-    for(auto *enemy : activeEnemies){
+    for(auto *enemy : activeEnemies)
         enemy->render(renderTexture, &core_shader, hero->getCenter(), false);
-    }
 
     hero->render(renderTexture, &core_shader, hero->getCenter(), false);
 
@@ -436,29 +413,19 @@ void GameState::render(sf::RenderTarget* target) {
     heroGUI->render(renderTexture);
 
     /** Pause menu render **/
-    if(paused){
+    if(paused)
         pmenu->render(renderTexture);
-    }
 
-    if(gameOver){
+    if(gameOver)
         gameOverMenu->render(renderTexture);
-    }
 
-    if(win){
+    if(win)
         winMenu->render(renderTexture);
-    }
-
 
     /** Render debug text **/
-    //renderTexture.draw(debugText);
+    //renderTexture.draw(debugText); //debug
 
     /** Final render **/
     renderTexture.display();
     target->draw(renderSprite);
 }
-
-
-
-
-
-

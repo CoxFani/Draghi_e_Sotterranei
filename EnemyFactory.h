@@ -16,10 +16,8 @@ public:
                   std::map<std::string, sf::Texture>& textures, GameCharacter& hero);
     virtual ~EnemyFactory();
 
-    void createEnemy( short type,  float xPos,  float yPos, EnemySpawnerTile& enemy_spawner_tile);
-    void removeEnemy( int index);
-
-
+    void createEnemy(short type, float xPos, float yPos, EnemySpawnerTile& enemy_spawner_tile);
+    void removeEnemy(int index);
 
 private:
     std::map<std::string, sf::Texture>& textures;

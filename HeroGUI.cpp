@@ -6,7 +6,7 @@
 #include "HeroGUI.h"
 
 HeroGUI::HeroGUI(Hero* hero, sf::VideoMode& vm)
-: vm(vm){
+        : vm(vm){
 
     this->hero = hero;
 
@@ -18,7 +18,6 @@ HeroGUI::HeroGUI(Hero* hero, sf::VideoMode& vm)
 }
 
 HeroGUI::~HeroGUI() {
-
     delete hpBar;
     delete expBar;
     delete heroTabs;
@@ -29,7 +28,6 @@ void HeroGUI::initFont() {
 }
 
 void HeroGUI::initLevelBar() {
-
     float width = gui::p2pX(2.34f, this->vm);
     float height = gui::p2pY(4.16f, this->vm);
     float x = gui::p2pX(1.56f, this->vm);
@@ -47,7 +45,6 @@ void HeroGUI::initLevelBar() {
 }
 
 void HeroGUI::initEXPBar() {
-
     expBar = new gui::ProgressBar(1.56f, 6.94, 15.6f, 2.77f,
                                        hero->getAttributeComponent()->expNext,
                                         sf::Color(20, 20, 250, 200),
@@ -56,7 +53,6 @@ void HeroGUI::initEXPBar() {
 }
 
 void HeroGUI::initHPBar() {
-
     hpBar = new gui::ProgressBar(1.56f, 12.5f, 15.6f, 4.16f,
                                        hero->getAttributeComponent()->hpMax,
                                        sf::Color(250, 20, 20, 200),
@@ -65,63 +61,51 @@ void HeroGUI::initHPBar() {
 }
 
 void HeroGUI::initHeroTabs(sf::VideoMode& vm, sf::Font &font, Hero& hero) {
-
     heroTabs = new HeroTabs(vm, font, hero);
 }
 
 void HeroGUI::updateLevelBar() {
-
     levelBarString = std::to_string(hero->getAttributeComponent()->level);
     levelBarText.setString(levelBarString);
 }
 
 void HeroGUI::updateEXPBar() {
-
     expBar->update(hero->getAttributeComponent()->exp);
 }
 
 void HeroGUI::updateHPBar() {
-
     hpBar->update(hero->getAttributeComponent()->hp);
 }
 
 void HeroGUI::updateHeroTabs() {
-
     heroTabs->update();
 }
 
 void HeroGUI::update(const float &dt) {
-
     updateLevelBar();
     updateEXPBar();
     updateHPBar();
     updateHeroTabs();
 }
 
-
 void HeroGUI::renderLevelBar(sf::RenderTarget &target) {
-
     target.draw(levelBarBack);
     target.draw(levelBarText);
 }
 
 void HeroGUI::renderEXPBar(sf::RenderTarget &target) {
-
     expBar->render(target);
 }
 
 void HeroGUI::renderHPBar(sf::RenderTarget &target) {
-
     hpBar->render(target);
 }
 
 void HeroGUI::renderHeroTabs(sf::RenderTarget &target) {
-
     heroTabs->render(target);
 }
 
 void HeroGUI::render(sf::RenderTarget &target) {
-
     renderLevelBar(target);
     renderEXPBar(target);
     renderHPBar(target);
@@ -129,6 +113,5 @@ void HeroGUI::render(sf::RenderTarget &target) {
 }
 
 void HeroGUI::toggleCharacterTab() {
-
-    heroTabs->toggleTab(HERO_TABS::CHARACTER_TAB);
+    heroTabs->toggleTab(static_cast<int>(Hero_Tabs::CHARACTER_TAB));
 }

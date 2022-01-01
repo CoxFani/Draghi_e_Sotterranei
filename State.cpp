@@ -27,7 +27,7 @@ const bool & State::getQuit() const {
     return quit;
 }
 
-const bool State::getKeyTime() {
+bool State::getKeyTime() {
     if(keyTime >= keyTimeMax){
         keyTime = 0.f;
         return true;

@@ -81,7 +81,6 @@ void EditorState::initPausedMenu() {
 
 void EditorState::initGui() {
 
-
 }
 
 void EditorState::initTileMap() {
@@ -96,7 +95,7 @@ void EditorState::initView() {
 void EditorState::initModes() {
     modes.push_back(new DefaultEditorMode(stateData, tileMap, &editorStateData));
     modes.push_back(new EnemyEditorMode(stateData, tileMap, &editorStateData));
-    activeMode = EditorModes::DEFAULT_EDITOR_MODE;
+    activeMode = static_cast<unsigned int>(EditorModes::DEFAULT_EDITOR_MODE);
 }
 
 void EditorState::updateInput(const float &dt) {

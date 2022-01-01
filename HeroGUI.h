@@ -22,8 +22,6 @@ public:
     void updateHeroTabs();
     void update(const float& dt);
 
-
-
     void renderLevelBar(sf::RenderTarget &target);
     void renderEXPBar(sf::RenderTarget &target);
     void renderHPBar(sf::RenderTarget &target);

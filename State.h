@@ -29,7 +29,7 @@ public:
 
     const bool& getQuit() const;
 
-    virtual const bool getKeyTime();
+    virtual bool getKeyTime();
 
     void endState();
     void pauseState();

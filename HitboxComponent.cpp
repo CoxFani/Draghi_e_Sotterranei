@@ -25,44 +25,36 @@ HitboxComponent::~HitboxComponent() {
 }
 
 void HitboxComponent::update() {
-
     hitbox.setPosition(sprite.getPosition().x + offsetX, sprite.getPosition().y + offsetY);
 }
 
 void HitboxComponent::render(sf::RenderTarget &target) {
-
     target.draw((hitbox));
 }
 
 bool HitboxComponent::intersect(const sf::FloatRect& frect) {
-
     return hitbox.getGlobalBounds().intersects(frect);
 }
 
 const sf::Vector2f &HitboxComponent::getPosition() const {
-
     return hitbox.getPosition();
 }
 
 void HitboxComponent::setPosition(const sf::Vector2f& position) {
-
     hitbox.setPosition(position);
     sprite.setPosition(position.x - offsetX, position.y - offsetY);
 }
 
 void HitboxComponent::setPosition(const float x, const float y) {
-
     hitbox.setPosition(x, y);
     sprite.setPosition(x - offsetX, y - offsetY);
 }
 
 sf::FloatRect HitboxComponent::getGlobalBounds() const {
-
     return hitbox.getGlobalBounds();
 }
 
 const sf::FloatRect &HitboxComponent::getNextPosition(const sf::Vector2f &velocity) {
-
     nextPosition.left = hitbox.getPosition().x + velocity.x;
     nextPosition.top = hitbox.getPosition().y + velocity.y;
     return nextPosition;

@@ -15,7 +15,7 @@ EnemyFactory::~EnemyFactory() {
 
 }
 
-void EnemyFactory::createEnemy(const short type, const float xPos, const float yPos, EnemySpawnerTile& enemy_spawner_tile) {
+void EnemyFactory::createEnemy(short type, float xPos, float yPos, EnemySpawnerTile& enemy_spawner_tile) {
     switch(type){
         case static_cast<int>(EnemyTypes::MUMMY):{
             std::cout << "MUMMY" << "\n";
@@ -126,7 +126,6 @@ void EnemyFactory::createEnemy(const short type, const float xPos, const float y
 
 void EnemyFactory::removeEnemy(const int index) {
     activeEnemies[index]->getEnemySpawnerTile().decreaseEnemyCounter();
-    //TODO ritardare la cancellazione del nemico poter inserire animzaione di morte
     delete activeEnemies[index];
     activeEnemies.erase(activeEnemies.begin() + index);
 }

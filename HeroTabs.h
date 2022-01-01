@@ -7,7 +7,7 @@
 
 #include "CharacterTab.h"
 
-enum HERO_TABS {CHARACTER_TAB = 0};
+enum class Hero_Tabs {CHARACTER_TAB = 0};
 
 class HeroTabs {
 public:
@@ -21,9 +21,7 @@ public:
     void update();
     void render(sf::RenderTarget& target);
 
-
 private:
-
     std::vector<Tab*> tabs;
 
     sf::VideoMode& vm;

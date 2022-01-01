@@ -20,7 +20,6 @@ public:
     void setPosition(const sf::Vector2f& position);
     void setPosition( float x,  float y);
 
-
     bool intersect(const sf::FloatRect& frect);
 
      void update();

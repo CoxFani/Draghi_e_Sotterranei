@@ -18,8 +18,6 @@ public:
     int attributePoints;
     int strength;
     int vitality;
-    int dexterity;
-    int agility;
     int intelligence;
 
     int hp;
@@ -27,16 +25,14 @@ public:
     int damageMin;
     int damageMax;
 
-    void updateStats( bool reset);
+    void updateStats(bool reset);
     void updateLevel();
     void update();
 
-    void loseHP( int hp);
-    void gainHP( int hp);
-    void loseEXP( int exp);
-    void gainEXP( int exp);
+    void loseHP(int hp);
+    void gainEXP(int exp);
 
-     bool isDead() const;
+    bool isDead() const;
 };
 
 

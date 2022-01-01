@@ -12,8 +12,6 @@ AttributeComponent::AttributeComponent(int level) {
     attributePoints = 2;
     strength = 1;
     vitality = 1;
-    dexterity = 1;
-    agility = 1;
     intelligence = 1;
 
     updateLevel();
@@ -47,28 +45,14 @@ void AttributeComponent::update() {
 }
 
 
-void AttributeComponent::loseHP( int hp) {
+void AttributeComponent::loseHP(int hp) {
     this->hp -= hp;
 
     if(this->hp < 0)
         this->hp = 0;
 }
 
-void AttributeComponent::gainHP( int hp) {
-    this->hp += hp;
-
-    if(this->hp > this->hpMax)
-        this->hp = this->hpMax;
-}
-
-void AttributeComponent::loseEXP( int exp) {
-    this->exp -= exp;
-
-    if(this->exp < 0)
-        this->exp = 0;
-}
-
-void AttributeComponent::gainEXP( int exp) {
+void AttributeComponent::gainEXP(int exp) {
     this->exp += exp;
     updateLevel();
 }

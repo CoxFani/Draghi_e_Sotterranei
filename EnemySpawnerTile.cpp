@@ -58,7 +58,6 @@ const int &EnemySpawnerTile::getEnemyCounter() const {
     return this->enemyCounter;
 }
 
-
 void EnemySpawnerTile::increaseEnemyCounter() {
     if(enemyCounter > enemyAmount)
         enemyCounter = enemyAmount;

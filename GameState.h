@@ -22,7 +22,7 @@ public:
     explicit GameState(StateData* state_data);
     ~GameState() override;
 
-    const bool getKeyTime() override;
+    bool getKeyTime() override;
 
     void updateView(const float& dt);
     void updateInput(const float& dt) override;
@@ -66,7 +66,6 @@ private:
     std::vector<Enemy*> activeEnemies;
     EnemyFactory *enemyStrategy;
 
-
     void initView();
     void initKeybinds() override;
     void initFonts();
@@ -85,8 +84,6 @@ private:
     void initDebugText();
 
     void initAchievements();
-
-
 
     GameManager* gameManager;
     Achievements* achievements;

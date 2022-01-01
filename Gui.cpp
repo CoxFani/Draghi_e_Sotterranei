@@ -5,7 +5,7 @@
 #include "precompiler.h"
 #include "Gui.h"
 
-const float gui::p2pX(const float perc, const sf::VideoMode& vm) {
+float gui::p2pX(const float perc, const sf::VideoMode& vm) {
     /*
      * Convertire un valore percentuale in pixelsrelativamente alla risoluzione corrente nelle ascisse x.
      *
@@ -17,7 +17,7 @@ const float gui::p2pX(const float perc, const sf::VideoMode& vm) {
     return std::floor(static_cast<float>(vm.width) * (perc/100.f));
 }
 
-const float gui::p2pY(const float perc, const sf::VideoMode& vm) {
+float gui::p2pY(const float perc, const sf::VideoMode& vm) {
     /*
     * Convertire un valore percentuale in pixelsrelativamente alla risoluzione corrente nelle ordinate y.
     *
@@ -30,7 +30,7 @@ const float gui::p2pY(const float perc, const sf::VideoMode& vm) {
 
 }
 
-const unsigned gui::calcCharSize(const sf::VideoMode& vm, const unsigned modifier) {
+unsigned gui::calcCharSize(const sf::VideoMode& vm, const unsigned modifier) {
     /*
     * Calcola la dimensione del testo usando la risoluzione corrente e una costante
     *
@@ -51,7 +51,7 @@ gui::Button::Button(float x, float y, float width, float height,
               sf::Color outline_idle_color, sf::Color outline_hover_color, sf::Color outline_active_color,
               short unsigned id){
 
-    buttonState = BTN_IDLE;
+    buttonState = ButtonStates::BTN_IDLE;
     this->id = id;
 
     shape.setPosition(sf::Vector2f(x, y));
@@ -87,14 +87,14 @@ gui::Button::~Button() {
 
 }
 
-const bool gui::Button::isPressed() const {
-    if(buttonState == BTN_ACTIVE)
+bool gui::Button::isPressed() const {
+    if(buttonState == ButtonStates::BTN_ACTIVE)
         return true;
 
     return false;
 }
 
-const std::string gui::Button::getText() const {
+std::string gui::Button::getText() const {
     return this->text.getString();
 }
 
@@ -103,12 +103,10 @@ void gui::Button::setText(const std::string text) {
 }
 
 const short unsigned &gui::Button::getId() const {
-
     return id;
 }
 
 void gui::Button::setId(const unsigned short id) {
-
     this->id = id;
 }
 
@@ -121,31 +119,31 @@ void gui::Button::render(sf::RenderTarget& target) {
 void gui::Button::update(const sf::Vector2i& mousePosWindow) {
 
     //Idle
-    buttonState = BTN_IDLE;
+    buttonState = ButtonStates::BTN_IDLE;
 
     if (shape.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePosWindow))){
         //Hover
-        buttonState = BTN_HOVER;
+        buttonState = ButtonStates::BTN_HOVER;
         if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
             //Active
-            buttonState = BTN_ACTIVE;
+            buttonState = ButtonStates::BTN_ACTIVE;
         }
     }
 
     switch (buttonState){
-        case BTN_IDLE:
+        case ButtonStates::BTN_IDLE:
             shape.setFillColor(idleColor);
             text.setFillColor(textIdleColor);
             shape.setOutlineColor(outlineIdleColor);
             break;
 
-        case BTN_HOVER:
+        case ButtonStates::BTN_HOVER:
             shape.setFillColor(hoverColor);
             text.setFillColor(textHoverColor);
             shape.setOutlineColor(outlineHoverColor);
             break;
 
-        case BTN_ACTIVE:
+        case ButtonStates::BTN_ACTIVE:
             shape.setFillColor(activeColor);
             text.setFillColor(textActiveColor);
             shape.setOutlineColor(outlineActiveColor);
@@ -154,15 +152,10 @@ void gui::Button::update(const sf::Vector2i& mousePosWindow) {
 }
 
 
-
-
-
-//**************************** DROP DOWN LIST *********************************
+///**************************** DROP DOWN LIST *********************************
 
 gui::DropDownList::DropDownList(float x, float y, float width, float height, sf::Font& font, std::string list[], unsigned elements, unsigned default_index)
 : font(font), showList(false), keytimeMax(3.f), keytime(0.f){
-
-    //unsigned elements = sizeof(list) / sizeof(std::string);
 
     activeElement = new gui::Button(
             x, y, width, height,
@@ -199,8 +192,7 @@ const unsigned short &gui::DropDownList::getActiveElementId() const {
     return activeElement->getId();
 }
 
-const bool gui::DropDownList::getKeytime() {
-
+bool gui::DropDownList::getKeytime() {
     if(keytime >= keytimeMax){
         keytime = 0.f;
         return true;
@@ -209,7 +201,6 @@ const bool gui::DropDownList::getKeytime() {
 }
 
 void gui::DropDownList::updateKeytime(const float& dt) {
-
     if(keytime < keytimeMax)
         keytime += 10.f * dt;
 }
@@ -238,7 +229,6 @@ void gui::DropDownList::update(const sf::Vector2i &mousePosWindow, const float& 
 }
 
 void gui::DropDownList::render(sf::RenderTarget &target) {
-
     activeElement->render(target);
 
     if(showList) {
@@ -249,8 +239,7 @@ void gui::DropDownList::render(sf::RenderTarget &target) {
 }
 
 
-//**************************** TEXTURE SELECTOR *********************************
-
+///**************************** TEXTURE SELECTOR *********************************
 
 gui::TextureSelector::TextureSelector(float x, float y, float width, float height,
                                       float gridSize, const sf::Texture* texture_sheet,
@@ -270,17 +259,13 @@ gui::TextureSelector::TextureSelector(float x, float y, float width, float heigh
     sheet.setTexture(*texture_sheet);
     sheet.setPosition(x + offset, y);
 
-    if (sheet.getGlobalBounds().width > bounds.getGlobalBounds().width) {
-
-        sheet.setTextureRect(
-                sf::IntRect(0, 0, static_cast<int>(bounds.getGlobalBounds().width), static_cast<int>(sheet.getGlobalBounds().height)));
-    }
-    if (sheet.getGlobalBounds().height > bounds.getGlobalBounds().height) {
-
+    if (sheet.getGlobalBounds().width > bounds.getGlobalBounds().width)
         sheet.setTextureRect(
                 sf::IntRect(0, 0, static_cast<int>(bounds.getGlobalBounds().width), static_cast<int>(sheet.getGlobalBounds().height)));
 
-    }
+    if (sheet.getGlobalBounds().height > bounds.getGlobalBounds().height)
+        sheet.setTextureRect(
+                sf::IntRect(0, 0, static_cast<int>(bounds.getGlobalBounds().width), static_cast<int>(sheet.getGlobalBounds().height)));
 
     selector.setPosition(x+ offset, y);
     selector.setSize(sf::Vector2f(gridSize, gridSize));
@@ -299,22 +284,18 @@ gui::TextureSelector::TextureSelector(float x, float y, float width, float heigh
 }
 
 gui::TextureSelector::~TextureSelector() {
-
     delete hideButton;
 }
 
 const bool &gui::TextureSelector::getActive() const {
-
     return active;
 }
 
 const sf::IntRect &gui::TextureSelector::getTextureRect() const {
-
     return textureRect;
 }
 
-const bool gui::TextureSelector::getKeytime() {
-
+bool gui::TextureSelector::getKeytime() {
     if(keytime >= keytimeMax){
         keytime = 0.f;
         return true;
@@ -328,7 +309,6 @@ void gui::TextureSelector::updateKeytime(const float& dt) {
 }
 
 void gui::TextureSelector::update(const sf::Vector2i& mousePosWindow, const float& dt) {
-
     updateKeytime(dt);
     hideButton->update(mousePosWindow);
 
@@ -353,12 +333,10 @@ void gui::TextureSelector::update(const sf::Vector2i& mousePosWindow, const floa
 
             textureRect.left = static_cast<int>(selector.getPosition().x - bounds.getPosition().x);
             textureRect.top = static_cast<int>(selector.getPosition().y - bounds.getPosition().y);
-
     }
 }
 
 void gui::TextureSelector::render(sf::RenderTarget &target) {
-
     hideButton->render(target);
 
     if(!hidden){
@@ -368,15 +346,11 @@ void gui::TextureSelector::render(sf::RenderTarget &target) {
         if(active)
             target.draw(selector);
     }
-
     hideButton->render(target);
 }
 
 
-
-//**************************** PROGRESS BAR *********************************
-
-
+///**************************** PROGRESS BAR *********************************
 
 gui::ProgressBar::ProgressBar(float _x, float _y, float _width, float _height, int max_value,
                               sf::Color color,
@@ -409,7 +383,6 @@ gui::ProgressBar::ProgressBar(float _x, float _y, float _width, float _height, i
                 inner.getPosition().y - gui::p2pY(0.69f, vm)
         );
     }
-
 }
 
 gui::ProgressBar::~ProgressBar() {
@@ -417,7 +390,6 @@ gui::ProgressBar::~ProgressBar() {
 }
 
 void gui::ProgressBar::update(const int current_value) {
-
     float percent = static_cast<float>(current_value) / static_cast<float>(maxValue);
 
     inner.setSize(sf::Vector2f(static_cast<float>(std::floor(maxWidth * percent)), inner.getSize().y));
@@ -427,9 +399,7 @@ void gui::ProgressBar::update(const int current_value) {
 }
 
 void gui::ProgressBar::render(sf::RenderTarget& target) {
-
     target.draw(back);
     target.draw(inner);
     target.draw(text);
-
 }

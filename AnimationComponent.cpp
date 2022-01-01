@@ -21,7 +21,7 @@ void AnimationComponent::addAnimation(const std::string key, float animation_tim
     animations[key] = new Animation(sprite, textureSheet, animation_timer, start_frame_x, start_frame_y, frames_x, frames_y, width, height);
 }
 
-const bool AnimationComponent::play(const std::string key, const float &dt, const bool priority) {
+bool AnimationComponent::play(const std::string key, const float &dt, const bool priority) {
     if(priorityAnimation){
         if(priorityAnimation == animations[key]){
             if (lastAnimation != animations[key]) {
@@ -54,7 +54,7 @@ const bool AnimationComponent::play(const std::string key, const float &dt, cons
     return animations[key]->isDone();
 }
 
-const bool AnimationComponent::play(const std::string key, const float &dt, const float &modifier, const float &modifier_max, const bool priority) {
+bool AnimationComponent::play(const std::string key, const float &dt, const float &modifier, const float &modifier_max, const bool priority) {
     if(priorityAnimation){
         if(priorityAnimation == animations[key]){
             if (lastAnimation != animations[key]) {
@@ -65,7 +65,7 @@ const bool AnimationComponent::play(const std::string key, const float &dt, cons
                     lastAnimation = animations[key];
                 }
             }
-            if(animations[key]->play(dt, abs(modifier / modifier_max))) {
+            if(animations[key]->play(dt, std::abs(modifier / modifier_max))) {
                 priorityAnimation = nullptr;
             }
         }
@@ -82,7 +82,7 @@ const bool AnimationComponent::play(const std::string key, const float &dt, cons
                 lastAnimation = animations[key];
             }
         }
-        animations[key]->play(dt, abs(modifier / modifier_max));
+        animations[key]->play(dt, std::abs(modifier / modifier_max));
     }
     return animations[key]->isDone();
 }
