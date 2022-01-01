@@ -17,7 +17,7 @@ EnemyFactory::~EnemyFactory() {
 
 void EnemyFactory::createEnemy(const short type, const float xPos, const float yPos, EnemySpawnerTile& enemy_spawner_tile) {
     switch(type){
-        case EnemyTypes::MUMMY:{
+        case static_cast<int>(EnemyTypes::MUMMY):{
             std::cout << "MUMMY" << "\n";
             float animations[3][7] = { 11.f, 0, 0, 3, 0, 48, 48,
                                        8.f, 0, 1, 5, 1, 48, 48,
@@ -28,7 +28,7 @@ void EnemyFactory::createEnemy(const short type, const float xPos, const float y
             enemy_spawner_tile.increaseEnemyCounter();
             break;
         }
-        case EnemyTypes::SCORPION:{
+        case static_cast<int>(EnemyTypes::SCORPION):{
             std::cout << "SCORPION" << "\n";
             float animations[3][7] = { 11.f, 0, 0, 3, 0, 48, 48,
                                        8.f, 0, 1, 3, 1, 48, 48,
@@ -39,7 +39,7 @@ void EnemyFactory::createEnemy(const short type, const float xPos, const float y
             enemy_spawner_tile.increaseEnemyCounter();
             break;
         }
-        case EnemyTypes::VULTURE:{
+        case static_cast<int>(EnemyTypes::VULTURE):{
             std::cout << "VULTURE" << "\n";
             float animations[3][7] = { 11.f, 0, 0, 3, 0, 48, 48,
                                        8.f, 0, 1, 3, 1, 48, 48,
@@ -50,7 +50,7 @@ void EnemyFactory::createEnemy(const short type, const float xPos, const float y
             enemy_spawner_tile.increaseEnemyCounter();
             break;
         }
-        case EnemyTypes::HYENA:{
+        case static_cast<int>(EnemyTypes::HYENA):{
             std::cout << "HYENA" << "\n";
             float animations[3][7] = { 11.f, 0, 0, 3, 0, 48, 48,
                                        8.f, 0, 1, 5, 1, 48, 48,
@@ -61,7 +61,7 @@ void EnemyFactory::createEnemy(const short type, const float xPos, const float y
             enemy_spawner_tile.increaseEnemyCounter();
             break;
         }
-        case EnemyTypes::SNAKE:{
+        case static_cast<int>(EnemyTypes::SNAKE):{
             std::cout << "SNAKE" << "\n";
             float animations[3][7] = { 11.f, 0, 0, 3, 0, 48, 48,
                                        8.f, 0, 1, 3, 1, 48, 48,
@@ -72,7 +72,7 @@ void EnemyFactory::createEnemy(const short type, const float xPos, const float y
             enemy_spawner_tile.increaseEnemyCounter();
             break;
         }
-        case EnemyTypes::DECEASED:{
+        case static_cast<int>(EnemyTypes::DECEASED):{
             std::cout << "DECEASED" << "\n";
             float animations[3][7] = { 11.f, 0, 0, 3, 0, 48, 48,
                                        8.f, 0, 1, 5, 1, 48, 48,
@@ -83,7 +83,7 @@ void EnemyFactory::createEnemy(const short type, const float xPos, const float y
             enemy_spawner_tile.increaseEnemyCounter();
             break;
         }
-        case EnemyTypes::BIG_BLOATED:{
+        case static_cast<int>(EnemyTypes::BIG_BLOATED):{
             std::cout << "BIG_BLOATED" << "\n";
             float animations[3][7] = { 11.f, 0, 0, 3, 0, 72, 72,
                                        8.f, 0, 1, 5, 1, 72, 72,
@@ -94,7 +94,7 @@ void EnemyFactory::createEnemy(const short type, const float xPos, const float y
             enemy_spawner_tile.increaseEnemyCounter();
             break;
         }
-        case EnemyTypes::CENTIPEDE:{
+        case static_cast<int>(EnemyTypes::CENTIPEDE):{
             std::cout << "CENTIPEDE" << "\n";
             float animations[3][7] = { 11.f, 0, 0, 3, 0, 72, 72,
                                        8.f, 0, 1, 3, 1, 72, 72,
@@ -105,7 +105,7 @@ void EnemyFactory::createEnemy(const short type, const float xPos, const float y
             enemy_spawner_tile.increaseEnemyCounter();
             break;
         }
-        case EnemyTypes::BATTLE_TURTLE:{
+        case static_cast<int>(EnemyTypes::BATTLE_TURTLE):{
             std::cout << "BATTLE_TURTLE" << "\n";
             float animations[3][7] = { 11.f, 0, 0, 3, 0, 72, 72,
                                        8.f, 0, 1, 3, 1, 72, 72,

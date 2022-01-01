@@ -134,7 +134,7 @@ void GameState::initTextures() {
 
 void GameState::initPausedMenu() {
     const sf::VideoMode& vm = stateData->gfxSettings->resolution;
-    pmenu = new PauseMenu(stateData->gfxSettings->resolution, font, 0);
+    pmenu = new PauseMenu(stateData->gfxSettings->resolution, font, PauseTypes::PAUSE_STATE);
 
     pmenu->addButton("QUIT", gui::p2pY(62.5f, vm)/*450.f*/, gui::p2pX(15.6f, vm), gui::p2pY(10.4f, vm), gui::calcCharSize(vm), "Quit");
 }
@@ -142,7 +142,7 @@ void GameState::initPausedMenu() {
 void GameState::initGameOverState() {
 
     const sf::VideoMode& vm = stateData->gfxSettings->resolution;
-    gameOverMenu = new PauseMenu(stateData->gfxSettings->resolution, font, 1);
+    gameOverMenu = new PauseMenu(stateData->gfxSettings->resolution, font, PauseTypes::GAME_OVER_STATE);
 
     gameOverMenu->addButton("QUIT", gui::p2pY(62.5f, vm)/*450.f*/, gui::p2pX(15.6f, vm), gui::p2pY(10.4f, vm), gui::calcCharSize(vm), "Quit");
 }
@@ -150,7 +150,7 @@ void GameState::initGameOverState() {
 void GameState::initWinState() {
 
     const sf::VideoMode& vm = stateData->gfxSettings->resolution;
-    winMenu = new PauseMenu(stateData->gfxSettings->resolution, font, 2);
+    winMenu = new PauseMenu(stateData->gfxSettings->resolution, font, PauseTypes::WINNING_STATE);
 
     winMenu->addButton("QUIT", gui::p2pY(62.5f, vm)/*450.f*/, gui::p2pX(15.6f, vm), gui::p2pY(10.4f, vm), gui::calcCharSize(vm), "Quit");
 

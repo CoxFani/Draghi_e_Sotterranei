@@ -52,8 +52,7 @@ void EnemyEditorMode::updateInput(const float &dt) {
     //Rimuove Tile
     else if (sf::Mouse::isButtonPressed(sf::Mouse::Right) && getKeyTime()){
         if(!sidebar.getGlobalBounds().contains(sf::Vector2f(*editorStateData->mousePosWindow))) {
-            //if(tileMap->checkType(editorStateData->mousePosGrid->x, editorStateData->mousePosGrid->y, 0, TileTypes::ENEMYSPAWNER)){
-                tileMap->removeTile(editorStateData->mousePosGrid->x, editorStateData->mousePosGrid->y, 0, TileTypes::ENEMYSPAWNER);
+            tileMap->removeTile(editorStateData->mousePosGrid->x, editorStateData->mousePosGrid->y, 0, static_cast<int>(TileTypes::ENEMYSPAWNER));
         }
     }
 

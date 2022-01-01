@@ -8,9 +8,11 @@
 #include "State.h"
 #include "Gui.h"
 
+enum class PauseTypes {PAUSE_STATE = 0, GAME_OVER_STATE, WINNING_STATE};
+
 class PauseMenu {
 public:
-    PauseMenu(sf::VideoMode& vm, sf::Font& font, int type);
+    PauseMenu(sf::VideoMode& vm, sf::Font& font, PauseTypes type);
     virtual ~PauseMenu();
 
     bool isButtonPressed( std::string key);

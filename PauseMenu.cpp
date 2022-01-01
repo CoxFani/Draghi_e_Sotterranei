@@ -5,9 +5,7 @@
 #include "precompiler.h"
 #include "PauseMenu.h"
 
-enum pauseState{PAUSE_STATE = 0, GAME_OVER_STATE, WINNING_STATE};
-
-PauseMenu::PauseMenu(sf::VideoMode& vm, sf::Font& font, int type)
+PauseMenu::PauseMenu(sf::VideoMode& vm, sf::Font& font, PauseTypes type)
 : font(font){
     background.setSize(sf::Vector2f(
             static_cast<float >(vm.width),
@@ -29,15 +27,15 @@ PauseMenu::PauseMenu(sf::VideoMode& vm, sf::Font& font, int type)
     menuText.setFont(font);
     menuText.setCharacterSize(gui::calcCharSize(vm)); //60
 
-    if(type == PAUSE_STATE){
+    if(type == PauseTypes::PAUSE_STATE){
         menuText.setFillColor(sf::Color(255, 255, 255, 200));
         menuText.setString("PAUSED");
     }
-    else if(type == GAME_OVER_STATE){
+    else if(type == PauseTypes::GAME_OVER_STATE){
         menuText.setFillColor(sf::Color(255, 0, 0, 200));
         menuText.setString("GAME OVER");
     }
-    else if(type == WINNING_STATE){
+    else if(type == PauseTypes::WINNING_STATE){
         menuText.setFillColor(sf::Color(0, 255, 0, 200));
         menuText.setString("YOU WIN");
     }

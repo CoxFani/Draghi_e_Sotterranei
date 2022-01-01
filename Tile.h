@@ -5,7 +5,7 @@
 #ifndef DRAGHI_E_SOTTERRANEI_TILE_H
 #define DRAGHI_E_SOTTERRANEI_TILE_H
 
-enum TileTypes {DEFAULT = 0, DAMAGING, FLAVOUR, ENEMYSPAWNER};
+enum class TileTypes {DEFAULT = 0, DAMAGING, FLAVOUR, ENEMYSPAWNER};
 
 class Tile {
 public:

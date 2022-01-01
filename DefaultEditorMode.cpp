@@ -17,7 +17,7 @@ DefaultEditorMode::~DefaultEditorMode() {
 void DefaultEditorMode::initVariables() {
     textureRect = sf::IntRect(0, 0, static_cast<int>(stateData->gridSize), static_cast<int>(stateData->gridSize));
     collision = false;
-    type = TileTypes::DEFAULT;
+    type = static_cast<int>(TileTypes::DEFAULT);
     layer = 0;
     tileAddLock = false;
 }

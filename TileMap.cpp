@@ -244,7 +244,7 @@ void TileMap::loadFromFile(const std::string file_name) {
             std::cout << "ERROR::TILEMAP::FAILED TO LOAD TILETEXTURESHEET::FILENAME: " << texture_file <<"\n";
 
         while(in_file >> x >> y >> z >> type){
-          if(type == TileTypes::ENEMYSPAWNER){
+          if(type == static_cast<int>(TileTypes::ENEMYSPAWNER)){
               //amount, time to spawn, max distance
               int enemy_type = 0;
               int enemy_am = 0;
@@ -430,7 +430,7 @@ void TileMap::updateTiles(GameCharacter *gameCharacter, const float &dt,
 
                 map[x][y][layer][k]->update();
 
-                if(map[x][y][layer][k]->getType() == TileTypes::ENEMYSPAWNER){
+                if(map[x][y][layer][k]->getType() == static_cast<int>(TileTypes::ENEMYSPAWNER)){
                     EnemySpawnerTile* es = dynamic_cast<EnemySpawnerTile*>(map[x][y][layer][k]);
                     if(es) {
                         if (es->getSpawnTimer() && es->getEnemyCounter() < es->getEnemyAmount()) {
@@ -485,7 +485,7 @@ void TileMap::render(
         for (int x = fromX; x < toX; x++) {
             for (int y = fromY; y < toY; y++) {
                 for (int k = 0; k < map[x][y][layer].size(); k++){
-                    if(map[x][y][layer][k]->getType() == TileTypes::FLAVOUR){
+                    if(map[x][y][layer][k]->getType() == static_cast<int>(TileTypes::FLAVOUR)){
                         deferredRenderStack.push(map[x][y][layer][k]);
                     }
                     else{
@@ -500,9 +500,9 @@ void TileMap::render(
                             collisionBox.setPosition(map[x][y][layer][k]->getPosition());
                             target.draw(collisionBox);
                         }
-                        if(map[x][y][layer][k]->getType() == TileTypes::ENEMYSPAWNER){
+                        if(map[x][y][layer][k]->getType() == static_cast<int>(TileTypes::ENEMYSPAWNER)){
                             collisionBox.setPosition(map[x][y][layer][k]->getPosition());
-                            target.draw(collisionBox); //TODO commentare per visualizzare o no enemySpawner
+                            target.draw(collisionBox); /// commentare per visualizzare o no enemySpawner
                         }
                     }
                 }
