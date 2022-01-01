@@ -13,17 +13,13 @@ MainMenuState::MainMenuState(StateData* state_data)
     initKeybinds();
     initGui();
     resetGui();
-
 }
 
 MainMenuState::~MainMenuState() {
 
     auto i = buttons.begin();
     for (i = buttons.begin(); i != buttons.end(); ++i)
-    {
         delete i->second;
-    }
-
 }
 
 void MainMenuState::render(sf::RenderTarget* target) {
@@ -83,9 +79,7 @@ void MainMenuState::initKeybinds() {
         std::string key2 = "";
 
         while (ifs >> key >> key2)
-        {
             keybinds[key] = supportedKeys->at(key2);
-        }
     }
 
     ifs.close();
@@ -103,8 +97,8 @@ void MainMenuState::initGui() {
             )
     );
 
-    if(backgroundTexture.loadFromFile("../Resources/Images/Backgrounds/Menu002.png")){
-        //throw"ERROR::MAIN_MENU_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE"; <--- DA ERRORE
+    if(!backgroundTexture.loadFromFile("../Resources/Images/Backgrounds/Menu002.png")){
+        throw "ERROR::MAIN_MENU_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
     }
 
     background.setTexture(&backgroundTexture);
@@ -169,34 +163,26 @@ void MainMenuState::resetGui() {
 
 void MainMenuState::updateGui() {
 
-    for (auto &i : buttons){
+    for (auto &i : buttons)
         i.second->update(this->mousePosWindow);
-    }
 
-    if (buttons["GAME_STATE"]->isPressed()){
+    if (buttons["GAME_STATE"]->isPressed())
         states->push(new GameState(this->stateData));
-    }
 
-    if (this->buttons["SETTINGS_STATE"]->isPressed()){
+    if (this->buttons["SETTINGS_STATE"]->isPressed())
         states->push(new SettingState(this->stateData));
-    }
 
-    if (this->buttons["EDITOR_STATE"]->isPressed()){
+    if (this->buttons["EDITOR_STATE"]->isPressed())
         states->push(new EditorState(this->stateData));
-    }
 
-    if (this->buttons["EXIT_STATE"]->isPressed()){
+    if (this->buttons["EXIT_STATE"]->isPressed())
         endState();
-    }
 }
 
 void MainMenuState::renderButtons(sf::RenderTarget& target) {
-    for (auto &i : buttons){
+    for (auto &i : buttons)
         i.second->render(target);
-    }
 }
-
-
 
 void MainMenuState::initVariables() {
 

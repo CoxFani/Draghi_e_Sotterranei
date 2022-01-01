@@ -27,7 +27,7 @@ void RegularTile::update() {
 
 }
 
-void RegularTile::render(sf::RenderTarget &target, sf::Shader *shader, const sf::Vector2f hero_position) {
+void RegularTile::render(sf::RenderTarget &target, sf::Shader *shader, sf::Vector2f hero_position) {
     if(shader){
         shader->setUniform("hasTexture", true);
         shader->setUniform("lightPos", hero_position);

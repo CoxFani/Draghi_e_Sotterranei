@@ -58,40 +58,38 @@ void MovementComponent::move(const float dir_x, const float dir_y, const float& 
 }
 
 const sf::Vector2f &MovementComponent::getVelocity() const {
-
     return velocity;
 }
 
 
-bool MovementComponent::getState(const unsigned short state) const {
-
+bool MovementComponent::getState(MovementStates state) const {
     switch (state){
-        case IDLE:
+        case MovementStates::IDLE:
             if(velocity.x == 0.f && velocity.y == 0.f)
                 return true;
             break;
 
-        case MOVING:
+        case MovementStates::MOVING:
             if(velocity.x != 0.f && velocity.y != 0.f)
                 return true;
             break;
 
-        case MOVING_RIGHT:
+        case MovementStates::MOVING_RIGHT:
             if(velocity.x > 0.f)
                 return true;
             break;
 
-        case MOVING_LEFT:
+        case MovementStates::MOVING_LEFT:
             if(velocity.x < 0.f)
                 return true;
             break;
 
-        case MOVING_UP:
+        case MovementStates::MOVING_UP:
             if(velocity.y < 0.f)
                 return true;
             break;
 
-        case MOVING_DOWN:
+        case MovementStates::MOVING_DOWN:
             if(velocity.y > 0.f)
                 return true;
             break;
@@ -100,16 +98,13 @@ bool MovementComponent::getState(const unsigned short state) const {
 }
 
 const float &MovementComponent::getMaxVelocity() const {
-
     return maxVelocity;
 }
 
 void MovementComponent::stopVelocityX() {
-
     velocity.x = 0.f;
 }
 
 void MovementComponent::stopVelocityY() {
-
     velocity.y = 0.f;
 }

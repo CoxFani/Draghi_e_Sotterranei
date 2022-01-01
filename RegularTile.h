@@ -16,7 +16,7 @@ public:
 
     const std::string getAsString() const override;
     void update() override;
-    void render(sf::RenderTarget& target, sf::Shader* shader = nullptr, const sf::Vector2f hero_position = sf::Vector2f()) override;
+    void render(sf::RenderTarget& target, sf::Shader* shader = nullptr, sf::Vector2f hero_position = sf::Vector2f()) override;
 
 };
 

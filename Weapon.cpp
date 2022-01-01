@@ -5,7 +5,6 @@
 #include "precompiler.h"
 #include "Weapon.h"
 
-
 Weapon::Weapon(unsigned level, unsigned int damageMin, unsigned int damageMax, unsigned int range,
                unsigned int value,
                std::string texture_file)
@@ -47,7 +46,7 @@ const unsigned &Weapon::getRange() const {
     return range;
 }
 
-const bool Weapon::getAttackTimer() {
+bool Weapon::getAttackTimer() {
     if(attackTimer.getElapsedTime().asMilliseconds() >= attackTimerMax){
         attackTimer.restart();
         return true;

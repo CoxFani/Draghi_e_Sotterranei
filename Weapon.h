@@ -25,7 +25,7 @@ public:
     const unsigned& getDamageMin() const;
     const unsigned& getDamageMax() const;
     const unsigned& getRange() const;
-    const bool getAttackTimer();
+    bool getAttackTimer();
 
 protected:
     sf::Texture weapon_texture;

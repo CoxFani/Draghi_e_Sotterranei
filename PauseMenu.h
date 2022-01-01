@@ -8,7 +8,7 @@
 #include "State.h"
 #include "Gui.h"
 
-enum class PauseTypes {PAUSE_STATE = 0, GAME_OVER_STATE, WINNING_STATE};
+enum class PauseTypes {PAUSE_STATE, GAME_OVER_STATE, WINNING_STATE};
 
 class PauseMenu {
 public:

@@ -7,7 +7,7 @@
 
 TileMap::TileMap(float gridSize, int  width, int  height, std::string texture_file) {
     gridSizeF = gridSize;
-    gridSizeI = static_cast<unsigned>(this->gridSizeF);
+    gridSizeI = static_cast<int>(this->gridSizeF);
     maxSizeWorldGrid.x = width;
     maxSizeWorldGrid.y = height;
     maxSizeWorldF.x = static_cast<float>(width) * gridSize;
@@ -73,7 +73,7 @@ void TileMap::clear() {
         }
         map.clear();
     }
-    //std::cout << this->map.size() << "\n";
+    //std::cout << this->map.size() << "\n"; //debug
 }
 
 bool TileMap::tileEmpty(const int x, const int y, const int z) const{
@@ -99,10 +99,6 @@ int TileMap::getLayerSize(const int x, const int y, const int layer) const{
     return -1;
 }
 
-const sf::Vector2i &TileMap::getMaxSizeGrid() const {
-    return maxSizeWorldGrid;
-}
-
 const sf::Vector2f &TileMap::getMaxSizeF() const {
     return maxSizeWorldF;
 }
@@ -114,7 +110,7 @@ void TileMap::addTile(const int x, const int y, const int z, const sf::IntRect& 
 
         map[x][y][z].push_back(new RegularTile(type, x, y, this->gridSizeF, tileSheet, texture_rect, collision));
 
-        //std::cout <<"DEBUG: ADDED A TILE!" << "\n";
+        //std::cout <<"DEBUG: ADDED A TILE!" << "\n"; //debug
     }
 }
 
@@ -139,13 +135,13 @@ void TileMap::removeTile(const int x, const int y, const int z, const int type) 
                 if(map[x][y][z].back()->getType() == type) {
                     delete map[x][y][z][map[x][y][z].size() - 1];
                     map[x][y][z].pop_back();
-                    //std::cout << "DEBUG: REMOVED A TILE!" << "\n";
+                    //std::cout << "DEBUG: REMOVED A TILE!" << "\n"; //debug
                 }
             }
             else{
                 delete map[x][y][z][map[x][y][z].size()-1];
                 map[x][y][z].pop_back();
-                //std::cout <<"DEBUG: REMOVED A TILE!" << "\n";
+                //std::cout <<"DEBUG: REMOVED A TILE!" << "\n"; //debug
             }
         }
     }
@@ -435,7 +431,7 @@ void TileMap::updateTiles(GameCharacter *gameCharacter, const float &dt,
                     if(es) {
                         if (es->getSpawnTimer() && es->getEnemyCounter() < es->getEnemyAmount()) {
                             enemyStrategy.createEnemy(es->getEnemyType(), x * gridSizeF, y * gridSizeF, *es);
-                            std::cout << "Spawned!" << "\n"; //TODO commentare
+                            std::cout << "Spawned!" << "\n"; //debug //TODO commentare
                         }
                     }
                 }
@@ -508,7 +504,6 @@ void TileMap::render(
                 }
             }
         }
-
 }
 
 void TileMap::renderDeferred(sf::RenderTarget &target, sf::Shader* shader, const sf::Vector2f heroPosition) {

@@ -22,7 +22,7 @@ void GameCharacter::move(const float dir_x, const float dir_y,const float& dt) {
         movementComponent->move(dir_x, dir_y, dt);
 
     if(this->skillComponent)
-        skillComponent->gainExp(SKILLS::ENDURANCE, 1);
+        skillComponent->gainExp(static_cast<int>(Skills::ENDURANCE), 1);
 }
 
 void GameCharacter::setTexture(sf::Texture& texture) {

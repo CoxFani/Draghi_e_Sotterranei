@@ -15,7 +15,6 @@ class EnemySpawnerTile;
 
 class TileMap {
 public:
-
     TileMap(float gridSize, int  width, int  height, std::string texture_file);
     explicit TileMap( std::string file_name);
     virtual ~TileMap();
@@ -23,7 +22,6 @@ public:
     bool tileEmpty( int x,  int y,  int z) const;
     const sf::Texture* getTileSheet() const;
     int getLayerSize( int x,  int y,  int layer) const;
-    const sf::Vector2i& getMaxSizeGrid() const;
     const sf::Vector2f& getMaxSizeF() const;
 
     void addTile( int x,  int y,  int z, const sf::IntRect& texture_rect, const bool& collision, const short& type);
@@ -66,7 +64,6 @@ private:
     int fromY;
     int toY;
     int layer;
-
 
 };
 

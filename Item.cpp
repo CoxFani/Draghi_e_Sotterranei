@@ -22,7 +22,7 @@ void Item::initVariables() {
 
 }
 
-const short unsigned &Item::getType() const {
+const ItemTypes &Item::getType() const {
 
     return type;
 }

@@ -28,7 +28,7 @@ GameState::GameState(StateData* state_data)
     initAchievements();
 
     gameManager->CreateMessage("\nWELCOME!\n");
-    tts->addTextTag(ACHIEVEMENT_TAG, 100, 100, 1, "Achievement unlocked: +", "\nWELCOME!");
+    tts->addTextTag(TagTypes::ACHIEVEMENT_TAG, 100, 100, 1, "Achievement unlocked: +", "\nWELCOME!");
 }
 
 GameState::~GameState() {
@@ -291,21 +291,21 @@ void GameState::updateCombatAndEnemies(const float &dt) {
 
             if(gameManager->getKills() == 1){
                 gameManager->CreateMessage("\nKILLER!\n");
-                tts->addTextTag(ACHIEVEMENT_TAG, hero->getCenter().x, hero->getCenter().y, 1, "Achievement unlocked: +", "\nKILLER!");
+                tts->addTextTag(TagTypes::ACHIEVEMENT_TAG, hero->getCenter().x, hero->getCenter().y, 1, "Achievement unlocked: +", "\nKILLER!");
             }
 
             if(gameManager->getKills() == 5){
                 gameManager->CreateMessage("\nPENTAKILL!\n");
-                tts->addTextTag(ACHIEVEMENT_TAG, hero->getCenter().x, hero->getCenter().y, 1, "Achievement unlocked: +", "\nPENTAKILL!");
+                tts->addTextTag(TagTypes::ACHIEVEMENT_TAG, hero->getCenter().x, hero->getCenter().y, 1, "Achievement unlocked: +", "\nPENTAKILL!");
             }
 
             if(gameManager->getKills() == 10){
                 gameManager->CreateMessage("\nSERIAL KILLER!\n");
-                tts->addTextTag(ACHIEVEMENT_TAG, hero->getCenter().x, hero->getCenter().y, 1, "Achievement unlocked: +", "\nSERIAL KILLER!");
+                tts->addTextTag(TagTypes::ACHIEVEMENT_TAG, hero->getCenter().x, hero->getCenter().y, 1, "Achievement unlocked: +", "\nSERIAL KILLER!");
             }
 
             hero->gainEXP(enemy->getGainExp());
-            tts->addTextTag(EXPERIENCE_TAG, hero->getCenter().x, hero->getCenter().y, static_cast<int>(enemy->getGainExp()), "+", "EXP");
+            tts->addTextTag(TagTypes::EXPERIENCE_TAG, hero->getCenter().x, hero->getCenter().y, static_cast<int>(enemy->getGainExp()), "+", "EXP");
 
             enemyStrategy->removeEnemy(index);
 
@@ -333,13 +333,13 @@ void GameState::updateCombat(Enemy* enemy, const int index, const float &dt) {
         int dmg = static_cast<int>(hero->getDamage());
         enemy->loseHP(dmg);
         enemy->resetDamageTimer();
-        tts->addTextTag(DEFAULT_TAG, enemy->getPosition().x, enemy->getPosition().y, dmg, "", "");
+        tts->addTextTag(TagTypes::DEFAULT_TAG, enemy->getPosition().x, enemy->getPosition().y, dmg, "", "");
     }
 
     if(enemy->getGlobalBounds().intersects(hero->getGlobalBounds()) && hero->getDamageTimer()){
         int dmg = enemy->getAttributeComp()->damageMax;
         hero->loseHP(dmg);
-        tts->addTextTag(NEGATIVE_TAG, hero->getPosition().x - 30, hero->getPosition().y, dmg, "-", "HP");
+        tts->addTextTag(TagTypes::NEGATIVE_TAG, hero->getPosition().x - 30, hero->getPosition().y, dmg, "-", "HP");
     }
 }
 

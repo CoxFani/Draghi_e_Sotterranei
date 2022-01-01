@@ -5,21 +5,20 @@
 #ifndef DRAGHI_E_SOTTERRANEI_SKILLCOMPONENT_H
 #define DRAGHI_E_SOTTERRANEI_SKILLCOMPONENT_H
 
-enum SKILLS{HEALTH = 0, ATTACK, ACCURACY, ENDURANCE};
+enum class Skills {HEALTH = 0, ATTACK, ACCURACY, ENDURANCE};
 
 class SkillComponent {
-
 public:
     SkillComponent();
     virtual ~SkillComponent();
 
-    const void gainExp( int skill,  int exp);
+    void gainExp( int skill,  int exp);
 
 private:
     class Skill{
 
     public:
-        Skill(int type);
+        Skill(Skills type);
         ~Skill();
 
         const int getType() const;

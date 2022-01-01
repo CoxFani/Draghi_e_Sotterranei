@@ -5,7 +5,6 @@
 #include "precompiler.h"
 #include "SettingState.h"
 
-
 SettingState::SettingState(StateData* state_data)
 : State(state_data){
     initVariables();
@@ -16,20 +15,17 @@ SettingState::SettingState(StateData* state_data)
 
 SettingState::~SettingState() {
     auto i = buttons.begin();
-    for (i = buttons.begin(); i != buttons.end(); ++i){
+    for (i = buttons.begin(); i != buttons.end(); ++i)
         delete i->second;
-    }
 
     auto count = dropdownList.begin();
-    for (count = dropdownList.begin(); count != dropdownList.end(); ++count){
+    for (count = dropdownList.begin(); count != dropdownList.end(); ++count)
         delete count->second;
-    }
 }
 
 void SettingState::iniFonts() {
-    if(!font.loadFromFile("../Fonts/DeterminationMonoWebRegular-Z5oq.ttf")){
+    if(!font.loadFromFile("../Fonts/DeterminationMonoWebRegular-Z5oq.ttf"))
         throw("ERROR::MAINMENUSTATE::COULD NOT LOAD FONT");
-    }
 }
 
 void SettingState::initKeybinds() {
@@ -39,9 +35,8 @@ void SettingState::initKeybinds() {
         std::string key = "";
         std::string key2 = "";
 
-        while (ifs >> key >> key2){
+        while (ifs >> key >> key2)
             keybinds[key] = supportedKeys->at(key2);
-        }
     }
 
     ifs.close();
@@ -58,9 +53,8 @@ void SettingState::initGui() {
             )
     );
 
-    if(!backgroundTexture.loadFromFile("../Resources/Images/Backgrounds/Menu001.png")){
+    if(!backgroundTexture.loadFromFile("../Resources/Images/Backgrounds/Menu001.png"))
         throw("ERROR::MAIN_MENU_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE");
-    }
 
     background.setTexture(&backgroundTexture);
 
@@ -107,15 +101,13 @@ void SettingState::resetGui() {
      */
 
     auto i = buttons.begin();
-    for(i = buttons.begin(); i != buttons.end(); ++i){
+    for(i = buttons.begin(); i != buttons.end(); ++i)
         delete i->second;
-    }
     buttons.clear();
 
     auto j = dropdownList.begin();
-    for(j = dropdownList.begin(); j != dropdownList.end(); ++j){
+    for(j = dropdownList.begin(); j != dropdownList.end(); ++j)
         delete j->second;
-    }
     dropdownList.clear();
 
     initGui();
@@ -144,11 +136,8 @@ void SettingState::updateGui(const float &dt) {
         endState();
 
     if (buttons["APPLY"]->isPressed()){
-        //TEST da rimuovere
         stateData->gfxSettings->resolution = modes[dropdownList["RESOLUTION"]->getActiveElementId()];
-
         window->create(this->stateData->gfxSettings->resolution, this->stateData->gfxSettings->title, sf::Style::Default);
-
         resetGui();
     }
 
@@ -181,7 +170,6 @@ void SettingState::render(sf::RenderTarget* target) {
 }
 
 void SettingState::renderGui(sf::RenderTarget& target) {
-
     for (auto &i : buttons)
         i.second->render(target);
 

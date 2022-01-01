@@ -5,16 +5,16 @@
 #ifndef DRAGHI_E_SOTTERRANEI_TEXTTAGSYSTEM_H
 #define DRAGHI_E_SOTTERRANEI_TEXTTAGSYSTEM_H
 
-enum TAGTYPES { DEFAULT_TAG, NEGATIVE_TAG, EXPERIENCE_TAG, ACHIEVEMENT_TAG};
+enum class TagTypes {DEFAULT_TAG, NEGATIVE_TAG, EXPERIENCE_TAG, ACHIEVEMENT_TAG};
 
 class TextTagSystem {
 public:
     explicit TextTagSystem(std::string font_file);
     virtual ~TextTagSystem();
 
-    void addTextTag( unsigned tag_type,  float pos_x,  float pos_y,  std::string str,  std::string prefix = "",  std::string postfix = "");
-    void addTextTag( unsigned tag_type,  float pos_x,  float pos_y,  int i,  std::string prefix = "",  std::string postfix = "");
-    void addTextTag( unsigned tag_type,  float pos_x,  float pos_y,  float f,  std::string prefix = "",  std::string postfix = "");
+    void addTextTag(TagTypes tag_type, float pos_x, float pos_y, const std::string& str, const std::string& prefix = "", const std::string& postfix = "");
+    void addTextTag(TagTypes tag_type, float pos_x, float pos_y, int i, const std::string& prefix = "", const std::string& postfix = "");
+    void addTextTag(TagTypes tag_type, float pos_x, float pos_y, float f, const std::string& prefix = "", const std::string& postfix = "");
 
     void update(const float &dt);
     void render(sf::RenderTarget &target);
@@ -55,7 +55,7 @@ private:
     void initTagTemplates();
 
     sf::Font font;
-    std::map<unsigned, TextTag*> tagTemplates;
+    std::map<TagTypes, TextTag*> tagTemplates;
     std::vector<TextTag*> tags;
 };
 

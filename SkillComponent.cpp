@@ -7,7 +7,7 @@
 
 /**************************  SKILL  ***************************/
 
-SkillComponent::Skill::Skill(int type) {
+SkillComponent::Skill::Skill(Skills type) {
     level = 1;
     levelCap = 99;
     exp = 0;
@@ -65,20 +65,19 @@ void SkillComponent::Skill::update() {
 
 SkillComponent::SkillComponent() {
 
-  skills.emplace_back(SKILLS::HEALTH);
-  skills.emplace_back(SKILLS::ATTACK);
-  skills.emplace_back(SKILLS::ACCURACY);
-  skills.emplace_back(SKILLS::ENDURANCE);
+  skills.emplace_back(Skills::HEALTH);
+  skills.emplace_back(Skills::ATTACK);
+  skills.emplace_back(Skills::ACCURACY);
+  skills.emplace_back(Skills::ENDURANCE);
 }
 
 SkillComponent::~SkillComponent() {
 
 }
 
-const void SkillComponent::gainExp(const int skill, const int exp) {
+void SkillComponent::gainExp(const int skill, const int exp) {
     if(skills.empty() || skill < 0 || skill >= skills.size())
         throw("ERROR::SKILLCOMPONENT::GAINEXP::SKILL DOES NOT EXIST: " + skill);
-    else{
+    else
         skills[skill].gainExp(exp);
-    }
 }

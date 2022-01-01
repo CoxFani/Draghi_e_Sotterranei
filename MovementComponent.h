@@ -6,17 +6,16 @@
 #define DRAGHI_E_SOTTERRANEI_MOVEMENTCOMPONENT_H
 
 
-enum movement_states{ IDLE = 0, MOVING,  MOVING_RIGHT, MOVING_LEFT, MOVING_UP, MOVING_DOWN };
+enum class MovementStates {IDLE, MOVING,  MOVING_RIGHT, MOVING_LEFT, MOVING_UP, MOVING_DOWN};
 
 class MovementComponent {
-
 public:
     MovementComponent(sf::Sprite& sprite, float maxVelocity, float acceleration, float deceleration);
     ~MovementComponent();
 
     const float& getMaxVelocity() const;
     const sf::Vector2f& getVelocity() const;
-    bool getState( short unsigned state) const;
+    bool getState(MovementStates state) const;
 
     void stopVelocityX();
     void stopVelocityY();

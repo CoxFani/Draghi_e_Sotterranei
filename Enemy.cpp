@@ -109,26 +109,26 @@ void Enemy::initGUI() {
 
 void Enemy::updateAnimation(const float &dt) {
 
-    if(movementComponent->getState(IDLE))
+    if(movementComponent->getState(MovementStates::IDLE))
         animationComponent->play("IDLE", dt);
-    else if (movementComponent->getState(MOVING_RIGHT)){
+    else if (movementComponent->getState(MovementStates::MOVING_RIGHT)){
         if(sprite.getScale().x > 0.f){ // <
             sprite.setOrigin(64.f, 0.f);  // 0, 0
             sprite.setScale(-1.f, 1.f); // 1, 1
         }
         animationComponent->play("WALK", dt, movementComponent->getVelocity().x, movementComponent->getMaxVelocity());
     }
-    else if(movementComponent->getState(MOVING_LEFT)){
+    else if(movementComponent->getState(MovementStates::MOVING_LEFT)){
         if(sprite.getScale().x < 0.f) { // >
             sprite.setOrigin(0.f, 0.f); // 30, 0
             sprite.setScale(1.f, 1.f); // -1, 1
         }
         animationComponent->play("WALK", dt, movementComponent->getVelocity().x, movementComponent->getMaxVelocity());
     }
-    else if(movementComponent->getState(MOVING_UP)){
+    else if(movementComponent->getState(MovementStates::MOVING_UP)){
         animationComponent->play("WALK", dt, movementComponent->getVelocity().y, movementComponent->getMaxVelocity());
     }
-    else if(movementComponent->getState(MOVING_DOWN)){
+    else if(movementComponent->getState(MovementStates::MOVING_DOWN)){
         animationComponent->play("WALK", dt, movementComponent->getVelocity().y, movementComponent->getMaxVelocity());
     }
     if(damageTimer.getElapsedTime().asMilliseconds() <= damageTimerMax){

@@ -5,15 +5,14 @@
 #ifndef DRAGHI_E_SOTTERRANEI_ITEM_H
 #define DRAGHI_E_SOTTERRANEI_ITEM_H
 
-enum ItemTypes {ITEM_DEFAULT = 0, ITEM_RANGEDWEAPON, ITEM_MELEEWEAPON};
-enum ItemRarities {COMMON = 0, UNCOMMON, RARE, EPIC, LEGENDARY, ARTIFACT};
+enum class ItemTypes {ITEM_DEFAULT = 0, ITEM_RANGEDWEAPON, ITEM_MELEEWEAPON};
 
 class Item {
 public:
     Item(unsigned level, unsigned value);
     virtual ~Item();
 
-    const short unsigned& getType() const;
+    const ItemTypes& getType() const;
     const unsigned& getLevel() const;
     const unsigned& getValue() const;
 
@@ -21,7 +20,7 @@ public:
     virtual Item* clone() = 0;
 
 protected:
-    short unsigned type;
+    ItemTypes type;
     unsigned level;
     unsigned value;
 

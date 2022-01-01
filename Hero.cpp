@@ -60,10 +60,10 @@ const std::string Hero::toStringCharacterTab() const {
     const AttributeComponent* ac = this->attributeComponent;
     const Weapon* w = this->weapon;
     ss << "Level: " << ac->level << "\n"
-       << "Experience: " << ac->exp <<"\n"
-       << "Exp next: " << ac->expNext <<"\n"
+       << "Experience: " << ac->exp << "\n"
+       << "Exp next: " << ac->expNext << "\n"
        << "Weapon Level: " << w->getLevel() << "\n"
-       << "Weapon Type: " << w->getType() << "\n"
+       << "Weapon Type: " << (bool) w->getType() << "\n"
        << "Weapon Value: " << w->getValue() << "\n"
        << "Weapon Range: " << w->getRange() << "\n"
        << "Weapon Damage Min: " << w->getDamageMin() + this->attributeComponent->damageMin << " (" << this->attributeComponent->damageMin << ") " << "\n"
@@ -110,26 +110,26 @@ void Hero::updateAnimation(const float &dt) {
     if(attacking && animationComponent->play("ATTACK1", dt, true))
             attacking = false;
 
-    if(movementComponent->getState(IDLE))
+    if(movementComponent->getState(MovementStates::IDLE))
         animationComponent->play("IDLE", dt);
-    else if (movementComponent->getState(MOVING_RIGHT)){
+    else if (movementComponent->getState(MovementStates::MOVING_RIGHT)){
         if(sprite.getScale().x < 0.f){
             sprite.setOrigin(0.f, 0.f);
             sprite.setScale(1.f, 1.f);
         }
         animationComponent->play("WALK", dt, movementComponent->getVelocity().x, movementComponent->getMaxVelocity());
     }
-    else if(movementComponent->getState(MOVING_LEFT)){
+    else if(movementComponent->getState(MovementStates::MOVING_LEFT)){
         if(sprite.getScale().x > 0.f) {
             sprite.setOrigin(30.f, 0.f);
             sprite.setScale(-1.f, 1.f);
         }
         animationComponent->play("WALK", dt, movementComponent->getVelocity().x, movementComponent->getMaxVelocity());
     }
-    else if(movementComponent->getState(MOVING_UP)){
+    else if(movementComponent->getState(MovementStates::MOVING_UP)){
         animationComponent->play("WALK", dt, movementComponent->getVelocity().y, movementComponent->getMaxVelocity());
     }
-    else if(movementComponent->getState(MOVING_DOWN)){
+    else if(movementComponent->getState(MovementStates::MOVING_DOWN)){
         this->animationComponent->play("WALK", dt, movementComponent->getVelocity().y, movementComponent->getMaxVelocity());
     }
 
