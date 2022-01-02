@@ -103,28 +103,28 @@ void GameState::initTextures() {
         throw "ERROR::GAME_STATE::COULD_NOT_LOAD_MUMMY_TEXTURE";
     }
     if (!textures["SCORPION_SHEET"].loadFromFile("../Resources/Images/Sprites/Enemies/Scorpio/Scorpio_animations.png")){
-        throw "ERROR::GAME_STATE::COULD_NOT_LOAD_MUMMY_TEXTURE";
+        throw "ERROR::GAME_STATE::COULD_NOT_LOAD_SCORPION_TEXTURE";
     }
     if (!textures["HYENA_SHEET"].loadFromFile("../Resources/Images/Sprites/Enemies/Hyena/Hyena_animations.png")){
-        throw "ERROR::GAME_STATE::COULD_NOT_LOAD_MUMMY_TEXTURE";
+        throw "ERROR::GAME_STATE::COULD_NOT_LOAD_HYENA_TEXTURE";
     }
     if (!textures["SNAKE_SHEET"].loadFromFile("../Resources/Images/Sprites/Enemies/Snake/Snake_animations.png")){
-        throw "ERROR::GAME_STATE::COULD_NOT_LOAD_MUMMY_TEXTURE";
+        throw "ERROR::GAME_STATE::COULD_NOT_LOAD_SNAKE_TEXTURE";
     }
     if (!textures["VULTURE_SHEET"].loadFromFile("../Resources/Images/Sprites/Enemies/Vulture/Vulture_animations.png")){
-        throw "ERROR::GAME_STATE::COULD_NOT_LOAD_MUMMY_TEXTURE";
+        throw "ERROR::GAME_STATE::COULD_NOT_LOAD_VULTURE_TEXTURE";
     }
     if (!textures["DECEASED_SHEET"].loadFromFile("../Resources/Images/Sprites/Enemies/Deceased/Deceased_animations.png")){
-        throw "ERROR::GAME_STATE::COULD_NOT_LOAD_MUMMY_TEXTURE";
+        throw "ERROR::GAME_STATE::COULD_NOT_LOAD_DECEASED_TEXTURE";
     }
     if (!textures["CENTIPEDE_SHEET"].loadFromFile("../Resources/Images/Sprites/Enemies/Centipede/Centipede_animations.png")){
-        throw "ERROR::GAME_STATE::COULD_NOT_LOAD_MUMMY_TEXTURE";
+        throw "ERROR::GAME_STATE::COULD_NOT_LOAD_CENTIPEDE_TEXTURE";
     }
     if (!textures["BIG_BLOATED_SHEET"].loadFromFile("../Resources/Images/Sprites/Enemies/Big bloated/BigBloated_animations.png")){
-        throw "ERROR::GAME_STATE::COULD_NOT_LOAD_MUMMY_TEXTURE";
+        throw "ERROR::GAME_STATE::COULD_NOT_LOAD_BIG_BLOATED_TEXTURE";
     }
     if (!textures["BATTLE_TURTLE_SHEET"].loadFromFile("../Resources/Images/Sprites/Enemies/Battle turtle/BattleTurtle_animations.png")){
-        throw "ERROR::GAME_STATE::COULD_NOT_LOAD_MUMMY_TEXTURE";
+        throw "ERROR::GAME_STATE::COULD_NOT_LOAD_BATTLE_TURTLE_TEXTURE";
     }
 }
 

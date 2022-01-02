@@ -123,7 +123,6 @@ void EnemyFactory::createEnemy(short type, float xPos, float yPos, EnemySpawnerT
     }
 }
 
-
 void EnemyFactory::removeEnemy(const int index) {
     activeEnemies[index]->getEnemySpawnerTile().decreaseEnemyCounter();
     delete activeEnemies[index];
