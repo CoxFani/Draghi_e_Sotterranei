@@ -29,6 +29,22 @@ Enemy::Enemy(float x, float y,
     follow = new AttackStrategy(*this, hero);
 }
 
+Enemy::Enemy(float x, float y, EnemySpawnerTile& enemy_spawner_tile, GameCharacter &hero)
+: enemySpawnerTile(enemy_spawner_tile) {
+
+    initVariables();
+
+    createMovementComponent(50.f, 1600.f, 1000.f);
+    createAttributeComponent(1);
+
+    this->generateAttributes(attributeComponent->level);
+
+    this->setPosition(x, y);
+
+    follow = new AttackStrategy(*this, hero);
+
+}
+
 Enemy::~Enemy() {
 
     delete follow;
@@ -173,3 +189,5 @@ void Enemy::render(sf::RenderTarget &target, sf::Shader* shader, const sf::Vecto
     if(show_hitbox)
         hitboxComponent->render(target);
 }
+
+

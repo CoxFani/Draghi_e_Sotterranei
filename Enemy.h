@@ -18,6 +18,7 @@ public:
           GameCharacter& hero,
           float animations_parameters[3][7],
           float hitbox_parameters[4]);
+    Enemy(float x, float y, EnemySpawnerTile& enemy_spawner_tile, GameCharacter& hero);
     virtual ~Enemy();
 
     const unsigned& getGainExp() const;
