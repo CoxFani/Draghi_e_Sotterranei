@@ -2,6 +2,7 @@
 #include "precompiler.h"
 #include "../Hero.h"
 #include "../Enemy.h"
+#include "../EnemySpawnerTile.h"
 
 int main(int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);
@@ -28,7 +29,10 @@ struct EnemyTest : testing::Test
 
     EnemyTest()
     {
-        enemy = new Enemy(400, 400, enemySpawnerTile, hero);
+        auto enemySpawnerTile = new EnemySpawnerTile(400, 400, 48, 1, 1, 60, 300);
+        auto hero = new Hero(200, 200);
+        enemy = new Enemy(400, 400, reinterpret_cast<EnemySpawnerTile &>(enemySpawnerTile),
+                          reinterpret_cast<GameCharacter &>(hero));
     }
     virtual ~EnemyTest()
     {
