@@ -9,6 +9,7 @@ int main(int argc, char** argv) {
     return RUN_ALL_TESTS();
 }
 
+/*
 struct HeroTest : testing::Test
 {
     Hero* hero;
@@ -22,6 +23,7 @@ struct HeroTest : testing::Test
         delete hero;
     }
 };
+ */
 
 struct EnemyTest : testing::Test
 {
@@ -33,6 +35,8 @@ struct EnemyTest : testing::Test
         auto hero = new Hero(200, 200);
         enemy = new Enemy(400, 400, reinterpret_cast<EnemySpawnerTile &>(enemySpawnerTile),
                           reinterpret_cast<GameCharacter &>(hero));
+
+
     }
     virtual ~EnemyTest()
     {
@@ -40,6 +44,12 @@ struct EnemyTest : testing::Test
     }
 };
 
+TEST_F(EnemyTest, EnemySeesHero){
+
+    EXPECT_LT(enemy->getDistance(reinterpret_cast<GameCharacter &>(hero)),  200);
+}
+
+/*
 struct EnemySpawnerTileTest : testing::Test
 {
     EnemySpawnerTile* enemySpawnerTile;
@@ -53,3 +63,4 @@ struct EnemySpawnerTileTest : testing::Test
         delete enemySpawnerTile;
     }
 };
+ */

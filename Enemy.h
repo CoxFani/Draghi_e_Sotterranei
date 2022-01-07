@@ -21,6 +21,10 @@ public:
     Enemy(float x, float y, EnemySpawnerTile& enemy_spawner_tile, GameCharacter& hero);
     virtual ~Enemy();
 
+    float getDistance(GameCharacter& hero){
+        float distance = sqrt(static_cast<int>((this->getPosition().x - hero.getPosition().x))^2 + static_cast<int>((this->getPosition().y - hero.getPosition().y))^2);
+        return distance;
+    }
     const unsigned& getGainExp() const;
     EnemySpawnerTile& getEnemySpawnerTile();
     bool getDamageTimerDone() const;
