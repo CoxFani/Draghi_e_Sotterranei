@@ -33,7 +33,7 @@ struct EnemyTest : testing::Test
     {
         auto enemySpawnerTile = new EnemySpawnerTile(400, 400, 48, 1, 1, 60, 300);
         auto hero = new Hero(200, 200);
-        enemy = new Enemy(400, 400, reinterpret_cast<EnemySpawnerTile &>(enemySpawnerTile),
+        enemy = new Enemy(300, 300, reinterpret_cast<EnemySpawnerTile &>(enemySpawnerTile),
                           reinterpret_cast<GameCharacter &>(hero));
 
 
@@ -44,9 +44,9 @@ struct EnemyTest : testing::Test
     }
 };
 
-TEST_F(EnemyTest, EnemySeesHero){
+TEST_F(EnemyTest, EnemyAttacksHero){
     auto hero = new Hero(200, 200);
-    EXPECT_LT(enemy->getDistance(reinterpret_cast<GameCharacter &>(hero)), 200);
+    EXPECT_LT(vectorDistance(enemy->getPosition(), hero->getPosition()), 200.f);
 }
 
 /*

@@ -171,6 +171,8 @@ void Enemy::update(const float &dt, sf::Vector2f &mouse_pos_view, const sf::View
     updateAnimation(dt);
     hitboxComponent->update();
     follow->update(dt);
+
+
 }
 
 void Enemy::render(sf::RenderTarget &target, sf::Shader* shader, const sf::Vector2f light_position, const bool show_hitbox) {
