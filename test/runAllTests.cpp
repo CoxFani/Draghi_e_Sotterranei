@@ -45,8 +45,8 @@ struct EnemyTest : testing::Test
 };
 
 TEST_F(EnemyTest, EnemySeesHero){
-
-    EXPECT_LT(enemy->getDistance(reinterpret_cast<GameCharacter &>(hero)),  200);
+    auto hero = new Hero(200, 200);
+    EXPECT_LT(enemy->getDistance(reinterpret_cast<GameCharacter &>(hero)), 200);
 }
 
 /*
