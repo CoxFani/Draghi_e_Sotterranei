@@ -1,5 +1,7 @@
 Game Over\
 ![alt text](Resources/Images/GIF/GIF-GameOver.gif)
+Vittoria\
+![alt text](Resources/Images/GIF/GIF-Win.gif)
 Dungeon a due stanze\
 ![alt text](Resources/Images/GIF/GIF-Dungeon.gif)
 Editor per mappa\
