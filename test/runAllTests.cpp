@@ -13,11 +13,12 @@ int main(int argc, char** argv) {
 struct EnemyTest : testing::Test
 {
     Enemy* enemy;
+    Hero* hero;
 
     EnemyTest()
     {
         auto enemySpawnerTile = new EnemySpawnerTile(300, 300, 48, 1, 1, 60, 1000);
-        auto hero = new Hero(200, 200);
+        hero = new Hero(200, 200);
         enemy = new Enemy(300, 300, reinterpret_cast<EnemySpawnerTile &>(enemySpawnerTile),
                           reinterpret_cast<GameCharacter &>(hero));
 
@@ -30,7 +31,6 @@ struct EnemyTest : testing::Test
 };
 
 TEST_F(EnemyTest, EnemyAttacksHero){
-    auto hero = new Hero(200, 200);
     EXPECT_LT(vectorDistance(enemy->getPosition(), hero->getPosition()), 200.f);
 }
 
