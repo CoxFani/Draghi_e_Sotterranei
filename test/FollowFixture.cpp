@@ -6,7 +6,7 @@
 #include "precompiler.h"
 #include "../Hero.h"
 #include "../Enemy.h"
-
+/*
 class EnemySuite : public ::testing::Test {
 
 protected:
@@ -19,5 +19,5 @@ protected:
     Enemy enemy;
     Hero hero;
     EnemySpawnerTile enemySpawnerTile;
-};
+};*/
 
