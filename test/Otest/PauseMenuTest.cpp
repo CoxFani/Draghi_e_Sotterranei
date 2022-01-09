@@ -3,6 +3,6 @@
 #include "../../PauseMenu.h"
 
 TEST(PauseMenu, DefaultConstructor) {
-    PauseMenu* pauseMenu (new PauseMenu());
-    ASSERT_FALSE(pauseMenu->isButtonPressed("QUIT"));
+    PauseMenu pauseMenu = PauseMenu();
+    ASSERT_FALSE(pauseMenu.isButtonPressed("QUIT"));
 }

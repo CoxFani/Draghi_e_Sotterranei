@@ -6,16 +6,16 @@ class HeroSuite : public ::testing::Test {
 
 protected:
     virtual void SetUp() {
-        /*attributeComponent->hp = 0;
-        hero->isDead();*/
+        attributeComponent.hp = 0;
+        hero.isDead();
     }
 
-    PauseMenu* pauseMenu;
+    PauseMenu pauseMenu;
 };
 
 
 TEST_F(PauseMenu, TestTypeMenu) {
-    PauseMenu* pauseMenu;
+    PauseMenu pauseMenu;
     ASSERT_TRUE(pauseMenu);
 }
 

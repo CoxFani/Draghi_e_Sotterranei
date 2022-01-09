@@ -10,12 +10,12 @@ protected:
         hero->isDead();
     }
 
-    Hero* hero;
-    AttributeComponent* attributeComponent;
+    Hero hero;
+    AttributeComponent attributeComponent;
 };
 
 
 TEST_F(HeroSuite, TestDead) {
-    ASSERT_TRUE(hero->isDead());
+    ASSERT_TRUE(hero.isDead());
 }
 

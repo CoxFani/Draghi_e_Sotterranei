@@ -3,13 +3,13 @@
 #include "../../Hero.h"
 
 TEST(Hero, DefaultConstructor) {
-    Hero* hero;
-    ASSERT_TRUE(hero->getInitAttack());
-    ASSERT_FALSE(hero->isDead());
+    Hero hero;
+    ASSERT_TRUE(hero.getInitAttack());
+    ASSERT_FALSE(hero.isDead());
 }
 
 TEST(Hero, TestDamageTimer) {
-    Hero* hero;
-    hero->getDamageTimer();
-    ASSERT_FALSE(hero->getDamageTimer());
+    Hero hero;
+    hero.getDamageTimer();
+    ASSERT_FALSE(hero.getDamageTimer());
 }

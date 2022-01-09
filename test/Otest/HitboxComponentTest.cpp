@@ -3,7 +3,7 @@
 #include "../../HitboxComponent.h"
 
 TEST(HitboxComponent, DefaultConstructor) {
-    HitboxComponent* hitbox;
-    //ASSERT_FALSE(hitbox->intersect());
+    HitboxComponent hitbox;
+    //ASSERT_FALSE(hitbox.intersect());
 }
 
