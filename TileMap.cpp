@@ -431,7 +431,7 @@ void TileMap::updateTiles(GameCharacter *gameCharacter, const float &dt,
                     if(es) {
                         if (es->getSpawnTimer() && es->getEnemyCounter() < es->getEnemyAmount()) {
                             enemyStrategy.createEnemy(es->getEnemyType(), x * gridSizeF, y * gridSizeF, *es);
-                            std::cout << "Spawned!" << "\n"; //debug //TODO commentare
+                            std::cout << "Spawned!" << "\n"; //debug
                         }
                     }
                 }

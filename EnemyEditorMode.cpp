@@ -38,7 +38,7 @@ void EnemyEditorMode::initGui() {
 void EnemyEditorMode::initVariables() {
     type = 0;
     amount = 1;
-    timeToSpawn = 60; //TODO cambiare tempo di spawn (o impostare tempo in secondi)
+    timeToSpawn = 60;
     maxDistance = 100.f;
 }
 
