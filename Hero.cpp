@@ -20,18 +20,16 @@ Hero::Hero(float x, float y, sf::Texture& texture_sheet) {
 }
 
 Hero::Hero(float x, float y) {
-
     createHitboxComponent(this->sprite, 7.f, 23.f, 20.f, 25.f);
     createMovementComponent(140.f, 1500.f, 500.f);
     createAttributeComponent(1);
     createSkillComponent();
 
     this->setPosition(x, y);
-
 }
 
 Hero::~Hero() {
-    delete weapon;
+    //delete weapon;
 }
 
 void Hero::initVariables() {
