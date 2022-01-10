@@ -5,6 +5,7 @@
 #include "gtest/gtest.h"
 #include "precompiler.h"
 #include "../Hero.h"
+#include "../Game.h"
 
 TEST(HeroTests, HeroIsDead){
     Hero hero = Hero(0, 0);
@@ -20,4 +21,10 @@ TEST(HeroTests, HeroAttacks){
     EXPECT_FALSE(hero.getInitAttack());
     hero.setInitAttack(true);
     EXPECT_TRUE(hero.getInitAttack());
+    /*Game game = Game();
+    sf::Clock dtClock;
+    float dt;
+    dt = dtClock.restart().asSeconds();
+    hero.move(1, 1, dt);
+    EXPECT_FALSE(hero.getInitAttack());*/
 }
