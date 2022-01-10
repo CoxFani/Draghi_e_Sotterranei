@@ -14,6 +14,11 @@ public:
 
     void update(const float& dt) override;
 
+    bool isMoving() const;
+
+protected:
+    bool hunting;
+
 };
 
 
