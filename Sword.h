@@ -21,8 +21,6 @@ public:
 
     Sword* clone() override;
 
-private:
-
 };
 
 
