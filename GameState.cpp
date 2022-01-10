@@ -78,7 +78,7 @@ void GameState::initDebugText() {
 }
 
 void GameState::initKeybinds() {
-    std::ifstream ifs("../Config/gamestate_keybinds.ini");
+    std::ifstream ifs("./Config/gamestate_keybinds.ini");
 
     if (ifs.is_open()){
         std::string key = "";
@@ -91,39 +91,39 @@ void GameState::initKeybinds() {
 }
 
 void GameState::initFonts() {
-    if(!font.loadFromFile("../Fonts/DeterminationMonoWebRegular-Z5oq.ttf"))
+    if(!font.loadFromFile("./Fonts/DeterminationMonoWebRegular-Z5oq.ttf"))
         throw("ERROR::MAINMENUSTATE::COULD NOT LOAD FONT");
 }
 
 void GameState::initTextures() {
-    if (!textures["HERO_SHEET"].loadFromFile("../Resources/Images/Sprites/Hero/Woodcutter_animations.png")){
+    if (!textures["HERO_SHEET"].loadFromFile("./Resources/Images/Sprites/Hero/Woodcutter_animations.png")){
         throw "ERROR::GAME_STATE::COULD_NOT_LOAD_HERO_TEXTURE";
     }
-    if (!textures["MUMMY_SHEET"].loadFromFile("../Resources/Images/Sprites/Enemies/Mummy/Mummy_animations.png")){
+    if (!textures["MUMMY_SHEET"].loadFromFile("./Resources/Images/Sprites/Enemies/Mummy/Mummy_animations.png")){
         throw "ERROR::GAME_STATE::COULD_NOT_LOAD_MUMMY_TEXTURE";
     }
-    if (!textures["SCORPION_SHEET"].loadFromFile("../Resources/Images/Sprites/Enemies/Scorpio/Scorpio_animations.png")){
+    if (!textures["SCORPION_SHEET"].loadFromFile("./Resources/Images/Sprites/Enemies/Scorpio/Scorpio_animations.png")){
         throw "ERROR::GAME_STATE::COULD_NOT_LOAD_SCORPION_TEXTURE";
     }
-    if (!textures["HYENA_SHEET"].loadFromFile("../Resources/Images/Sprites/Enemies/Hyena/Hyena_animations.png")){
+    if (!textures["HYENA_SHEET"].loadFromFile("./Resources/Images/Sprites/Enemies/Hyena/Hyena_animations.png")){
         throw "ERROR::GAME_STATE::COULD_NOT_LOAD_HYENA_TEXTURE";
     }
-    if (!textures["SNAKE_SHEET"].loadFromFile("../Resources/Images/Sprites/Enemies/Snake/Snake_animations.png")){
+    if (!textures["SNAKE_SHEET"].loadFromFile("./Resources/Images/Sprites/Enemies/Snake/Snake_animations.png")){
         throw "ERROR::GAME_STATE::COULD_NOT_LOAD_SNAKE_TEXTURE";
     }
-    if (!textures["VULTURE_SHEET"].loadFromFile("../Resources/Images/Sprites/Enemies/Vulture/Vulture_animations.png")){
+    if (!textures["VULTURE_SHEET"].loadFromFile("./Resources/Images/Sprites/Enemies/Vulture/Vulture_animations.png")){
         throw "ERROR::GAME_STATE::COULD_NOT_LOAD_VULTURE_TEXTURE";
     }
-    if (!textures["DECEASED_SHEET"].loadFromFile("../Resources/Images/Sprites/Enemies/Deceased/Deceased_animations.png")){
+    if (!textures["DECEASED_SHEET"].loadFromFile("./Resources/Images/Sprites/Enemies/Deceased/Deceased_animations.png")){
         throw "ERROR::GAME_STATE::COULD_NOT_LOAD_DECEASED_TEXTURE";
     }
-    if (!textures["CENTIPEDE_SHEET"].loadFromFile("../Resources/Images/Sprites/Enemies/Centipede/Centipede_animations.png")){
+    if (!textures["CENTIPEDE_SHEET"].loadFromFile("./Resources/Images/Sprites/Enemies/Centipede/Centipede_animations.png")){
         throw "ERROR::GAME_STATE::COULD_NOT_LOAD_CENTIPEDE_TEXTURE";
     }
-    if (!textures["BIG_BLOATED_SHEET"].loadFromFile("../Resources/Images/Sprites/Enemies/Big bloated/BigBloated_animations.png")){
+    if (!textures["BIG_BLOATED_SHEET"].loadFromFile("./Resources/Images/Sprites/Enemies/Big bloated/BigBloated_animations.png")){
         throw "ERROR::GAME_STATE::COULD_NOT_LOAD_BIG_BLOATED_TEXTURE";
     }
-    if (!textures["BATTLE_TURTLE_SHEET"].loadFromFile("../Resources/Images/Sprites/Enemies/Battle turtle/BattleTurtle_animations.png")){
+    if (!textures["BATTLE_TURTLE_SHEET"].loadFromFile("./Resources/Images/Sprites/Enemies/Battle turtle/BattleTurtle_animations.png")){
         throw "ERROR::GAME_STATE::COULD_NOT_LOAD_BATTLE_TURTLE_TEXTURE";
     }
 }
@@ -150,7 +150,7 @@ void GameState::initWinState() {
 }
 
 void GameState::initShaders() {
-    if(!core_shader.loadFromFile("../vertex_shader.vert", "../fragment_shader.frag"))
+    if(!core_shader.loadFromFile("./vertex_shader.vert", "./fragment_shader.frag"))
         std::cout<<"ERROR::GAMESTATE::COULD NOT LOAD SHADER." << "\n";
 }
 
@@ -163,11 +163,11 @@ void GameState::initHeroGUI() {
 }
 
 void GameState::initTileMap() {
-    tileMap = new TileMap("../saves_file.txt");
+    tileMap = new TileMap("./saves_file.txt");
 }
 
 void GameState::initSystems() {
-    tts = new TextTagSystem("../Fonts/DeterminationMonoWebRegular-Z5oq.ttf");
+    tts = new TextTagSystem("./Fonts/DeterminationMonoWebRegular-Z5oq.ttf");
 }
 
 void GameState::initDeferredRender() {

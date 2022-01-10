@@ -35,7 +35,7 @@ Hero::~Hero() {
 void Hero::initVariables() {
     initAttack = false;
     attacking = false;
-    weapon = new Sword(1, 2, 5, 65, 20, "../Resources/Images/Sprites/Weapons/weapon.png");
+    weapon = new Sword(1, 2, 5, 65, 20, "./Resources/Images/Sprites/Weapons/weapon.png");
     weapon->generate(1, 3);
 
     damageTimerMax = 1000;

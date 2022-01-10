@@ -30,7 +30,7 @@ void Game::initVariables() {
 }
 
 void Game::initGraphicsSettings() {
-    gfxSettings.loadFromFile("../Config/graphics.ini");
+    gfxSettings.loadFromFile("./Config/graphics.ini");
 }
 
 void Game::initStateData() {
@@ -59,7 +59,7 @@ void Game::initWindow() {
 }
 
 void Game::initKeys() {
-    std::ifstream ifs("../Config/supported_keys.ini");
+    std::ifstream ifs("./Config/supported_keys.ini");
 
     if (ifs.is_open()){
         std::string key = "";

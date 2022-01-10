@@ -24,12 +24,12 @@ SettingState::~SettingState() {
 }
 
 void SettingState::iniFonts() {
-    if(!font.loadFromFile("../Fonts/DeterminationMonoWebRegular-Z5oq.ttf"))
+    if(!font.loadFromFile("./Fonts/DeterminationMonoWebRegular-Z5oq.ttf"))
         throw("ERROR::MAINMENUSTATE::COULD NOT LOAD FONT");
 }
 
 void SettingState::initKeybinds() {
-    std::ifstream ifs("../Config/mainmenustate_keybinds.ini");
+    std::ifstream ifs("./Config/mainmenustate_keybinds.ini");
 
     if (ifs.is_open()){
         std::string key = "";
@@ -53,7 +53,7 @@ void SettingState::initGui() {
             )
     );
 
-    if(!backgroundTexture.loadFromFile("../Resources/Images/Backgrounds/Menu001.png"))
+    if(!backgroundTexture.loadFromFile("./Resources/Images/Backgrounds/Menu001.png"))
         throw("ERROR::MAIN_MENU_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE");
 
     background.setTexture(&backgroundTexture);

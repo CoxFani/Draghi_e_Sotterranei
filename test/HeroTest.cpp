@@ -21,10 +21,14 @@ TEST(HeroTests, HeroAttacks){
     EXPECT_FALSE(hero.getInitAttack());
     hero.setInitAttack(true);
     EXPECT_TRUE(hero.getInitAttack());
-    /*Game game = Game();
+}
+
+TEST(HeroTests, HeroCollision){
+    Game game = Game();
+    Hero hero = Hero(50, 50);
     sf::Clock dtClock;
     float dt;
-    dt = dtClock.restart().asSeconds();
-    hero.move(1, 1, dt);
-    EXPECT_FALSE(hero.getInitAttack());*/
+    dt = dtClock.getElapsedTime().asMilliseconds();
+    hero.move(1, 0, dt);
+    EXPECT_EQ(hero.getPosition().x, 51);
 }

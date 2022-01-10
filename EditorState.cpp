@@ -49,7 +49,7 @@ void EditorState::initEditorStateData() {
 }
 
 void EditorState::initFonts() {
-    if(!font.loadFromFile("../Fonts/DeterminationMonoWebRegular-Z5oq.ttf"))
+    if(!font.loadFromFile("./Fonts/DeterminationMonoWebRegular-Z5oq.ttf"))
         throw("ERROR::EDITORSTATE::COULD NOT LOAD FONT");
 }
 
@@ -58,7 +58,7 @@ void EditorState::initButtons() {
 }
 
 void EditorState::initKeybinds() {
-    std::ifstream ifs("../Config/editorstate_keybinds.ini");
+    std::ifstream ifs("./Config/editorstate_keybinds.ini");
 
     if (ifs.is_open()){
         std::string key = "";
@@ -84,7 +84,7 @@ void EditorState::initGui() {
 }
 
 void EditorState::initTileMap() {
-    tileMap = new TileMap(stateData->gridSize, 100, 100,"../Resources/Images/Tiles/TileSet1.png");
+    tileMap = new TileMap(stateData->gridSize, 100, 100,"./Resources/Images/Tiles/TileSet1.png");
 }
 
 void EditorState::initView() {
@@ -152,10 +152,10 @@ void EditorState::updatePauseMenuButtons() {
         endState();
 
     if(pmenu->isButtonPressed("SAVE"))
-        tileMap->saveToFile("../saves_file.txt");
+        tileMap->saveToFile("./saves_file.txt");
 
     if(pmenu->isButtonPressed("LOAD"))
-        tileMap->loadFromFile("../saves_file.txt");
+        tileMap->loadFromFile("./saves_file.txt");
 }
 
 void EditorState::updateModes(const float& dt) {

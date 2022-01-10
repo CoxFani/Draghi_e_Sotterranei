@@ -43,6 +43,7 @@ public:
     virtual void setPosition( float x,  float y);
 
     virtual void move( float x,  float y, const float& dt);
+    virtual void move( float x, float y);
     virtual void stopVelocityX();
     virtual void stopVelocityY();
 

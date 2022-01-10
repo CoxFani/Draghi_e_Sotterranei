@@ -24,7 +24,7 @@ HeroGUI::~HeroGUI() {
 }
 
 void HeroGUI::initFont() {
-    font.loadFromFile("../Fonts/DeterminationMonoWebRegular-Z5oq.ttf");
+    font.loadFromFile("./Fonts/DeterminationMonoWebRegular-Z5oq.ttf");
 }
 
 void HeroGUI::initLevelBar() {
