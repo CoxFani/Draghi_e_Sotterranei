@@ -28,10 +28,10 @@ Crea sotterranei con stanze multiple e nemici più forti per aumentare la diffic
 ## Comandi
 ### In gioco
 Muovi l'eroe per schivare i nemici che ti inseguono:
-- premi W per andare in sù
+- premi W per andare in su
 - premi S per andare in giù
 - premi D per andare a destra
-- premi A per andare a sinistra.
+- premi A per andare a sinistra
 
 Colpisci i nemici nel range dell'eroe per abbatterli premendo col tasto sinistro del mouse su di loro.
 
