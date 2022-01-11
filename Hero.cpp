@@ -18,17 +18,6 @@ Hero::Hero(float x, float y, sf::Texture& texture_sheet) {
     initAnimations();
 }
 
-Hero::Hero(float x, float y) {
-    initVariables();
-
-    createHitboxComponent(this->sprite, 7.f, 23.f, 20.f, 25.f);
-    createMovementComponent(140.f, 1500.f, 500.f);
-    createAttributeComponent(1);
-    createSkillComponent();
-
-    this->setPosition(x, y);
-}
-
 Hero::~Hero() {
     delete weapon;
 }
@@ -41,7 +30,6 @@ void Hero::initVariables() {
 
     damageTimerMax = 1000;
 }
-
 
 void Hero::initAnimations() {
     animationComponent->addAnimation("IDLE", 11.f, 0, 0, 3, 0, 48, 48);
@@ -56,12 +44,10 @@ void Hero::initAnimations() {
 }
 
 AttributeComponent *Hero::getAttributeComponent() {
-
     return attributeComponent;
 }
 
 Weapon *Hero::getWeapon() const {
-
     return weapon;
 }
 
@@ -82,17 +68,14 @@ const std::string Hero::toStringCharacterTab() const {
 }
 
 const bool &Hero::getInitAttack() const {
-
     return initAttack;
 }
 
 void Hero::setInitAttack(const bool initAttack) {
-
     this->initAttack = initAttack;
 }
 
 bool Hero::getDamageTimer() {
-
     if(damageTimer.getElapsedTime().asMilliseconds() >= damageTimerMax){
         damageTimer.restart();
         return true;

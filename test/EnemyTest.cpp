@@ -9,7 +9,8 @@
 
 TEST(EnemyTest, EnemyFollowsHero){
     EnemySpawnerTile enemySpawnerTile = EnemySpawnerTile(300.f, 300.f, 48.f, 1, 1, 60, 1000);
-    Hero hero = Hero(200.f, 200.f);
+    std::map<std::string, sf::Texture> textures;
+    Hero hero = Hero(200.f, 200.f, textures["HERO_SHEET"]);
     Enemy enemy = Enemy(300.f, 300.f, enemySpawnerTile, hero);
     EXPECT_LT(vectorDistance(enemy.getPosition(), hero.getPosition()), 200.f);
     AttackStrategy attackStrategy = AttackStrategy(enemy, hero);
@@ -18,7 +19,8 @@ TEST(EnemyTest, EnemyFollowsHero){
 
 TEST(EnemyTest, EnemyNotFollowsHero){
     EnemySpawnerTile enemySpawnerTile = EnemySpawnerTile(300.f, 300.f, 48.f, 1, 1, 60, 1000);
-    Hero hero = Hero(700.f, 200.f);
+    std::map<std::string, sf::Texture> textures;
+    Hero hero = Hero(700.f, 200.f, textures["HERO_SHEET"]);
     Enemy enemy = Enemy(300.f, 300.f, enemySpawnerTile, hero);
     EXPECT_GT(vectorDistance(enemy.getPosition(), hero.getPosition()), 200.f);
     AttackStrategy attackStrategy = AttackStrategy(enemy, hero);
@@ -27,7 +29,8 @@ TEST(EnemyTest, EnemyNotFollowsHero){
 
 TEST(EnemyTest, EnemyIsDead){
     EnemySpawnerTile enemySpawnerTile = EnemySpawnerTile(300.f, 300.f, 48.f, 1, 1, 60, 1000);
-    Hero hero = Hero(200.f, 200.f);
+    std::map<std::string, sf::Texture> textures;
+    Hero hero = Hero(200.f, 200.f, textures["HERO_SHEET"]);
     Enemy enemy = Enemy(300.f, 300.f, enemySpawnerTile, hero);
     EXPECT_FALSE(enemy.isDead());
     enemy.loseHP(4);

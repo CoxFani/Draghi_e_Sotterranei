@@ -13,7 +13,6 @@ class  GameCharacter;
 class Hero : public GameCharacter {
 public:
     Hero(float x, float y, sf::Texture& texture_sheet);
-    Hero(float x, float y);
     virtual ~Hero();
 
     AttributeComponent* getAttributeComponent();

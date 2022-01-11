@@ -20,13 +20,13 @@ public:
     void stopVelocityX();
     void stopVelocityY();
 
-    void move( float x,  float y, const float& dt);
+    void move(float x,  float y, const float& dt);
     void update(const float& dt);
 
 private:
     sf::Sprite& sprite;
 
-    float  maxVelocity;
+    float maxVelocity;
     float accelleration;
     float deceleration;
 
