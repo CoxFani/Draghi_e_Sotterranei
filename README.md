@@ -6,7 +6,7 @@ Il gioco è ambientato in un mondo medieval-fantasy nel quale i sotterranei sono
 
 ## Il gioco
 ### Vittoria
-Colpisci i nemici e abbattili tutti per vincere. Sblocca nuovi Achivment compiendo particolari azioni.
+Colpisci i nemici e abbattili tutti per vincere. Sblocca nuovi Achievement compiendo particolari azioni.
 ![alt text](Resources/Images/GIF/GIF-Win.gif)
 
 ### Game Over
