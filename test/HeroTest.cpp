@@ -5,6 +5,7 @@
 #include "gtest/gtest.h"
 #include "precompiler.h"
 #include "../Hero.h"
+#include "../RegularTile.h"
 
 std::map<std::string, sf::Texture> textures;
 Hero hero = Hero(0.f, 0.f, textures["HERO_SHEET"]);
@@ -24,15 +25,18 @@ TEST(HeroTest, HeroAttacks){
 }
 
 TEST(HeroTest, HeroCollision){
-    hero.setPosition(50.f, 50.f);
-    auto sprite = nullptr;
-    MovementComponent movementComponent = MovementComponent(reinterpret_cast<sf::Sprite &>(sprite), 140.f, 1500.f, 500.f);
-    sf::Clock dtClock;
-    float dt;
-    dt = dtClock.getElapsedTime().asMilliseconds();
-    hero.move(1.f, 0.f, dt);
-    auto pos = nullptr;
-    auto view = nullptr;
-    hero.update(dt, reinterpret_cast<sf::Vector2f &>(pos), reinterpret_cast<sf::View&>(view));
-    EXPECT_EQ(hero.getPosition().x, 51.f);
+    sf::Sprite sprite;
+    HitboxComponent hitbox = HitboxComponent(sprite, 7.f, 23.f, 20.f, 25.f); //
+    sf::Sprite shape;
+    sf::Texture texture;
+    sf::IntRect texture_r;
+    texture_r.height = 32;
+    texture_r.width = 32;
+    texture_r.top = 0;
+    texture_r.left = 0;
+    RegularTile tile = RegularTile(0, 50, 50, 48.f, texture, texture_r, false);
+    sf::Vector2f velocity;
+    velocity.x = 50.f;
+    velocity.y = 50.f;
+
 }
