@@ -26,7 +26,9 @@ TEST(HeroTest, HeroAttacks){
 
 TEST(HeroTest, HeroCollision){
     sf::Sprite sprite;
-    HitboxComponent hitbox = HitboxComponent(sprite, 7.f, 23.f, 20.f, 25.f); //
+    sprite.setPosition(0, 0);
+    HitboxComponent hitbox = HitboxComponent(sprite, 7.f, 23.f, 20.f, 25.f);
+
     sf::Sprite shape;
     sf::Texture texture;
     sf::IntRect texture_r;
@@ -34,9 +36,27 @@ TEST(HeroTest, HeroCollision){
     texture_r.width = 32;
     texture_r.top = 0;
     texture_r.left = 0;
-    RegularTile tile = RegularTile(0, 50, 50, 48.f, texture, texture_r, false);
-    sf::Vector2f velocity;
-    velocity.x = 50.f;
-    velocity.y = 50.f;
+    RegularTile tile = RegularTile(0, 0, 0, 48.f, texture, texture_r, false);
+
+
+    if(hitbox.intersect(static_cast<sf::FloatRect>(texture_r)) && tile.getCollision()){
+        hero.stopVelocityX();
+        hero.stopVelocityY();
+    }
+
+    EXPECT_TRUE(hero.isMovingX() && hero.isMovingY());
+
+    tile.setCollision(true);
+
+    if(hitbox.intersect(static_cast<sf::FloatRect>(texture_r)) && tile.getCollision()){
+        hero.stopVelocityX();
+        hero.stopVelocityY();
+    }
+
+    EXPECT_FALSE(hero.isMovingX() || hero.isMovingY());
+
+
+
+
 
 }

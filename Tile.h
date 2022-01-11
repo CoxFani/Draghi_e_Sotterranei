@@ -17,6 +17,7 @@ public:
 
     const short& getType() const;
     virtual const bool & getCollision() const;
+    virtual  void setCollision(bool col){ collision = col;};
 
     virtual const sf::Vector2f& getPosition() const;
     virtual sf::FloatRect getGlobalBounds() const;

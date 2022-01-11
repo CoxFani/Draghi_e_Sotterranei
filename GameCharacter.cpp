@@ -18,25 +18,14 @@ GameCharacter::~GameCharacter() {
 }
 
 void GameCharacter::move(const float dir_x, const float dir_y, const float& dt) {
-    if(movementComponent)
+    if(movementComponent) {
         movementComponent->move(dir_x, dir_y, dt);
+    }
 
     if(this->skillComponent)
         skillComponent->gainExp(static_cast<int>(Skills::ENDURANCE), 1);
 }
 
-void GameCharacter::move(float dir_x, float dir_y) {
-
-float tempX = getPosition().x;
-float tempY = getPosition().y;
-
-    for(int i=0; i<=dir_x; i++){
-        for(int j=0; j<=dir_y; j++){
-            setPosition(getPosition().x + 1, getPosition().y + 1);
-        }
-    }
-    setPosition(tempX + dir_x, tempY + dir_y);
-}
 
 void GameCharacter::setTexture(sf::Texture& texture) {
     sprite.setTexture(texture);
@@ -105,13 +94,17 @@ sf::FloatRect GameCharacter::getGlobalBounds() const {
 }
 
 void GameCharacter::stopVelocityX() {
-    if(movementComponent)
+    if(movementComponent) {
+        movingX = false;
         movementComponent->stopVelocityX();
+    }
 }
 
 void GameCharacter::stopVelocityY() {
-    if(movementComponent)
+    if(movementComponent) {
+        movingY = false;
         movementComponent->stopVelocityY();
+    }
 }
 
 sf::Vector2i GameCharacter::getGridPosition(const int gridSizeI) const {
@@ -147,6 +140,8 @@ AttributeComponent *GameCharacter::getAttributeComponent() {
 float GameCharacter::getSpriteDistance(const GameCharacter& gameCharacter) const {
     return sqrt(pow(getSpriteCenter().x - gameCharacter.getSpriteCenter().x, 2) + pow(getSpriteCenter().y - gameCharacter.getSpriteCenter().y, 2));
 }
+
+
 
 
 

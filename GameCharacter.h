@@ -43,7 +43,9 @@ public:
     virtual void setPosition(float x,  float y);
 
     virtual void move(float x,  float y, const float& dt);
-    virtual void move(float x, float y);
+
+    virtual bool isMovingX(){ return movingX;}
+    virtual bool isMovingY(){ return movingY;}
     virtual void stopVelocityX();
     virtual void stopVelocityY();
 
@@ -60,6 +62,9 @@ protected:
     AnimationComponent* animationComponent;
     AttributeComponent* attributeComponent;
     SkillComponent* skillComponent;
+
+    bool movingX = true;
+    bool movingY = true;
 
 private:
     void initVariables();
