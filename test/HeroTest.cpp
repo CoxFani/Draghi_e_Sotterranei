@@ -8,7 +8,7 @@
 #include "../Game.h"
 
 TEST(HeroTest, HeroIsDead){
-    Hero hero = Hero(0, 0);
+    Hero hero = Hero(0.f, 0.f);
     EXPECT_FALSE(hero.isDead());
     hero.loseHP(4);
     EXPECT_FALSE(hero.isDead());
@@ -17,18 +17,13 @@ TEST(HeroTest, HeroIsDead){
 }
 
 TEST(HeroTest, HeroAttacks){
-    Hero hero = Hero(0, 0);
+    Hero hero = Hero(0.f, 0.f);
     EXPECT_FALSE(hero.getInitAttack());
     hero.setInitAttack(true);
     EXPECT_TRUE(hero.getInitAttack());
 }
 
 TEST(HeroTest, HeroCollision){
-    Game game = Game();
     Hero hero = Hero(50, 50);
-    sf::Clock dtClock;
-    float dt;
-    dt = dtClock.getElapsedTime().asMilliseconds();
-    hero.move(1, 0, dt);
-    EXPECT_EQ(hero.getPosition().x, 51);
+
 }
