@@ -7,7 +7,7 @@
 #include "../Hero.h"
 #include "../Game.h"
 
-TEST(HeroTests, HeroIsDead){
+TEST(HeroTest, HeroIsDead){
     Hero hero = Hero(0, 0);
     EXPECT_FALSE(hero.isDead());
     hero.loseHP(4);
@@ -16,14 +16,14 @@ TEST(HeroTests, HeroIsDead){
     EXPECT_TRUE(hero.isDead());
 }
 
-TEST(HeroTests, HeroAttacks){
+TEST(HeroTest, HeroAttacks){
     Hero hero = Hero(0, 0);
     EXPECT_FALSE(hero.getInitAttack());
     hero.setInitAttack(true);
     EXPECT_TRUE(hero.getInitAttack());
 }
 
-TEST(HeroTests, HeroCollision){
+TEST(HeroTest, HeroCollision){
     Game game = Game();
     Hero hero = Hero(50, 50);
     sf::Clock dtClock;

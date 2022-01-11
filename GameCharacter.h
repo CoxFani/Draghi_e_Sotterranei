@@ -25,9 +25,9 @@ public:
 
     void setTexture(sf::Texture& texture);
     void createHitboxComponent(sf::Sprite& sprite, float offset_x, float offset_y, float width, float height);
-    void createMovementComponent( float maxVelocity,  float acceleration,  float deceleration);
+    void createMovementComponent(float maxVelocity,  float acceleration,  float deceleration);
     void createAnimationComponent(sf::Texture& texture_sheet);
-    void createAttributeComponent( unsigned level);
+    void createAttributeComponent(unsigned level);
     void createSkillComponent();
 
     virtual AttributeComponent* getAttributeComponent();
@@ -37,13 +37,13 @@ public:
     virtual sf::Vector2f getSpriteCenter() const;
 
     virtual sf::FloatRect getGlobalBounds() const;
-    virtual sf::Vector2i getGridPosition( int gridSizeI) const;
+    virtual sf::Vector2i getGridPosition(int gridSizeI) const;
     virtual sf::FloatRect getNextPositionBounds(const float& dt) const;
 
-    virtual void setPosition( float x,  float y);
+    virtual void setPosition(float x,  float y);
 
-    virtual void move( float x,  float y, const float& dt);
-    virtual void move( float x, float y);
+    virtual void move(float x,  float y, const float& dt);
+    virtual void move(float x, float y);
     virtual void stopVelocityX();
     virtual void stopVelocityY();
 

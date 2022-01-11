@@ -17,7 +17,7 @@ GameCharacter::~GameCharacter() {
     delete skillComponent;
 }
 
-void GameCharacter::move(const float dir_x, const float dir_y,const float& dt) {
+void GameCharacter::move(const float dir_x, const float dir_y, const float& dt) {
     if(movementComponent)
         movementComponent->move(dir_x, dir_y, dt);
 

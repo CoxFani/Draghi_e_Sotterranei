@@ -22,19 +22,19 @@ public:
     const std::string toStringCharacterTab() const;
     const bool& getInitAttack() const;
 
-    void setInitAttack( bool initAttack);
+    void setInitAttack(bool initAttack);
 
     bool getDamageTimer();
 
     unsigned getDamage() const;
     virtual bool isDead() const;
 
-    void loseHP( int hp);
-    void gainEXP( int exp);
+    void loseHP(int hp);
+    void gainEXP(int exp);
     void updateAttack();
     void updateAnimation(const float& dt);
     void update(const float& dt, sf::Vector2f& mouse_pos_view, const sf::View& view) override;
-    void render(sf::RenderTarget& target, sf::Shader* shader = nullptr,  sf::Vector2f light_position = sf::Vector2f() ,   bool show_hitbox = false) override;
+    void render(sf::RenderTarget& target, sf::Shader* shader = nullptr, sf::Vector2f light_position = sf::Vector2f() , bool show_hitbox = false) override;
 
 
 private:
